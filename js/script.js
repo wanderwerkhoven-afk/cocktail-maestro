@@ -361,3 +361,85 @@ function searchCocktails() {
 document.addEventListener('DOMContentLoaded', () => {
     navigateTo('home');
 });
+
+// --- FRIDGE LOGICA ---
+
+let myIngredients = JSON.parse(localStorage.getItem('myIngredients')) || [];
+
+function renderIngredients() {
+    const container = document.getElementById('fridge-tags');
+    if (!container) return;
+    
+    container.innerHTML = "";
+    myIngredients.forEach((ing, index) => {
+        const tag = document.createElement('div');
+        tag.className = 'ingredient-tag';
+        tag.innerHTML = `
+            ${ing} 
+            <i class="fa-solid fa-xmark" onclick="removeIngredient(${index})"></i>
+        `;
+        container.appendChild(tag);
+    });
+    localStorage.setItem('myIngredients', JSON.stringify(myIngredients));
+}
+
+function addIngredient() {
+    const input = document.getElementById('ingredient-input');
+    const value = input.value.trim().toLowerCase();
+    
+    if (value && !myIngredients.includes(value)) {
+        myIngredients.push(value);
+        input.value = "";
+        renderIngredients();
+    }
+}
+
+function removeIngredient(index) {
+    myIngredients.splice(index, 1);
+    renderIngredients();
+}
+
+function checkMatches() {
+    const resultsGrid = document.getElementById('matching-results');
+    const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
+    const allCocktails = [...classicCocktails, ...myRecipes];
+    
+    resultsGrid.innerHTML = "";
+
+    const matches = allCocktails.filter(cocktail => {
+        // We checken of de koelkast-items voorkomen in de ingrediëntenlijst van de cocktail
+        // Dit is een simpele match op tekstbasis
+        return cocktail.ingredients.some(ing => {
+            return myIngredients.some(mine => ing.toLowerCase().includes(mine));
+        });
+    });
+
+    if (matches.length === 0) {
+        resultsGrid.innerHTML = "<p class='placeholder-text'>Geen directe matches gevonden. Voeg meer basisingrediënten toe zoals 'Vodka' of 'Limoen'.</p>";
+        return;
+    }
+
+    // Gebruik de bestaande render-logica (kaarten aanmaken)
+    matches.forEach(cocktail => {
+        // (Zelfde kaart-template als in renderVault)
+        const card = document.createElement('div');
+        card.className = 'cocktail-card';
+        card.onclick = function() { this.classList.toggle('open'); };
+        card.innerHTML = `
+            <div class="card-thumb-large"><img src="${cocktail.image}"></div>
+            <div class="card-content">
+                <h4>${cocktail.name}</h4>
+                <p class="description">${cocktail.description}</p>
+                <div class="collapsible-content">
+                   <small>Je hebt ingrediënten hiervoor!</small>
+                </div>
+            </div>
+        `;
+        resultsGrid.appendChild(card);
+    });
+}
+
+// Zorg dat de ingrediënten laden bij opstarten
+document.addEventListener('DOMContentLoaded', () => {
+    renderIngredients();
+});

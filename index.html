@@ -76,10 +76,28 @@
         <header class="top-bar">
             <div class="header-flex">
                 <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
-                <h1>Fridge</h1>
+                <h1>My Fridge</h1>
             </div>
         </header>
-        <p style="padding: 20px;">Coming soon: Manage your ingredients.</p>
+
+        <section class="fridge-input-section">
+            <div class="search-bar">
+                <input type="text" id="ingredient-input" placeholder="Voeg ingrediënt toe (bijv. Vodka)...">
+                <button class="add-btn" onclick="addIngredient()"><i class="fa-solid fa-plus"></i></button>
+            </div>
+            <div id="fridge-tags" class="ingredient-tag-container">
+                </div>
+        </section>
+
+        <section class="fridge-results">
+            <div class="results-header">
+                <h3>What can I make?</h3>
+                <button class="match-btn" onclick="checkMatches()">Find Cocktails</button>
+            </div>
+            <div id="matching-results" class="cocktail-grid">
+                <p class="placeholder-text">Voeg ingrediënten toe en klik op 'Find Cocktails'</p>
+            </div>
+        </section>
     </main>
 
     <main id="recipes-page" class="page">
