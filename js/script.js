@@ -1,4 +1,6 @@
-// 1. De Database met 20 klassieke cocktails
+/************************************************************
+ * 1. COCKTAIL DATABASE (Classic Recipes)
+ ************************************************************/
 const classicCocktails = [
     {
         id: 'c1',
@@ -35,7 +37,7 @@ const classicCocktails = [
         name: "Espresso Martini",
         category: ["Coffee", "Vodka"],
         description: "Koffie met een kick: perfect als after-dinner drink.",
-        ingredients: ["50ml Vodka", "30ml Verse Espresso", "15ml Suikersiroop"],
+        ingredients: ["40ml Vodka", "30ml Koffielikeur", "30ml Verse Espresso", "15ml Suikersiroop"],
         method: "Hard Shake",
         methodDesc: "Shake zeer krachtig met ijs voor een mooie schuimlaag. Zeef in een coupe.",
         image: "https://static-prod.remymartin.com/app/uploads/2025/02/remy-martin-cocktails-remy-espresso-1x1-250220-02.jpg"
@@ -202,24 +204,38 @@ const classicCocktails = [
     }
 ];
 
-// Variabele voor de geüploade afbeelding
+/************************************************************
+ * 2. APP STATE & INITIALIZATION
+ ************************************************************/
 let currentImageBase64 = "";
+let myIngredients = JSON.parse(localStorage.getItem('myIngredients')) || [];
 
-// 2. Navigatie functie
+document.addEventListener('DOMContentLoaded', () => {
+    navigateTo('home');
+});
+
+/************************************************************
+ * 3. NAVIGATION LOGIC
+ ************************************************************/
 function navigateTo(pageId) {
+    // Schakel pagina's
     document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
     const activePage = document.getElementById(pageId + '-page');
     if (activePage) activePage.classList.add('active');
 
+    // Update nav icons
     document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
     const activeNav = document.getElementById('nav-' + pageId);
     if (activeNav) activeNav.classList.add('active');
 
-    // Bij elke navigatie naar vault, refresh de lijst
+    // Pagina specifieke acties
     if (pageId === 'vault') renderVault();
+    if (pageId === 'fridge') syncCheckboxes();
 }
 
-// 3. Functie om de Vault te vullen
+/************************************************************
+ * 4. VAULT & SEARCH LOGIC
+ ************************************************************/
 function renderVault(filter = "") {
     const vaultGrid = document.getElementById('vault-grid');
     if (!vaultGrid) return;
@@ -276,7 +292,14 @@ function renderVault(filter = "") {
     });
 }
 
-// 4. Image Preview Functie
+function searchCocktails() {
+    const searchInput = document.getElementById('vaultSearch');
+    if (searchInput) renderVault(searchInput.value);
+}
+
+/************************************************************
+ * 5. RECIPE CREATION & IMAGE HANDLING
+ ************************************************************/
 function previewImage(event) {
     const file = event.target.files[0];
     if (!file) return;
@@ -296,9 +319,7 @@ function previewImage(event) {
     reader.readAsDataURL(file);
 }
 
-// 5. Recept Opslaan Functie (Gefixt met checks)
 function saveNewRecipe() {
-    // Helper functie om veilig waarden op te halen zonder crash
     const getValue = (id) => {
         const el = document.getElementById(id);
         return el ? el.value : "";
@@ -331,115 +352,139 @@ function saveNewRecipe() {
     myRecipes.push(newRecipe);
     localStorage.setItem('myRecipes', JSON.stringify(myRecipes));
 
-    alert("Recept opgeslagen in je Vault!");
-
-    // Reset Formulier veilig
-    const fieldsToReset = ['recipe-name', 'recipe-description', 'recipe-category', 'recipe-ingredients', 'recipe-method', 'recipe-desc'];
-    fieldsToReset.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.value = "";
-    });
-    
-    const display = document.getElementById('image-preview-display');
-    const placeholder = document.getElementById('image-preview-placeholder');
-    if (display && placeholder) {
-        display.style.display = 'none';
-        display.src = "";
-        placeholder.style.display = 'flex';
-    }
-    currentImageBase64 = ""; 
-
+    alert("Recept opgeslagen!");
     navigateTo('vault');
 }
 
-// 6. Zoekfunctie & Initialisatie
-function searchCocktails() {
-    const searchInput = document.getElementById('vaultSearch');
-    if (searchInput) renderVault(searchInput.value);
+/************************************************************
+ * 6. FRIDGE & INGREDIENT MATCHING LOGIC
+ ************************************************************/
+
+/**
+ * Opent en sluit de categorieën met de nieuwe smooth CSS transitie
+ */
+function toggleCategory(id) {
+    const content = document.getElementById(id);
+    if (!content) return;
+
+    // Toggle de 'active' class voor de CSS animatie
+    content.classList.toggle('active');
+    
+    // Icoontje omdraaien
+    const button = content.previousElementSibling;
+    const icon = button ? button.querySelector('i') : null;
+    
+    if (icon) {
+        if (content.classList.contains('active')) {
+            icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+        } else {
+            icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+        }
+    }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    navigateTo('home');
-});
-
-// --- FRIDGE LOGICA ---
-
-let myIngredients = JSON.parse(localStorage.getItem('myIngredients')) || [];
-
-function renderIngredients() {
-    const container = document.getElementById('fridge-tags');
-    if (!container) return;
+/**
+ * Update de voorraadlijst bij elke checkbox klik
+ */
+function updateFridge(checkbox) {
+    const value = checkbox.value.toLowerCase();
     
-    container.innerHTML = "";
-    myIngredients.forEach((ing, index) => {
-        const tag = document.createElement('div');
-        tag.className = 'ingredient-tag';
-        tag.innerHTML = `
-            ${ing} 
-            <i class="fa-solid fa-xmark" onclick="removeIngredient(${index})"></i>
-        `;
-        container.appendChild(tag);
-    });
+    if (checkbox.checked) {
+        if (!myIngredients.includes(value)) {
+            myIngredients.push(value);
+        }
+    } else {
+        myIngredients = myIngredients.filter(ing => ing !== value);
+    }
+    
     localStorage.setItem('myIngredients', JSON.stringify(myIngredients));
 }
 
-function addIngredient() {
-    const input = document.getElementById('ingredient-input');
-    const value = input.value.trim().toLowerCase();
-    
-    if (value && !myIngredients.includes(value)) {
-        myIngredients.push(value);
-        input.value = "";
-        renderIngredients();
-    }
+/**
+ * Synchroniseert de checkboxes bij het laden van de pagina
+ */
+function syncCheckboxes() {
+    const checkboxes = document.querySelectorAll('.category-content input[type="checkbox"]');
+    checkboxes.forEach(cb => {
+        cb.checked = myIngredients.includes(cb.value.toLowerCase());
+    });
 }
 
-function removeIngredient(index) {
-    myIngredients.splice(index, 1);
-    renderIngredients();
-}
-
+/**
+ * Zoekt cocktails op basis van voorraad en toont ze in de Vault-stijl
+ */
 function checkMatches() {
-    const resultsGrid = document.getElementById('matching-results');
-    const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
-    const allCocktails = [...classicCocktails, ...myRecipes];
-    
-    resultsGrid.innerHTML = "";
+    const btn = document.querySelector('.match-btn-large');
+    const resultsContainer = document.getElementById('matching-results');
+    if (!resultsContainer || !btn) return;
 
-    const matches = allCocktails.filter(cocktail => {
-        // We checken of de koelkast-items voorkomen in de ingrediëntenlijst van de cocktail
-        // Dit is een simpele match op tekstbasis
-        return cocktail.ingredients.some(ing => {
-            return myIngredients.some(mine => ing.toLowerCase().includes(mine));
+    // Visuele feedback op de knop
+    const originalContent = btn.innerHTML;
+    btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Searching...`;
+    btn.style.pointerEvents = "none";
+
+    // Korte vertraging voor het "zoek" effect
+    setTimeout(() => {
+        const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
+        const allCocktails = [...classicCocktails, ...myRecipes];
+
+        // Filter: Alle ingrediënten van de cocktail moeten in 'myIngredients' zitten
+        const matches = allCocktails.filter(cocktail => {
+            return cocktail.ingredients.every(ing => {
+                const ingredientName = ing.toLowerCase();
+                return myIngredients.some(mine => ingredientName.includes(mine));
+            });
         });
-    });
 
-    if (matches.length === 0) {
-        resultsGrid.innerHTML = "<p class='placeholder-text'>Geen directe matches gevonden. Voeg meer basisingrediënten toe zoals 'Vodka' of 'Limoen'.</p>";
-        return;
-    }
+        resultsContainer.innerHTML = ""; 
 
-    // Gebruik de bestaande render-logica (kaarten aanmaken)
-    matches.forEach(cocktail => {
-        // (Zelfde kaart-template als in renderVault)
-        const card = document.createElement('div');
-        card.className = 'cocktail-card';
-        card.onclick = function() { this.classList.toggle('open'); };
-        card.innerHTML = `
-            <div class="card-thumb-large"><img src="${cocktail.image}"></div>
-            <div class="card-content">
-                <h4>${cocktail.name}</h4>
-                <p class="description">${cocktail.description}</p>
-                <div class="collapsible-content">
-                   <small>Je hebt ingrediënten hiervoor!</small>
-                </div>
-            </div>
-        `;
-        resultsGrid.appendChild(card);
-    });
+        if (matches.length === 0) {
+            resultsContainer.innerHTML = `
+                <div style="text-align:center; padding: 40px 20px; color: #888; grid-column: 1/-1;">
+                    <i class="fa-solid fa-magnifying-glass" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                    <p>No full matches found. Try adding basics like sugar, lime juice, or bitters!</p>
+                </div>`;
+        } else {
+            matches.forEach(cocktail => {
+                const card = document.createElement('div');
+                card.className = 'cocktail-card';
+                card.onclick = function() { this.classList.toggle('open'); };
+
+                card.innerHTML = `
+                    <div class="card-thumb-large">
+                        <img src="${cocktail.image}" alt="${cocktail.name}">
+                    </div>
+                    <div class="card-content">
+                        <h4>${cocktail.name}</h4>
+                        <div class="category-container">
+                            ${Array.isArray(cocktail.category) 
+                                ? cocktail.category.map(cat => `<span class="category-tag">${cat}</span>`).join('')
+                                : `<span class="category-tag">${cocktail.category}</span>`
+                            }
+                        </div>
+                        <p class="description">${cocktail.description || "A custom masterpiece."}</p>
+                        <div class="collapsible-content">
+                            <div class="ingredients-section">
+                                <strong>Ingredients:</strong> 
+                                <ul class="ingredients-list">
+                                    ${cocktail.ingredients.map(ing => `<li>${ing}</li>`).join('')}
+                                </ul>
+                            </div>
+                            <div class="method-section" style="margin-top: 10px; border-top: 1px solid #333; padding-top: 10px;">
+                                <strong>Method: ${cocktail.method}</strong>
+                                <p class="method-text" style="font-size: 0.85rem; color: #bbb; margin-top: 5px;">${cocktail.methodDesc || ""}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                resultsContainer.appendChild(card);
+            });
+        }
+
+        // Zet knop terug en scroll naar resultaten
+        btn.innerHTML = originalContent;
+        btn.style.pointerEvents = "auto";
+        resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+    }, 600);
 }
-
-// Zorg dat de ingrediënten laden bij opstarten
-document.addEventListener('DOMContentLoaded', () => {
-    renderIngredients();
-});

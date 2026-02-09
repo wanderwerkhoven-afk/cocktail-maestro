@@ -119,6 +119,115 @@ body {
     margin: 0;
 }
 
+/* ==========================================================================
+   2.1 FRIDGE (CATEGORIEËN & CHECKBOXES)
+   ========================================================================== */
+.fridge-container {
+    padding: 0 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.fridge-category {
+    border: 1px solid #333;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #1E1E1E;
+}
+
+.category-toggle {
+    width: 100%;
+    padding: 16px;
+    background: #1E1E1E;
+    color: #ffb347;
+    border: none;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.category-content {
+    display: flex; 
+    flex-direction: column;
+    gap: 12px;
+    background: #181818;
+    border-top: 1px solid transparent;
+    
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0 16px; 
+    transition: max-height 0.4s ease-out, opacity 0.3s ease, padding 0.3s ease, border-color 0.3s ease;
+}
+
+.category-content.active {
+    max-height: 600px; 
+    opacity: 1;
+    padding: 10px 16px 16px 16px; 
+    border-top: 1px solid #252525;
+}
+
+.category-content label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    min-height: 24px; 
+}
+
+input[type="checkbox"] {
+    accent-color: #ffb347;
+    width: 18px;
+    height: 18px;
+}
+
+/* De Nieuwe Match Button */
+.match-btn-large {
+    width: 100%;
+    margin-top: 20px;
+    padding: 18px;
+    background: linear-gradient(135deg, #ffb347 0%, #ffcc33 100%);
+    color: #000;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(255, 179, 71, 0.3);
+}
+
+.match-btn-large:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 179, 71, 0.5);
+    filter: brightness(1.1);
+}
+
+.match-btn-large:active {
+    transform: translateY(1px);
+}
+
+.match-btn-large i {
+    font-size: 1.3rem;
+}
+
+/* Container voor de gevonden cocktails onder de knop */
+#matching-results {
+    margin-top: 30px;
+    padding: 0 20px;
+}
+
 
 /* ==========================================================================
    3. INGREDIENT TAGS & MATCH BUTTON
@@ -131,7 +240,7 @@ body {
 }
 
 .ingredient-tag {
-    background: var(--accent-color);
+    background: #ffb347; /* Directe kleur ipv var voor stabiliteit */
     color: white;
     padding: 5px 12px;
     border-radius: 20px;
@@ -163,6 +272,7 @@ body {
     padding: 40px;
     grid-column: 1 / -1;
 }
+
 /* ==========================================================================
    4. VAULT HEADER & ZOEKBALK
    ========================================================================== */
