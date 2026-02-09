@@ -1,0 +1,444 @@
+/* ==========================================================================
+   1. RESET & BASIS
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #121212;
+    color: #ffffff;
+    padding-bottom: 80px; /* Ruimte voor de bottom nav */
+}
+
+/* ==========================================================================
+   2. HOME PAGINA ELEMENTEN
+   ========================================================================== */
+.top-bar {
+    padding: 10px;
+    padding-top: 40px;
+}
+
+.top-bar h1 {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.hero {
+    padding: 0 20px 20px 20px;
+}
+
+.brand-title {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    background: linear-gradient(to right, #ffffff, #ffb347);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    color: #a0a0a0;
+    font-size: 0.9rem;
+}
+
+.menu-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 20px;
+}
+
+.card {
+    background-color: #1E1E1E;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    border: 1px solid #333;
+}
+
+.card:active {
+    transform: scale(0.98);
+    background-color: #2a2a2a;
+}
+
+.icon-box {
+    background-color: #2c2520;
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #5c4033;
+    flex-shrink: 0;
+}
+
+.icon-box i {
+    color: #ffb347;
+    font-size: 1.8rem;
+}
+
+.icon-box svg.custom-icon {
+    stroke: #ffb347;
+    width: 32px;
+    height: 32px;
+}
+
+.card-text h3 {
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+}
+
+.card-text p {
+    color: #888;
+    font-size: 0.8rem;
+    line-height: 1.2;
+}
+
+/* --- INFO BLOCK STYLING --- */
+.info-block {
+    margin: 20px;
+    padding: 20px;
+    background-color: #1E1E1E;
+    border-radius: 16px;
+    border: 1px solid #333;
+    text-align: center;
+}
+
+.info-block p {
+    color: #a0a0a0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* ==========================================================================
+   3. VAULT HEADER & ZOEKBALK
+   ========================================================================== */
+.header-flex {
+    display: flex;
+    align-items: center; 
+    gap: 12px;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+.header-flex h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.search-section {
+    padding: 0 20px 20px 20px;
+}
+
+.search-bar {
+    background-color: #1E1E1E;
+    border-radius: 12px;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid #333;
+}
+
+.search-bar input {
+    background: none;
+    border: none;
+    color: white;
+    width: 100%;
+    font-size: 1rem;
+    outline: none;
+}
+
+/* ==========================================================================
+   4. COCKTAIL CARDS (VAULT GRID)
+   ========================================================================== */
+.cocktail-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 0 20px 100px 20px;
+}
+
+.cocktail-card {
+    background-color: #1E1E1E;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.cocktail-card.open {
+    border-color: #ffb347;
+}
+
+.card-thumb-large {
+    width: 100%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+}
+
+.card-thumb-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-content h4 {
+    font-size: 1.5rem;
+}
+
+.category-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 8px 0;
+}
+
+.category-tag {
+    background: rgba(255, 179, 71, 0.15);
+    color: #ffb347;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.description {
+    font-size: 0.95rem;
+    color: #bbb;
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   5. UITKLAPBARE DETAILS (COLLAPSIBLE)
+   ========================================================================== */
+.collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, opacity 0.3s ease;
+    opacity: 0;
+}
+
+.cocktail-card.open .collapsible-content {
+    max-height: 1000px;
+    opacity: 1;
+    margin-top: 10px;
+}
+
+.ingredients-section, .method-section {
+    margin-top: 10px;
+    padding-top: 15px;
+    border-top: 1px solid #333;
+}
+
+.ingredients-section strong, .method-section strong {
+    color: #ffb347;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.ingredients-list {
+    list-style: none;
+    padding: 0;
+}
+
+.ingredients-list li {
+    color: #bbb;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 4px;
+}
+
+.ingredients-list li::before {
+    content: "•";
+    color: #ffb347;
+    position: absolute;
+    left: 0;
+}
+
+.method-text {
+    color: #bbb;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    font-style: italic;
+}
+
+/* ==========================================================================
+   6. NAVIGATIE & PAGINA BEHEER
+   ========================================================================== */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #121212;
+    border-top: 1px solid #333;
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0 25px 0; 
+    z-index: 1000;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #666;
+    font-size: 0.8rem;      
+    gap: 6px;
+    cursor: pointer;
+    flex: 1;
+    transition: color 0.3s ease;
+}
+
+.nav-item i {
+    font-size: 1.3rem; 
+}
+
+.nav-item.active {
+    color: #ffb347;
+}
+
+.page {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   8. RECIPE FORM STYLING
+   ========================================================================== */
+.recipe-form-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-bottom: 120px;
+}
+
+/* --- IMAGE UPLOAD --- */
+.image-upload-wrapper {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background-color: #1E1E1E;
+    border: 2px dashed #333;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.3s;
+}
+
+.image-upload-wrapper:hover {
+    border-color: #ffb347;
+}
+
+#image-preview-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: #666;
+}
+
+#image-preview-placeholder i {
+    font-size: 2rem;
+}
+
+#image-preview-display {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- INPUTS --- */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    color: #ffb347;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.input-group input, 
+.input-group textarea {
+    background-color: #1E1E1E;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 12px;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+}
+
+.input-group input:focus, 
+.input-group textarea:focus {
+    border-color: #ffb347;
+}
+
+.save-btn {
+    background-color: #ffb347;
+    color: #121212;
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: transform 0.2s;
+}
+
+.save-btn:active {
+    transform: scale(0.95);
+}

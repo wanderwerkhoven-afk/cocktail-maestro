@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cocktail Maestro</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <main id="home-page" class="page active">
+        <header class="top-bar"></header>
+
+        <section class="hero">
+            <h2 class="brand-title">Cocktail Maestro</h2>
+            <p class="subtitle">Discover, create, and master the art of cocktails</p>
+        </section>
+
+        <section class="menu-cards">
+            <div class="card" onclick="navigateTo('fridge')">
+                <div class="icon-box">
+                    <svg class="custom-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="5" y1="10" x2="19" y2="10"></line><line x1="15" y1="2" x2="15" y2="10"></line></svg>
+                </div>
+                <div class="card-text">
+                    <h3>Fridge</h3>
+                    <p>Manage your ingredients & find cocktails</p>
+                </div>
+            </div>
+
+            <div class="card" onclick="navigateTo('vault')">
+                <div class="icon-box">
+                    <i class="fa-solid fa-wine-glass"></i>
+                </div>
+                <div class="card-text">
+                    <h3>Cocktail Vault</h3>
+                    <p>Browse classic cocktail recipes</p>
+                </div>
+            </div>
+
+            <div class="card" onclick="navigateTo('recipes')">
+                <div class="icon-box">
+                    <i class="fa-solid fa-book-open"></i>
+                </div>
+                <div class="card-text">
+                    <h3>Recipe Book</h3>
+                    <p>Your personal cocktail collection</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="info-block">
+            <p>Start by adding your ingredients in the Fridge to see what cocktails you can make!</p>
+        </div>
+    </main>
+
+    <main id="vault-page" class="page">
+        <header class="top-bar">
+            <div class="header-flex">
+                <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
+                <h1>Cocktail Vault</h1>
+            </div>
+        </header>
+
+        <section class="search-section">
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="vaultSearch" placeholder="Search cocktails..." onkeyup="searchCocktails()">
+            </div>
+        </section>
+
+        <section id="vault-grid" class="cocktail-grid"></section>
+    </main>
+
+    <main id="fridge-page" class="page">
+        <header class="top-bar">
+            <div class="header-flex">
+                <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
+                <h1>Fridge</h1>
+            </div>
+        </header>
+        <p style="padding: 20px;">Coming soon: Manage your ingredients.</p>
+    </main>
+
+    <main id="recipes-page" class="page">
+        <header class="top-bar">
+            <div class="header-flex">
+                <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
+                <h1>Recipe Book</h1>
+            </div>
+        </header>
+
+        <section class="recipe-form-container">
+            <div class="image-upload-wrapper" onclick="document.getElementById('recipe-image-input').click()">
+                <input type="file" id="recipe-image-input" accept="image/*" hidden onchange="previewImage(event)">
+                <div id="image-preview-placeholder">
+                    <i class="fa-solid fa-camera"></i>
+                    <span>Upload Cocktail Photo</span>
+                </div>
+                <img id="image-preview-display" src="" alt="Preview" style="display: none;">
+            </div>
+
+            <div class="input-group">
+                <label>Cocktail Name</label>
+                <input type="text" id="recipe-name" placeholder="bijv. Espresso Martini">
+            </div>
+
+            <div class="input-group">
+                <label>Short Description</label>
+                <input type="text" id="recipe-description" placeholder="bijv. Een frisse klassieker met een twist.">
+            </div>
+
+            <div class="input-group">
+                <label>Categories (scheid met komma's)</label>
+                <input type="text" id="recipe-category" placeholder="bijv. Energy, Bitter, Cold">
+            </div>
+
+            <div class="input-group">
+                <label>Ingredients (één per regel)</label>
+                <textarea id="recipe-ingredients" rows="4" placeholder="50ml Vodka&#10;30ml Espresso"></textarea>
+            </div>
+
+            <div class="input-group">
+                <label>Method</label>
+                <input type="text" id="recipe-method" placeholder="bijv. Shaken">
+            </div>
+
+            <div class="input-group">
+                <label>Instructions</label>
+                <textarea id="recipe-desc" rows="3" placeholder="Hoe bereid je de cocktail?"></textarea>
+            </div>
+
+            <button class="save-btn" onclick="saveNewRecipe()">
+                <i class="fa-solid fa-plus"></i> Save to Vault
+            </button>
+        </section>
+    </main>
+
+    <main id="shopping-page" class="page">
+        <header class="top-bar">
+            <div class="header-flex">
+                <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
+                <h1>Shopping List</h1>
+            </div>
+        </header>
+        <p style="padding: 20px;">Coming soon: Your shopping list.</p>
+    </main>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active" id="nav-home" onclick="navigateTo('home')">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-item" id="nav-fridge" onclick="navigateTo('fridge')">
+            <i class="fa-solid fa-box-archive"></i>
+            <span>Fridge</span>
+        </div>
+        <div class="nav-item" id="nav-vault" onclick="navigateTo('vault')">
+            <i class="fa-solid fa-wine-glass-empty"></i>
+            <span>Vault</span>
+        </div>
+        <div class="nav-item" id="nav-recipes" onclick="navigateTo('recipes')">
+            <i class="fa-solid fa-book"></i>
+            <span>Recipes</span>
+        </div>
+        <div class="nav-item" id="nav-shopping" onclick="navigateTo('shopping')">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Shopping</span>
+        </div>
+    </nav>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>
