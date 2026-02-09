@@ -10,7 +10,7 @@ const classicCocktails = [
         ingredients: ["60ml Bourbon", "1 suikerklontje", "2 scheutjes Angostura bitters", "Sinaasappelschil"],
         method: "Stirred",
         methodDesc: "Los suiker op in bitters en water. Voeg bourbon en ijs toe, roer 30 seconden.",
-        image: "https://www.allrecipes.com/thmb/dYoPJDtxDmLRSoAynSqLNJxnTio=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/281761-MakersMarkOldFashioned-gw-ddmfs-beauty-4x3-3338-a0aa968439b44df1b4b26bfdba03fc88.jpg"
+        image: "./assets/oldfashion.png"
     },
     {
         id: 'c2',
@@ -20,7 +20,7 @@ const classicCocktails = [
         ingredients: ["50ml Tequila", "20ml Cointreau", "15ml Limoensap", "Zoutrandje"],
         method: "Shaken",
         methodDesc: "Shake alle ingrediënten met ijs en zeef in een glas met een zoutrandje.",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwmrm7M8eJ7ISAO0R_Fc34BTHq3zV36dxwIA&s"
+        image: "./assets/margerita.png"
     },
     {
         id: 'c3',
@@ -30,7 +30,7 @@ const classicCocktails = [
         ingredients: ["50ml Witte Rum", "Verse munt", "2 tl suiker", "Bruiswater", "Limoen"],
         method: "Muddled",
         methodDesc: "Muddle munt en suiker. Voeg rum, limoen en ijs toe. Top af met bruiswater.",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx7rkUKDhsMqgdHwKDnfJjlwKoyWf84ZnrQg&s"
+        image: "./assets/mojito.png"
     },
     {
         id: 'c4',
@@ -40,7 +40,7 @@ const classicCocktails = [
         ingredients: ["40ml Vodka", "30ml Koffielikeur", "30ml Verse Espresso", "15ml Suikersiroop"],
         method: "Hard Shake",
         methodDesc: "Shake zeer krachtig met ijs voor een mooie schuimlaag. Zeef in een coupe.",
-        image: "https://static-prod.remymartin.com/app/uploads/2025/02/remy-martin-cocktails-remy-espresso-1x1-250220-02.jpg"
+        image: "./assets/espressomartini.png"
     },
     {
         id: 'c5',
@@ -50,7 +50,7 @@ const classicCocktails = [
         ingredients: ["30ml Gin", "30ml Campari", "30ml Zoete Vermout"],
         method: "Stirred",
         methodDesc: "Roer alle ingrediënten met ijs en serveer in een glas met één groot ijsblok.",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVVVr7JQgej6JGf3awwMrgj4Nyy-9R7uNKhQ&s"
+        image: "./assets/negroni.png"
     },
     {
         id: 'c6',
@@ -60,7 +60,7 @@ const classicCocktails = [
         ingredients: ["60ml Bourbon", "30ml Limoensap", "15ml Suikersiroop", "1 Eiwit"],
         method: "Dry & Wet Shake",
         methodDesc: "Shake eerst zonder ijs, daarna met ijs. Zeef in een glas met vers ijs.",
-        image: "https://blog-distiller.imgix.net/wp-content/uploads/2018/08/24143617/whiskeysourADOBE.jpg?"
+        image: "./assets/whiskeysour.png"
     },
     {
         id: 'c7',
@@ -70,7 +70,7 @@ const classicCocktails = [
         ingredients: ["50ml Witte Rum", "30ml Kokosroom", "50ml Ananassap"],
         method: "Blended",
         methodDesc: "Mix alle ingrediënten met ijs in een blender tot een gladde massa.",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuBtrVo7ioLB4Psl5Qdz6RvitnFMacLqCuIA&s"
+        image: "./assets/pinacolada.png"
     },
     {
         id: 'c8',
@@ -80,7 +80,7 @@ const classicCocktails = [
         ingredients: ["50ml Vodka", "15ml Limoensap", "120ml Gemberbier"],
         method: "Built",
         methodDesc: "Bouw de cocktail direct in een koperen mok vol met ijs. Roer kort.",
-        image: "https://www.foodandwine.com/thmb/DX85ldkm3kh_vUBnXH2mNR78gxA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/moscow-mule-FT-RECIPE0521-6bb69ade441546c1b1210b4e55dbcb23.jpg"
+        image: "./assets/moskoumule.png"
     },
     {
         id: 'c9',
@@ -90,7 +90,7 @@ const classicCocktails = [
         ingredients: ["60ml Dark Rum", "100ml Gemberbier", "15ml Limoensap"],
         method: "Layered",
         methodDesc: "Giet gemberbier in een glas met ijs. 'Float' de donkere rum voorzichtig bovenop.",
-        image: "https://www.alcoholvrijshop.nl/media/catalog/product/cache/4a5cf70630b9c3080e492221e54d9a9f/d/a/dark-and-stormy-800x600.png"
+        image: "./assets/darkenstormy.png"
     },
     {
         id: 'c10',
@@ -100,7 +100,7 @@ const classicCocktails = [
         ingredients: ["40ml Vodka Citron", "15ml Cointreau", "30ml Cranberrysap", "15ml Limoen"],
         method: "Shaken",
         methodDesc: "Shake met ijs en zeef in een gekoeld martini-glas. Garneer met sinaasappel.",
-        image: "https://uglyfood.com.sg/wp-content/uploads/2025/05/cosmopolitan-recipe-1747719197.jpg"
+        image: "./assets/cosmopolitan.png"
     },
     {
         id: 'c11',
@@ -110,7 +110,7 @@ const classicCocktails = [
         ingredients: ["60ml Witte Rum", "30ml Limoensap", "15ml Suikersiroop"],
         method: "Shaken",
         methodDesc: "Shake met veel ijs en zeef in een coupe-glas. Geen ijs in het glas!",
-        image: "https://www.liquor.com/thmb/T7XT7LGJjfm3iP5SYoHWeS-yCGk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/daiquiri-1200x628-email-ba2630027a70498b878ca8180183a779.jpg"
+        image: "./assets/daiquri.png"
     },
     {
         id: 'c12',
@@ -120,7 +120,7 @@ const classicCocktails = [
         ingredients: ["90ml Prosecco", "60ml Aperol", "30ml Bruiswater"],
         method: "Built",
         methodDesc: "Vul een wijnglas met ijs. Voeg Prosecco, Aperol en bruiswater toe. Roer kort.",
-        image: "https://www.resplendentkitchen.com/wp-content/uploads/2024/08/Aperol-Spritz-06056-1.jpg"
+        image: "./assets/aperolspritz.png"
     },
     {
         id: 'c13',
@@ -130,7 +130,7 @@ const classicCocktails = [
         ingredients: ["50ml Rye Whiskey", "20ml Zoete Vermout", "2 dashes Angostura"],
         method: "Stirred",
         methodDesc: "Roer in een mengglas met ijs. Zeef in een gekoelde coupe. Garneer met kers.",
-        image: "https://www.liquor.com/thmb/DR2UAsRlu-YCVn9r_iLJCmOvzlg=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/manhattan-4000x4000-primary-ig-9c3d894510284e9d8fbd9c518d00790b.jpg"
+        image: "./assets/manhattan.png"
     },
     {
         id: 'c14',
@@ -140,7 +140,7 @@ const classicCocktails = [
         ingredients: ["50ml Gin", "30ml Citroensap", "10ml Suikersiroop", "Bruiswater"],
         method: "Shaken & Built",
         methodDesc: "Shake gin, citroen en suiker. Giet in glas en top af met bruiswater.",
-        image: "https://www.acouplecooks.com/wp-content/uploads/2019/06/Gin-Fizz-112s.jpg"
+        image: "./assets/ginfizz.png"
     },
     {
         id: 'c15',
@@ -150,7 +150,7 @@ const classicCocktails = [
         ingredients: ["50ml Tequila", "10ml Limoensap", "Grapefruit Soda"],
         method: "Built",
         methodDesc: "Bouw in een glas met een zoutrandje. Top af met grapefruit soda.",
-        image: "https://cocktailexpert.nl/wp-content/uploads/2024/06/paloma-recept-cocktail.webp"
+        image: "./assets/paloma.png"
     },
     {
         id: 'c16',
@@ -160,7 +160,7 @@ const classicCocktails = [
         ingredients: ["60ml Gin", "10ml Dry Vermout", "Olijf of Citroen"],
         method: "Stirred",
         methodDesc: "Roer zeer koud met ijs. Zeef in een martini-glas. Garneer met een olijf.",
-        image: "https://images.ctfassets.net/nhvvc9v3qesf/1xwdCt6vn5alt4LLq4WajV/0bb5b8b59e3ab5937d3912a8a045309c/Ketel_One_Dry___Classic_Martini_in_Nick_and_Nora_Glass_with_hand_adding_lemon_spritz.jpg"
+        image: "./assets/drymartini.jpg"
     },
     {
         id: 'c17',
@@ -170,7 +170,7 @@ const classicCocktails = [
         ingredients: ["50ml Vodka", "100ml Tomatensap", "Worcestersaus", "Tabasco"],
         method: "Rolled",
         methodDesc: "Giet heen en weer tussen twee glazen om te mixen zonder te veel te verwateren.",
-        image: "https://www.liquor.com/thmb/kvzllkWRv-mOjXXMcF0Bcuc4sRQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Bloody-Mary-Classic_Tim_Nusog_4000x4000_primary-68db8a83de544d8ba566accfa13a55e4.jpg"
+        image: "./assets/bloodymary.png"
     },
     {
         id: 'c18',
@@ -180,7 +180,7 @@ const classicCocktails = [
         ingredients: ["30ml Gin", "15ml Citroensap", "10ml Suikersiroop", "Champagne"],
         method: "Shaken & Layered",
         methodDesc: "Shake gin, citroen en suiker. Zeef in flûte en top af met champagne.",
-        image: "https://images.ctfassets.net/hs93c4k6gio0/Qh3XDKsj9fkaFAPbIcLXR/43bcbac62e7807e55e7a5c91b822e79b/_images_us-cocktails_French75_0412_2.jpg.jpg"
+        image: "./assets/french75.png"
     },
     {
         id: 'c19',
@@ -190,7 +190,7 @@ const classicCocktails = [
         ingredients: ["50ml Amaretto", "25ml Citroensap", "15ml Eiwit", "Angostura"],
         method: "Shaken",
         methodDesc: "Dry shake zonder ijs, dan wet shake met ijs. Garneer met een kers.",
-        image: "https://assets.epicurious.com/photos/643ffefcefb46b50556ffb73/1:1/w_2560%2Cc_limit/Amaretto%2520Sour-RECIPE.jpg"
+        image: "./assets/amarettosour.png"
     },
     {
         id: 'c20',
@@ -200,14 +200,14 @@ const classicCocktails = [
         ingredients: ["40ml Dark Rum", "20ml Witte Rum", "15ml Orgeat", "15ml Cointreau"],
         method: "Shaken",
         methodDesc: "Shake alle ingrediënten met crushed ijs. Garneer uitbundig met munt en limoen.",
-        image: "https://candradrinks.com/wp-content/uploads/2024/06/500A8912-500x500.jpg"
+        image: "./assets/maitai.png"
     },
     {
         id: 'c21',
         name: "Long Island Ice Tea",
         category: ["Strong", "Classic"],
         description: "Een krachtige mix van vijf verschillende spirits.",
-        image: "https://dinnerthendessert.com/wp-content/uploads/2023/06/Long-Island-Iced-Tea-7.jpg",
+        image: "./assets/longisland.png",
         ingredients: ["Rum blanco", "Gin", "Vodka", "Tequila", "Cointreau", "Citroensap", "Suikersiroop", "Cola"],
         method: "Build",
         methodDesc: "Vul een longdrinkglas met ijs. Voeg alle spirits en het citroensap toe. Top af met cola en roer voorzichtig."
@@ -217,7 +217,7 @@ const classicCocktails = [
         name: "Clover Club",
         category: ["Sour", "Elegant"],
         description: "Een zijdezachte, roze klassieker met framboos.",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsGt1IufzAPK8Vs_XdMFlNqfc6e7bmWpyX9Q&s",
+        image: "./assets/cloverclub.png",
         ingredients: ["Gin", "Citroensap", "Raspberry syrup", "Eiwit"],
         method: "Dry Shake & Shake",
         methodDesc: "Shake eerst alle ingrediënten zonder ijs (dry shake) om het eiwit te laten schuimen. Voeg ijs toe, shake opnieuw en strain in een gekoeld glas."
@@ -227,7 +227,7 @@ const classicCocktails = [
         name: "Espresso Martini Bueno",
         category: ["Coffee", "Sweet"],
         description: "Een heerlijke variant met een hint van hazelnoot.",
-        image: "https://foodandfriends.nl/wp-content/uploads/2025/03/panna-cotta-espresso-martini-pastry-crush.jpg",
+        image: "./assets/bueno.png",
         ingredients: ["Vodka", "Frangelico", "Espresso", "Hazelnut syrup"],
         method: "Shake",
         methodDesc: "Shake alle ingrediënten krachtig met veel ijs en strain in een martini glas. Garneer met koffiebonen."
@@ -237,7 +237,7 @@ const classicCocktails = [
         name: "Corpse Reviver #2",
         category: ["Classic", "Strong"],
         description: "Ontworpen om je weer tot leven te wekken na een zware nacht.",
-        image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=800&q=80",
+        image: "./assets/corpsreviver2.png",
         ingredients: ["Gin", "Lillet Blanc", "Cointreau", "Citroensap", "Angostura bitters"],
         method: "Shake",
         methodDesc: "Shake met ijs en strain in een gekoeld glas. Traditioneel wordt het glas gespoeld met absint."
@@ -247,7 +247,7 @@ const classicCocktails = [
         name: "Gincotec",
         category: ["Fresh", "Iced Tea"],
         description: "Een botanical mix met vlierbloesem en icetea.",
-        image: "https://cookinglife.nl/cdn/shop/files/DSC_3452-_1.jpg?crop=center&height=200&v=1719843562&width=200",
+        image: "./assets/groenplatsoen.png",
         ingredients: ["Gin", "Vlierbloesem", "Limoensap", "Vlierbloesem siroop", "Komkommer", "Bruiswater"],
         method: "Build",
         methodDesc: "Bouw het drankje op in een groot glas met veel ijs. Garneer met een komkommerlint."
@@ -357,7 +357,7 @@ const classicCocktails = [
         name: "Zombie",
         category: ["Strong", "Tiki"],
         description: "Beroemd en berucht. Maximaal 2 per persoon!",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsFGDe7Z_U_RXqidMgv0m9flQMIKk2oFusyA&s",
+        image: "./assets/zombie.png",
         ingredients: ["Rum blanco", "Dark rum", "Sinaasappelsap", "Grenadine", "Kaneelsiroop", "Angostura bitters"],
         method: "Shake & Fire",
         methodDesc: "Shake alles met ijs. Top af met overproof rum en steek deze voorzichtig aan. Strooi er kaneel over voor vonken."
