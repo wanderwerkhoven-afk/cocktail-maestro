@@ -201,6 +201,176 @@ const classicCocktails = [
         method: "Shaken",
         methodDesc: "Shake alle ingrediënten met crushed ijs. Garneer uitbundig met munt en limoen.",
         image: "https://candradrinks.com/wp-content/uploads/2024/06/500A8912-500x500.jpg"
+    },
+    {
+        id: 'c21',
+        name: "Long Island Ice Tea",
+        category: ["Strong", "Classic"],
+        description: "Een krachtige mix van vijf verschillende spirits.",
+        image: "https://images.unsplash.com/photo-1512782858364-71558268ee3c?auto=format&fit=crop&w=800&q=80",
+        ingredients: ["Rum blanco", "Gin", "Vodka", "Tequila", "Cointreau", "Citroensap", "Suikersiroop", "Cola"],
+        method: "Build",
+        methodDesc: "Vul een longdrinkglas met ijs. Voeg alle spirits en het citroensap toe. Top af met cola en roer voorzichtig."
+    },
+    {
+        id: 'c22',
+        name: "Clover Club",
+        category: ["Sour", "Elegant"],
+        description: "Een zijdezachte, roze klassieker met framboos.",
+        image: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80",
+        ingredients: ["Gin", "Citroensap", "Raspberry syrup", "Eiwit"],
+        method: "Dry Shake & Shake",
+        methodDesc: "Shake eerst alle ingrediënten zonder ijs (dry shake) om het eiwit te laten schuimen. Voeg ijs toe, shake opnieuw en strain in een gekoeld glas."
+    },
+    {
+        id: 'c23',
+        name: "Espresso Martini Bueno",
+        category: ["Coffee", "Sweet"],
+        description: "Een heerlijke variant met een hint van hazelnoot.",
+        image: "https://images.unsplash.com/photo-1545438102-799c3991ffb2?auto=format&fit=crop&w=800&q=80",
+        ingredients: ["Vodka", "Frangelico", "Espresso", "Hazelnut syrup"],
+        method: "Shake",
+        methodDesc: "Shake alle ingrediënten krachtig met veel ijs en strain in een martini glas. Garneer met koffiebonen."
+    },
+    {
+        id: 'c24',
+        name: "Corpse Reviver #2",
+        category: ["Classic", "Strong"],
+        description: "Ontworpen om je weer tot leven te wekken na een zware nacht.",
+        image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=800&q=80",
+        ingredients: ["Gin", "Lillet Blanc", "Cointreau", "Citroensap", "Angostura bitters"],
+        method: "Shake",
+        methodDesc: "Shake met ijs en strain in een gekoeld glas. Traditioneel wordt het glas gespoeld met absint."
+    },
+    {
+        id: 'c25',
+        name: "Garden Cocktail",
+        category: ["Fresh", "Floral"],
+        description: "Een verfrissende cocktail met vlierbloesem en komkommer.",
+        image: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&w=800&q=80",
+        ingredients: ["Vlierbloesem", "Gin", "Limoensap", "Komkommer", "Sprite"],
+        method: "Muddle & Build",
+        methodDesc: "Muddle de komkommer onderin het glas. Voeg ijs en de vloeibare ingrediënten toe. Top af met Sprite."
+    },
+    {
+        id: 'c26',
+        name: "Gincotec",
+        category: ["Fresh", "Iced Tea"],
+        description: "Een botanical mix met vlierbloesem en icetea.",
+        image: "https://images.unsplash.com/photo-1509446416176-05607070a22b?auto=format&fit=crop&w=800&q=80",
+        ingredients: ["Gin", "Vlierbloesem", "Limoensap", "Vlierbloesem siroop", "Komkommer", "Bruiswater"],
+        method: "Build",
+        methodDesc: "Bouw het drankje op in een groot glas met veel ijs. Garneer met een komkommerlint."
+    },
+    {
+        id: 'c27',
+        name: "Holy Peach",
+        category: ["Sweet", "Fruity"],
+        description: "Een zoete mix van perzik en Licor 43.",
+        image: "https://images.unsplash.com/photo-1531234799389-dcb7651eb0a2?auto=format&fit=crop&w=800&q=80",
+        ingredients: ["Peachtree", "Licor 43", "Limoensap", "Sprite"],
+        method: "Build",
+        methodDesc: "Bouw in een longdrinkglas met ijs en top af met Sprite of groene ijsthee."
+    },
+    {
+        id: 'c28',
+        name: "Wandering Cosmo",
+        category: ["Fruity", "Easy"],
+        description: "Een moderne twist op de Cosmopolitan.",
+        image: "https://images.unsplash.com/photo-1533502774297-704464cca52b?auto=format&fit=crop&w=800&q=80",
+        ingredients: ["Passoa", "Cointreau", "Vodka", "Limoensap", "Bruiswater"],
+        method: "Shake",
+        methodDesc: "Shake de alcohol en het limoensap met ijs. Strain in een glas en top af met DubbelFrisss."
+    },
+    {
+        id: 'c29',
+        name: "Red Flamingo",
+        category: ["Fruity", "Sparkling"],
+        description: "Een felroze dorstlesser met bramen en framboos.",
+        image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=800&q=80",
+        ingredients: ["Bramble gin", "Cointreau", "Citroensap", "Raspberry syrup", "Bruiswater"],
+        method: "Shake & Top",
+        methodDesc: "Shake alle ingrediënten behalve de Spa Rood. Strain over ijs en vul aan met bruiswater."
+    },
+    {
+        id: 'c30',
+        name: "Blueberry Mule",
+        category: ["Blue", "Ginger"],
+        description: "Een blauwe variant op de Moscow Mule.",
+        image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80",
+        ingredients: ["Blue Curacao", "Vodka", "Blueberry likeur", "Limoensap", "Gemberbier"],
+        method: "Build",
+        methodDesc: "Bouw direct in een koperen mok of glas. Roer voorzichtig om de lagen te mengen."
+    },
+    {
+        id: 'c31',
+        name: "Giant Sucker",
+        category: ["Herbal", "Unique"],
+        description: "Jägermeister ontmoet vlierbloesem.",
+        image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=800&q=80",
+        ingredients: ["Honing", "Jagermeister", "Verse munt", "Tonic"],
+        method: "Stir",
+        methodDesc: "Los de honing op in de Jägermeister. Voeg ijs en tonic toe. Garneer met rozemarijn."
+    },
+    {
+        id: 'c32',
+        name: "Lychacha",
+        category: ["Exotic", "Floral"],
+        description: "Een unieke mix van lychee en Aperol.",
+        image: "https://images.unsplash.com/photo-1558961363-fa4f2329762c?auto=format&fit=crop&w=800&q=80",
+        ingredients: ["Vlierbloesem siroop", "Lychee likeur", "Campari", "Citroensap", "Eiwit"],
+        method: "Shake",
+        methodDesc: "Shake krachtig met eiwit voor een mooie schuimkraag."
+    },
+    {
+        id: 'c33',
+        name: "Mango Mustache",
+        category: ["Fruity", "Sour"],
+        description: "Een zijdezachte mango cocktail met een gin basis.",
+        image: "https://images.unsplash.com/photo-1544145945-f904253d0c7b?auto=format&fit=crop&w=800&q=80",
+        ingredients: ["Suikersiroop", "Mango puree", "Citroensap", "Gin", "Eiwit"],
+        method: "Shake",
+        methodDesc: "Dry shake zonder ijs, dan met ijs. Strain in een coupe glas."
+    },
+    {
+        id: 'c34',
+        name: "Tropical Hurricane",
+        category: ["Tiki", "Fruity"],
+        description: "Vakantie in een glas.",
+        image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80",
+        ingredients: ["Bacardi Rasp", "Peachtree", "Limoensap", "Sinaasappelsap"],
+        method: "Shake",
+        methodDesc: "Shake alle vloeistoffen en schenk over vers ijs. Top af met maracuja sap."
+    },
+    {
+        id: 'c35',
+        name: "Muddy Mudslide",
+        category: ["Creamy", "Coffee"],
+        description: "Een rijke koffie cocktail met Baileys en caramel.",
+        image: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80",
+        ingredients: ["Baileys", "Caramel vodka", "Koffielikeur", "Espresso"],
+        method: "Stir",
+        methodDesc: "Stir alle ingrediënten 10 seconden in een tumbler met een groot blok ijs."
+    },
+    {
+        id: 'c36',
+        name: "New York Sour",
+        category: ["Classic", "Wine twist"],
+        description: "Een Whiskey Sour met een prachtige rode wijn float.",
+        image: "https://images.unsplash.com/photo-1510626176961-4b57d4fbad03?auto=format&fit=crop&w=800&q=80",
+        ingredients: ["Jameson", "Citroensap", "Suikersiroop", "Eiwit", "Rode wijn"],
+        method: "Shake & Float",
+        methodDesc: "Maak een normale whiskey sour. Giet voorzichtig de Malbec over de bolle kant van een barlepel voor de laag."
+    },
+    {
+        id: 'c37',
+        name: "Zombie",
+        category: ["Strong", "Tiki"],
+        description: "Beroemd en berucht. Maximaal 2 per persoon!",
+        image: "https://images.unsplash.com/photo-1599021456807-25db0f974333?auto=format&fit=crop&w=800&q=80",
+        ingredients: ["Rum blanco", "Dark rum", "Sinaasappelsap", "Grenadine", "Kaneelsiroop", "Angostura bitters"],
+        method: "Shake & Fire",
+        methodDesc: "Shake alles met ijs. Top af met overproof rum en steek deze voorzichtig aan. Strooi er kaneel over voor vonken."
     }
 ];
 
