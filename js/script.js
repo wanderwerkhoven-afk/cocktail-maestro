@@ -2,366 +2,47 @@
  * 1. COCKTAIL DATABASE (Classic Recipes)
  ************************************************************/
 const classicCocktails = [
-    {
-        id: 'c1',
-        name: "Old Fashioned",
-        category: ["Strong", "Classic"],
-        description: "De ultieme klassieker met bourbon, suiker en bitters.",
-        ingredients: ["60ml Bourbon", "1 suikerklontje", "2 scheutjes Angostura bitters", "Sinaasappelschil"],
-        method: "Stirred",
-        methodDesc: "Los suiker op in bitters en water. Voeg bourbon en ijs toe, roer 30 seconden.",
-        image: "./assets/oldfashion.png"
-    },
-    {
-        id: 'c2',
-        name: "Margarita",
-        category: ["Sour", "Tequila"],
-        description: "Fris en ziltig: de perfecte balans tussen limoen en tequila.",
-        ingredients: ["50ml Tequila", "20ml Cointreau", "15ml Limoensap", "Zoutrandje"],
-        method: "Shaken",
-        methodDesc: "Shake alle ingrediënten met ijs en zeef in een glas met een zoutrandje.",
-        image: "./assets/margerita.png"
-    },
-    {
-        id: 'c3',
-        name: "Mojito",
-        category: ["Refreshing", "Rum"],
-        description: "Munt, suiker en rum: een zomerse favoriet.",
-        ingredients: ["50ml Witte Rum", "Verse munt", "2 tl suiker", "Bruiswater", "Limoen"],
-        method: "Muddled",
-        methodDesc: "Muddle munt en suiker. Voeg rum, limoen en ijs toe. Top af met bruiswater.",
-        image: "./assets/mojito.png"
-    },
-    {
-        id: 'c4',
-        name: "Espresso Martini",
-        category: ["Coffee", "Vodka"],
-        description: "Koffie met een kick: perfect als after-dinner drink.",
-        ingredients: ["40ml Vodka", "30ml Koffielikeur", "30ml Verse Espresso", "15ml Suikersiroop"],
-        method: "Hard Shake",
-        methodDesc: "Shake zeer krachtig met ijs voor een mooie schuimlaag. Zeef in een coupe.",
-        image: "./assets/espressomartini.png"
-    },
-    {
-        id: 'c5',
-        name: "Negroni",
-        category: ["Bitter", "Gin"],
-        description: "De favoriet van de bartender: kruidig en complex.",
-        ingredients: ["30ml Gin", "30ml Campari", "30ml Zoete Vermout"],
-        method: "Stirred",
-        methodDesc: "Roer alle ingrediënten met ijs en serveer in een glas met één groot ijsblok.",
-        image: "./assets/negroni.png"
-    },
-    {
-        id: 'c6',
-        name: "Whiskey Sour",
-        category: ["Sour", "Classic"],
-        description: "Zijdezacht door het eiwit, krachtig door de bourbon.",
-        ingredients: ["60ml Bourbon", "30ml Limoensap", "15ml Suikersiroop", "1 Eiwit"],
-        method: "Dry & Wet Shake",
-        methodDesc: "Shake eerst zonder ijs, daarna met ijs. Zeef in een glas met vers ijs.",
-        image: "./assets/whiskeysour.png"
-    },
-    {
-        id: 'c7',
-        name: "Pina Colada",
-        category: ["Tropical", "Sweet"],
-        description: "Vakantie in een glas: kokos en ananas.",
-        ingredients: ["50ml Witte Rum", "30ml Kokosroom", "50ml Ananassap"],
-        method: "Blended",
-        methodDesc: "Mix alle ingrediënten met ijs in een blender tot een gladde massa.",
-        image: "./assets/pinacolada.png"
-    },
-    {
-        id: 'c8',
-        name: "Moscow Mule",
-        category: ["Spicy", "Vodka"],
-        description: "Fris met een pittige kick van gemberbier.",
-        ingredients: ["50ml Vodka", "15ml Limoensap", "120ml Gemberbier"],
-        method: "Built",
-        methodDesc: "Bouw de cocktail direct in een koperen mok vol met ijs. Roer kort.",
-        image: "./assets/moskoumule.png"
-    },
-    {
-        id: 'c9',
-        name: "Dark 'n Stormy",
-        category: ["Spicy", "Rum"],
-        description: "Donker en mysterieus: de smaak van de Bermuda's.",
-        ingredients: ["60ml Dark Rum", "100ml Gemberbier", "15ml Limoensap"],
-        method: "Layered",
-        methodDesc: "Giet gemberbier in een glas met ijs. 'Float' de donkere rum voorzichtig bovenop.",
-        image: "./assets/darkenstormy.png"
-    },
-    {
-        id: 'c10',
-        name: "Cosmopolitan",
-        category: ["Fruit", "Vodka"],
-        description: "Elegant, roze en tijdloos.",
-        ingredients: ["40ml Vodka Citron", "15ml Cointreau", "30ml Cranberrysap", "15ml Limoen"],
-        method: "Shaken",
-        methodDesc: "Shake met ijs en zeef in een gekoeld martini-glas. Garneer met sinaasappel.",
-        image: "./assets/cosmopolitan.png"
-    },
-    {
-        id: 'c11',
-        name: "Daiquiri",
-        category: ["Sour", "Rum"],
-        description: "De ultieme test voor een goede rum.",
-        ingredients: ["60ml Witte Rum", "30ml Limoensap", "15ml Suikersiroop"],
-        method: "Shaken",
-        methodDesc: "Shake met veel ijs en zeef in een coupe-glas. Geen ijs in het glas!",
-        image: "./assets/daiquri.png"
-    },
-    {
-        id: 'c12',
-        name: "Aperol Spritz",
-        category: ["Light", "Sparkling"],
-        description: "Hét terrasdrankje van de zomer.",
-        ingredients: ["90ml Prosecco", "60ml Aperol", "30ml Bruiswater"],
-        method: "Built",
-        methodDesc: "Vul een wijnglas met ijs. Voeg Prosecco, Aperol en bruiswater toe. Roer kort.",
-        image: "./assets/aperolspritz.png"
-    },
-    {
-        id: 'c13',
-        name: "Manhattan",
-        category: ["Strong", "Spirit-Forward"],
-        description: "Rijk en vol van smaak: de koning van de whiskey-cocktails.",
-        ingredients: ["50ml Rye Whiskey", "20ml Zoete Vermout", "2 dashes Angostura"],
-        method: "Stirred",
-        methodDesc: "Roer in een mengglas met ijs. Zeef in een gekoelde coupe. Garneer met kers.",
-        image: "./assets/manhattan.png"
-    },
-    {
-        id: 'c14',
-        name: "Gin Fizz",
-        category: ["Sparkling", "Refreshing"],
-        description: "Licht, bruisend en verfijnd.",
-        ingredients: ["50ml Gin", "30ml Citroensap", "10ml Suikersiroop", "Bruiswater"],
-        method: "Shaken & Built",
-        methodDesc: "Shake gin, citroen en suiker. Giet in glas en top af met bruiswater.",
-        image: "./assets/ginfizz.png"
-    },
-    {
-        id: 'c15',
-        name: "Paloma",
-        category: ["Fresh", "Tequila"],
-        description: "Mexico's favoriet met grapefruit en tequila.",
-        ingredients: ["50ml Tequila", "10ml Limoensap", "Grapefruit Soda"],
-        method: "Built",
-        methodDesc: "Bouw in een glas met een zoutrandje. Top af met grapefruit soda.",
-        image: "./assets/paloma.png"
-    },
-    {
-        id: 'c16',
-        name: "Dry Martini",
-        category: ["Strong", "Gin"],
-        description: "De definitie van elegantie.",
-        ingredients: ["60ml Gin", "10ml Dry Vermout", "Olijf of Citroen"],
-        method: "Stirred",
-        methodDesc: "Roer zeer koud met ijs. Zeef in een martini-glas. Garneer met een olijf.",
-        image: "./assets/drymartini.jpg"
-    },
-    {
-        id: 'c17',
-        name: "Bloody Mary",
-        category: ["Savory", "Vodka"],
-        description: "De hartige klassieker, perfect voor de brunch.",
-        ingredients: ["50ml Vodka", "100ml Tomatensap", "Worcestersaus", "Tabasco"],
-        method: "Rolled",
-        methodDesc: "Giet heen en weer tussen twee glazen om te mixen zonder te veel te verwateren.",
-        image: "./assets/bloodymary.png"
-    },
-    {
-        id: 'c18',
-        name: "French 75",
-        category: ["Champagne", "Gin"],
-        description: "Feestelijk en krachtig tegelijk.",
-        ingredients: ["30ml Gin", "15ml Citroensap", "10ml Suikersiroop", "Champagne"],
-        method: "Shaken & Layered",
-        methodDesc: "Shake gin, citroen en suiker. Zeef in flûte en top af met champagne.",
-        image: "./assets/french75.png"
-    },
-    {
-        id: 'c19',
-        name: "Amaretto Sour",
-        category: ["Sweet & Sour", "Classic"],
-        description: "Zacht, nootachtig en perfect gebalanceerd.",
-        ingredients: ["50ml Amaretto", "25ml Citroensap", "15ml Eiwit", "Angostura"],
-        method: "Shaken",
-        methodDesc: "Dry shake zonder ijs, dan wet shake met ijs. Garneer met een kers.",
-        image: "./assets/amarettosour.png"
-    },
-    {
-        id: 'c20',
-        name: "Mai Tai",
-        category: ["Tiki", "Rum"],
-        description: "De koning van de Tiki-cultuur.",
-        ingredients: ["40ml Dark Rum", "20ml Witte Rum", "15ml Orgeat", "15ml Cointreau"],
-        method: "Shaken",
-        methodDesc: "Shake alle ingrediënten met crushed ijs. Garneer uitbundig met munt en limoen.",
-        image: "./assets/maitai.png"
-    },
-    {
-        id: 'c21',
-        name: "Long Island Ice Tea",
-        category: ["Strong", "Classic"],
-        description: "Een krachtige mix van vijf verschillende spirits.",
-        image: "./assets/longisland.png",
-        ingredients: ["Rum blanco", "Gin", "Vodka", "Tequila", "Cointreau", "Citroensap", "Suikersiroop", "Cola"],
-        method: "Build",
-        methodDesc: "Vul een longdrinkglas met ijs. Voeg alle spirits en het citroensap toe. Top af met cola en roer voorzichtig."
-    },
-    {
-        id: 'c22',
-        name: "Clover Club",
-        category: ["Sour", "Elegant"],
-        description: "Een zijdezachte, roze klassieker met framboos.",
-        image: "./assets/cloverclub.png",
-        ingredients: ["Gin", "Citroensap", "Raspberry syrup", "Eiwit"],
-        method: "Dry Shake & Shake",
-        methodDesc: "Shake eerst alle ingrediënten zonder ijs (dry shake) om het eiwit te laten schuimen. Voeg ijs toe, shake opnieuw en strain in een gekoeld glas."
-    },
-    {
-        id: 'c23',
-        name: "Espresso Martini Bueno",
-        category: ["Coffee", "Sweet"],
-        description: "Een heerlijke variant met een hint van hazelnoot.",
-        image: "./assets/bueno.png",
-        ingredients: ["Vodka", "Frangelico", "Espresso", "Hazelnut syrup"],
-        method: "Shake",
-        methodDesc: "Shake alle ingrediënten krachtig met veel ijs en strain in een martini glas. Garneer met koffiebonen."
-    },
-    {
-        id: 'c24',
-        name: "Corpse Reviver #2",
-        category: ["Classic", "Strong"],
-        description: "Ontworpen om je weer tot leven te wekken na een zware nacht.",
-        image: "./assets/corpsreviver2.png",
-        ingredients: ["Gin", "Lillet Blanc", "Cointreau", "Citroensap", "Angostura bitters"],
-        method: "Shake",
-        methodDesc: "Shake met ijs en strain in een gekoeld glas. Traditioneel wordt het glas gespoeld met absint."
-    },
-    {
-        id: 'c25',
-        name: "Gincotec",
-        category: ["Fresh", "Iced Tea"],
-        description: "Een botanical mix met vlierbloesem en icetea.",
-        image: "./assets/groenplatsoen.png",
-        ingredients: ["Gin", "Vlierbloesem", "Limoensap", "Vlierbloesem siroop", "Komkommer", "Bruiswater"],
-        method: "Build",
-        methodDesc: "Bouw het drankje op in een groot glas met veel ijs. Garneer met een komkommerlint."
-    },
-    {
-        id: 'c27',
-        name: "Holy Peach",
-        category: ["Sweet", "Fruity"],
-        description: "Een zoete mix van perzik en Licor 43.",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkjsaYKVohbwNDsfKAPkOdgizGaqQfDUFI5A&s",
-        ingredients: ["Peachtree", "Licor 43", "Limoensap", "Sprite"],
-        method: "Build",
-        methodDesc: "Bouw in een longdrinkglas met ijs en top af met Sprite of groene ijsthee."
-    },
-    {
-        id: 'c28',
-        name: "Wandering Cosmo",
-        category: ["Fruity", "Easy"],
-        description: "Een moderne twist op de Cosmopolitan.",
-        image: "https://punchdrink.com/wp-content/uploads/2020/03/Article-Ultimate-Cosmo-Cosmopolitan-Cocktail-Recipe.jpg?w=1024",
-        ingredients: ["Passoa", "Cointreau", "Vodka", "Limoensap", "Bruiswater"],
-        method: "Shake",
-        methodDesc: "Shake de alcohol en het limoensap met ijs. Strain in een glas en top af met DubbelFrisss."
-    },
-    {
-        id: 'c29',
-        name: "Red Flamingo",
-        category: ["Fruity", "Sparkling"],
-        description: "Een felroze dorstlesser met bramen en framboos.",
-        image: "https://www.recipesfromeurope.com/wp-content/uploads/2023/06/tinto-de-verano-recipe.jpg",
-        ingredients: ["Bramble gin", "Cointreau", "Citroensap", "Raspberry syrup", "Bruiswater"],
-        method: "Shake & Top",
-        methodDesc: "Shake alle ingrediënten behalve de Spa Rood. Strain over ijs en vul aan met bruiswater."
-    },
-    {
-        id: 'c30',
-        name: "Blueberry Mule",
-        category: ["Blue", "Ginger"],
-        description: "Een blauwe variant op de Moscow Mule.",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_UC3UqKfCWHpI41-RnGbac7VvytVgytVQWQ&s",
-        ingredients: ["Blue Curacao", "Vodka", "Blueberry likeur", "Limoensap", "Gemberbier"],
-        method: "Build",
-        methodDesc: "Bouw direct in een koperen mok of glas. Roer voorzichtig om de lagen te mengen."
-    },
-    {
-        id: 'c31',
-        name: "Giant Sucker",
-        category: ["Herbal", "Unique"],
-        description: "Jägermeister ontmoet vlierbloesem.",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTByFb9McDUMEXGfWAAMl-KZstTtlkaf0LO_Q&s",
-        ingredients: ["Honing", "Jagermeister", "Verse munt", "Tonic"],
-        method: "Stir",
-        methodDesc: "Los de honing op in de Jägermeister. Voeg ijs en tonic toe. Garneer met rozemarijn."
-    },
-    {
-        id: 'c32',
-        name: "Lychacha",
-        category: ["Exotic", "Floral"],
-        description: "Een unieke mix van lychee en Aperol.",
-        image: "https://drom.nl/img/8a16afda-9b60-4fb2-a3bd-f72117609880/thumbnail-img-6457.jpg?fm=jpg&q=80&fit=max&crop=602%2C264%2C0%2C191",
-        ingredients: ["Vlierbloesem siroop", "Lychee likeur", "Campari", "Citroensap", "Eiwit"],
-        method: "Shake",
-        methodDesc: "Shake krachtig met eiwit voor een mooie schuimkraag."
-    },
-    {
-        id: 'c33',
-        name: "Mango Mustache",
-        category: ["Fruity", "Sour"],
-        description: "Een zijdezachte mango cocktail met een gin basis.",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW8xPzs9ZajhISThklMn8I7cNckiGYXpP9xQ&s",
-        ingredients: ["Suikersiroop", "Mango puree", "Citroensap", "Gin", "Eiwit"],
-        method: "Shake",
-        methodDesc: "Dry shake zonder ijs, dan met ijs. Strain in een coupe glas."
-    },
-    {
-        id: 'c34',
-        name: "Tropical Hurricane",
-        category: ["Tiki", "Fruity"],
-        description: "Vakantie in een glas.",
-        image: "https://thesocialsipper.com/wp-content/uploads/2025/03/SS-Tropical-Aperol-Margarita-2.jpg",
-        ingredients: ["Bacardi Rasp", "Peachtree", "Limoensap", "Sinaasappelsap"],
-        method: "Shake",
-        methodDesc: "Shake alle vloeistoffen en schenk over vers ijs. Top af met maracuja sap."
-    },
-    {
-        id: 'c35',
-        name: "Muddy Mudslide",
-        category: ["Creamy", "Coffee"],
-        description: "Een rijke koffie cocktail met Baileys en caramel.",
-        image: "https://preppykitchen.com/wp-content/uploads/2022/01/Mudslide-Feature.jpg",
-        ingredients: ["Baileys", "Caramel vodka", "Koffielikeur", "Espresso"],
-        method: "Stir",
-        methodDesc: "Stir alle ingrediënten 10 seconden in een tumbler met een groot blok ijs."
-    },
-    {
-        id: 'c36',
-        name: "New York Sour",
-        category: ["Classic", "Wine twist"],
-        description: "Een Whiskey Sour met een prachtige rode wijn float.",
-        image: "https://www.kitchengeekery.com/_next/image?url=https%3A%2F%2Fsite.kitchengeekery.com%2Fwp-content%2Fuploads%2F2021%2F01%2Fnew-york-sour-cocktail.jpg&w=828&q=75",
-        ingredients: ["Jameson", "Citroensap", "Suikersiroop", "Eiwit", "Rode wijn"],
-        method: "Shake & Float",
-        methodDesc: "Maak een normale whiskey sour. Giet voorzichtig de Malbec over de bolle kant van een barlepel voor de laag."
-    },
-    {
-        id: 'c37',
-        name: "Zombie",
-        category: ["Strong", "Tiki"],
-        description: "Beroemd en berucht. Maximaal 2 per persoon!",
-        image: "./assets/zombie.png",
-        ingredients: ["Rum blanco", "Dark rum", "Sinaasappelsap", "Grenadine", "Kaneelsiroop", "Angostura bitters"],
-        method: "Shake & Fire",
-        methodDesc: "Shake alles met ijs. Top af met overproof rum en steek deze voorzichtig aan. Strooi er kaneel over voor vonken."
-    }
+    { id: 'c1', name: "Old Fashioned", category: ["Strong", "Classic", "Spirit-Forward"], description: "The ultimate whiskey classic: sophisticated, balanced, and timeless.", ingredients: ["Bourbon", "Sugar cube", "Angostura bitters", "Orange zest"], method: "Stirred", methodDesc: "Muddle sugar with bitters and water. Add bourbon and ice, stir for 30 seconds.", image: "./assets/oldfashion.png" },
+    { id: 'c2', name: "Margarita", category: ["Sour", "Tequila"], description: "Fresh, sharp, and salty: the perfect harmony of lime and tequila.", ingredients: ["Tequila", "Cointreau", "Lime juice", "Salt"], method: "Shaken", methodDesc: "Shake all ingredients with ice and strain into a salt-rimmed glass.", image: "./assets/margerita.png" },
+    { id: 'c3', name: "Mojito", category: ["Refreshing", "Rum"], description: "A Cuban favorite: minty, sweet, and incredibly refreshing.", ingredients: ["White Rum", "Fresh mint", "Sugar", "Soda water", "Lime juice"], method: "Muddled", methodDesc: "Muddle mint and sugar. Add rum, lime, and ice. Top with soda water.", image: "./assets/mojito.png" },
+    { id: 'c4', name: "Espresso Martini", category: ["Coffee", "Vodka"], description: "Wake up and smell the vodka: a perfect pick-me-up.", ingredients: ["Vodka", "Coffee liqueur", "Espresso", "Sugar syrup"], method: "Hard Shake", methodDesc: "Shake hard with ice to create a thick foam layer. Strain into a coupe.", image: "./assets/espressomartini.png" },
+    { id: 'c5', name: "Negroni", category: ["Bitter", "Gin"], description: "The bartender's favorite: complex, bitter, and ruby red.", ingredients: ["Gin", "Campari", "Sweet Vermouth"], method: "Stirred", methodDesc: "Stir ingredients with ice and strain into a rocks glass over a large ice cube.", image: "./assets/negroni.png" },
+    { id: 'c6', name: "Whiskey Sour", category: ["Sour", "Classic"], description: "Silky smooth thanks to the egg white, with a bold bourbon kick.", ingredients: ["Bourbon", "Lemon juice", "Sugar syrup", "Egg white"], method: "Dry & Wet Shake", methodDesc: "Shake without ice first, then with ice. Strain into a glass with fresh ijs.", image: "./assets/whiskeysour.png" },
+    { id: 'c7', name: "Pina Colada", category: ["Tropical", "Sweet"], description: "A vacation in a glass: creamy coconut and sweet pineapple.", ingredients: ["White Rum", "Coconut cream", "Pineapple juice"], method: "Blended", methodDesc: "Blend all ingredients with ice until smooth and creamy.", image: "./assets/pinacolada.png" },
+    { id: 'c8', name: "Moscow Mule", category: ["Spicy", "Vodka"], description: "Crisp and refreshing with a spicy ginger kick.", ingredients: ["Vodka", "Lime juice", "Ginger beer"], method: "Built", methodDesc: "Build directly in a copper mug filled with ice. Stir gently.", image: "./assets/moskoumule.png" },
+    { id: 'c9', name: "Dark 'n Stormy", category: ["Spicy", "Rum"], description: "A moody, delicious storm of dark rum and ginger.", ingredients: ["Dark Rum", "Ginger beer", "Lime juice"], method: "Layered", methodDesc: "Pour ginger beer over ice. Float dark rum on top.", image: "./assets/darkenstormy.png" },
+    { id: 'c10', name: "Cosmopolitan", category: ["Fruit", "Vodka", "Pink"], description: "Elegant, tart, and pink. A modern classic.", ingredients: ["Vodka Citron", "Cointreau", "Cranberry juice", "Lime juice"], method: "Shaken", methodDesc: "Shake with ice and strain into a chilled martini glass.", image: "./assets/cosmopolitan.png" },
+    { id: 'c11', name: "Daiquiri", category: ["Sour", "Rum"], description: "The ultimate test of a good rum: simple, sharp, and clean.", ingredients: ["White Rum", "Lime juice", "Sugar syrup"], method: "Shaken", methodDesc: "Shake with ice and strain into a chilled coupe. No ice in the glass!", image: "./assets/daiquri.png" },
+    { id: 'c12', name: "Aperol Spritz", category: ["Light", "Sparkling", "Bitter"], description: "The golden hour in a glass. Light and bubbly.", ingredients: ["Prosecco", "Aperol", "Soda water"], method: "Built", methodDesc: "Fill a wine glass with ice. Add Prosecco, Aperol, and soda water.", image: "./assets/aperolspritz.png" },
+    { id: 'c13', name: "Manhattan", category: ["Strong", "Spirit-Forward"], description: "Rich and moody: the king of whiskey cocktails.", ingredients: ["Rye Whiskey", "Sweet Vermouth", "Angostura bitters"], method: "Stirred", methodDesc: "Stir with ice. Strain into a chilled coupe. Garnish with a cherry.", image: "./assets/manhattan.png" },
+    { id: 'c14', name: "Gin Fizz", category: ["Sparkling", "Refreshing"], description: "Light, fizzy, and sophisticated.", ingredients: ["Gin", "Lemon juice", "Sugar syrup", "Soda water"], method: "Shaken & Built", methodDesc: "Shake gin, lemon, and sugar. Top with soda water.", image: "./assets/ginfizz.png" },
+    { id: 'c15', name: "Paloma", category: ["Fresh", "Tequila"], description: "Mexico's true favorite: grapefruit meets tequila.", ingredients: ["Tequila", "Lime juice", "Grapefruit soda"], method: "Built", methodDesc: "Build in a glass with a salt rim. Top with grapefruit soda.", image: "./assets/paloma.png" },
+    { id: 'c16', name: "Dry Martini", category: ["Strong", "Gin"], description: "The definition of elegance: cold and precise.", ingredients: ["Gin", "Dry Vermouth", "Olives"], method: "Stirred", methodDesc: "Stir with ice until ice cold. Strain into a martini glass.", image: "./assets/drymartini.jpg" },
+    { id: 'c17', name: "Bloody Mary", category: ["Savory", "Vodka"], description: "A savory classic, perfect for brunch or recovery.", ingredients: ["Vodka", "Tomato juice", "Worcestershire sauce", "Tabasco"], method: "Rolled", methodDesc: "Roll the ingredients between two shakers to mix.", image: "./assets/bloodymary.png" },
+    { id: 'c18', name: "French 75", category: ["Champagne", "Gin", "Lemon"], description: "Festive and powerful, like a French field gun.", ingredients: ["Gin", "Lemon juice", "Sugar syrup", "Champagne"], method: "Shaken & Layered", methodDesc: "Shake gin, lemon, and sugar. Top with champagne in a flute.", image: "./assets/french75.png" },
+    { id: 'c19', name: "Amaretto Sour", category: ["Sweet", "Sour", "Classic", "Almond"], description: "Nutty, sweet, and perfectly balanced with a silky texture.", ingredients: ["Amaretto", "Lemon juice", "Egg white", "Angostura bitters"], method: "Shaken", methodDesc: "Dry shake, then wet shake with ice. Garnish with a cherry.", image: "./assets/amarettosour.png" },
+    { id: 'c20', name: "Bee's Knees", category: ["Classic", "Honey", "Sweet", "Sour"], description: "A Prohibition-era classic that's the 'bee's knees'.", ingredients: ["Gin", "Lemon juice", "Honey", "Sugar syrup"], method: "Shaken", methodDesc: "Shake all ingredients with ice and strain into a chilled glass.", image: "./assets/beesknees.png" },
+    { id: 'c21', name: "Long Island Ice Tea", category: ["Very-Strong", "Classic"], description: "A powerful blend of five different spirits.", ingredients: ["White Rum", "Gin", "Vodka", "Tequila", "Cointreau", "Lemon juice", "Sugar syrup", "Cola"], method: "Built", methodDesc: "Add all spirits and lemon juice. Top with cola and stir gently.", image: "./assets/longisland.png" },
+    { id: 'c22', name: "Clover Club", category: ["Sour", "Elegant", "Raspberry", "Pink"], description: "A silky smooth, pink classic with raspberry notes.", ingredients: ["Gin", "Lemon juice", "Raspberry syrup", "Egg white"], method: "Dry Shake & Shake", methodDesc: "Dry shake first to foam. Add ice, shake again, and strain.", image: "./assets/cloverclub.png" },
+    { id: 'c23', name: "Espresso Martini Bueno", category: ["Energy", "Coffee", "Sweet", "Bitter"], description: "A delicious variation with a hint of hazelnut.", ingredients: ["Vodka", "Frangelico", "Espresso", "Hazelnut syrup"], method: "Shaken", methodDesc: "Shake vigorously with plenty of ice. Strain into a martini glass.", image: "./assets/bueno.png" },
+    { id: 'c24', name: "Corpse Reviver #2", category: ["Classic", "Strong", "Orange", "Lemon"], description: "Designed to wake you up after a long night.", ingredients: ["Gin", "Lillet Blanc", "Cointreau", "Lemon juice", "Angostura bitters"], method: "Shaken", methodDesc: "Shake with ice and strain into an absinthe-rinsed glass.", image: "./assets/corpsreviver2.png" },
+    { id: 'c25', name: "Garden Cocktail", category: ["Fresh", "Floral", "Cucumber"], description: "A refreshing floral mix with cucumber.", ingredients: ["Elderflower liqueur", "Gin", "Lime juice", "Cucumber", "Sprite"], method: "Muddled & Built", methodDesc: "Muddle cucumber. Add liquids and ice. Top with Sprite.", image: "./assets/garden.png" },
+    { id: 'c26', name: "Gincotec", category: ["Fresh", "Floral", "Cucumber"], description: "A botanical mix with elderflower and green tea notes.", ingredients: ["Gin", "Elderflower liqueur", "Lime juice", "Elderflower syrup", "Cucumber", "Iced tea"], method: "Built", methodDesc: "Build in a highball glass. Garnish with a cucumber ribbon.", image: "./assets/groenplansoen.png" },
+    { id: 'c27', name: "Holy Peach", category: ["Sweet", "Fruity", "Peach"], description: "A sweet mix of peach and vanilla notes.", ingredients: ["Peachtree", "Licor 43", "Lime juice", "Sprite"], method: "Built", methodDesc: "Build in a longdrink glass. Top with Sprite or green iced tea.", image: "./assets/holypeach.png" },
+    { id: 'c28', name: "Wandering Cosmo", category: ["Fruity", "Riff", "Pasionfruit"], description: "A modern twist on the classic Cosmopolitan.", ingredients: ["Passoa", "Cointreau", "Vodka", "Lime juice", "Fruit soda"], method: "Shaken", methodDesc: "Shake alcohol and lime. Top with red fruit soda.", image: "./assets/wanderingcosmo.png" },
+    { id: 'c29', name: "Red Flamingo", category: ["Fruity", "Sparkling", "Fresh"], description: "A bright pink thirst-quencher with bramble and raspberry.", ingredients: ["Bramble gin", "Cointreau", "Lemon juice", "Raspberry syrup", "Soda water"], method: "Shake & Top", methodDesc: "Shake all except soda. Strain and top with sparkling water.", image: "./assets/redflamingo.png" },
+    { id: 'c30', name: "Blueberry Mule", category: ["Blue", "Ginger", "Spicy"], description: "A blue variation of the Moscow Mule.", ingredients: ["Blue Curacao", "Vodka", "Blueberry liqueur", "Lime juice", "Ginger beer"], method: "Built", methodDesc: "Build directly in a mug. Stir gently to mix colors.", image: "./assets/blueberrymule.png" },
+    { id: 'c31', name: "Giant Sucker", category: ["Herbal", "Unique", "Bubbly"], description: "Jägermeister meets elderflower in a surprising way.", ingredients: ["Honey", "Jagermeister", "Fresh mint", "Elderflower tonic"], method: "Stirred", methodDesc: "Dissolve honey in Jägermeister. Top with elderflower tonic.", image: "./assets/giantsucker.png" },
+    { id: 'c32', name: "Lychacha", category: ["Exotic", "Floral", "Lychee", "Sweet", "Sour"], description: "A unique mix of lychee and Aperol.", ingredients: ["Elderflower syrup", "Lychee liqueur", "Aperol", "Lemon juice", "Egg white"], method: "Shaken", methodDesc: "Shake vigorously with egg white for a thick foam.", image: "./assets/lychacha.png" },
+    { id: 'c33', name: "Mango Mustache", category: ["Fruity", "Sour", "Sweet", "Mango"], description: "A silky smooth mango cocktail with a gin base.", ingredients: ["Sugar syrup", "Mango puree", "Lemon juice", "Gin", "Egg white"], method: "Shaken", methodDesc: "Dry shake, then wet shake. Strain into a coupe glass.", image: "./assets/mangomustach.png" },
+    { id: 'c34', name: "Tropical Hurricane", category: ["Tiki", "Fruity"], description: "A tropical storm in a glass.", ingredients: ["Bacardi Rasp", "Peachtree", "Lime juice", "Orange juice"], method: "Shaken", methodDesc: "Shake liquids. Top with passion fruit juice.", image: "./assets/tropicalhurricane.png" },
+    { id: 'c35', name: "Muddy Mudslide", category: ["Creamy", "Coffee", "Caramel"], description: "A rich coffee cocktail with Baileys and caramel.", ingredients: ["Baileys", "Caramel vodka", "Coffee liqueur", "Espresso"], method: "Stirred", methodDesc: "Stir with a large ice cube for 10 seconds.", image: "./assets/mudslide.jpg" },
+    { id: 'c36', name: "New York Sour", category: ["Classic", "Wine twist", "Sour"], description: "A Whiskey Sour topped with a beautiful red wine float.", ingredients: ["Jameson", "Lemon juice", "Sugar syrup", "Egg white", "Red wine"], method: "Shake & Float", methodDesc: "Make a sour. Gently float red wine on top using a spoon.", image: "./assets/newyorksour.png" },
+    { id: 'c37', name: "Zombie", category: ["Strong", "Tiki", "Unique"], description: "Famous, powerful, and mysterious. Limit: 2 per person!", ingredients: ["White Rum", "Dark Rum", "Orange juice", "Grenadine", "Cinnamon syrup", "Angostura bitters"], method: "Shake & Fire", methodDesc: "Shake with ice. Top with overproof rum and light it.", image: "./assets/zombie.png" },
+    { id: 'c38', name: "South Side", category: ["Classic", "Refreshing", "Minty", "1920's"], description: "The gin-based version of a Mojito, elegant and minty.", ingredients: ["Gin", "Lemon juice", "Sugar syrup", "Fresh mint"], method: "Shaken", methodDesc: "Shake ingredients with mint and ice. Double strain into a coupe.", image: "./assets/southside.png" },
+    { id: 'c39', name: "Sidecar", category: ["Classic", "Sour", "Cognac", "1920's"], description: "A legendary cognac cocktail with a sugar rim.", ingredients: ["Cognac", "Cointreau", "Lemon juice", "Sugar syrup"], method: "Shaken", methodDesc: "Shake with ice and strain into a sugar-rimmed coupe.", image: "./assets/sidecar.png" },
+    { id: 'c40', name: "Gin Basil Smash", category: ["Modern", "Fresh", "Herbal"], description: "Bright green and herbal: a modern classic.", ingredients: ["Gin", "Lemon juice", "Sugar syrup", "Fresh basil"], method: "Muddled & Shaken", methodDesc: "Muddle basil with sugar. Add gin and lemon, shake hard with ice.", image: "./assets/ginbasil.png" },
+    { id: 'c41', name: "Rosemary & Peach Sour", category: ["Vodka", "Herbal", "Velvet"], description: "A sophisticated peach sour with a hint of rosemary.", ingredients: ["Vodka", "Peachtree", "Lemon juice", "Sugar syrup", "Milk"], method: "Shaken", methodDesc: "Shake for 30 seconds with ice to create a smooth texture.", image: "./assets/rosemarypeach.png" }
 ];
 
 /************************************************************
