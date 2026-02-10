@@ -65,7 +65,7 @@
         <section class="search-section">
             <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="vaultSearch" placeholder="Search cocktails..." onkeyup="searchCocktails()">
+                <input type="text" id="vaultSearch" placeholder="Search cocktails..." oninput="renderVault(this.value)">
             </div>
         </section>
 
@@ -257,9 +257,19 @@
             <div class="header-flex">
                 <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
                 <h1>Shopping List</h1>
+                <button class="clear-list-btn" onclick="clearShoppingList()"><i class="fa-solid fa-trash-can"></i></button>
             </div>
         </header>
-        <p style="padding: 20px;">Coming soon: Your shopping list.</p>
+
+        <div class="shopping-container">
+            <div id="shopping-list-empty" class="placeholder-text" style="display: none;">
+                <i class="fa-solid fa-cart-shopping" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
+                <p>Your list is empty. Start adding ingredients!</p>
+            </div>
+            
+            <ul id="shopping-list-items" class="shopping-list">
+                </ul>
+        </div>
     </main>
 
     <nav class="bottom-nav">

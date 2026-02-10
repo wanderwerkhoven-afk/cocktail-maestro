@@ -50,10 +50,13 @@ const classicCocktails = [
  ************************************************************/
 let currentImageBase64 = "";
 let myIngredients = JSON.parse(localStorage.getItem('myIngredients')) || [];
+let myFavorites = JSON.parse(localStorage.getItem('myFavorites')) || [];
+let shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];
 
 document.addEventListener('DOMContentLoaded', () => {
     navigateTo('home');
 });
+
 
 /************************************************************
  * 3. NAVIGATION LOGIC
@@ -72,6 +75,79 @@ function navigateTo(pageId) {
     // Pagina specifieke acties
     if (pageId === 'vault') renderVault();
     if (pageId === 'fridge') syncCheckboxes();
+    if (pageId === 'shopping') renderShoppingList();
+} // <--- HIER eindigt navigateTo. Alles hieronder staat er weer los van.
+
+function renderShoppingList() {
+    const listContainer = document.getElementById('shopping-list-items');
+    const emptyState = document.getElementById('shopping-list-empty');
+    if (!listContainer) return;
+
+    listContainer.innerHTML = "";
+
+    if (shoppingList.length === 0) {
+        if(emptyState) emptyState.style.display = "block";
+    } else {
+        if(emptyState) emptyState.style.display = "none";
+        
+        shoppingList.forEach((item, index) => {
+            const li = document.createElement('li');
+            // Voeg de class 'checked' toe als het item afgevinkt is
+            li.className = `shopping-item ${item.checked ? 'checked' : ''}`;
+            
+            li.innerHTML = `
+                <div class="shopping-item-info" onclick="toggleItemCheck(${index})">
+                    <i class="${item.checked ? 'fa-solid fa-circle-check' : 'fa-regular fa-circle'}"></i>
+                    <span class="shopping-item-name">${item.name}</span>
+                </div>
+                <button class="remove-item-btn" onclick="removeFromShoppingList(${index})">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            `;
+            listContainer.appendChild(li);
+        });
+    }
+}
+
+// Nieuwe functie om de status om te draaien
+function toggleItemCheck(index) {
+    shoppingList[index].checked = !shoppingList[index].checked;
+    localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+    renderShoppingList(); // Teken de lijst opnieuw met de nieuwe kleuren
+}
+
+function removeFromShoppingList(index) {
+    shoppingList.splice(index, 1);
+    localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+    renderShoppingList();
+}
+
+function clearShoppingList() {
+    if (shoppingList.length === 0) return;
+    if (confirm("Clear your entire shopping list?")) {
+        shoppingList = [];
+        localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+        renderShoppingList();
+    }
+}
+
+function toggleFavorite(e, cocktailId) {
+    e.stopPropagation(); 
+    
+    const index = myFavorites.indexOf(cocktailId);
+    if (index > -1) {
+        myFavorites.splice(index, 1);
+    } else {
+        myFavorites.push(cocktailId);
+    }
+    
+    localStorage.setItem('myFavorites', JSON.stringify(myFavorites));
+    
+    if (document.getElementById('vault-page').classList.contains('active')) {
+        renderVault(document.getElementById('vault-search')?.value || "");
+    } else if (document.getElementById('fridge-page').classList.contains('active')) {
+        checkMatches();
+    }
 }
 
 /************************************************************
@@ -83,8 +159,16 @@ function renderVault(filter = "") {
 
     const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
     
-    // 1. Combine lists AND Sort them alphabetically by name
+    /// 1. Combineer lijsten en sorteer: Favorieten eerst, dan alfabetisch
     const allCocktails = [...classicCocktails, ...myRecipes].sort((a, b) => {
+        const aFav = myFavorites.includes(a.id);
+        const bFav = myFavorites.includes(b.id);
+        
+        // Check of een van de twee favoriet is
+        if (aFav && !bFav) return -1; // a is favoriet, b niet -> a moet boven
+        if (!aFav && bFav) return 1;  // b is favoriet, a niet -> b moet boven
+        
+        // Als ze allebei favoriet zijn (of allebei niet), sorteer dan op naam
         return a.name.localeCompare(b.name);
     });
 
@@ -104,25 +188,34 @@ function renderVault(filter = "") {
 
 // 3. Render the cards
     filtered.forEach(cocktail => {
+        // CHECK: Is dit id opgeslagen in onze favorietenlijst?
+        const isFav = myFavorites.includes(cocktail.id);
+
         const card = document.createElement('div');
-        card.className = 'cocktail-card';
+        // We voegen ook een class 'is-favorite' toe aan de kaart zelf voor CSS styling
+        card.className = `cocktail-card ${isFav ? 'is-favorite' : ''}`;
         
-        // Aangepaste click-functie: voorkomt dat de kaart sluit als je op de download-knop klikt
         card.onclick = function(e) { 
-            if (!e.target.closest('.download-btn')) {
+            // Aangepast: voorkom openklappen als je op download OF op fav klikt
+            if (!e.target.closest('.download-btn') && !e.target.closest('.fav-btn')) {
                 this.classList.toggle('open'); 
             }
         };
 
         card.innerHTML = `
             <div class="card-thumb-large">
+                <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleFavorite(event, '${cocktail.id}')">
+                    <i class="${isFav ? 'fa-solid' : 'fa-regular'} fa-star"></i>
+                </button>
+                
                 <img src="${cocktail.image}" alt="${cocktail.name}">
+                
                 <button class="download-btn" onclick="downloadRecipe('${cocktail.id}')">
                     <i class="fa-solid fa-download"></i>
                 </button>
             </div>
             <div class="card-content">
-                <h4>${cocktail.name}</h4>
+                <h4>${cocktail.name} ${isFav ? '⭐' : ''}</h4>
                 <div class="category-container">
                     ${Array.isArray(cocktail.category) 
                         ? cocktail.category.map(cat => `<span class="category-tag">${cat}</span>`).join('')
@@ -322,9 +415,7 @@ function checkMatches() {
         const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
         const allCocktails = [...classicCocktails, ...myRecipes];
 
-        // We filteren nu op basis van een drempelwaarde (bijv. max 1 ingrediënt missend)
         const matches = allCocktails.map(cocktail => {
-            // Tel hoeveel ingrediënten je mist
             const missing = cocktail.ingredients.filter(ing => {
                 const ingredientName = ing.toLowerCase();
                 return !myIngredients.some(mine => ingredientName.includes(mine.toLowerCase()));
@@ -332,10 +423,14 @@ function checkMatches() {
 
             return { ...cocktail, missingCount: missing.length, missingItems: missing };
         })
-        // Toon alleen cocktails waar je maximaal 1 ingrediënt voor mist
         .filter(c => c.missingCount <= 1) 
-        // Sorteer: de beste matches (0 missend) bovenaan
-        .sort((a, b) => a.missingCount - b.missingCount);
+        .sort((a, b) => {
+            // Sorteer: Eerst op aantal missend (0 eerst), dan op favoriet
+            if (a.missingCount !== b.missingCount) return a.missingCount - b.missingCount;
+            const aFav = myFavorites.includes(a.id);
+            const bFav = myFavorites.includes(b.id);
+            return bFav - aFav;
+        });
 
         resultsContainer.innerHTML = ""; 
 
@@ -344,17 +439,22 @@ function checkMatches() {
         } else {
             matches.forEach(cocktail => {
                 const isPerfect = cocktail.missingCount === 0;
+                const isFav = myFavorites.includes(cocktail.id); // Check favoriet
                 const card = document.createElement('div');
-                card.className = `cocktail-card ${isPerfect ? '' : 'near-match'}`;
+                card.className = `cocktail-card ${isPerfect ? '' : 'near-match'} ${isFav ? 'is-favorite' : ''}`;
                 
                 card.onclick = function(e) { 
-                    if (!e.target.closest('.download-btn')) {
+                    // Kaart klapt niet open als je op download, fav of shop klikt
+                    if (!e.target.closest('.download-btn') && !e.target.closest('.fav-btn') && !e.target.closest('.add-to-cart-btn')) {
                         this.classList.toggle('open'); 
                     }
                 };
 
                 card.innerHTML = `
                     <div class="card-thumb-large">
+                        <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleFavorite(event, '${cocktail.id}')">
+                            <i class="${isFav ? 'fa-solid' : 'fa-regular'} fa-star"></i>
+                        </button>
                         ${!isPerfect ? `<div class="missing-tag">Missing ${cocktail.missingCount}</div>` : ''}
                         <img src="${cocktail.image}" alt="${cocktail.name}">
                         <button class="download-btn" onclick="downloadRecipe('${cocktail.id}')">
@@ -362,7 +462,7 @@ function checkMatches() {
                         </button>
                     </div>
                     <div class="card-content">
-                        <h4>${cocktail.name} ${isPerfect ? '✨' : ''}</h4>
+                        <h4>${cocktail.name} ${isPerfect ? '✨' : ''} ${isFav ? '⭐' : ''}</h4>
                         <div class="category-container">
                             ${cocktail.category.map(cat => `<span class="category-tag">${cat}</span>`).join('')}
                         </div>
@@ -372,7 +472,17 @@ function checkMatches() {
                                 <ul class="ingredients-list">
                                     ${cocktail.ingredients.map(ing => {
                                         const isMissing = cocktail.missingItems.includes(ing);
-                                        return `<li style="color: ${isMissing ? '#ff4757' : '#bbb'}; text-decoration: ${isMissing ? 'line-through' : 'none'}">${ing}</li>`;
+                                        if (isMissing) {
+                                            return `
+                                                <li style="color: #ff4757; display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 5px;">
+                                                    <span><i class="fa-solid fa-circle-xmark"></i> ${ing}</span>
+                                                    <button class="add-to-cart-btn" onclick="addToShoppingList(event, '${ing}')" style="background:none; border:none; color:#ff4757; cursor:pointer; padding: 5px;">
+                                                        <i class="fa-solid fa-cart-plus"></i>
+                                                    </button>
+                                                </li>`;
+                                        } else {
+                                            return `<li style="color: #bbb; margin-bottom: 5px;"><span><i class="fa-solid fa-circle-check" style="color: #2ed573;"></i> ${ing}</span></li>`;
+                                        }
                                     }).join('')}
                                 </ul>
                             </div>
@@ -391,4 +501,33 @@ function checkMatches() {
         btn.style.pointerEvents = "auto";
         resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 600);
+}
+
+/**
+ * Voegt een ingrediënt toe aan de boodschappenlijst en geeft feedback
+ */
+
+function addToShoppingList(e, ingredient) {
+    e.stopPropagation();
+    
+    // We checken nu of de naam al voorkomt in onze objecten-lijst
+    const exists = shoppingList.some(item => item.name === ingredient);
+    
+    if (!exists) {
+        // We slaan nu een object op: de naam EN de status
+        shoppingList.push({ name: ingredient, checked: false });
+        localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+        alert(`${ingredient} toegevoegd!`);
+    } else {
+        alert(`${ingredient} staat al op de lijst.`);
+    }
+}
+
+function clearShoppingList() {
+    if (shoppingList.length === 0) return;
+    if (confirm("Wil je de hele lijst leegmaken?")) {
+        shoppingList = [];
+        localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+        renderShoppingList();
+    }
 }

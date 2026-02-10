@@ -481,8 +481,29 @@ input[type="checkbox"] {
 }
 
 
-/* Positionering van de download knop */
-/* Positionering van de download knop - Iets groter gemaakt */
+/*=========================*/
+/* WINKELMANDJE KNOP BIJ MISSING INGREDIENTS  */
+/*=========================*/
+.add-to-cart-btn {
+    transition: transform 0.2s ease;
+    font-size: 1.1rem;
+}
+
+.add-to-cart-btn:hover {
+    transform: scale(1.2);
+    color: #ff6b81 !important;
+}
+
+/* Voor de icons in de lijst */
+.ingredients-list li i {
+    margin-right: 8px;
+    font-size: 0.9rem;
+}
+
+
+/*=========================*/
+/* DOWNLOAD KNOP OP DE KAART  */
+/*=========================*/
 .download-btn {
     position: absolute;
     top: 12px;           /* Iets verder van de rand voor balans */
@@ -526,6 +547,50 @@ input[type="checkbox"] {
     position: relative; /* Cruciaal voor de positie van de knop */
 }
 
+/*=========================*/
+/* Favorieten Ster-knop */
+/*=========================*/
+.fav-btn {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ccc;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+/* Als hij favoriet is: goud en altijd zichtbaar */
+.fav-btn.active {
+    color: #ffb347;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/* Net als de download-btn: alleen tonen bij open kaart, 
+   behalve als hij al favoriet is (dan mag hij subtiel zichtbaar blijven) */
+.cocktail-card:not(.open) .fav-btn:not(.active) {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.fav-btn:hover {
+    transform: scale(1.1);
+    color: #ffb347;
+}
+
+/* Visueel extraatje voor favoriete kaarten in de lijst */
+.cocktail-card.is-favorite {
+    border: 1px solid rgba(255, 179, 71, 0.3);
+}
 
 /* ==========================================================================
    7. NAVIGATIE & PAGINA BEHEER
@@ -670,4 +735,86 @@ input[type="checkbox"] {
 
 .save-btn:active {
     transform: scale(0.95);
+}
+
+/* ==========================================================================
+   9. SHOPPING LIST STYLING
+   ========================================================================== */
+
+.shopping-container {
+    padding: 20px;
+}
+
+.shopping-list {
+    list-style: none;
+    padding: 0;
+}
+
+.shopping-item {
+    background: #2a2a2a;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 4px solid #ff4757; /* Standaard rood */
+    transition: all 0.3s ease; /* Zorgt voor vloeiende overgang naar groen */
+    animation: slideIn 0.3s ease-out;
+}
+
+/* NIEUW: Styling voor een afgevinkt item */
+.shopping-item.checked {
+    border-left-color: #2ed573; /* De zijlijn wordt groen */
+    opacity: 0.7; /* Iets transparanter maken voor het 'klaar' effect */
+}
+
+.shopping-item.checked .shopping-item-name {
+    text-decoration: line-through; /* Streep door de tekst */
+    color: #888;
+}
+
+.shopping-item.checked .fa-circle-check {
+    color: #2ed573 !important; /* Het vinkje wordt groen */
+}
+
+.shopping-item-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer; /* Laat zien dat je op de regel kunt klikken */
+    flex-grow: 1; /* Zorgt dat de hele regel klikbaar is */
+}
+
+.shopping-item-name {
+    font-weight: 500;
+    color: #eee;
+    transition: color 0.3s ease;
+}
+
+.remove-item-btn {
+    background: transparent;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: color 0.2s;
+    margin-left: 10px;
+}
+
+.remove-item-btn:hover {
+    color: #ff4757;
+}
+
+.clear-list-btn {
+    background: transparent;
+    border: none;
+    color: #bbb;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
 }
