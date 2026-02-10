@@ -82,11 +82,16 @@ function renderVault(filter = "") {
     if (!vaultGrid) return;
 
     const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
-    const allCocktails = [...classicCocktails, ...myRecipes];
+    
+    // 1. Combine lists AND Sort them alphabetically by name
+    const allCocktails = [...classicCocktails, ...myRecipes].sort((a, b) => {
+        return a.name.localeCompare(b.name);
+    });
 
     vaultGrid.innerHTML = "";
     const searchTerm = filter.toLowerCase();
 
+    // 2. Filter the already sorted list
     const filtered = allCocktails.filter(c => {
         const nameMatch = c.name.toLowerCase().includes(searchTerm);
         const ingredientMatch = c.ingredients.some(i => i.toLowerCase().includes(searchTerm));
@@ -97,6 +102,7 @@ function renderVault(filter = "") {
         return nameMatch || ingredientMatch || categoryMatch;
     });
 
+    // 3. Render the cards
     filtered.forEach(cocktail => {
         const card = document.createElement('div');
         card.className = 'cocktail-card';
@@ -131,11 +137,6 @@ function renderVault(filter = "") {
         `;
         vaultGrid.appendChild(card);
     });
-}
-
-function searchCocktails() {
-    const searchInput = document.getElementById('vaultSearch');
-    if (searchInput) renderVault(searchInput.value);
 }
 
 /************************************************************
