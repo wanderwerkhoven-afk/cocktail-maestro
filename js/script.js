@@ -15,7 +15,7 @@ const classicCocktails = [
     { id: 'c11', name: "Dry Martini", category: ["Strong", "Gin"], description: "The definition of elegance: cold and precise.", ingredients: ["Gin", "Dry Vermouth", "Olives"], method: "Stirred", methodDesc: "Stir with ice until ice cold. Strain into a martini glass.", image: "./assets/drymartini.jpg" },
     { id: 'c12', name: "Espresso Martini", category: ["Coffee", "Vodka"], description: "Wake up and smell the vodka: a perfect pick-me-up.", ingredients: ["Vodka", "Coffee liqueur", "Espresso", "Sugar syrup"], method: "Hard Shake", methodDesc: "Shake hard with ice to create a thick foam layer. Strain into a coupe.", image: "./assets/espressomartini.png" },
     { id: 'c13', name: "Espresso Martini Bueno", category: ["Energy", "Coffee", "Sweet", "Bitter"], description: "A delicious variation with a hint of hazelnut.", ingredients: ["Vodka", "Frangelico", "Espresso", "Hazelnut syrup"], method: "Shaken", methodDesc: "Shake vigorously with plenty of ice. Strain into a martini glass.", image: "./assets/bueno.png" },
-    { id: 'c14', name: "French 75", category: ["Champagne", "Gin", "Lemon"], description: "Festive and powerful, like a French field gun.", ingredients: ["Gin", "Lemon juice", "Sugar syrup", "Champagne"], method: "Shaken & Layered", methodDesc: "Shake gin, lemon, and sugar. Top with champagne in a flute.", image: "./assets/french75.png" },
+    { id: 'c14', name: "French 75", category: ["Champagne", "Gin", "Lemon"], description: "Festive and powerful, like a French field gun.", ingredients: ["Gin", "Lemon juice", "Sugar syrup", "Prosecco/Champagne"], method: "Shaken & Layered", methodDesc: "Shake gin, lemon, and sugar. Top with prosecco or champagne in a flute.", image: "./assets/french75.png" },
     { id: 'c15', name: "Garden Cocktail", category: ["Fresh", "Floral", "Cucumber"], description: "A refreshing floral mix with cucumber.", ingredients: ["Elderflower liqueur", "Gin", "Lime juice", "Cucumber", "Sprite"], method: "Muddled & Built", methodDesc: "Muddle cucumber. Add liquids and ice. Top with Sprite.", image: "./assets/garden.png" },
     { id: 'c16', name: "Giant Sucker", category: ["Herbal", "Unique", "Bubbly"], description: "Jägermeister meets elderflower in a surprising way.", ingredients: ["Honey", "Jagermeister", "Fresh mint", "Elderflower tonic"], method: "Stirred", methodDesc: "Dissolve honey in Jägermeister. Top with elderflower tonic.", image: "./assets/giantsucker.png" },
     { id: 'c17', name: "Gin Basil Smash", category: ["Modern", "Fresh", "Herbal"], description: "Bright green and herbal: a modern classic.", ingredients: ["Gin", "Lemon juice", "Sugar syrup", "Fresh basil"], method: "Muddled & Shaken", methodDesc: "Muddle basil with sugar. Add gin and lemon, shake hard with ice.", image: "./assets/ginbasil.png" },
@@ -102,15 +102,24 @@ function renderVault(filter = "") {
         return nameMatch || ingredientMatch || categoryMatch;
     });
 
-    // 3. Render the cards
+// 3. Render the cards
     filtered.forEach(cocktail => {
         const card = document.createElement('div');
         card.className = 'cocktail-card';
-        card.onclick = function() { this.classList.toggle('open'); };
+        
+        // Aangepaste click-functie: voorkomt dat de kaart sluit als je op de download-knop klikt
+        card.onclick = function(e) { 
+            if (!e.target.closest('.download-btn')) {
+                this.classList.toggle('open'); 
+            }
+        };
 
         card.innerHTML = `
             <div class="card-thumb-large">
                 <img src="${cocktail.image}" alt="${cocktail.name}">
+                <button class="download-btn" onclick="downloadRecipe('${cocktail.id}')">
+                    <i class="fa-solid fa-download"></i>
+                </button>
             </div>
             <div class="card-content">
                 <h4>${cocktail.name}</h4>
@@ -138,6 +147,55 @@ function renderVault(filter = "") {
         vaultGrid.appendChild(card);
     });
 }
+
+// Deze functie maakt een afbeelding van de openstaande cocktailkaart en biedt opties om te delen of downloaden
+async function downloadRecipe(cocktailId) {
+    const cardElement = document.querySelector('.cocktail-card.open');
+    if (!cardElement) return;
+
+    // Toon een kleine indicator in de console zodat we weten dat hij start
+    console.log("Start genereren afbeelding voor:", cocktailId);
+
+    try {
+        const btn = cardElement.querySelector('.download-btn');
+        if(btn) btn.style.opacity = '0'; // Gebruik opacity ipv visibility voor html2canvas
+
+        const canvas = await html2canvas(cardElement, {
+            useCORS: true,       // Probeert CORS te omzeilen
+            allowTaint: true,    // Staat toe dat afbeeldingen zonder CORS-header getekend worden
+            backgroundColor: "#1E1E1E",
+            scale: 2,
+            logging: false       // Zet op true als je errors in de inspect-console wilt zien
+        });
+
+        if(btn) btn.style.opacity = '1';
+
+        const dataUrl = canvas.toDataURL("image/png");
+        
+        // Voor delen op mobiel
+        if (navigator.canShare && navigator.share) {
+            const res = await fetch(dataUrl);
+            const blob = await res.blob();
+            const file = new File([blob], `Cocktail_${cocktailId}.png`, { type: "image/png" });
+            
+            await navigator.share({
+                files: [file],
+                title: "Mijn Cocktail Recept",
+                text: "Kijk wat ik heb gemaakt!"
+            });
+        } else {
+            // Desktop download fallback
+            const link = document.createElement('a');
+            link.href = dataUrl;
+            link.download = `Cocktail_${cocktailId}.png`;
+            link.click();
+        }
+    } catch (err) {
+        console.error("Gedetailleerde error:", err);
+        alert("Het maken van de afbeelding is mislukt. Tip: Gebruik je de Live Server en staan de afbeeldingen in je eigen map?");
+    }
+}
+
 
 /************************************************************
  * 5. RECIPE CREATION & IMAGE HANDLING
@@ -252,69 +310,75 @@ function syncCheckboxes() {
     });
 }
 
-/**
- * Zoekt cocktails op basis van voorraad en toont ze in de Vault-stijl
- */
 function checkMatches() {
     const btn = document.querySelector('.match-btn-large');
     const resultsContainer = document.getElementById('matching-results');
     if (!resultsContainer || !btn) return;
 
-    // Visuele feedback op de knop
-    const originalContent = btn.innerHTML;
     btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Searching...`;
     btn.style.pointerEvents = "none";
 
-    // Korte vertraging voor het "zoek" effect
     setTimeout(() => {
         const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
         const allCocktails = [...classicCocktails, ...myRecipes];
 
-        // Filter: Alle ingrediënten van de cocktail moeten in 'myIngredients' zitten
-        const matches = allCocktails.filter(cocktail => {
-            return cocktail.ingredients.every(ing => {
+        // We filteren nu op basis van een drempelwaarde (bijv. max 1 ingrediënt missend)
+        const matches = allCocktails.map(cocktail => {
+            // Tel hoeveel ingrediënten je mist
+            const missing = cocktail.ingredients.filter(ing => {
                 const ingredientName = ing.toLowerCase();
-                return myIngredients.some(mine => ingredientName.includes(mine));
+                return !myIngredients.some(mine => ingredientName.includes(mine.toLowerCase()));
             });
-        });
+
+            return { ...cocktail, missingCount: missing.length, missingItems: missing };
+        })
+        // Toon alleen cocktails waar je maximaal 1 ingrediënt voor mist
+        .filter(c => c.missingCount <= 1) 
+        // Sorteer: de beste matches (0 missend) bovenaan
+        .sort((a, b) => a.missingCount - b.missingCount);
 
         resultsContainer.innerHTML = ""; 
 
         if (matches.length === 0) {
-            resultsContainer.innerHTML = `
-                <div style="text-align:center; padding: 40px 20px; color: #888; grid-column: 1/-1;">
-                    <i class="fa-solid fa-magnifying-glass" style="font-size: 2rem; margin-bottom: 10px;"></i>
-                    <p>No full matches found. Try adding basics like sugar, lime juice, or bitters!</p>
-                </div>`;
+            resultsContainer.innerHTML = `<p class="placeholder-text">No close matches found. Try selecting more basics!</p>`;
         } else {
             matches.forEach(cocktail => {
+                const isPerfect = cocktail.missingCount === 0;
                 const card = document.createElement('div');
-                card.className = 'cocktail-card';
-                card.onclick = function() { this.classList.toggle('open'); };
+                card.className = `cocktail-card ${isPerfect ? '' : 'near-match'}`;
+                
+                card.onclick = function(e) { 
+                    if (!e.target.closest('.download-btn')) {
+                        this.classList.toggle('open'); 
+                    }
+                };
 
                 card.innerHTML = `
                     <div class="card-thumb-large">
+                        ${!isPerfect ? `<div class="missing-tag">Missing ${cocktail.missingCount}</div>` : ''}
                         <img src="${cocktail.image}" alt="${cocktail.name}">
+                        <button class="download-btn" onclick="downloadRecipe('${cocktail.id}')">
+                            <i class="fa-solid fa-download"></i>
+                        </button>
                     </div>
                     <div class="card-content">
-                        <h4>${cocktail.name}</h4>
+                        <h4>${cocktail.name} ${isPerfect ? '✨' : ''}</h4>
                         <div class="category-container">
-                            ${Array.isArray(cocktail.category) 
-                                ? cocktail.category.map(cat => `<span class="category-tag">${cat}</span>`).join('')
-                                : `<span class="category-tag">${cocktail.category}</span>`
-                            }
+                            ${cocktail.category.map(cat => `<span class="category-tag">${cat}</span>`).join('')}
                         </div>
-                        <p class="description">${cocktail.description || "A custom masterpiece."}</p>
                         <div class="collapsible-content">
                             <div class="ingredients-section">
                                 <strong>Ingredients:</strong> 
                                 <ul class="ingredients-list">
-                                    ${cocktail.ingredients.map(ing => `<li>${ing}</li>`).join('')}
+                                    ${cocktail.ingredients.map(ing => {
+                                        const isMissing = cocktail.missingItems.includes(ing);
+                                        return `<li style="color: ${isMissing ? '#ff4757' : '#bbb'}; text-decoration: ${isMissing ? 'line-through' : 'none'}">${ing}</li>`;
+                                    }).join('')}
                                 </ul>
                             </div>
-                            <div class="method-section" style="margin-top: 10px; border-top: 1px solid #333; padding-top: 10px;">
+                            <div class="method-section">
                                 <strong>Method: ${cocktail.method}</strong>
-                                <p class="method-text" style="font-size: 0.85rem; color: #bbb; margin-top: 5px;">${cocktail.methodDesc || ""}</p>
+                                <p class="method-text">${cocktail.methodDesc}</p>
                             </div>
                         </div>
                     </div>
@@ -323,10 +387,8 @@ function checkMatches() {
             });
         }
 
-        // Zet knop terug en scroll naar resultaten
-        btn.innerHTML = originalContent;
+        btn.innerHTML = `<i class="fa-solid fa-glass-citrus"></i> Find Cocktails`;
         btn.style.pointerEvents = "auto";
         resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        
     }, 600);
 }
