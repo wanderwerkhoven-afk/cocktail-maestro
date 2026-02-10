@@ -148,31 +148,32 @@ function renderVault(filter = "") {
     });
 }
 
-// Deze functie maakt een afbeelding van de openstaande cocktailkaart en biedt opties om te delen of downloaden
 async function downloadRecipe(cocktailId) {
     const cardElement = document.querySelector('.cocktail-card.open');
     if (!cardElement) return;
 
-    // Toon een kleine indicator in de console zodat we weten dat hij start
-    console.log("Start genereren afbeelding voor:", cocktailId);
-
     try {
         const btn = cardElement.querySelector('.download-btn');
-        if(btn) btn.style.opacity = '0'; // Gebruik opacity ipv visibility voor html2canvas
+        
+        // 1. Zet opacity op 0 via JS (inline style) voor de screenshot
+        // Dit overschrijft tijdelijk de CSS zodat de knop niet op de foto komt
+        if(btn) btn.style.opacity = '0'; 
 
         const canvas = await html2canvas(cardElement, {
-            useCORS: true,       // Probeert CORS te omzeilen
-            allowTaint: true,    // Staat toe dat afbeeldingen zonder CORS-header getekend worden
+            useCORS: true,
+            allowTaint: true,
             backgroundColor: "#1E1E1E",
             scale: 2,
-            logging: false       // Zet op true als je errors in de inspect-console wilt zien
+            logging: false
         });
 
-        if(btn) btn.style.opacity = '1';
+        // 2. VERBETERING: Verwijder de inline style volledig
+        // Hierdoor "vergeet" de browser de opacity: 0 en gaat hij terug naar de CSS.
+        // Als de kaart nog .open is, zet de CSS hem weer netjes op opacity: 1.
+        if(btn) btn.style.removeProperty('opacity'); 
 
         const dataUrl = canvas.toDataURL("image/png");
         
-        // Voor delen op mobiel
         if (navigator.canShare && navigator.share) {
             const res = await fetch(dataUrl);
             const blob = await res.blob();
@@ -184,15 +185,14 @@ async function downloadRecipe(cocktailId) {
                 text: "Kijk wat ik heb gemaakt!"
             });
         } else {
-            // Desktop download fallback
             const link = document.createElement('a');
             link.href = dataUrl;
             link.download = `Cocktail_${cocktailId}.png`;
             link.click();
         }
     } catch (err) {
-        console.error("Gedetailleerde error:", err);
-        alert("Het maken van de afbeelding is mislukt. Tip: Gebruik je de Live Server en staan de afbeeldingen in je eigen map?");
+        console.error("Fout:", err);
+        alert("Het maken van de afbeelding is mislukt.");
     }
 }
 

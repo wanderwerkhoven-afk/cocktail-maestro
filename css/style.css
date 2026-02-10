@@ -480,40 +480,50 @@ input[type="checkbox"] {
     font-style: italic;
 }
 
+
 /* Positionering van de download knop */
+/* Positionering van de download knop - Iets groter gemaakt */
 .download-btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(0, 0, 0, 0.6);
+    top: 12px;           /* Iets verder van de rand voor balans */
+    right: 12px;
+    background: rgba(0, 0, 0, 0.7); /* Iets donkerder voor beter contrast */
     color: white;
     border: none;
     border-radius: 50%;
-    width: 35px;
-    height: 35px;
+    width: 50px;         /* Was 35px */
+    height: 50px;        /* Was 35px */
+    font-size: 1.3rem;   /* Icoontje iets groter */
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
-    opacity: 0; /* Standaard onzichtbaar */
+    transition: opacity 0.3s ease, transform 0.2s ease, background 0.2s ease;
+    opacity: 0; 
     pointer-events: none;
     z-index: 10;
 }
 
-/* Alleen tonen als de kaart open is */
+/* Alleen tonen als de kaart de class 'open' heeft */
 .cocktail-card.open .download-btn {
     opacity: 1;
     pointer-events: auto;
 }
 
+/* Extra: Verberg de knop ook als de kaart GEEN 'open' class heeft, 
+   zelfs als er per ongeluk nog een inline style op staat */
+.cocktail-card:not(.open) .download-btn {
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
 .download-btn:hover {
-    background: var(--primary-color, #ff4757); /* Of je eigen accentkleur */
-    transform: scale(1.1);
+    background: #ff4757; /* Je accentkleur */
+    transform: scale(1.05);
 }
 
 .card-thumb-large {
-    position: relative; /* Nodig voor de absolute positie van de knop */
+    position: relative; /* Cruciaal voor de positie van de knop */
 }
 
 
