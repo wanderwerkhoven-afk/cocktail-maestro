@@ -592,6 +592,52 @@ input[type="checkbox"] {
     border: 1px solid rgba(255, 179, 71, 0.3);
 }
 
+
+/*=========================*/
+/* SERVINGS AANTAL, BUTTON */
+/*=========================*/
+
+.servings-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #1a1a1a;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.counter-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.counter-box button {
+    background: #333;
+    color: white;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.counter-box button:hover {
+    background: #ff4757;
+}
+
+.counter-box span {
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
+}
+
 /* ==========================================================================
    7. NAVIGATIE & PAGINA BEHEER
    ========================================================================== */
