@@ -748,11 +748,11 @@ body {
 
 /* ---------- 7.1 Floating Plus Button (Sticky) ---------- */
 .floating-add-btn {
-    position: fixed;        /* Zweeft over de pagina */
-    bottom: 100px;          /* Boven de navigatiebalk */
-    right: 20px;            /* In de rechterhoek */
-    width: 45px;            /* Lekker groot voor duim-bediening */
-    height: 45px;
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    width: 50px; /* Iets groter voor betere touch */
+    height: 50px;
     border-radius: 50%;
     background: linear-gradient(135deg, #ffb347, #ff4757);
     color: #121212;
@@ -762,7 +762,7 @@ body {
     justify-content: center;
     align-items: center;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-    z-index: 900;           /* Boven de kaarten, onder het formulier-overlay */
+    z-index: 900;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -777,10 +777,9 @@ body {
     display: grid;
     grid-template-columns: 1fr; 
     gap: 20px;
-    padding-bottom: 120px; /* Extra ruimte zodat de onderste kaart niet achter de knop verdwijnt */
+    padding-bottom: 120px;
 }
 
-/* Verwijder-knop styling voor eigen recepten */
 .delete-recipe-btn {
     position: absolute;
     top: 10px;
@@ -809,7 +808,7 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.95);
-    z-index: 9999; /* Altijd bovenop alles */
+    z-index: 9999;
     overflow-y: auto;
     display: flex;
     justify-content: center;
@@ -879,9 +878,11 @@ body {
     object-fit: cover;
 }
 
-/* ---------- 7.5 Ingredient Rows (Fix: Steekt niet uit) ---------- */
+/* ---------- 7.5 Ingredient Rows (Altijd zichtbaar kruisje) ---------- */
 .ingredient-row {
+    position: relative;
     display: flex;
+    align-items: center;
     gap: 8px;
     margin-bottom: 10px;
     width: 100%;
@@ -891,32 +892,56 @@ body {
 .ing-amount { 
     width: 65px !important; 
     flex-shrink: 0;
-    box-sizing: border-box;
 }
 
 .ing-unit { 
     width: 70px !important; 
     flex-shrink: 0;
-    box-sizing: border-box;
 }
 
 .ing-name { 
     flex-grow: 1;
     min-width: 0;
-    box-sizing: border-box;
+}
+
+.remove-ingredient-btn {
+    background: none;
+    border: none;
+    color: #a0a0a0;         /* Kruisje is nu wit */
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 0 5px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s ease, transform 0.2s ease;
+    
+    /* Altijd zichtbaar maken */
+    opacity: 1;             
+    pointer-events: auto;   
+    width: 30px; 
+    flex-shrink: 0;
+}
+
+.remove-ingredient-btn:hover {
+    color: #ff4757;         /* Wordt rood als je eroverheen zweeft */
+    transform: scale(1.2);
 }
 
 .add-line-btn {
     background-color: rgba(255, 255, 255, 0.05);
     border: 1px dashed #444;
     color: #a0a0a0;
-    padding: 10px;
+    padding: 12px;
     border-radius: 12px;
     cursor: pointer;
     font-size: 0.9rem;
     margin-bottom: 15px;
     width: 100%;
-    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 }
 
 /* ---------- 7.6 Input Groups & Save Button ---------- */
@@ -926,7 +951,6 @@ body {
     gap: 8px;
     margin-bottom: 15px;
     width: 100%;
-    box-sizing: border-box;
 }
 
 .input-group label {
@@ -947,7 +971,6 @@ body {
     font-size: 1rem;
     outline: none;
     width: 100%;
-    box-sizing: border-box;
 }
 
 .save-btn {

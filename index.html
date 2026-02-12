@@ -380,8 +380,7 @@
 
     <datalist id="ingredients-suggestions"></datalist>
 
-    <div id="my-recipes-grid" class="vault-grid" style="padding: 20px;">
-        </div>
+    <div id="my-recipes-grid"></div>
 
     <button class="floating-add-btn" onclick="openRecipeForm()">
         <i class="fa-solid fa-plus"></i>
@@ -421,12 +420,15 @@
                             <input type="number" class="ing-amount" placeholder="50">
                             <input type="text" class="ing-unit" placeholder="ml">
                             <input type="text" class="ing-name" placeholder="Vodka" list="ingredients-suggestions">
-                            <button class="remove-ing-btn" onclick="this.parentElement.remove()" style="background:none; border:none; color:#ff4757; cursor:pointer; padding: 0 5px;">
-                                <i class="fa-solid fa-trash-can"></i>
+                            
+                            <button type="button" class="remove-ingredient-btn" onclick="this.parentElement.remove()">
+                                <i class="fa-solid fa-xmark"></i>
                             </button>
                         </div>
                     </div>
-                    <button class="add-line-btn" onclick="addIngredientRow()">+ Add Ingredient</button>
+                    <button class="add-line-btn" onclick="addIngredientRow()">
+                        <i class="fa-solid fa-plus"></i> Add Ingredient
+                    </button>
                 </div>
 
                 <div class="input-group">
@@ -441,11 +443,11 @@
 
                 <div class="input-group">
                     <label>Instructions</label>
-                    <textarea id="recipe-desc" rows="3" placeholder="Hoe bereid je de cocktail?"></textarea>
+                    <textarea id="recipe-desc" rows="3" placeholder="bijv. Shake alle ingrediënten krachtig met ijs en serveer in een koud glas."></textarea>
                 </div>
 
                 <button class="save-btn" onclick="saveNewRecipe()">
-                    <i class="fa-solid fa-plus"></i> Save Recipe
+                    <i class="fa-solid fa-check"></i> Save Recipe
                 </button>
             </section>
         </div>

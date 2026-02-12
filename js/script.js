@@ -1004,6 +1004,9 @@ function addIngredientRow() {
         <input type="number" class="ing-amount" placeholder="50">
         <input type="text" class="ing-unit" placeholder="ml">
         <input type="text" class="ing-name" placeholder="Vodka" list="ingredients-suggestions">
+        <button type="button" class="remove-ingredient-btn" onclick="this.parentElement.remove()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
     `;
     container.appendChild(row);
 }
@@ -1012,14 +1015,9 @@ function updateIngredientSuggestions() {
     const datalist = document.getElementById('ingredients-suggestions');
     if (!datalist) return;
 
-    // Haal alle waarden op van de checkboxes in je Fridge pagina
     const checkboxes = document.querySelectorAll('.category-content input[type="checkbox"]');
     let ingredients = Array.from(checkboxes).map(cb => cb.value);
-
-    // Verwijder dubbelingen en sorteer op alfabet
     ingredients = [...new Set(ingredients)].sort();
-
-    // Vul de datalist
     datalist.innerHTML = ingredients.map(ing => `<option value="${ing}">`).join('');
 }
 
@@ -1038,7 +1036,7 @@ function previewImage(event) {
             display.style.display = 'block';
             placeholder.style.display = 'none';
         }
-        currentImageBase64 = reader.result; // Slaat de foto op in de globale variabele
+        currentImageBase64 = reader.result;
     }
     reader.readAsDataURL(file);
 }
@@ -1051,7 +1049,6 @@ function saveNewRecipe() {
     const method = document.getElementById('recipe-method').value;
     const methodDesc = document.getElementById('recipe-desc').value;
 
-    // Haal alle ingrediënt-rijen op
     const rows = document.querySelectorAll('.ingredient-row');
     const ingredients = [];
 
@@ -1060,16 +1057,15 @@ function saveNewRecipe() {
         const unit = row.querySelector('.ing-unit').value;
         const ingName = row.querySelector('.ing-name').value;
 
-        if (ingName.trim() !== "") {
+        if (ingName.trim() !== "" || amount !== "") {
             ingredients.push({
                 amount: parseFloat(amount) || 0,
                 unit: unit || "",
-                name: ingName
+                name: ingName || "Unnamed Ingredient"
             });
         }
     });
 
-    // Validatie
     if (!name || ingredients.length === 0) {
         alert("Please enter at least a name and one ingredient!");
         return;
@@ -1086,44 +1082,41 @@ function saveNewRecipe() {
         image: currentImageBase64 || "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=400&h=400&auto=format&fit=crop"
     };
 
-    // Opslaan in LocalStorage
     const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
     myRecipes.push(newRecipe);
     localStorage.setItem('myRecipes', JSON.stringify(myRecipes));
 
     alert("Recipe added to your book!");
     
-    // UI Bijwerken & Scherm sluiten
     closeRecipeForm();
     renderMyRecipes(); 
     
-    // Formulier volledig resetten
+    // Reset velden
     document.getElementById('recipe-name').value = "";
     document.getElementById('recipe-description').value = "";
     document.getElementById('recipe-method').value = "";
     document.getElementById('recipe-desc').value = "";
     if(document.getElementById('recipe-category')) document.getElementById('recipe-category').value = "";
     
-    // Reset ingrediënten naar 1 lege rij
+    // Reset naar 1 lege rij met de nieuwe oninput logica
     document.getElementById('ingredient-inputs-container').innerHTML = `
         <div class="ingredient-row">
-            <input type="number" class="ing-amount" placeholder="50">
-            <input type="text" class="ing-unit" placeholder="ml">
-            <input type="text" class="ing-name" placeholder="Vodka" list="ingredients-suggestions">
-            <button class="remove-ing-btn" onclick="this.parentElement.remove()" style="background:none; border:none; color:#ff4757; cursor:pointer; padding: 0 5px;">
-                <i class="fa-solid fa-trash-can"></i>
+            <input type="number" class="ing-amount" placeholder="50" oninput="checkRowTyping(this)">
+            <input type="text" class="ing-unit" placeholder="ml" oninput="checkRowTyping(this)">
+            <input type="text" class="ing-name" placeholder="Vodka" list="ingredients-suggestions" oninput="checkRowTyping(this)">
+            <button type="button" class="remove-ingredient-btn" onclick="this.parentElement.remove()">
+                <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
     `;
     
-    // Reset Image Preview
     document.getElementById('image-preview-display').style.display = 'none';
     document.getElementById('image-preview-display').src = "";
     document.getElementById('image-preview-placeholder').style.display = 'flex';
-    currentImageBase64 = ""; // Reset de foto variabele
+    currentImageBase64 = ""; 
 }
 
-/* ---------- 7.4 Tekenen van de "Mini-Vault" op de Recipes pagina ---------- */
+/* ---------- 7.4 Tekenen van de "Mini-Vault" ---------- */
 function renderMyRecipes() {
     const grid = document.getElementById('my-recipes-grid');
     if (!grid) return;
@@ -1195,6 +1188,21 @@ function deleteRecipe(id) {
         myRecipes = myRecipes.filter(r => r.id !== id);
         localStorage.setItem('myRecipes', JSON.stringify(myRecipes));
         renderMyRecipes(); 
+    }
+}
+
+/* ---------- 7.6 Verbeterde Typing Check voor de hele rij ---------- */
+function checkRowTyping(inputElement) {
+    const row = inputElement.closest('.ingredient-row');
+    const inputs = row.querySelectorAll('input');
+    
+    // Controleer of er MINSTENS één veld is dat niet leeg is
+    const isAnyFilled = Array.from(inputs).some(input => input.value.trim().length > 0);
+    
+    if (isAnyFilled) {
+        row.classList.add('is-typing');
+    } else {
+        row.classList.remove('is-typing');
     }
 }
 
