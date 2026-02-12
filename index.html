@@ -1,314 +1,554 @@
 <!DOCTYPE html>
 <html lang="nl">
+
+<!-- ============================================================
+     TABLE OF CONTENTS
+     ============================================================
+     1.  HEAD
+         1.1  Meta Tags
+         1.2  Favicon & App Icons
+         1.3  Stylesheets
+     2.  BODY
+         2.1  PAGE: Home
+              - Top Bar (empty header)
+              - Hero Section
+              - Menu Cards (Fridge / Vault / Recipe Book)
+              - Info Block
+        2.3  PAGE: Fridge
+              - Top Bar & Back Button
+              - Ingredient Categories
+                · Spirits
+                · Liqueurs & Vermouth
+                · Syrups & Puree
+                · Juices & Sodas
+                · Fresh & Pantry
+              - Find My Cocktails Button
+              - Matching Results Grid (dynamically filled)
+         2.3  PAGE: Cocktail Vault
+              - Top Bar & Back Button
+              - Search Bar
+              - Cocktail Grid (dynamically filled)
+         2.4  PAGE: Recipe Book
+              - Top Bar & Back Button
+              - Recipe Form (image upload, fields, save button)
+         2.5  PAGE: Shopping List
+              - Top Bar, Back Button & Clear Button
+              - Empty State Placeholder
+              - Shopping List Items
+     3.  NAVIGATION
+         3.1  Bottom Navigation Bar
+     4.  SCRIPTS
+         4.1  External Libraries
+         4.2  App Script
+     ============================================================ -->
+
 <head>
+
+    <!-- ========== 1.1 META TAGS ========== -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cocktail Maestro</title>
 
-    <!-- App / Favicon icons -->
+    <!-- ========== 1.2 FAVICON & APP ICONS ========== -->
     <link rel="icon" href="assets/logo/favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/png" sizes="96x96" href="assets/logo/favicon-96x96.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/logo/apple-touch-icon.png">
     <link rel="manifest" href="site.webmanifest">
 
-    <!-- Styles -->
+    <!-- ========== 1.3 STYLESHEETS ========== -->
     <link rel="stylesheet" href="css/style.css">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     >
+
 </head>
 
 <body>
 
-    <main id="home-page" class="page active">
-        <header class="top-bar"></header>
+<!-- ============================================================
+     2.1  PAGE: HOME
+     ============================================================ -->
+<main id="home-page" class="page active">
 
-        <section class="hero">
-            <h2 class="brand-title">Cocktail Maestro</h2>
-            <p class="subtitle">Discover, create, and master the art of cocktails</p>
-        </section>
+    <!-- Top Bar (empty on home) -->
+    <header class="top-bar"></header>
 
-        <section class="menu-cards">
-            <div class="card" onclick="navigateTo('fridge')">
-                <div class="icon-box">
-                    <svg class="custom-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="5" y1="10" x2="19" y2="10"></line><line x1="15" y1="2" x2="15" y2="10"></line></svg>
-                </div>
-                <div class="card-text">
-                    <h3>Fridge</h3>
-                    <p>Manage your ingredients & find cocktails</p>
-                </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h2 class="brand-title">Cocktail Maestro</h2>
+        <p class="subtitle">Discover, create, and master the art of cocktails</p>
+    </section>
+
+    <!-- Menu Cards -->
+    <section class="menu-cards">
+        <div class="card" onclick="navigateTo('fridge')">
+            <div class="icon-box">
+                <svg class="custom-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="5" y1="10" x2="19" y2="10"></line><line x1="15" y1="2" x2="15" y2="10"></line></svg>
             </div>
-
-            <div class="card" onclick="navigateTo('vault')">
-                <div class="icon-box">
-                    <i class="fa-solid fa-wine-glass"></i>
-                </div>
-                <div class="card-text">
-                    <h3>Cocktail Vault</h3>
-                    <p>Browse classic cocktail recipes</p>
-                </div>
+            <div class="card-text">
+                <h3>Fridge</h3>
+                <p>Manage your ingredients & find cocktails</p>
             </div>
-
-            <div class="card" onclick="navigateTo('recipes')">
-                <div class="icon-box">
-                    <i class="fa-solid fa-book-open"></i>
-                </div>
-                <div class="card-text">
-                    <h3>Recipe Book</h3>
-                    <p>Your personal cocktail collection</p>
-                </div>
-            </div>
-        </section>
-
-        <div class="info-block">
-            <p>Start by adding your ingredients in the Fridge to see what cocktails you can make!</p>
         </div>
-    </main>
 
-    <main id="vault-page" class="page">
-        <header class="top-bar">
-            <div class="header-flex">
-                <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
-                <h1>Cocktail Vault</h1>
+        <div class="card" onclick="navigateTo('vault')">
+            <div class="icon-box">
+                <i class="fa-solid fa-wine-glass"></i>
             </div>
-        </header>
-
-        <section class="search-section">
-            <div class="search-bar">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="vaultSearch" placeholder="Search cocktails..." oninput="renderVault(this.value)">
+            <div class="card-text">
+                <h3>Cocktail Vault</h3>
+                <p>Browse classic cocktail recipes</p>
             </div>
-        </section>
+        </div>
 
-        <section id="vault-grid" class="cocktail-grid"></section>
-    </main>
-
-    <main id="fridge-page" class="page">
-        <header class="top-bar">
-            <div class="header-flex">
-                <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
-                <h1>My Fridge</h1>
+        <div class="card" onclick="navigateTo('recipes')">
+            <div class="icon-box">
+                <i class="fa-solid fa-book-open"></i>
             </div>
-        </header>
-
-        <section class="fridge-container">
-            <h2>What do we have available?</h2>
-            
-            <div class="fridge-category">
-                <button class="category-toggle" onclick="toggleCategory('cat-spirits')">
-                    Spirits <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div id="cat-spirits" class="category-content">
-                    <label><input type="checkbox" value="vodka" onchange="updateFridge(this)"> Vodka</label>
-                    <label><input type="checkbox" value="vodka citron" onchange="updateFridge(this)"> Vodka Citron</label>
-                    <label><input type="checkbox" value="caramel vodka" onchange="updateFridge(this)"> Caramel Vodka</label>
-                    <label><input type="checkbox" value="gin" onchange="updateFridge(this)"> Gin</label>
-                    <label><input type="checkbox" value="bramble gin" onchange="updateFridge(this)"> Bramble Gin</label>
-                    <label><input type="checkbox" value="white rum" onchange="updateFridge(this)"> White Rum</label>
-                    <label><input type="checkbox" value="dark rum" onchange="updateFridge(this)"> Dark Rum</label>
-                    <label><input type="checkbox" value="bacardi rasp" onchange="updateFridge(this)"> Bacardi Rasp</label>
-                    <label><input type="checkbox" value="tequila" onchange="updateFridge(this)"> Tequila</label>
-                    <label><input type="checkbox" value="bourbon" onchange="updateFridge(this)"> Bourbon</label>
-                    <label><input type="checkbox" value="rye whiskey" onchange="updateFridge(this)"> Rye Whiskey</label>
-                    <label><input type="checkbox" value="jameson" onchange="updateFridge(this)"> Jameson / Irish Whiskey</label>
-                    <label><input type="checkbox" value="cognac" onchange="updateFridge(this)"> Cognac</label>
-                    <label><input type="checkbox" value="jagermeister" onchange="updateFridge(this)"> Jägermeister</label>
-                </div>
+            <div class="card-text">
+                <h3>Recipe Book</h3>
+                <p>Your personal cocktail collection</p>
             </div>
+        </div>
+    </section>
 
-            <div class="fridge-category">
-                <button class="category-toggle" onclick="toggleCategory('cat-liqueurs')">
-                    Liqueurs & Vermouth <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div id="cat-liqueurs" class="category-content">
-                    <label><input type="checkbox" value="cointreau" onchange="updateFridge(this)"> Cointreau / Triple Sec</label>
-                    <label><input type="checkbox" value="campari" onchange="updateFridge(this)"> Campari</label>
-                    <label><input type="checkbox" value="aperol" onchange="updateFridge(this)"> Aperol</label>
-                    <label><input type="checkbox" value="sweet vermouth" onchange="updateFridge(this)"> Sweet Vermouth</label>
-                    <label><input type="checkbox" value="dry vermouth" onchange="updateFridge(this)"> Dry Vermouth</label>
-                    <label><input type="checkbox" value="amaretto" onchange="updateFridge(this)"> Amaretto</label>
-                    <label><input type="checkbox" value="coffee liqueur" onchange="updateFridge(this)"> Coffee Liqueur</label>
-                    <label><input type="checkbox" value="peachtree" onchange="updateFridge(this)"> Peachtree</label>
-                    <label><input type="checkbox" value="licor 43" onchange="updateFridge(this)"> Licor 43</label>
-                    <label><input type="checkbox" value="frangelico" onchange="updateFridge(this)"> Frangelico</label>
-                    <label><input type="checkbox" value="lillet blanc" onchange="updateFridge(this)"> Lillet Blanc</label>
-                    <label><input type="checkbox" value="lychee liqueur" onchange="updateFridge(this)"> Lychee Liqueur</label>
-                    <label><input type="checkbox" value="baileys" onchange="updateFridge(this)"> Baileys</label>
-                    <label><input type="checkbox" value="blue curacao" onchange="updateFridge(this)"> Blue Curaçao</label>
-                    <label><input type="checkbox" value="passoa" onchange="updateFridge(this)"> Passoa</label>
-                    <label><input type="checkbox" value="elderflower liqueur" onchange="updateFridge(this)"> Elderflower Liqueur</label>
-                    <label><input type="checkbox" value="blueberry liqueur" onchange="updateFridge(this)"> Blueberry Liqueur</label>
-                </div>
-            </div>
+    <!-- Info Block -->
+    <div class="info-block">
+        <p>Start by adding your ingredients in the Fridge to see what cocktails you can make!</p>
+    </div>
 
-            <div class="fridge-category">
-                <button class="category-toggle" onclick="toggleCategory('cat-syrups')">
-                    Syrups & Puree <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div id="cat-syrups" class="category-content">
-                    <label><input type="checkbox" value="sugar syrup" onchange="updateFridge(this)"> Sugar Syrup</label>
-                    <label><input type="checkbox" value="orgeat" onchange="updateFridge(this)"> Orgeat (Almond)</label>
-                    <label><input type="checkbox" value="grenadine" onchange="updateFridge(this)"> Grenadine</label>
-                    <label><input type="checkbox" value="mango puree" onchange="updateFridge(this)"> Mango Puree</label>
-                    <label><input type="checkbox" value="coconut cream" onchange="updateFridge(this)"> Coconut Cream</label>
-                    <label><input type="checkbox" value="raspberry syrup" onchange="updateFridge(this)"> Raspberry Syrup</label>
-                    <label><input type="checkbox" value="hazelnut syrup" onchange="updateFridge(this)"> Hazelnut Syrup</label>
-                    <label><input type="checkbox" value="cinnamon syrup" onchange="updateFridge(this)"> Cinnamon Syrup</label>
-                    <label><input type="checkbox" value="honey" onchange="updateFridge(this)"> Honey</label>
-                    <label><input type="checkbox" value="elderflower syrup" onchange="updateFridge(this)"> Elderflower Syrup</label>
-                </div>
-            </div>
+</main>
+<!-- ============================================================
+     END PAGE: HOME
+     ============================================================ -->
 
-            <div class="fridge-category">
-                <button class="category-toggle" onclick="toggleCategory('cat-juices')">
-                    Juices & Soda's <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div id="cat-juices" class="category-content">
-                    <label><input type="checkbox" value="lime juice" onchange="updateFridge(this)"> Lime Juice</label>
-                    <label><input type="checkbox" value="lemon juice" onchange="updateFridge(this)"> Lemon Juice</label>
-                    <label><input type="checkbox" value="orange juice" onchange="updateFridge(this)"> Orange Juice</label>
-                    <label><input type="checkbox" value="pineapple juice" onchange="updateFridge(this)"> Pineapple Juice</label>
-                    <label><input type="checkbox" value="cranberry juice" onchange="updateFridge(this)"> Cranberry Juice</label>
-                    <label><input type="checkbox" value="tomato juice" onchange="updateFridge(this)"> Tomato Juice</label>
-                    <label><input type="checkbox" value="grapefruit soda" onchange="updateFridge(this)"> Grapefruit Soda</label>
-                    <label><input type="checkbox" value="soda water" onchange="updateFridge(this)"> Soda Water</label>
-                    <label><input type="checkbox" value="ginger beer" onchange="updateFridge(this)"> Ginger Beer</label>
-                    <label><input type="checkbox" value="tonic water" onchange="updateFridge(this)"> Tonic Water</label>
-                    <label><input type="checkbox" value="elderflower tonic" onchange="updateFridge(this)"> Elderflower Tonic</label>
-                    <label><input type="checkbox" value="prosecco/champagne" onchange="updateFridge(this)"> Prosecco / Champagne</label>
-                    <label><input type="checkbox" value="cola" onchange="updateFridge(this)"> Cola</label>
-                    <label><input type="checkbox" value="iced tea" onchange="updateFridge(this)"> Iced Tea</label>
-                    <label><input type="checkbox" value="sprite" onchange="updateFridge(this)"> Sprite / 7-Up</label>
-                    <label><input type="checkbox" value="fruit soda" onchange="updateFridge(this)"> Red Fruit Soda (DubbelFrisss)</label>
-                </div>
-            </div>
 
-            <div class="fridge-category">
-                <button class="category-toggle" onclick="toggleCategory('cat-fresh')">
-                    Fresh & Pantry <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div id="cat-fresh" class="category-content">
-                    <label><input type="checkbox" value="fresh mint" onchange="updateFridge(this)"> Fresh Mint</label>
-                    <label><input type="checkbox" value="fresh basil" onchange="updateFridge(this)"> Fresh Basil</label>
-                    <label><input type="checkbox" value="egg white" onchange="updateFridge(this)"> Egg White</label>
-                    <label><input type="checkbox" value="angostura bitters" onchange="updateFridge(this)"> Angostura Bitters</label>
-                    <label><input type="checkbox" value="sugar cube" onchange="updateFridge(this)"> Sugar Cube</label>
-                    <label><input type="checkbox" value="espresso" onchange="updateFridge(this)"> Fresh Espresso</label>
-                    <label><input type="checkbox" value="olives" onchange="updateFridge(this)"> Olives</label>
-                    <label><input type="checkbox" value="cucumber" onchange="updateFridge(this)"> Cucumber</label>
-                    <label><input type="checkbox" value="red wine" onchange="updateFridge(this)"> Red Wine</label>
-                    <label><input type="checkbox" value="milk" onchange="updateFridge(this)"> Milk</label>
-                </div>
-            </div>
 
-            <button class="match-btn-large" onclick="checkMatches()">
-                <i class="fa-solid fa-shaker"></i> Find My Cocktails
+
+
+
+
+
+<!-- ============================================================
+     2.3  PAGE: FRIDGE
+     ============================================================ -->
+<main id="fridge-page" class="page">
+
+    <!-- Top Bar & Back Button -->
+    <header class="top-bar">
+        <div class="header-flex">
+            <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
+            <h1>My Fridge</h1>
+        </div>
+    </header>
+
+    <section class="fridge-container">
+        <h2>What do we have available?</h2>
+
+        <!-- Ingredient Category: Spirits -->
+        <div class="fridge-category">
+            <button class="category-toggle" onclick="toggleCategory('cat-spirits')">
+                Spirits <i class="fa-solid fa-chevron-down"></i>
             </button>
-        </section>
-
-        <section id="matching-results" class="cocktail-grid"></section>
-    </main>
-
-    <main id="recipes-page" class="page">
-        <header class="top-bar">
-            <div class="header-flex">
-                <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
-                <h1>Recipe Book</h1>
-            </div>
-        </header>
-
-        <section class="recipe-form-container">
-            <div class="image-upload-wrapper" onclick="document.getElementById('recipe-image-input').click()">
-                <input type="file" id="recipe-image-input" accept="image/*" hidden onchange="previewImage(event)">
-                <div id="image-preview-placeholder">
-                    <i class="fa-solid fa-camera"></i>
-                    <span>Upload Cocktail Photo</span>
+            <div id="cat-spirits" class="category-content">
+                <div class="category-search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" 
+                           placeholder="Search spirits..." 
+                           class="category-search-input" 
+                           onkeyup="filterCategoryList(this)">
                 </div>
-                <img id="image-preview-display" src="" alt="Preview" style="display: none;">
-            </div>
 
-            <div class="input-group">
-                <label>Cocktail Name</label>
-                <input type="text" id="recipe-name" placeholder="bijv. Espresso Martini">
+                <div class="ingredient-checkbox-list">
+                    <label class="fridge-item"><input type="checkbox" value="vodka" onchange="updateFridge(this)"> <span>Vodka</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="vodka citron" onchange="updateFridge(this)"> <span>Vodka Citron</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="caramel vodka" onchange="updateFridge(this)"> <span>Caramel Vodka</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="gin" onchange="updateFridge(this)"> <span>Gin</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="bramble gin" onchange="updateFridge(this)"> <span>Bramble Gin</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="white rum" onchange="updateFridge(this)"> <span>White Rum</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="dark rum" onchange="updateFridge(this)"> <span>Dark Rum</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="bacardi rasp" onchange="updateFridge(this)"> <span>Bacardi Rasp</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="tequila" onchange="updateFridge(this)"> <span>Tequila</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="bourbon" onchange="updateFridge(this)"> <span>Bourbon</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="rye whiskey" onchange="updateFridge(this)"> <span>Rye Whiskey</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="jameson" onchange="updateFridge(this)"> <span>Jameson / Irish Whiskey</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="cognac" onchange="updateFridge(this)"> <span>Cognac</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="jagermeister" onchange="updateFridge(this)"> <span>Jägermeister</span></label>
+                </div>
             </div>
+        </div>
 
-            <div class="input-group">
-                <label>Short Description</label>
-                <input type="text" id="recipe-description" placeholder="bijv. Een frisse klassieker met een twist.">
-            </div>
-
-            <div class="input-group">
-                <label>Categories (scheid met komma's)</label>
-                <input type="text" id="recipe-category" placeholder="bijv. Energy, Bitter, Cold">
-            </div>
-
-            <div class="input-group">
-                <label>Ingredients (één per regel)</label>
-                <textarea id="recipe-ingredients" rows="4" placeholder="50ml Vodka&#10;30ml Espresso"></textarea>
-            </div>
-
-            <div class="input-group">
-                <label>Method</label>
-                <input type="text" id="recipe-method" placeholder="bijv. Shaken">
-            </div>
-
-            <div class="input-group">
-                <label>Instructions</label>
-                <textarea id="recipe-desc" rows="3" placeholder="Hoe bereid je de cocktail?"></textarea>
-            </div>
-
-            <button class="save-btn" onclick="saveNewRecipe()">
-                <i class="fa-solid fa-plus"></i> Save to Vault
+        <!-- Ingredient Category: Liqueurs & Vermouth -->
+        <div class="fridge-category">
+            <button class="category-toggle" onclick="toggleCategory('cat-liqueurs')">
+                Liqueurs & Vermouth <i class="fa-solid fa-chevron-down"></i>
             </button>
-        </section>
-    </main>
-
-    <main id="shopping-page" class="page">
-        <header class="top-bar">
-            <div class="header-flex">
-                <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
-                <h1>Shopping List</h1>
-                <button class="clear-list-btn" onclick="clearShoppingList()"><i class="fa-solid fa-trash-can"></i></button>
-            </div>
-        </header>
-
-        <div class="shopping-container">
-            <div id="shopping-list-empty" class="placeholder-text" style="display: none;">
-                <i class="fa-solid fa-cart-shopping" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
-                <p>Your list is empty. Start adding ingredients!</p>
-            </div>
             
-            <ul id="shopping-list-items" class="shopping-list">
-                </ul>
-        </div>
-    </main>
+            <div id="cat-liqueurs" class="category-content">
+                <div class="category-search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" 
+                        placeholder="Search liqueurs..." 
+                        class="category-search-input" 
+                        onkeyup="filterCategoryList(this)">
+                </div>
 
-    <nav class="bottom-nav">
-        <div class="nav-item active" id="nav-home" onclick="navigateTo('home')">
-            <i class="fa-solid fa-house"></i>
-            <span>Home</span>
+                <div class="ingredient-checkbox-list">
+                    <label class="fridge-item"><input type="checkbox" value="cointreau" onchange="updateFridge(this)"> <span>Cointreau / Triple Sec</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="campari" onchange="updateFridge(this)"> <span>Campari</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="aperol" onchange="updateFridge(this)"> <span>Aperol</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="sweet vermouth" onchange="updateFridge(this)"> <span>Sweet Vermouth</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="dry vermouth" onchange="updateFridge(this)"> <span>Dry Vermouth</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="amaretto" onchange="updateFridge(this)"> <span>Amaretto</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="coffee liqueur" onchange="updateFridge(this)"> <span>Coffee Liqueur</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="peachtree" onchange="updateFridge(this)"> <span>Peachtree</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="licor 43" onchange="updateFridge(this)"> <span>Licor 43</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="frangelico" onchange="updateFridge(this)"> <span>Frangelico</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="lillet blanc" onchange="updateFridge(this)"> <span>Lillet Blanc</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="lychee liqueur" onchange="updateFridge(this)"> <span>Lychee Liqueur</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="baileys" onchange="updateFridge(this)"> <span>Baileys</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="blue curacao" onchange="updateFridge(this)"> <span>Blue Curaçao</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="passoa" onchange="updateFridge(this)"> <span>Passoa</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="elderflower liqueur" onchange="updateFridge(this)"> <span>Elderflower Liqueur</span></label>
+                    <label class="fridge-item"><input type="checkbox" value="blueberry liqueur" onchange="updateFridge(this)"> <span>Blueberry Liqueur</span></label>
+                </div>
+            </div>
         </div>
-        <div class="nav-item" id="nav-fridge" onclick="navigateTo('fridge')">
-            <i class="fa-solid fa-box-archive"></i>
-            <span>Fridge</span>
-        </div>
-        <div class="nav-item" id="nav-vault" onclick="navigateTo('vault')">
-            <i class="fa-solid fa-wine-glass-empty"></i>
-            <span>Vault</span>
-        </div>
-        <div class="nav-item" id="nav-recipes" onclick="navigateTo('recipes')">
-            <i class="fa-solid fa-book"></i>
-            <span>Recipes</span>
-        </div>
-        <div class="nav-item" id="nav-shopping" onclick="navigateTo('shopping')">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span>Shopping</span>
-        </div>
-    </nav>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="./js/script.js"></script>
+        <!-- Ingredient Category: Syrups & Puree -->
+        <div class="fridge-category">
+            <button class="category-toggle" onclick="toggleCategory('cat-syrups')">
+                Syrups & Puree <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div id="cat-syrups" class="category-content">
+                <div class="category-search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" 
+                        placeholder="Search syrups..." 
+                        class="category-search-input" 
+                        onkeyup="filterCategoryList(this)">
+                </div>
+
+                <div class="ingredient-checkbox-list">
+                    <label class="fridge-item"><input type="checkbox" value="sugar syrup" onchange="updateFridge(this)"> Sugar Syrup</label>
+                    <label class="fridge-item"><input type="checkbox" value="orgeat" onchange="updateFridge(this)"> Orgeat (Almond)</label>
+                    <label class="fridge-item"><input type="checkbox" value="grenadine" onchange="updateFridge(this)"> Grenadine</label>
+                    <label class="fridge-item"><input type="checkbox" value="mango puree" onchange="updateFridge(this)"> Mango Puree</label>
+                    <label class="fridge-item"><input type="checkbox" value="coconut cream" onchange="updateFridge(this)"> Coconut Cream</label>
+                    <label class="fridge-item"><input type="checkbox" value="raspberry syrup" onchange="updateFridge(this)"> Raspberry Syrup</label>
+                    <label class="fridge-item"><input type="checkbox" value="hazelnut syrup" onchange="updateFridge(this)"> Hazelnut Syrup</label>
+                    <label class="fridge-item"><input type="checkbox" value="cinnamon syrup" onchange="updateFridge(this)"> Cinnamon Syrup</label>
+                    <label class="fridge-item"><input type="checkbox" value="honey" onchange="updateFridge(this)"> Honey</label>
+                    <label class="fridge-item"><input type="checkbox" value="elderflower syrup" onchange="updateFridge(this)"> Elderflower Syrup</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ingredient Category: Juices & Sodas -->
+        <div class="fridge-category">
+            <button class="category-toggle" onclick="toggleCategory('cat-juices')">
+                Juices & Soda's <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div id="cat-juices" class="category-content">
+                <div class="category-search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" 
+                        placeholder="Search mixers..." 
+                        class="category-search-input" 
+                        onkeyup="filterCategoryList(this)">
+                </div>
+
+                <div class="ingredient-checkbox-list">
+                    <label class="fridge-item"><input type="checkbox" value="lime juice" onchange="updateFridge(this)"> Lime Juice</label>
+                    <label class="fridge-item"><input type="checkbox" value="lemon juice" onchange="updateFridge(this)"> Lemon Juice</label>
+                    <label class="fridge-item"><input type="checkbox" value="orange juice" onchange="updateFridge(this)"> Orange Juice</label>
+                    <label class="fridge-item"><input type="checkbox" value="pineapple juice" onchange="updateFridge(this)"> Pineapple Juice</label>
+                    <label class="fridge-item"><input type="checkbox" value="cranberry juice" onchange="updateFridge(this)"> Cranberry Juice</label>
+                    <label class="fridge-item"><input type="checkbox" value="tomato juice" onchange="updateFridge(this)"> Tomato Juice</label>
+                    <label class="fridge-item"><input type="checkbox" value="grapefruit soda" onchange="updateFridge(this)"> Grapefruit Soda</label>
+                    <label class="fridge-item"><input type="checkbox" value="soda water" onchange="updateFridge(this)"> Soda Water</label>
+                    <label class="fridge-item"><input type="checkbox" value="ginger beer" onchange="updateFridge(this)"> Ginger Beer</label>
+                    <label class="fridge-item"><input type="checkbox" value="tonic water" onchange="updateFridge(this)"> Tonic Water</label>
+                    <label class="fridge-item"><input type="checkbox" value="elderflower tonic" onchange="updateFridge(this)"> Elderflower Tonic</label>
+                    <label class="fridge-item"><input type="checkbox" value="prosecco/champagne" onchange="updateFridge(this)"> Prosecco / Champagne</label>
+                    <label class="fridge-item"><input type="checkbox" value="cola" onchange="updateFridge(this)"> Cola</label>
+                    <label class="fridge-item"><input type="checkbox" value="iced tea" onchange="updateFridge(this)"> Iced Tea</label>
+                    <label class="fridge-item"><input type="checkbox" value="sprite" onchange="updateFridge(this)"> Sprite / 7-Up</label>
+                    <label class="fridge-item"><input type="checkbox" value="fruit soda" onchange="updateFridge(this)"> Red Fruit Soda (DubbelFrisss)</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ingredient Category: Fresh & Pantry -->
+        <div class="fridge-category">
+            <button class="category-toggle" onclick="toggleCategory('cat-fresh')">
+                Fresh & Pantry <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div id="cat-fresh" class="category-content">
+                <div class="category-search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" 
+                        placeholder="Search pantry..." 
+                        class="category-search-input" 
+                        onkeyup="filterCategoryList(this)">
+                </div>
+
+                <div class="ingredient-checkbox-list">
+                    <label class="fridge-item"><input type="checkbox" value="fresh mint" onchange="updateFridge(this)"> Fresh Mint</label>
+                    <label class="fridge-item"><input type="checkbox" value="fresh basil" onchange="updateFridge(this)"> Fresh Basil</label>
+                    <label class="fridge-item"><input type="checkbox" value="egg white" onchange="updateFridge(this)"> Egg White</label>
+                    <label class="fridge-item"><input type="checkbox" value="angostura bitters" onchange="updateFridge(this)"> Angostura Bitters</label>
+                    <label class="fridge-item"><input type="checkbox" value="sugar cube" onchange="updateFridge(this)"> Sugar Cube</label>
+                    <label class="fridge-item"><input type="checkbox" value="espresso" onchange="updateFridge(this)"> Fresh Espresso</label>
+                    <label class="fridge-item"><input type="checkbox" value="olives" onchange="updateFridge(this)"> Olives</label>
+                    <label class="fridge-item"><input type="checkbox" value="cucumber" onchange="updateFridge(this)"> Cucumber</label>
+                    <label class="fridge-item"><input type="checkbox" value="red wine" onchange="updateFridge(this)"> Red Wine</label>
+                    <label class="fridge-item"><input type="checkbox" value="milk" onchange="updateFridge(this)"> Milk</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Find My Cocktails Button -->
+        <button class="match-btn-large" onclick="checkMatches()">
+            <i class="fa-solid fa-shaker"></i> Find My Cocktails
+        </button>
+    </section>
+
+    <!-- Matching Results Grid (dynamically filled by JS) -->
+    <section id="matching-results" class="cocktail-grid"></section>
+
+</main>
+<!-- ============================================================
+     END PAGE: FRIDGE
+     ============================================================ -->
+
+
+
+
+
+
+
+<!-- ============================================================
+     2.3  PAGE: COCKTAIL VAULT
+     ============================================================ -->
+<main id="vault-page" class="page">
+
+    <!-- Top Bar & Back Button -->
+    <header class="top-bar">
+        <div class="header-flex">
+            <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
+            <h1>Cocktail Vault</h1>
+        </div>
+    </header>
+
+    <!-- Search Bar -->
+    <section class="search-section">
+        <div class="search-bar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="vaultSearch" placeholder="Search cocktails..." oninput="renderVault(this.value)">
+        </div>
+    </section>
+
+    <!-- Cocktail Grid (dynamically filled by JS) -->
+    <section id="vault-grid" class="cocktail-grid"></section>
+
+</main>
+<!-- ============================================================
+     END PAGE: COCKTAIL VAULT
+     ============================================================ -->
+
+
+
+
+
+
+
+
+<!-- ============================================================
+     2.4  PAGE: RECIPE BOOK
+     ============================================================ -->
+<main id="recipes-page" class="page">
+    <header class="top-bar">
+        <div class="header-flex">
+            <button class="back-btn" onclick="navigateTo('home')">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <h1>My Recipes</h1>
+        </div>
+    </header>
+
+    <datalist id="ingredients-suggestions"></datalist>
+
+    <div id="my-recipes-grid" class="vault-grid" style="padding: 20px;">
+        </div>
+
+    <button class="floating-add-btn" onclick="openRecipeForm()">
+        <i class="fa-solid fa-plus"></i>
+    </button>
+
+    <div id="recipe-form-overlay" class="form-overlay" style="display: none;">
+        <div class="form-container">
+            <header class="form-header">
+                <h2>New Recipe</h2>
+                <button class="close-btn" onclick="closeRecipeForm()">&times;</button>
+            </header>
+
+            <section class="recipe-form-container">
+                <div class="image-upload-wrapper" onclick="document.getElementById('recipe-image-input').click()">
+                    <input type="file" id="recipe-image-input" accept="image/*" hidden onchange="previewImage(event)">
+                    <div id="image-preview-placeholder">
+                        <i class="fa-solid fa-camera"></i>
+                        <span>Upload Cocktail Photo</span>
+                    </div>
+                    <img id="image-preview-display" src="" alt="Preview" style="display: none;">
+                </div>
+
+                <div class="input-group">
+                    <label>Cocktail Name</label>
+                    <input type="text" id="recipe-name" placeholder="bijv. Espresso Martini">
+                </div>
+
+                <div class="input-group">
+                    <label>Short Description</label>
+                    <input type="text" id="recipe-description" placeholder="bijv. Een frisse klassieker met een twist.">
+                </div>
+
+                <div class="input-group">
+                    <label>Ingredients (Amount | Unit | Name)</label>
+                    <div id="ingredient-inputs-container">
+                        <div class="ingredient-row">
+                            <input type="number" class="ing-amount" placeholder="50">
+                            <input type="text" class="ing-unit" placeholder="ml">
+                            <input type="text" class="ing-name" placeholder="Vodka" list="ingredients-suggestions">
+                            <button class="remove-ing-btn" onclick="this.parentElement.remove()" style="background:none; border:none; color:#ff4757; cursor:pointer; padding: 0 5px;">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button class="add-line-btn" onclick="addIngredientRow()">+ Add Ingredient</button>
+                </div>
+
+                <div class="input-group">
+                    <label>Categories (comma separated)</label>
+                    <input type="text" id="recipe-category" placeholder="bijv. Classic, Strong, Sweet">
+                </div>
+
+                <div class="input-group">
+                    <label>Method</label>
+                    <input type="text" id="recipe-method" placeholder="bijv. Shaken">
+                </div>
+
+                <div class="input-group">
+                    <label>Instructions</label>
+                    <textarea id="recipe-desc" rows="3" placeholder="Hoe bereid je de cocktail?"></textarea>
+                </div>
+
+                <button class="save-btn" onclick="saveNewRecipe()">
+                    <i class="fa-solid fa-plus"></i> Save Recipe
+                </button>
+            </section>
+        </div>
+    </div>
+</main>
+<!-- ============================================================
+     END PAGE: RECIPE BOOK
+     ============================================================ -->
+
+
+
+
+
+
+
+
+<!-- ============================================================
+     2.5  PAGE: SHOPPING LIST
+     ============================================================ -->
+<main id="shopping-page" class="page">
+
+    <!-- Top Bar, Back Button & Clear Button -->
+    <header class="top-bar">
+        <div class="header-flex">
+            <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
+            <h1>Shopping List</h1>
+            <button class="clear-list-btn" onclick="clearShoppingList()"><i class="fa-solid fa-trash-can"></i></button>
+        </div>
+    </header>
+
+    <div class="shopping-container">
+
+        <!-- Empty State Placeholder -->
+        <div id="shopping-list-empty" class="placeholder-text" style="display: none;">
+            <i class="fa-solid fa-cart-shopping" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
+            <p>Your list is empty. Start adding ingredients!</p>
+        </div>
+
+        <!-- Shopping List Items (dynamically filled by JS) -->
+        <ul id="shopping-list-items" class="shopping-list"></ul>
+
+    </div>
+
+</main>
+<!-- ============================================================
+     END PAGE: SHOPPING LIST
+     ============================================================ -->
+
+
+
+
+
+
+
+
+<!-- ============================================================
+     3.1  BOTTOM NAVIGATION BAR
+     ============================================================ -->
+<nav class="bottom-nav">
+    <div class="nav-item active" id="nav-home" onclick="navigateTo('home')">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </div>
+    <div class="nav-item" id="nav-fridge" onclick="navigateTo('fridge')">
+        <i class="fa-solid fa-box-archive"></i>
+        <span>Fridge</span>
+    </div>
+    <div class="nav-item" id="nav-vault" onclick="navigateTo('vault')">
+        <i class="fa-solid fa-wine-glass-empty"></i>
+        <span>Vault</span>
+    </div>
+    <div class="nav-item" id="nav-recipes" onclick="navigateTo('recipes')">
+        <i class="fa-solid fa-book"></i>
+        <span>Recipes</span>
+    </div>
+    <div class="nav-item" id="nav-shopping" onclick="navigateTo('shopping')">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span>Shopping</span>
+    </div>
+</nav>
+<!-- ============================================================
+     END BOTTOM NAVIGATION BAR
+     ============================================================ -->
+
+
+
+
+
+
+
+
+
+
+<!-- ============================================================
+     4.1  EXTERNAL LIBRARIES
+     ============================================================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<!-- ============================================================
+     4.2  APP SCRIPT
+     ============================================================ -->
+<script src="./js/script.js"></script>
+
 
 </body>
 </html>
