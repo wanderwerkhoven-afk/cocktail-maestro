@@ -71,7 +71,22 @@ const classicCocktails = [
         image: "./assets/aperolspritz.png" 
     },
     { 
-        id: 'c3',
+        id: 'c3', 
+        name: "Aviation", 
+        category: ["Floral", "Classic", "Purple"], 
+        description: "A beautiful, sky-blue classic with notes of violet and cherry.", 
+        ingredients: [
+            { amount: 45, unit: "ml", name: "Gin" },
+            { amount: 15, unit: "ml", name: "Maraschino liqueur" },
+            { amount: 10, unit: "ml", name: "Crème de Violette" },
+            { amount: 15, unit: "ml", name: "Lemon juice" }
+        ], 
+        method: "Shaken", 
+        methodDesc: "Shake with ice and strain into a chilled coupe. Garnish with a cherry.", 
+        image: "./assets/aviation.png" 
+    },
+    { 
+        id: 'c4',
         name: "Bee's Knees",
         category: ["Classic", "Honey", "Sweet", "Sour"], 
         description: "A Prohibition-era classic that's the 'bee's knees'.", 
@@ -86,7 +101,7 @@ const classicCocktails = [
         image: "./assets/beesknees.png" 
     },
     { 
-        id: 'c4', 
+        id: 'c5', 
         name: "Bloody Mary", 
         category: ["Savory", "Vodka"], 
         description: "A savory classic, perfect for brunch or recovery.", 
@@ -101,7 +116,7 @@ const classicCocktails = [
         image: "./assets/bloodymary.png" 
     },
     { 
-        id: 'c5', 
+        id: 'c6', 
         name: "Blueberry Mule", 
         category: ["Blue", "Ginger", "Spicy"], 
         description: "A blue variation of the Moscow Mule.", 
@@ -117,7 +132,50 @@ const classicCocktails = [
         image: "./assets/blueberrymule.png" 
     },
     { 
-        id: 'c6', 
+        id: 'c7', 
+        name: "Boulevardier", 
+        category: ["Strong", "Bitter", "Whiskey"], 
+        description: "The Negroni's sophisticated cousin, swapping gin for rich bourbon.", 
+        ingredients: [
+            { amount: 30, unit: "ml", name: "Bourbon" },
+            { amount: 30, unit: "ml", name: "Campari" },
+            { amount: 30, unit: "ml", name: "Sweet Vermouth" }
+        ], 
+        method: "Stirred", 
+        methodDesc: "Stir with ice for 30 seconds. Strain into a rocks glass over a large ice cube. Garnish with an orange twist.", 
+        image: "./assets/boulevardier.png" 
+    },
+    { 
+        id: 'c8', 
+        name: "Bramble", 
+        category: ["Gin", "Fruity", "Classic"], 
+        description: "A spring classic: gin and lemon topped with a blackberry liqueur bleed.", 
+        ingredients: [
+            { amount: 45, unit: "ml", name: "Gin" },
+            { amount: 20, unit: "ml", name: "Lemon juice" },
+            { amount: 15, unit: "ml", name: "Sugar syrup" },
+            { amount: 15, unit: "ml", name: "Crème de Mure" }
+        ], 
+        method: "Built & Bleed", 
+        methodDesc: "Shake gin, lemon, and sugar with ice. Pour over crushed ice. Drizzle liqueur on top.", 
+        image: "./assets/bramble.png" 
+    },
+    { 
+        id: 'c9', 
+        name: "Caipirinha", 
+        category: ["Strong", "Sour", "Fresh"], 
+        description: "Brazil's national cocktail: simple, rustic, and refreshing.", 
+        ingredients: [
+            { amount: 60, unit: "ml", name: "Cachaça" },
+            { amount: 1,  unit: "pcs", name: "Lime (in wedges)" },
+            { amount: 2,  unit: "tsp", name: "Brown sugar" }
+        ], 
+        method: "Muddled", 
+        methodDesc: "Muddle lime and sugar. Fill glass with crushed ice and pour cachaça. Stir well.", 
+        image: "./assets/caipirinha.png" 
+    },
+    { 
+        id: 'c10', 
         name: "Clover Club", 
         category: ["Sour", "Elegant", "Raspberry", "Pink"], 
         description: "A silky smooth, pink classic with raspberry notes.", 
@@ -132,7 +190,7 @@ const classicCocktails = [
         image: "./assets/cloverclub.png" 
     },
     { 
-        id: 'c7', 
+        id: 'c11', 
         name: "Corpse Reviver #2", 
         category: ["Classic", "Strong", "Orange", "Lemon"], 
         description: "Designed to wake you up after a long night.", 
@@ -148,7 +206,7 @@ const classicCocktails = [
         image: "./assets/corpsreviver2.png" 
     },
     { 
-        id: 'c8', 
+        id: 'c12', 
         name: "Cosmopolitan", 
         category: ["Fruit", "Vodka", "Pink"], 
         description: "Elegant, tart, and pink. A modern classic.", 
@@ -163,7 +221,7 @@ const classicCocktails = [
         image: "./assets/cosmopolitan.png" 
     },
     { 
-        id: 'c9', 
+        id: 'c13', 
         name: "Daiquiri", 
         category: ["Sour", "Rum"], 
         description: "The ultimate test of a good rum: simple, sharp, and clean.", 
@@ -177,7 +235,7 @@ const classicCocktails = [
         image: "./assets/daiquri.png" 
     },
     { 
-        id: 'c10', 
+        id: 'c14', 
         name: "Dark 'n Stormy", 
         category: ["Spicy", "Rum"], 
         description: "A moody, delicious storm of dark rum and ginger.", 
@@ -191,7 +249,7 @@ const classicCocktails = [
         image: "./assets/darkenstormy.png" 
     },
     { 
-        id: 'c11', 
+        id: 'c15', 
         name: "Dry Martini", 
         category: ["Strong", "Gin"], 
         description: "The definition of elegance: cold and precise.", 
@@ -205,7 +263,7 @@ const classicCocktails = [
         image: "./assets/drymartini.jpg" 
     },
     { 
-        id: 'c12', 
+        id: 'c16', 
         name: "Espresso Martini", 
         category: ["Coffee", "Vodka"], 
         description: "Wake up and smell the vodka: a perfect pick-me-up.", 
@@ -220,7 +278,7 @@ const classicCocktails = [
         image: "./assets/espressomartini.png" 
     },
     { 
-        id: 'c13', 
+        id: 'c17', 
         name: "Espresso Martini Bueno", 
         category: ["Energy", "Coffee", "Sweet", "Bitter"], 
         description: "A delicious variation with a hint of hazelnut.", 
@@ -235,7 +293,21 @@ const classicCocktails = [
         image: "./assets/bueno.png" 
     },
     { 
-        id: 'c14', 
+        id: 'c18', 
+        name: "French Martini", 
+        category: ["Sweet", "Fruity", "Vodka"], 
+        description: "A silky, fruity martini with a distinctive raspberry foam.", 
+        ingredients: [
+            { amount: 45, unit: "ml", name: "Vodka" },
+            { amount: 15, unit: "ml", name: "Chambord" },
+            { amount: 60, unit: "ml", name: "Pineapple juice" }
+        ], 
+        method: "Hard Shake", 
+        methodDesc: "Shake very hard with ice to create a thick foam. Fine strain into a chilled coupe.", 
+        image: "./assets/frenchmartini.png" 
+    },
+    { 
+        id: 'c19', 
         name: "French 75", 
         category: ["Champagne", "Gin", "Lemon"], 
         description: "Festive and powerful, like a French field gun.", 
@@ -250,7 +322,7 @@ const classicCocktails = [
         image: "./assets/french75.png" 
     },
     {
-        id: 'c15', 
+        id: 'c20', 
         name: "Garden Cocktail", 
         category: ["Fresh", "Floral", "Cucumber"], 
         description: "A refreshing floral mix with cucumber.", 
@@ -266,7 +338,7 @@ const classicCocktails = [
         image: "./assets/garden.png" 
     },
     { 
-        id: 'c16', 
+        id: 'c21', 
         name: "Giant Sucker", 
         category: ["Herbal", "Unique", "Bubbly"], 
         description: "Jägermeister meets elderflower in a surprising way.", 
@@ -281,7 +353,7 @@ const classicCocktails = [
         image: "./assets/giantsucker.png" 
     },
     { 
-        id: 'c17', 
+        id: 'c22', 
         name: "Gin Basil Smash", 
         category: ["Modern", "Fresh", "Herbal"], 
         description: "Bright green and herbal: a modern classic.", 
@@ -296,7 +368,7 @@ const classicCocktails = [
         image: "./assets/ginbasil.png" 
     },
     { 
-        id: 'c18', 
+        id: 'c23', 
         name: "Gin Fizz", 
         category: ["Sparkling", "Refreshing"], 
         description: "Light, fizzy, and sophisticated.", 
@@ -311,7 +383,7 @@ const classicCocktails = [
         image: "./assets/ginfizz.png" 
     },
     { 
-        id: 'c19', 
+        id: 'c24', 
         name: "Groen Plansoen", 
         category: ["Fresh", "Floral", "Cucumber"], 
         description: "A botanical mix with elderflower and green tea notes.", 
@@ -328,7 +400,7 @@ const classicCocktails = [
         image: "./assets/groenplansoen.png" 
     },
     { 
-        id: 'c20', 
+        id: 'c25', 
         name: "Holy Peach", 
         category: ["Sweet", "Fruity", "Peach"], 
         description: "A sweet mix of peach and vanilla notes.", 
@@ -343,7 +415,37 @@ const classicCocktails = [
         image: "./assets/holypeach.png" 
     },
     { 
-        id: 'c21', 
+        id: 'c26', 
+        name: "Hugo Spritz", 
+        category: ["Sparkling", "Floral", "Summer"], 
+        description: "A refreshing, floral alternative to the Aperol Spritz.", 
+        ingredients: [
+            { amount: 30, unit: "ml", name: "Elderflower liqueur" },
+            { amount: 90, unit: "ml", name: "Prosecco" },
+            { amount: 30, unit: "ml", name: "Soda water" },
+            { amount: 5,  unit: "leaves", name: "Fresh mint" }
+        ], 
+        method: "Built", 
+        methodDesc: "Build in a wine glass with ice. Stir gently to integrate the syrup and garnish with lime.", 
+        image: "./assets/hugo.png" 
+    },
+    { 
+        id: 'c27', 
+        name: "Last Word", 
+        category: ["Strong", "Herbal", "Classic"], 
+        description: "A sharp, herbal prohibition-era cocktail that is perfectly balanced.", 
+        ingredients: [
+            { amount: 25, unit: "ml", name: "Gin" },
+            { amount: 25, unit: "ml", name: "Green Chartreuse" },
+            { amount: 25, unit: "ml", name: "Maraschino liqueur" },
+            { amount: 25, unit: "ml", name: "Lime juice" }
+        ], 
+        method: "Shaken", 
+        methodDesc: "Shake all ingredients with ice and fine strain into a chilled coupe glass.", 
+        image: "./assets/lastword.png" 
+    },
+    { 
+        id: 'c28', 
         name: "Long Island Ice Tea", 
         category: ["Very-Strong", "Classic"], 
         description: "A powerful blend of five different spirits.", 
@@ -362,7 +464,7 @@ const classicCocktails = [
         image: "./assets/longisland.png" 
     },
     { 
-        id: 'c22', 
+        id: 'c29', 
         name: "Lychacha", 
         category: ["Exotic", "Floral", "Lychee", "Sweet", "Sour"], 
         description: "A unique mix of lychee and Aperol.", 
@@ -378,7 +480,7 @@ const classicCocktails = [
         image: "./assets/lychacha.png" 
     },
     {  
-        id: 'c23', 
+        id: 'c30', 
         name: "Mango Mustache", 
         category: ["Fruity", "Sour", "Sweet", "Mango"], 
         description: "A silky smooth mango cocktail with a gin base.", 
@@ -394,7 +496,7 @@ const classicCocktails = [
         image: "./assets/mangomustach.png" 
     },
     { 
-        id: 'c24', 
+        id: 'c31', 
         name: "Manhattan", 
         category: ["Strong", "Spirit-Forward"], 
         description: "Rich and moody: the king of whiskey cocktails.", 
@@ -408,7 +510,7 @@ const classicCocktails = [
         image: "./assets/manhattan.png" 
     },
     { 
-        id: 'c25', 
+        id: 'c32', 
         name: "Margarita", 
         category: ["Sour", "Tequila"], 
         description: "Fresh, sharp, and salty: the perfect harmony of lime and tequila.", 
@@ -423,7 +525,22 @@ const classicCocktails = [
         image: "./assets/margerita.png" 
     },
     { 
-        id: 'c26', 
+        id: 'c33', 
+        name: "Mezcal Margarita", 
+        category: ["Smoky", "Tequila", "Sour"], 
+        description: "A smoky twist on the classic Margarita using Mezcal.", 
+        ingredients: [
+            { amount: 45, unit: "ml", name: "Mezcal" },
+            { amount: 15, unit: "ml", name: "Cointreau" },
+            { amount: 20, unit: "ml", name: "Lime juice" },
+            { amount: 10, unit: "ml", name: "Agave syrup" }
+        ], 
+        method: "Shaken", 
+        methodDesc: "Shake with ice and strain into a rocks glass with a chili-salt rim.", 
+        image: "./assets/mezcalmargarita.png" 
+    },
+    { 
+        id: 'c34', 
         name: "Mojito", 
         category: ["Refreshing", "Rum"], 
         description: "A Cuban favorite: minty, sweet, and incredibly refreshing.", 
@@ -439,7 +556,7 @@ const classicCocktails = [
         image: "./assets/mojito.png" 
     },
     { 
-        id: 'c27', 
+        id: 'c35', 
         name: "Moscow Mule", 
         category: ["Spicy", "Vodka"], 
         description: "Crisp and refreshing with a spicy ginger kick.", 
@@ -453,7 +570,7 @@ const classicCocktails = [
         image: "./assets/moskoumule.png" 
     },
     { 
-        id: 'c28', 
+        id: 'c36', 
         name: "Muddy Mudslide", 
         category: ["Creamy", "Coffee", "Caramel"], 
         description: "A rich coffee cocktail with Baileys and caramel.", 
@@ -468,7 +585,7 @@ const classicCocktails = [
         image: "./assets/mudslide.jpg" 
     },
     { 
-        id: 'c29', 
+        id: 'c37', 
         name: "Negroni", 
         category: ["Bitter", "Gin"], 
         description: "The bartender's favorite: complex, bitter, and ruby red.", 
@@ -482,7 +599,7 @@ const classicCocktails = [
         image: "./assets/negroni.png" 
     },
     { 
-        id: 'c30', 
+        id: 'c38', 
         name: "New York Sour", 
         category: ["Classic", "Wine twist", "Sour"], 
         description: "A Whiskey Sour topped with a beautiful red wine float.", 
@@ -498,7 +615,7 @@ const classicCocktails = [
         image: "./assets/newyorksour.png" 
     },
     { 
-        id: 'c31', 
+        id: 'c39', 
         name: "Old Fashioned", 
         category: ["Strong", "Classic", "Spirit-Forward"], 
         description: "The ultimate whiskey classic: sophisticated, balanced, and timeless.", 
@@ -513,7 +630,7 @@ const classicCocktails = [
         image: "./assets/oldfashion.png" 
     },
     { 
-        id: 'c32', 
+        id: 'c40', 
         name: "Paloma", 
         category: ["Fresh", "Tequila"], 
         description: "Mexico's true favorite: grapefruit meets tequila.", 
@@ -527,7 +644,37 @@ const classicCocktails = [
         image: "./assets/paloma.png" 
     },
     { 
-        id: 'c33', 
+        id: 'c41', 
+        name: "Paper Plane", 
+        category: ["Modern", "Bitter", "Bourbon"], 
+        description: "A modern classic that is equal parts bitter, sweet, and sour.", 
+        ingredients: [
+            { amount: 25, unit: "ml", name: "Bourbon" },
+            { amount: 25, unit: "ml", name: "Aperol" },
+            { amount: 25, unit: "ml", name: "Amaro Nonino" },
+            { amount: 25, unit: "ml", name: "Lemon juice" }
+        ], 
+        method: "Shaken", 
+        methodDesc: "Shake all ingredients with ice and strain into a chilled coupe.", 
+        image: "./assets/paperplane.png" 
+    },
+    { 
+        id: 'c42', 
+        name: "Penicillin", 
+        category: ["Whiskey", "Spicy", "Smoky"], 
+        description: "A modern masterpiece: honey, ginger, and a touch of smoky scotch.", 
+        ingredients: [
+            { amount: 45, unit: "ml", name: "Blended Scotch" },
+            { amount: 20, unit: "ml", name: "Lemon juice" },
+            { amount: 20, unit: "ml", name: "Honey-Ginger syrup" },
+            { amount: 10, unit: "ml", name: "Islay Single Malt (float)" }
+        ], 
+        method: "Shake & Float", 
+        methodDesc: "Shake first three ingredients. Strain over fresh ice. Float smoky scotch on top.", 
+        image: "./assets/penicillin.png" 
+    },
+    { 
+        id: 'c43', 
         name: "Pina Colada", 
         category: ["Tropical", "Sweet"], 
         description: "A vacation in a glass: creamy coconut and sweet pineapple.", 
@@ -541,7 +688,39 @@ const classicCocktails = [
         image: "./assets/pinacolada.png" 
     },
     { 
-        id: 'c34', 
+        id: 'c44', 
+        name: "Pisco Sour", 
+        category: ["Sour", "Strong", "Classic"], 
+        description: "The pride of Peru: a creamy, tart, and floral masterpiece.", 
+        ingredients: [
+            { amount: 60, unit: "ml", name: "Pisco" },
+            { amount: 30, unit: "ml", name: "Lime juice" },
+            { amount: 20, unit: "ml", name: "Sugar syrup" },
+            { amount: 1,  unit: "egg white", name: "Egg white" },
+            { amount: 3,  unit: "drops", name: "Angostura bitters" }
+        ], 
+        method: "Dry & Wet Shake", 
+        methodDesc: "Shake all except bitters without ice, then with ice. Top with bitters on the foam.", 
+        image: "./assets/piscosour.png" 
+    },
+    { 
+        id: 'c45', 
+        name: "Pornstar Martini", 
+        category: ["Modern", "Sweet", "Passionfruit", "Vodka"], 
+        description: "The most popular modern classic: exotic, sexy, and served with bubbles.", 
+        ingredients: [
+            { amount: 45, unit: "ml", name: "Vanilla Vodka" },
+            { amount: 15, unit: "ml", name: "Passoa" },
+            { amount: 30, unit: "ml", name: "Passionfruit puree" },
+            { amount: 10, unit: "ml", name: "Vanilla syrup" },
+            { amount: 30, unit: "ml", name: "Prosecco (side)" }
+        ], 
+        method: "Shaken", 
+        methodDesc: "Shake all except prosecco. Strain into a coupe. Serve prosecco in a separate shot glass.", 
+        image: "./assets/pornstar.png" 
+    },
+    { 
+        id: 'c46', 
         name: "Red Flamingo", 
         category: ["Fruity", "Sparkling", "Fresh"], 
         description: "A bright pink thirst-quencher with bramble and raspberry.", 
@@ -557,7 +736,7 @@ const classicCocktails = [
         image: "./assets/redflamingo.png" 
     },
     { 
-        id: 'c35',
+        id: 'c47',
         name: 'Rosemary & Peach Sour',
         category: ['Vodka', 'Herbal', 'Velvet'],
         description: 'A sophisticated peach sour with a hint of rosemary.',
@@ -573,7 +752,7 @@ const classicCocktails = [
         image: './assets/rosemarypeach.png'
     },
     { 
-        id: 'c36',
+        id: 'c48',
         name: 'Sidecar',
         category: ['Classic', 'Sour', 'Cognac', "1920's"],
         description: 'A legendary cognac cocktail with a sugar rim.',
@@ -588,7 +767,25 @@ const classicCocktails = [
         image: './assets/sidecar.png'
     },
     { 
-        id: 'c37',
+        id: 'c49', 
+        name: "Singapore Sling", 
+        category: ["Fruity", "Complex", "Longdrink"], 
+        description: "A famous, historic blend of gin, cherry, and tropical flavors.", 
+        ingredients: [
+            { amount: 30, unit: "ml", name: "Gin" },
+            { amount: 15, unit: "ml", name: "Cherry Heering" },
+            { amount: 7,  unit: "ml",  name: "Cointreau" },
+            { amount: 7,  unit: "ml",  name: "Benedictine" },
+            { amount: 10, unit: "ml", name: "Grenadine" },
+            { amount: 15, unit: "ml", name: "Lime juice" },
+            { amount: 120, unit: "ml", name: "Pineapple juice" }
+        ], 
+        method: "Shaken", 
+        methodDesc: "Shake all ingredients with ice and strain into a highball glass. Garnish with a cherry.", 
+        image: "./assets/singaporesling.png" 
+    },
+    { 
+        id: 'c50',
         name: 'South Side',
         category: ['Classic', 'Refreshing', 'Minty', "1920's"],
         description: 'The gin-based version of a Mojito, elegant and minty.',
@@ -603,7 +800,35 @@ const classicCocktails = [
         image: './assets/southside.png'
     },
     { 
-        id: 'c38', 
+        id: 'c51', 
+        name: "Tequila Sunrise", 
+        category: ["Sweet", "Visual", "Tequila"], 
+        description: "Famous for its beautiful color gradient, like a summer morning.", 
+        ingredients: [
+            { amount: 45, unit: "ml", name: "Tequila" },
+            { amount: 90, unit: "ml", name: "Orange juice" },
+            { amount: 10, unit: "ml", name: "Grenadine" }
+        ], 
+        method: "Built & Layered", 
+        methodDesc: "Pour tequila and juice over ice. Slowly pour grenadine down the side so it sinks to the bottom.", 
+        image: "./assets/tequilasunrise.png" 
+    },
+    { 
+        id: 'c52', 
+        name: "Tommy's Margarita", 
+        category: ["Tequila", "Sour", "Clean"], 
+        description: "The purist's margarita: no orange liqueur, just agave and lime.", 
+        ingredients: [
+            { amount: 50, unit: "ml", name: "Tequila Blanco" },
+            { amount: 25, unit: "ml", name: "Lime juice" },
+            { amount: 15, unit: "ml", name: "Agave nectar" }
+        ], 
+        method: "Shaken", 
+        methodDesc: "Shake vigorously with ice and strain into a rocks glass over fresh ice.", 
+        image: "./assets/tommysmargarita.png" 
+    },
+    { 
+        id: 'c53', 
         name: "Tropical Hurricane", 
         category: ["Tiki", "Fruity"], 
         description: "A tropical storm in a glass.", 
@@ -618,7 +843,7 @@ const classicCocktails = [
         image: "./assets/tropicalhurricane.png"
     },
     { 
-        id: 'c39', 
+        id: 'c54', 
         name: "Wandering Cosmo", 
         category: ["Fruity", "Riff", "Pasionfruit"], 
         description: "A modern twist on the classic Cosmopolitan.", 
@@ -634,7 +859,7 @@ const classicCocktails = [
         image: "./assets/wanderingcosmo.png" 
     },
     { 
-        id: 'c40', 
+        id: 'c55', 
         name: "Whiskey Sour", 
         category: ["Sour", "Classic"], 
         description: "Silky smooth thanks to the egg white, with a bold bourbon kick.", 
@@ -649,7 +874,22 @@ const classicCocktails = [
         image: "./assets/whiskeysour.png" 
     },
     { 
-        id: 'c41', 
+        id: 'c56', 
+        name: "White Lady", 
+        category: ["Classic", "Sour", "Gin"], 
+        description: "Clean, crisp, and citrusy. A timeless gin-based sour.", 
+        ingredients: [
+            { amount: 45, unit: "ml", name: "Gin" },
+            { amount: 25, unit: "ml", name: "Cointreau" },
+            { amount: 20, unit: "ml", name: "Lemon juice" },
+            { amount: 10, unit: "ml", name: "Sugar syrup" }
+        ], 
+        method: "Shaken", 
+        methodDesc: "Shake all ingredients with ice and strain into a chilled martini glass.", 
+        image: "./assets/whitelady.png" 
+    },
+    { 
+        id: 'c57', 
         name: "Zombie", 
         category: ["Strong", "Tiki", "Unique"], 
         description: "Famous, powerful, and mysterious. Limit: 2 per person!", 
@@ -664,6 +904,355 @@ const classicCocktails = [
         method: "Shake & Fire", 
         methodDesc: "Shake with ice. Top with overproof rum and light it.", 
         image: "./assets/zombie.png" 
+    },
+    { 
+        id: 'c58', 
+        name: "Jungle Bird", 
+        category: ["Tiki", "Bitter", "Tropical"], 
+        description: "A unique Tiki drink that balances tropical sweetness with Italian bitterness.", 
+        ingredients: [
+            { amount: 45, unit: "ml", name: "Dark Rum" },
+            { amount: 20, unit: "ml", name: "Campari" },
+            { amount: 45, unit: "ml", name: "Pineapple juice" },
+            { amount: 15, unit: "ml", name: "Lime juice" },
+            { amount: 15, unit: "ml", name: "Sugar syrup" }
+        ], 
+        method: "Shaken", 
+        methodDesc: "Shake all ingredients vigorously with ice. Strain into a rocks glass or tiki mug filled with crushed ice.", 
+        image: "./assets/junglebird.png" 
+    },
+    { 
+        id: 'c59', 
+        name: "Gold Rush", 
+        category: ["Strong", "Honey", "Whiskey"], 
+        description: "A modern classic that's essentially a Whiskey Sour with honey.", 
+        ingredients: [
+            { amount: 60, unit: "ml", name: "Bourbon" },
+            { amount: 25, unit: "ml", name: "Lemon juice" },
+            { amount: 20, unit: "ml", name: "Honey syrup" }
+        ], 
+        method: "Shaken", 
+        methodDesc: "Shake all ingredients with ice and strain into a rocks glass over a large ice cube.", 
+        image: "./assets/goldrush.png" 
+    },
+    { 
+        id: 'c60', 
+        name: "Gimlet", 
+        category: ["Classic", "Sour", "Gin"], 
+        description: "Simple, sharp, and sophisticated. The ultimate botanical refresher.", 
+        ingredients: [
+            { amount: 60, unit: "ml", name: "Gin" },
+            { amount: 30, unit: "ml", name: "Lime cordial or Lime juice" },
+            { amount: 10, unit: "ml", name: "Sugar syrup (if using fresh lime)" }
+        ], 
+        method: "Shaken", 
+        methodDesc: "Shake with ice and strain into a chilled coupe or martini glass. Garnish with a lime wheel.", 
+        image: "./assets/gimlet.png" 
+    },
+    { 
+        id: 'c61', 
+        name: "Enzoni", 
+        category: ["Gin", "Bitter", "Fruity", "Modern"], 
+        description: "A brilliant mashup between a Negroni and a Gin Sour with muddled grapes.", 
+        ingredients: [
+            { amount: 30, unit: "ml", name: "Gin" },
+            { amount: 30, unit: "ml", name: "Campari" },
+            { amount: 20, unit: "ml", name: "Lemon juice" },
+            { amount: 15, unit: "ml", name: "Sugar syrup" },
+            { amount: 5,  unit: "pcs", name: "Red grapes" }
+        ], 
+        method: "Muddled & Shaken", 
+        methodDesc: "Muddle grapes in the shaker. Add other ingredients and ice. Shake and double strain into a rocks glass.", 
+        image: "./assets/enzoni.png" 
+    },
+    { 
+        id: 'c62', 
+        name: "Painkiller", 
+        category: ["Tiki", "Tropical", "Creamy"], 
+        description: "The ultimate comfort drink: like a Pina Colada, but richer and spicier.", 
+        ingredients: [
+            { amount: 60, unit: "ml", name: "Navy Strength Rum" },
+            { amount: 120, unit: "ml", name: "Pineapple juice" },
+            { amount: 30, unit: "ml", name: "Orange juice" },
+            { amount: 30, unit: "ml", name: "Cream of coconut" }
+        ], 
+        method: "Shaken", 
+        methodDesc: "Shake with ice and pour into a large glass. Must be finished with a heavy grating of fresh nutmeg.", 
+        image: "./assets/painkiller.png" 
+    },
+    { 
+        id: 'c63', 
+        name: "El Diablo", 
+        category: ["Tequila", "Spicy", "Longdrink"], 
+        description: "A tall, refreshing mix of tequila, ginger, and blackcurrant.", 
+        ingredients: [
+            { amount: 45, unit: "ml", name: "Tequila Reposado" },
+            { amount: 15, unit: "ml", name: "Crème de Framboise" },
+            { amount: 15, unit: "ml", name: "Lime juice" },
+            { amount: 90, unit: "ml", name: "Ginger beer" }
+        ], 
+        method: "Built", 
+        methodDesc: "Build in a highball glass with ice. Float the blackcurrant liqueur on top for a 'bleeding' effect.", 
+        image: "./assets/eldiablo.png" 
+    },
+    { 
+        id: 'c64', 
+        name: "Aperol Sour", 
+        category: ["Sour", "Light", "Bitter"], 
+        description: "A low-alcohol sour that's perfectly balanced between bitter and sweet.", 
+        ingredients: [
+            { amount: 60, unit: "ml", name: "Aperol" },
+            { amount: 30, unit: "ml", name: "Lemon juice" },
+            { amount: 15, unit: "ml", name: "Sugar syrup" },
+            { amount: 1,  unit: "egg white", name: "Egg white" }
+        ], 
+        method: "Dry & Wet Shake", 
+        methodDesc: "Dry shake without ice for foam, then wet shake with ice to chill. Fine strain into a coupe.", 
+        image: "./assets/aperolsour.png" 
+    },
+    { 
+        id: 'c65', 
+        name: "Aperol Betty", 
+        category: ["Sparkling", "Fruit", "Low-ABV"], 
+        description: "A bright, citrusy spritz variant with orange and grapefruit.", 
+        ingredients: [
+            { amount: 60, unit: "ml", name: "Aperol" },
+            { amount: 30, unit: "ml", name: "Orange juice" },
+            { amount: 15, unit: "ml", name: "Grapefruit juice" },
+            { amount: 60, unit: "ml", name: "Prosecco" }
+        ], 
+        method: "Built", 
+        methodDesc: "Build in a wine glass over ice. Top with prosecco and stir gently to keep the bubbles.", 
+        image: "./assets/aperolbetty.png" 
+    },
+    { 
+        id: 'c66', 
+        name: "Cucumber Gimlet", 
+        category: ["Fresh", "Gin", "Botanical"], 
+        description: "An extra refreshing take on the Gimlet with crisp cucumber notes.", 
+        ingredients: [
+            { amount: 50, unit: "ml", name: "Gin" },
+            { amount: 20, unit: "ml", name: "Lime juice" },
+            { amount: 15, unit: "ml", name: "Sugar syrup" },
+            { amount: 3,  unit: "slices", name: "Fresh cucumber" }
+        ], 
+        method: "Muddled & Shaken", 
+        methodDesc: "Muddle cucumber in the shaker. Add other ingredients and ice. Shake hard and double strain into a coupe.", 
+        image: "./assets/cucumbergimlet.png" 
+    },
+    { 
+        id: 'c67', 
+        name: "Bijou", 
+        category: ["Strong", "Herbal", "Classic"], 
+        description: "Named after jewels: Gin (diamond), Vermouth (ruby), and Chartreuse (emerald).", 
+        ingredients: [
+            { amount: 30, unit: "ml", name: "Gin" },
+            { amount: 30, unit: "ml", name: "Sweet Vermouth" },
+            { amount: 30, unit: "ml", name: "Green Chartreuse" },
+            { amount: 1,  unit: "dash", name: "Orange bitters" }
+        ], 
+        method: "Stirred", 
+        methodDesc: "Stir with ice for 30 seconds. Strain into a chilled glass and garnish with a cherry or lemon twist.", 
+        image: "./assets/bijou.png" 
+    },
+    { 
+        id: 'c68', 
+        name: "Hot Toddy", 
+        category: ["Hot", "Winter", "Whiskey"], 
+        description: "The ultimate winter warmer to soothe the soul.", 
+        ingredients: [
+            { amount: 50, unit: "ml", name: "Bourbon or Scotch" },
+            { amount: 20, unit: "ml", name: "Honey" },
+            { amount: 20, unit: "ml", name: "Lemon juice" },
+            { amount: 150, unit: "ml", name: "Hot water" },
+            { amount: 1, unit: "pcs", name: "Cinnamon stick" }
+        ], 
+        method: "Built", 
+        methodDesc: "Dissolve honey in hot water. Add whiskey and lemon juice. Stir with the cinnamon stick.", 
+        image: "./assets/hottoddy.png" 
+    },
+    { 
+        id: 'c69', 
+        name: "Naked & Famous", 
+        category: ["Modern", "Smoky", "Bitter", "Mezcal"], 
+        description: "The pink, smoky cousin of the Paper Plane. Sharp, bitter, and complex.", 
+        ingredients: [
+            { amount: 25, unit: "ml", name: "Mezcal" },
+            { amount: 25, unit: "ml", name: "Yellow Chartreuse" },
+            { amount: 25, unit: "ml", name: "Aperol" },
+            { amount: 25, unit: "ml", name: "Lime juice" }
+        ], 
+        method: "Shaken", 
+        methodDesc: "Shake all ingredients with ice and fine strain into a chilled coupe.", 
+        image: "./assets/nakedfamous.png" 
+    },
+    { 
+        id: 'c70', 
+        name: "Pisco Punch", 
+        category: ["Fruity", "Strong", "Historic"], 
+        description: "A legendary San Francisco classic featuring pineapple-infused pisco.", 
+        ingredients: [
+            { amount: 60, unit: "ml", name: "Pisco" },
+            { amount: 30, unit: "ml", name: "Pineapple syrup" },
+            { amount: 20, unit: "ml", name: "Lemon juice" },
+            { amount: 2, unit: "dashes", name: "Orange bitters" }
+        ], 
+        method: "Shaken", 
+        methodDesc: "Shake with ice and strain into a rocks glass. Garnish with a fresh pineapple wedge.", 
+        image: "./assets/piscopunch.png" 
+    },
+    { 
+        id: 'c71', 
+        name: "White Russian", 
+        category: ["Creamy", "Coffee", "Vodka"], 
+        description: "The Dude's favorite: a rich, creamy coffee classic.", 
+        ingredients: [
+            { amount: 50, unit: "ml", name: "Vodka" },
+            { amount: 25, unit: "ml", name: "Coffee liqueur" },
+            { amount: 25, unit: "ml", name: "Fresh cream" }
+        ], 
+        method: "Stirred & Layered", 
+        methodDesc: "Build vodka and coffee liqueur in a glass with ice. Gently pour cream over the back of a spoon to layer.", 
+        image: "./assets/whiterussian.png" 
+    },
+    { 
+        id: 'c72', 
+        name: "Blue Lagoon", 
+        category: ["Blue", "Refreshing", "Vodka"], 
+        description: "A neon-blue summer favorite that's as refreshing as a dip in the ocean.", 
+        ingredients: [
+            { amount: 45, unit: "ml", name: "Vodka" },
+            { amount: 20, unit: "ml", name: "Blue Curacao" },
+            { amount: 15, unit: "ml", name: "Lemon juice" },
+            { amount: 90, unit: "ml", name: "Lemonade or Sprite" }
+        ], 
+        method: "Built", 
+        methodDesc: "Build in a highball glass over ice. Stir gently and garnish with a lemon wheel and a cherry.", 
+        image: "./assets/bluelagoon.png" 
+    },
+    { 
+        id: 'c73', 
+        name: "Old Cuban", 
+        category: ["Sparkling", "Rum", "Elegant"], 
+        description: "A modern classic that's a cross between a Mojito and a French 75.", 
+        ingredients: [
+            { amount: 45, unit: "ml", name: "Aged Rum" },
+            { amount: 20, unit: "ml", name: "Lime juice" },
+            { amount: 15, unit: "ml", name: "Sugar syrup" },
+            { amount: 2,  unit: "dashes", name: "Angostura bitters" },
+            { amount: 6,  unit: "leaves", name: "Mint" },
+            { amount: 60, unit: "ml", name: "Champagne/Prosecco" }
+        ], 
+        method: "Shake & Top", 
+        methodDesc: "Shake all except sparkling wine. Fine strain into a coupe and top with champagne.", 
+        image: "./assets/oldcuban.png" 
+    },
+    { 
+        id: 'c74', 
+        name: "Black Russian", 
+        category: ["Strong", "Coffee", "Vodka"], 
+        description: "The simpler, darker, and stronger predecessor to the White Russian.", 
+        ingredients: [
+            { amount: 50, unit: "ml", name: "Vodka" },
+            { amount: 25, unit: "ml", name: "Coffee liqueur" }
+        ], 
+        method: "Stirred", 
+        methodDesc: "Build in a rocks glass over ice. Stir gently and garnish with a maraschino cherry.", 
+        image: "./assets/blackrussian.png" 
+    },
+    { 
+        id: 'c75', 
+        name: "Mary Pickford", 
+        category: ["Rum", "Fruity", "Classic"], 
+        description: "A Cuban classic named after the silent film star: sweet, floral, and elegant.", 
+        ingredients: [
+            { amount: 45, unit: "ml", name: "White Rum" },
+            { amount: 45, unit: "ml", name: "Pineapple juice" },
+            { amount: 7.5, unit: "ml", name: "Maraschino liqueur" },
+            { amount: 5,  unit: "ml", name: "Grenadine" }
+        ], 
+        method: "Shaken", 
+        methodDesc: "Shake vigorously with ice and fine strain into a chilled martini glass.", 
+        image: "./assets/marypickford.png" 
+    },
+    { 
+        id: 'c76', 
+        name: "Ramos Gin Fizz", 
+        category: ["Creamy", "Gin", "Advanced"], 
+        description: "The 'Mount Everest' of cocktails. It takes 12 minutes to shake but tastes like a lemon cloud.", 
+        ingredients: [
+            { amount: 60, unit: "ml", name: "Gin" },
+            { amount: 15, unit: "ml", name: "Lemon juice" },
+            { amount: 15, unit: "ml", name: "Lime juice" },
+            { amount: 30, unit: "ml", name: "Sugar syrup" },
+            { amount: 30, unit: "ml", name: "Egg white" },
+            { amount: 30, unit: "ml", name: "Heavy cream" },
+            { amount: 3,  unit: "drops", name: "Orange flower water" },
+            { amount: 30, unit: "ml", name: "Soda water" }
+        ], 
+        method: "Hard Shake", 
+        methodDesc: "Shake without ice for 2 minutes, then with ice for another 5. Strain into a tall glass and top with soda to lift the foam.", 
+        image: "./assets/ramosginfizz.png" 
+    },
+    { 
+        id: 'c77', 
+        name: "Espresso Martiki", 
+        category: ["Fusion", "Coffee", "Rum"], 
+        description: "A tropical New Wave twist on the Espresso Martini using rum and pineapple.", 
+        ingredients: [
+            { amount: 45, unit: "ml", name: "Spiced Rum" },
+            { amount: 30, unit: "ml", name: "Espresso" },
+            { amount: 15, unit: "ml", name: "Coffee liqueur" },
+            { amount: 15, unit: "ml", name: "Pineapple juice" },
+            { amount: 5,  unit: "ml", name: "Orgeat" }
+        ], 
+        method: "Shaken", 
+        methodDesc: "Shake hard with ice to create a tropical foam. Fine strain into a chilled coupe.", 
+        image: "./assets/espressomartiki.png" 
+    },
+    { 
+        id: 'c78', 
+        name: "Gordon's Cup", 
+        category: ["New Wave", "Fresh", "Gin"], 
+        description: "A modern, slightly salty and refreshing cucumber-lime muddle.", 
+        ingredients: [
+            { amount: 60, unit: "ml", name: "Gin" },
+            { amount: 3,  unit: "wedges", name: "Lime" },
+            { amount: 3,  unit: "slices", name: "Cucumber" },
+            { amount: 15, unit: "ml", name: "Sugar syrup" },
+            { amount: 1,  unit: "pinch", name: "Salt" }
+        ], 
+        method: "Muddled & Shaken", 
+        methodDesc: "Muddle lime and cucumber in a shaker. Add gin, sugar, and salt. Shake and pour everything (dirty pour) into a glass.", 
+        image: "./assets/gordonscup.png" 
+    },
+    { 
+        id: 'c79', 
+        name: "Garibaldi", 
+        category: ["Aperitivo", "Simple", "Orange"], 
+        description: "Two ingredients, but the technique makes it fluffy and magical.", 
+        ingredients: [
+            { amount: 45, unit: "ml", name: "Campari" },
+            { amount: 120, unit: "ml", name: "Freshly aerated Orange juice" }
+        ], 
+        method: "Built & Frothed", 
+        methodDesc: "Whip or blend the orange juice until frothy. Pour over Campari and ice in a highball glass.", 
+        image: "./assets/garibaldi.png" 
+    },
+    { 
+        id: 'c80', 
+        name: "Army & Navy", 
+        category: ["Classic", "Gin", "Nutty"], 
+        description: "A vintage gin sour that uses almond syrup for a unique, silky texture.", 
+        ingredients: [
+            { amount: 60, unit: "ml", name: "Gin" },
+            { amount: 25, unit: "ml", name: "Lemon juice" },
+            { amount: 20, unit: "ml", name: "Orgeat (Almond) syrup" },
+            { amount: 2,  unit: "dashes", name: "Angostura bitters" }
+        ], 
+        method: "Shaken", 
+        methodDesc: "Shake with ice and fine strain into a chilled coupe. Garnish with a grapefruit twist.", 
+        image: "./assets/armynavy.png" 
     }
 ];
 
