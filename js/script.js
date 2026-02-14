@@ -2828,3 +2828,60 @@ function checkMatches() {
         resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 600);
 }
+
+/* ============================================================
+ * 9. Shake it up!
+ * ============================================================ */
+
+function shakeForCocktail() {
+    const shakerCard = document.getElementById('main-shaker-card');
+    const modal = document.getElementById('shake-modal');
+    const resultContainer = document.getElementById('shake-result-card');
+
+    if (!shakerCard || !modal || !resultContainer) return;
+
+    // Start animatie
+    if (shakerCard.classList.contains('shaking')) return;
+    shakerCard.classList.add('shaking');
+
+    setTimeout(() => {
+        shakerCard.classList.remove('shaking');
+
+        // Check of de lijst bestaat onder de juiste naam: classicCocktails
+        if (typeof classicCocktails !== 'undefined' && classicCocktails.length > 0) {
+            
+            // Kies een random cocktail uit de classicCocktails lijst
+            const randomCocktail = classicCocktails[Math.floor(Math.random() * classicCocktails.length)];
+
+            // Vul de popup
+            resultContainer.innerHTML = `
+                <img src="${randomCocktail.image}" alt="${randomCocktail.name}">
+                <h2>${randomCocktail.name}</h2>
+                <p style="color: #888; margin-bottom: 15px;">${randomCocktail.description}</p>
+                <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 20px; text-align: left;">
+                    <h4 style="color: #ffb347; margin-bottom: 8px; font-size: 0.9rem;">Ingredients:</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; color: #ccc; font-size: 0.9rem;">
+                        ${randomCocktail.ingredients.map(i => `<li>• ${i.amount}${i.unit} ${i.name}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+
+            // Toon de popup
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('show'), 50);
+        } else {
+            alert("Database 'classicCocktails' niet gevonden!");
+        }
+    }, 1200);
+}
+function closeShakeModal() {
+    const modal = document.getElementById('shake-modal');
+    
+    // 1. Haal de 'show' class weg (start de CSS fade-out)
+    modal.classList.remove('show');
+    
+    // 2. Wacht tot de animatie klaar is (400ms) en zet dan display op none
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 400);
+}

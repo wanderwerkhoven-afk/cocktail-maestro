@@ -118,6 +118,44 @@
         <p>Start by adding your ingredients in the Fridge to see what cocktails you can make!</p>
     </div>
 
+    <!-- Divider streepje -->
+    <div class="home-divider"></div>
+
+    <!-- Shake it Randomizer -->
+   <section class="home-action-section">
+        <div class="shake-card" id="main-shaker-card" onclick="shakeForCocktail()">
+            <div class="shaker-icon-wrapper">
+                <img src="./assets/shaker_laadscherm.png" alt="Shaker" class="shaker-img-anim">
+            </div>
+            <div class="shake-content">
+                <h3>Shake Up a Recipe!</h3>
+                <p>Can't choose? Let fate decide your drink.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-favorites-section">
+        <div class="section-header">
+            <h3>Your Favorites</h3>
+            <button class="see-all-btn" onclick="navigateTo('vault')">See All</button>
+        </div>
+        <div id="home-favorites-list" class="favorites-carrousel">
+            <p class="empty-fav-text">No favorites yet. Start starring!</p>
+        </div>
+    </section>
+
+    <section class="home-discovery-section">
+        <div class="section-header">
+            <h3>What's your mood?</h3>
+        </div>
+        <div class="mood-tags">
+            <span class="mood-tag" onclick="filterVault('Sweet')">🍭 Sweet</span>
+            <span class="mood-tag" onclick="filterVault('Sour')">🍋 Sour</span>
+            <span class="mood-tag" onclick="filterVault('Classic')">🥃 Classic</span>
+            <span class="mood-tag" onclick="filterVault('Sparkling')">🥂 Bubbly</span>
+        </div>
+    </section>
+
 </main>
 <!-- ============================================================
      END PAGE: HOME
@@ -536,7 +574,14 @@
 
 
 
-
+<div id="shake-modal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeShakeModal()">&times;</button>
+        <div id="shake-result-card">
+            </div>
+        <button class="modal-action-btn" onclick="closeShakeModal()">Cheers!</button>
+    </div>
+</div>
 
 
 

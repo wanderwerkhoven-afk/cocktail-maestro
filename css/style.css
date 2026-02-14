@@ -133,9 +133,9 @@ body {
 }
 
 .brand-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-bottom: 8px;
-    background: linear-gradient(to right, #ffffff, #ffb347);
+    background: linear-gradient(to right, #ffffff, #fc9505);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -221,6 +221,14 @@ body {
     margin: 0;
 }
 
+/* ---------- 4.4 Shake it up! ---------- */
+.shake-titel {
+    font-size: 2.0rem;
+    margin-bottom: 8px;
+    background: linear-gradient(to right, #ffffff, #fc9505);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
 /* ==========================================================================
    5. PAGE: FRIDGE
@@ -1213,6 +1221,195 @@ body {
     cursor: pointer;
 }
 
+
+/* ============================================================
+   SHAKE IT UP & MODAL STYLES
+   ============================================================ */
+
+/* --- De Subtiele Scheidingslijn --- */
+.home-divider {
+    width: 80px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 40px auto 30px auto;
+    border-radius: 2px;
+}
+
+/* --- De Shake Container Box --- */
+.home-action-section {
+    padding: 0 20px;
+    margin-bottom: 40px;
+}
+
+.shake-card {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 28px;
+    padding: 30px 10px; /* Compactere padding */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.shake-card:active {
+    transform: scale(0.97);
+    background: #1f1f1f;
+}
+
+/* --- De Shaker Afbeelding & Wrapper --- */
+.shaker-icon-wrapper {
+    width: 250px;      
+    height: 200px;     /* Hoogte beperkt om margins te verkleinen */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: -10px; 
+    margin-top: -10px;
+    overflow: visible;    
+}
+
+.shaker-img-anim {
+    width: auto;       
+    height: 100%;      
+    object-fit: contain;
+    /* De grijze look voor de lijnen */
+    filter: brightness(0.6) opacity(0.8) drop-shadow(0 8px 20px rgba(0,0,0,0.6));
+    transition: filter 0.3s ease;
+}
+
+/* De Shaker oplichtend maken tijdens het schudden */
+.shaking .shaker-img-anim {
+    filter: brightness(1) opacity(1) drop-shadow(0 0 20px rgba(255, 179, 71, 0.4));
+    animation: cobbler-shake 0.5s infinite ease-in-out;
+}
+
+/* --- De Schud Animatie --- */
+@keyframes cobbler-shake {
+    0% { transform: rotate(0) translate(0, 0); }
+    20% { transform: rotate(-15deg) translate(-15px, -15px); }
+    40% { transform: rotate(15deg) translate(15px, -15px); }
+    60% { transform: rotate(-15deg) translate(-15px, 15px); }
+    80% { transform: rotate(15deg) translate(15px, 15px); }
+    100% { transform: rotate(0) translate(0, 0); }
+}
+
+/* --- Shake Card Tekst --- */
+.shake-content h3 {
+    color: #ffb347;
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.shake-content p {
+    color: #888;
+    margin: 5px 0 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* ============================================================
+   MODAL / POPUP SYSTEEM
+   ============================================================ */
+
+/* Overlay achtergrond (blur effect) */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: none; 
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Zorg dat het overal bovenop ligt */
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+/* De container van de cocktailkaart in de popup */
+.modal-content {
+    background: #1a1a1a;
+    width: 85%;
+    max-width: 380px;
+    padding: 30px 20px;
+    border-radius: 35px;
+    border: 1px solid rgba(255, 179, 71, 0.2);
+    text-align: center;
+    position: relative;
+    /* Startpositie voor de pop-animatie */
+    transform: scale(0.5) translateY(50px);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Wanneer de modal getoond wordt */
+.modal-overlay.show {
+    opacity: 1;
+}
+
+.modal-overlay.show .modal-content {
+    transform: scale(1) translateY(0);
+}
+
+/* Styling van de resultaten binnen de modal */
+#shake-result-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+#shake-result-card h2 {
+    color: #ffb347;
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+/* Kruisje om te sluiten */
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: none;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* De Cheers knop onderaan */
+.modal-action-btn {
+    margin-top: 25px;
+    background: #ffb347;
+    color: #000;
+    border: none;
+    padding: 14px 45px;
+    border-radius: 50px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(255, 179, 71, 0.3);
+    transition: transform 0.2s;
+}
+
+.modal-action-btn:active {
+    transform: scale(0.95);
+}
 
 /* ==========================================================================
    11. ANIMATIONS
