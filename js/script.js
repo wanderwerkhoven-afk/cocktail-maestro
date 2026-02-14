@@ -1483,7 +1483,7 @@ function renderVault(filter = "") {
                         <ul class="ingredients-list" id="ingredients-${cocktail.id}">
                             ${cocktail.ingredients.map(ing => {
                                 if (typeof ing === 'object' && ing.amount) {
-                                    return `<li><span class="amount">${ing.amount}</span> <span class="unit">${ing.unit}</span> ${ing.name}</li>`;
+                                    return `<li><span class="amount"><b>${ing.amount}</b></span> <span class="unit"><b>${ing.unit}</b></span> ${ing.name}</li>`;
                                 }
                                 return `<li>${ing}</li>`;
                             }).join('')}
@@ -1566,7 +1566,7 @@ function updateServings(e, cocktailId, delta) {
     // Update ingredient amounts scaled to servings
     listContainer.innerHTML = cocktail.ingredients.map(ing => {
         const newAmount = (ing.amount * newServings).toFixed(ing.amount % 1 === 0 ? 0 : 1);
-        return `<li><span class="amount">${newAmount}</span> <span class="unit">${ing.unit}</span> ${ing.name}</li>`;
+        return `<li><span class="amount"><b>${newAmount}</b></span> <span class="unit"><b>${ing.unit}</b></span> ${ing.name}</li>`;
     }).join('');
 }
 
