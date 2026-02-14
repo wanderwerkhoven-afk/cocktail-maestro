@@ -813,8 +813,8 @@ body {
     position: fixed;
     bottom: 100px;
     right: 20px;
-    width: 60px; /* lets groter voor betere touch op mobiel */
-    height: 60px;
+    width: 40px; /* lets groter voor betere touch op mobiel */
+    height: 40px;
     border-radius: 50%;
     background: linear-gradient(135deg, #ffb347, #ff4757);
     color: #121212;
@@ -823,7 +823,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 8px 25px rgba(255, 71, 87, 0.4);
+    box-shadow: 0 0px 20px rgba(255, 71, 87, 0.4);
     z-index: 900;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
