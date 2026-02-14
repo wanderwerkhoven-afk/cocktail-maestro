@@ -813,17 +813,17 @@ body {
     position: fixed;
     bottom: 100px;
     right: 20px;
-    width: 50px;
-    height: 50px;
+    width: 60px; /* lets groter voor betere touch op mobiel */
+    height: 60px;
     border-radius: 50%;
     background: linear-gradient(135deg, #ffb347, #ff4757);
     color: #121212;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 25px rgba(255, 71, 87, 0.4);
     z-index: 900;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -833,56 +833,72 @@ body {
     transform: scale(0.9);
 }
 
-/* ---------- 7.2 My Recipes Grid ---------- */
+/* ---------- 7.2 My Recipes Grid & Card Actions ---------- */
 #my-recipes-grid {
     padding: 20px;
     display: grid;
     grid-template-columns: 1fr; 
-    gap: 20px;
-    padding-bottom: 120px;
+    gap: 25px;
+    padding-bottom: 150px;
+}
+
+/* Container voor Edit & Delete knoppen op de kaart */
+.card-actions {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.edit-recipe-btn, .delete-recipe-btn {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    transition: transform 0.2s, background 0.2s;
+}
+
+.edit-recipe-btn {
+    background: rgba(255, 179, 71, 0.9);
+    color: #121212;
 }
 
 .delete-recipe-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(255, 71, 87, 0.85);
-    color: white;
-    border: none;
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    cursor: pointer;
-    backdrop-filter: blur(4px);
-    z-index: 5;
-    transition: background 0.2s;
+    background: rgba(255, 71, 87, 0.9);
 }
 
-.delete-recipe-btn:hover {
-    background: #ff4757;
+.edit-recipe-btn:active, .delete-recipe-btn:active {
+    transform: scale(0.9);
 }
 
 /* ---------- 7.3 Form Overlay (The Pop-up) ---------- */
 .form-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background-color: rgba(0, 0, 0, 0.95);
     z-index: 9999;
     overflow-y: auto;
     display: flex;
     justify-content: center;
     padding: 20px 0;
+    backdrop-filter: blur(10px);
 }
 
 .form-container {
     background-color: #121212;
     width: 90%;
     max-width: 500px;
-    border-radius: 24px;
-    padding: 24px;
+    border-radius: 30px;
+    padding: 25px;
     border: 1px solid #333;
     height: fit-content;
     margin: auto;
@@ -893,21 +909,27 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .form-header h2 {
     color: #ffb347;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
+    margin: 0;
 }
 
 .close-btn {
-    background: none;
+    background: rgba(255,255,255,0.05);
     border: none;
     color: white;
-    font-size: 2.5rem;
-    line-height: 1;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.8rem;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* ---------- 7.4 Image Upload Wrapper ---------- */
@@ -915,15 +937,20 @@ body {
     width: 100%;
     aspect-ratio: 16/9;
     background-color: #1E1E1E;
-    border: 2px dashed #333;
-    border-radius: 16px;
+    border: 2px dashed #444;
+    border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     overflow: hidden;
     position: relative;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    transition: border-color 0.3s;
+}
+
+.image-upload-wrapper:hover {
+    border-color: #ffb347;
 }
 
 #image-preview-placeholder {
@@ -931,7 +958,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    color: #666;
+    color: #888;
 }
 
 #image-preview-display {
@@ -940,68 +967,73 @@ body {
     object-fit: cover;
 }
 
-/* ---------- 7.5 Ingredient Rows ---------- */
+/* ---------- 7.5 Ingredient Rows & Flex Inputs ---------- */
 .ingredient-row {
-    position: relative;
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    width: 100%;
+    box-sizing: border-box; /* Houdt padding binnen de breedte */
+}
+
+/* Breedte verdeling voor ingrediënten */
+.ing-amount { 
+    width: 60px !important; 
+    flex-shrink: 0; 
+}
+.ing-unit { 
+    width: 70px !important; 
+    flex-shrink: 0; 
+}
+.ing-name { 
+    flex-grow: 1; 
+    min-width: 0; /* Voorkomt dat het veld de rij uitrekt */
+}
+
+/* Nieuw: Flex container voor Glassware & Ice in formulier */
+.input-row-flex {
+    display: flex;
+    gap: 15px;
     width: 100%;
     box-sizing: border-box;
 }
 
-.ing-amount { 
-    width: 65px !important; 
-    flex-shrink: 0;
-}
-
-.ing-unit { 
-    width: 70px !important; 
-    flex-shrink: 0;
-}
-
-.ing-name { 
-    flex-grow: 1;
+/* Zorg dat de input-groups in de flex-rij elk 50% pakken */
+.input-row-flex .input-group {
+    flex: 1;
     min-width: 0;
+    margin-bottom: 20px; /* Behoud de spacing naar onderen */
 }
 
 .remove-ingredient-btn {
-    background: none;
+    background: rgba(255, 71, 87, 0.1);
     border: none;
-    color: #a0a0a0;
-    font-size: 1.4rem;
+    color: #ff4757;
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
     cursor: pointer;
-    padding: 0 5px;
-    line-height: 1;
     display: flex;
     align-items: center;
-    transition: color 0.2s ease, transform 0.2s ease;
-    opacity: 1;          
-    pointer-events: auto;
-    width: 30px; 
-    flex-shrink: 0;
-}
-
-.remove-ingredient-btn:hover {
-    color: #ff4757;
-    transform: scale(1.2);
+    justify-content: center;
+    flex-shrink: 0; /* Voorkomt dat het kruisje platgedrukt wordt */
 }
 
 .add-line-btn {
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px dashed #444;
-    color: #a0a0a0;
-    padding: 12px;
-    border-radius: 12px;
+    background-color: rgba(255, 179, 71, 0.05);
+    border: 1px dashed #ffb347;
+    color: #ffb347;
+    padding: 14px;
+    border-radius: 15px;
     cursor: pointer;
-    font-size: 0.9rem;
-    margin-bottom: 15px;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 8px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
 }
 
 /* ---------- 7.6 Input Groups & Save Button ---------- */
@@ -1009,13 +1041,14 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .input-group label {
     color: #ffb347;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -1023,42 +1056,45 @@ body {
 
 .input-group input,
 .input-group textarea {
-    background-color: #1E1E1E;
+    background-color: #1a1a1a;
     border: 1px solid #333;
-    border-radius: 12px;
-    padding: 12px;
+    border-radius: 14px;
+    padding: 14px;
     color: white;
     font-size: 1rem;
+    transition: border-color 0.3s;
+    width: 100%; /* Forceert breedte */
+    box-sizing: border-box; /* Essentieel! */
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    border-color: #ffb347;
     outline: none;
-    width: 100%;
 }
 
 .save-btn {
     background: linear-gradient(135deg, #ffb347, #ff4757);
     color: #121212;
     border: none;
-    padding: 18px;
-    border-radius: 16px;
+    padding: 20px;
+    border-radius: 18px;
     font-size: 1.1rem;
     font-weight: 800;
     cursor: pointer;
     width: 100%;
-    margin-top: 10px;
-    box-shadow: 0 4px 15px rgba(255, 71, 87, 0.2);
+    margin-top: 15px;
+    box-shadow: 0 10px 20px rgba(255, 71, 87, 0.3);
+    box-sizing: border-box;
 }
 
 /* ---------- 7.7 Empty State ---------- */
 .empty-state {
     grid-column: 1 / -1;
     text-align: center;
-    padding: 80px 20px;
+    padding: 100px 20px;
     color: #666;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
 }
-
 
 /* ==========================================================================
    8. PAGE: SHOPPING LIST
