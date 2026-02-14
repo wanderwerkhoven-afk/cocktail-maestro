@@ -2581,29 +2581,57 @@ function renderMyRecipes() {
                     <i class="fa-solid fa-trash"></i>
                 </button>
             </div>
+            
             <div class="card-content">
                 <h4>${cocktail.name}</h4>
+                
                 <div class="category-container">
-                    ${cocktail.category.map(cat => `<span class="category-tag">${cat}</span>`).join('')}
+                    ${Array.isArray(cocktail.category) 
+                        ? cocktail.category.map(cat => `<span class="category-tag">${cat}</span>`).join('')
+                        : `<span class="category-tag">${cocktail.category}</span>`
+                    }
                 </div>
-                <p class="description">${cocktail.description}</p>
+                
+                <p class="description">${cocktail.description || "A custom masterpiece."}</p>
+                
                 <div class="collapsible-content">
-                    <div class="servings-control" style="margin-top: 15px;">
-                        <span>Servings:</span>
-                        <div class="counter-box">
-                            <button class="counter-btn" onclick="updateServings(event, '${cocktail.id}', -1)">-</button>
-                            <span id="servings-${cocktail.id}">1</span>
-                            <button class="counter-btn" onclick="updateServings(event, '${cocktail.id}', 1)">+</button>
+                    <div class="ingredients-section">
+                        <div class="servings-control">
+                            <span>Servings:</span>
+                            <div class="counter-box">
+                                <button class="counter-btn" onclick="updateServings(event, '${cocktail.id}', -1)">-</button>
+                                <span id="servings-${cocktail.id}">1</span>
+                                <button class="counter-btn" onclick="updateServings(event, '${cocktail.id}', 1)">+</button>
+                            </div>
+                        </div>
+                        
+                        <strong>Ingredients:</strong>
+                        <ul class="ingredients-list" id="ingredients-${cocktail.id}">
+                            ${cocktail.ingredients.map(ing => `
+                                <li>
+                                    <span>
+                                        <b class="amount" data-base="${ing.amount}">${ing.amount}</b> 
+                                        <b class="unit">${ing.unit}</b> ${ing.name}
+                                    </span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+
+                    <div class="hardware-section">
+                        <div class="hardware-column">
+                            <strong>Glassware:</strong>
+                            <p class="hardware-text">${cocktail.glassware || 'Standard Glass'}</p>
+                        </div>
+                        <div class="hardware-column">
+                            <strong>Ice:</strong>
+                            <p class="hardware-text">${cocktail.ice || 'None'}</p>
                         </div>
                     </div>
-                    <ul class="ingredients-list" id="ingredients-${cocktail.id}">
-                        ${cocktail.ingredients.map(ing => `
-                            <li><span class="amount">${ing.amount}</span> <span class="unit">${ing.unit}</span> ${ing.name}</li>
-                        `).join('')}
-                    </ul>
-                    <div class="method-section" style="border-top: 1px solid #333; padding-top: 10px; margin-top: 10px;">
-                        <strong style="color: #ffb347;">Method: ${cocktail.method}</strong>
-                        <p class="method-text" style="font-style: italic; font-size: 0.9rem; margin-top: 5px;">${cocktail.methodDesc}</p>
+
+                    <div class="method-section">
+                        <strong>Method: ${cocktail.method}</strong>
+                        <p class="method-text">${cocktail.methodDesc}</p>
                     </div>
                 </div>
             </div>
