@@ -1314,7 +1314,7 @@ body {
 }
 
 /* ============================================================
-   MODAL / POPUP SYSTEEM
+   MODAL / POPUP SYSTEEM (Optimized for Mobile)
    ============================================================ */
 
 /* Overlay achtergrond (blur effect) */
@@ -1323,10 +1323,10 @@ body {
     top: 0; left: 0;
     width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.9);
-    display: none; 
+    display: none; /* Wordt 'flex' via JS */
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Zorg dat het overal bovenop ligt */
+    z-index: 9999; 
     backdrop-filter: blur(10px);
     opacity: 0;
     transition: opacity 0.4s ease;
@@ -1335,19 +1335,26 @@ body {
 /* De container van de cocktailkaart in de popup */
 .modal-content {
     background: #1a1a1a;
-    width: 85%;
-    max-width: 380px;
-    padding: 30px 20px;
-    border-radius: 35px;
-    border: 1px solid rgba(255, 179, 71, 0.2);
+    width: 90%;
+    max-width: 400px;
+    
+    /* Cruciaal voor jouw resolutie (2556x1179) */
+    max-height: 90vh;          /* Voorkomt dat de kaart buiten het scherm valt */
+    overflow-y: auto;          /* Maakt scrollen binnen de kaart mogelijk */
+    -webkit-overflow-scrolling: touch; /* Soepele scroll voor iPhone */
+    
+    padding: 10px 25px 25px 25px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 179, 71, 0.3);
     text-align: center;
     position: relative;
-    /* Startpositie voor de pop-animatie */
-    transform: scale(0.5) translateY(50px);
+    
+    /* Startpositie voor de pop-animatie (klein en iets lager) */
+    transform: scale(0.3) translateY(100px);
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Wanneer de modal getoond wordt */
+/* Actieve staat (geactiveerd via JS class) */
 .modal-overlay.show {
     opacity: 1;
 }
@@ -1356,10 +1363,22 @@ body {
     transform: scale(1) translateY(0);
 }
 
+/* Custom Scrollbar Styling voor de interne scroll */
+.modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+.modal-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 179, 71, 0.3);
+    border-radius: 10px;
+}
+
 /* Styling van de resultaten binnen de modal */
 #shake-result-card img {
     width: 100%;
-    height: 220px;
+    height: 300px;
     object-fit: cover;
     border-radius: 20px;
     margin-bottom: 20px;
@@ -1372,23 +1391,32 @@ body {
     margin-bottom: 8px;
 }
 
-/* Kruisje om te sluiten */
+/* Kruisje om te sluiten (Sticky Rechtsboven) */
 .close-modal {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(255, 255, 255, 0.05);
+    position: sticky;        /* Blijft op zijn plek tijdens scrollen */
+    top: 0px;               /* Afstand van de bovenkant van de scroll-container */
+    float: right;           /* Zorgt dat hij rechts blijft staan */
+    margin-right: -22px;    /* Corrigeert de padding van de container */
+    margin-top: -10px;      /* Trekt hem iets omhoog voor een strakke look */
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px); /* Maakt het kruisje leesbaar over de afbeelding heen */
     border: none;
     color: white;
     width: 35px;
     height: 35px;
     border-radius: 50%;
     font-size: 1.4rem;
-    line-height: 1;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 100;           /* Altijd boven de cocktail-afbeelding en tekst */
+    transition: all 0.2s ease;
+}
+
+.close-modal:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
 }
 
 /* De Cheers knop onderaan */
@@ -1405,6 +1433,7 @@ body {
     cursor: pointer;
     box-shadow: 0 5px 15px rgba(255, 179, 71, 0.3);
     transition: transform 0.2s;
+    margin-bottom: 10px; /* Extra ruimte onderaan bij het scrollen */
 }
 
 .modal-action-btn:active {

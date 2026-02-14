@@ -2857,12 +2857,20 @@ function shakeForCocktail() {
             resultContainer.innerHTML = `
                 <img src="${randomCocktail.image}" alt="${randomCocktail.name}">
                 <h2>${randomCocktail.name}</h2>
-                <p style="color: #888; margin-bottom: 15px;">${randomCocktail.description}</p>
-                <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 20px; text-align: left;">
-                    <h4 style="color: #ffb347; margin-bottom: 8px; font-size: 0.9rem;">Ingredients:</h4>
-                    <ul style="list-style: none; padding: 0; margin: 0; color: #ccc; font-size: 0.9rem;">
+                <p style="color: #888; margin-bottom: 15px; font-size: 0.95rem;">${randomCocktail.description}</p>
+                
+                <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 20px; text-align: left; margin-bottom: 15px;">
+                    <h4 style="color: #ffb347; margin-bottom: 8px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Ingredients</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; color: #ccc; font-size: 0.9rem; line-height: 1.5;">
                         ${randomCocktail.ingredients.map(i => `<li>• ${i.amount}${i.unit} ${i.name}</li>`).join('')}
                     </ul>
+                </div>
+
+                <div style="background: rgba(255,179,71,0.05); padding: 15px; border-radius: 20px; text-align: left; border: 1px solid rgba(255,179,71,0.1);">
+                    <h4 style="color: #ffb347; margin-bottom: 5px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Method: ${randomCocktail.method}</h4>
+                    <p style="color: #bbb; margin: 0; font-size: 0.85rem; line-height: 1.4; font-style: italic;">
+                        ${randomCocktail.methodDesc}
+                    </p>
                 </div>
             `;
 
