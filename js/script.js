@@ -1074,22 +1074,30 @@ function calculateBarProgress() {
 
 function updateBarUI(pct, count) {
     const liquidGroup = document.getElementById('liquid-group');
-    const text = document.getElementById('bar-pct-text');
-    // ... andere variabelen ...
-
+    const textEl = document.getElementById('bar-pct-text');
+    
+    // 1. Reset & Heractiveer Vloeistof Animatie
     if (liquidGroup) {
-        // 0% is y = 230 (bodempje)
-        // 100% is y = 40 (onder de dop)
-        // De 'range' is dus 190 pixels (230 - 40)
+        // We zetten de transitie even uit, resetten naar de bodem, 
+        // en starten de stijging na een kleine delay.
+        liquidGroup.style.transition = 'none';
+        liquidGroup.style.transform = 'translateY(230px)'; // Reset naar bodem
         
-        const bottomY = 243;
-        const topY = 30;
-        const range = bottomY - topY;
-        
-        const moveY = bottomY - (pct / 100 * range);
-        
-        // Pas de transform toe
-        liquidGroup.style.transform = `translateY(${moveY}px)`;
+        setTimeout(() => {
+            // Veranderd van 1.5s naar 3.0s
+            liquidGroup.style.transition = 'transform 3.0s cubic-bezier(0.4, 0, 0.2, 1)';
+            const bottomY = 243;
+            const topY = 30;
+            const range = bottomY - topY;
+            const moveY = bottomY - (pct / 100 * range);
+            liquidGroup.style.transform = `translateY(${moveY}px)`;
+        }, 50); // Kleine delay zodat de browser de reset registreert
+    }
+
+    // 2. Percentage Optel Animatie
+    if (textEl) {
+        // Veranderd van 1500 naar 3000 om synchroon te lopen
+        animateValue(textEl, 0, pct, 3000); 
     }
 
     if (text) text.innerText = pct + "%";
@@ -1110,6 +1118,19 @@ function updateBarUI(pct, count) {
             unlockEl.innerText = "You're a real bartender!";
         }
     }
+}
+
+function animateValue(obj, start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        obj.innerText = Math.floor(progress * (end - start) + start) + "%";
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        }
+    };
+    window.requestAnimationFrame(step);
 }
 
 // Zorg dat bij het laden van de pagina alles goed staat

@@ -1550,7 +1550,7 @@ body {
 .accent-title {
     color: #ffb347;
     font-size: 1.2rem;
-    font-weight: 800; /* Iets dikker voor dashboard look */
+    font-weight: 400; /* Iets dikker voor dashboard look */
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -1725,7 +1725,7 @@ body {
 /* De vloeistof groep die stijgt en daalt */
 #liquid-group {
     /* De transform wordt aangestuurd via de JS functie (translateY) */
-    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 3.0s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
 }
 
@@ -1747,6 +1747,35 @@ body {
 @keyframes wave-move-back {
     from { transform: translateX(-100px); }
     to { transform: translateX(0); }
+}
+
+.bubble {
+    opacity: 0;
+    /* We voegen 'both' toe zodat de scale netjes behouden blijft */
+    animation: bubble-rise 4s infinite ease-in;
+}
+
+.b1 { animation-delay: 0.2s; animation-duration: 2.5s; }
+.b2 { animation-delay: 1.5s; animation-duration: 2.0s; }
+.b3 { animation-delay: 2.8s; animation-duration: 3.0s; }
+.b4 { animation-delay: 0.8s; animation-duration: 2.3s; }
+.b5 { animation-delay: 2.1s; animation-duration: 2.7s; }
+
+@keyframes bubble-rise {
+    0% {
+        transform: translateY(120px);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.6;
+    }
+    80% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
 }
 
 /* Knop en teksten */
@@ -1816,6 +1845,7 @@ body {
     .inventory-summary-box {
         margin: 0 auto;
     }
+    
 }
 
 /* ==========================================================================

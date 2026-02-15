@@ -157,23 +157,25 @@
     <section class="bar-status-card">
         <div class="bar-status-top">
             <h2>YOUR BAR STATUS</h2>
-            <p class="subtitle">See how close you are to a full stocked bar and your next great cocktail</p>
+            <p class="subtitle">Your current cocktail potential</p>
             <hr class="divider">
         </div>
 
         <div class="bar-status-main">
             <div class="container-left">
                 <div class="stats-content-wrapper">
-                    <h3 class="accent-title">BAR STATS</h3>
+                    <h3 class="accent-title">BAR STATS:</h3>
                     
                     <div class="inventory-summary-box">
-                        <span class="big-number" id="bottle-count">28</span>
+                        <span class="big-number" id="bottle-count">0</span>
                         <span class="box-label">Ingredients in stock</span>
                     </div>
 
-                    <div class="status-messages">
-                        <p class="cocktail-count-text">You can make <br><strong id="match-count">40</strong> cocktails</p>
-                        <p id="unlock-info" class="highlight-orange">You're already a worthy bartender</p>
+                    <div class="inventory-summary-box">
+                        <div class="stat-unit">
+                            <span class="big-number" id="match-count">0</span>
+                            <span class="box-label">Cocktails possible to make</span>
+                        </div>
                     </div>
 
                     <a href="javascript:void(0)" onclick="navigateTo('fridge')" class="manage-ingredients-btn">
@@ -211,8 +213,15 @@
                         <use href="#bottle-path" fill="#121212" stroke="#333" stroke-width="1.5" />
 
                         <g mask="url(#bottle-mask)">
-                            <g id="liquid-group" style="transform: translateY(240px); transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);">
+                            <g id="liquid-group" style="transform: translateY(240px); transition: transform 3.0s cubic-bezier(0.4, 0, 0.2, 1);">
                                 <rect x="-50" y="0" width="200" height="300" fill="url(#liquid-gradient)" />
+                                
+                                <circle class="bubble b1" cx="35" cy="80" r="2.5" fill="rgba(255,255,255,0.8)" />
+                                <circle class="bubble b2" cx="55" cy="120" r="4.2" fill="rgba(255,255,255,0.6)" />
+                                <circle class="bubble b3" cx="45" cy="160" r="2.2" fill="rgba(255,255,255,0.9)" />
+                                <circle class="bubble b4" cx="65" cy="60" r="4.0" fill="rgba(255,255,255,0.5)" />
+                                <circle class="bubble b5" cx="30" cy="140" r="1.8" fill="rgba(255,255,255,0.8)" />
+
                                 <path class="wave wave-back" d="M-100 0 Q-75 -10 -50 0 T0 0 T50 0 T100 0 T150 0 T200 0 V20 H-100 Z" fill="url(#liquid-gradient)" opacity="0.5" />
                                 <path class="wave wave-front" d="M-100 0 Q-75 10 -50 0 T0 0 T50 0 T100 0 T150 0 T200 0 V20 H-100 Z" fill="url(#liquid-gradient)" />
                             </g>
@@ -234,6 +243,9 @@
             </div>
         </div>
     </section>
+
+    <!-- Divider streepje -->
+    <div class="home-divider"></div>
 
 
 
