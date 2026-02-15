@@ -153,6 +153,87 @@
     <!-- Divider streepje -->
     <div class="home-divider"></div>
 
+    <section class="bar-status-card">
+        <div class="bar-status-top">
+            <h2>YOUR BAR STATUS</h2>
+            <p class="subtitle">See how close you are to a full stocked bar and your next great cocktail</p>
+            <hr class="divider">
+        </div>
+
+        <div class="bar-status-main">
+            <div class="container-left">
+                <div class="stats-content-wrapper">
+                    <h3 class="accent-title">BAR STATS</h3>
+                    
+                    <div class="inventory-summary-box">
+                        <span class="big-number" id="bottle-count">28</span>
+                        <span class="box-label">Ingredients in stock</span>
+                    </div>
+
+                    <div class="status-messages">
+                        <p class="cocktail-count-text">You can make <br><strong id="match-count">40</strong> cocktails</p>
+                        <p id="unlock-info" class="highlight-orange">You're already a worthy bartender</p>
+                    </div>
+
+                    <a href="javascript:void(0)" onclick="navigateTo('fridge')" class="manage-ingredients-btn">
+                        <i class="fa-solid fa-list-ul"></i>
+                        <span>Manage Fridge</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="container-right">
+                <div class="status-header">
+                    <div class="status-label-group">
+                        <span>YOUR</span>
+                        <span>BAR</span>
+                        <span>STATUS</span>
+                    </div>
+                    <span id="bar-pct-text">78%</span>
+                </div>
+
+                <div class="bottle-container">
+                    <svg class="bottle-svg" viewBox="0 0 100 250" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="liquid-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#ffb347;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#ff9f1a;stop-opacity:1" />
+                            </linearGradient>
+                            
+                            <linearGradient id="glass-reflect" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:white;stop-opacity:0.05" />
+                                <stop offset="20%" style="stop-color:white;stop-opacity:0.2" />
+                                <stop offset="30%" style="stop-color:white;stop-opacity:0.05" />
+                                <stop offset="100%" style="stop-color:white;stop-opacity:0" />
+                            </linearGradient>
+
+                            <path id="bottle-shape" d="M38,10 L62,10 L62,40 Q62,60 75,80 L80,120 L80,230 Q80,245 65,245 L35,245 Q20,245 20,230 L20,120 L25,80 Q38,60 38,40 Z" />
+                        </defs>
+
+                        <use href="#bottle-shape" fill="#121212" stroke="#333" stroke-width="1.5" />
+
+                        <mask id="fill-mask">
+                            <use href="#bottle-shape" fill="white" />
+                        </mask>
+                        <rect id="liquid-fill" x="0" y="80" width="100" height="250" fill="url(#liquid-gradient)" mask="url(#fill-mask)" />
+
+                        <use href="#bottle-shape" fill="url(#glass-reflect)" pointer-events="none" />
+
+                        <path d="M37,5 L63,5 L64,15 L36,15 Z" fill="#222" stroke="#444" stroke-width="1" />
+                    </svg>
+                </div>
+
+                <button class="progress-btn" onclick="calculateBarProgress()">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                    <div class="btn-text">
+                        <span>UPDATE</span>
+                        <span>STATUS</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </section>
+
 
 
 </main>
@@ -354,6 +435,8 @@
 
     <!-- Matching Results Grid (dynamically filled by JS) -->
     <section id="matching-results" class="cocktail-grid"></section>
+
+    
 
 </main>
 <!-- ============================================================

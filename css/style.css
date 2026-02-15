@@ -133,7 +133,7 @@ body {
 }
 
 .brand-title {
-    font-size: 2.5rem;
+    font-size: 2.3rem;
     margin-bottom: 8px;
     background: linear-gradient(to right, #ffffff, #fc9505);
     -webkit-background-clip: text;
@@ -1474,6 +1474,323 @@ body {
 
 .modal-action-btn:active {
     transform: scale(0.95);
+}
+
+
+/* ============================================================
+   8. DRINK PROGRESSION (BAR STATUS) 
+   ============================================================ */
+
+.bar-status-card {
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 28px;
+    padding: 24px;
+    margin: 20px auto;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    width: 90%; 
+    max-width: 450px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    box-sizing: border-box;
+}
+
+.bar-status-top h2 {
+    color: #ffb347;
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 0 0 8px 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.bar-status-top .subtitle {
+    color: #888;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #333;
+    margin-bottom: 25px;
+}
+
+/* --- Hoofd Container voor de twee kolommen --- */
+.bar-status-main {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: stretch; /* Verander naar stretch zodat de divider de volle hoogte krijgt */
+    width: 100%;
+    gap: 24px; /* Grotere padding tussen links en rechts */
+}
+
+/* --- Container Links (50%) --- */
+.container-left {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    padding-right: 4px; /* Extra ruimte voor de divider */
+}
+
+.stats-content-wrapper {
+    width: 100%; /* Gebruik de volledige 50% breedte */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.accent-title {
+    color: #ffb347;
+    font-size: 1.2rem;
+    font-weight: 800; /* Iets dikker voor dashboard look */
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.inventory-summary-box {
+    background-color: #222222; 
+    padding: 12px;
+    border-radius: 20px;
+    width: 100%; 
+    max-width: 140px; 
+    box-sizing: border-box;
+}
+
+.big-number {
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.box-label {
+    color: #777;
+    font-size: 0.8rem;
+    margin-top: 4px;
+    white-space: normal; /* Laat tekst naar de volgende regel springen */
+    line-height: 1.2;
+    display: block;
+}
+
+.status-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cocktail-count-text {
+    color: #ffffff;
+    font-size: 1.1rem;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.cocktail-count-text strong {
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+#unlock-info {
+    color: #ffb347;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin: 0;
+    margin-top: 10px;
+    line-height: 1.2;
+}
+
+.manage-ingredients-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px; /* Kleiner gemaakt voor meer ruimte voor tekst */
+    color: #ffb347;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.8rem; /* Iets kleiner font voor betere fit */
+    padding: 10px 12px; /* Compacter gemaakt */
+    
+    background: rgba(255, 179, 71, 0.08); 
+    border: 1.5px solid rgba(255, 179, 71, 0.4);
+    border-radius: 14px;
+    
+    /* Ruimtebeheer: dit voorkomt het uitsteken */
+    width: 100%; 
+    max-width: 100%; /* Mag NOOIT breder zijn dan de container-left */
+    box-sizing: border-box; /* Padding telt mee in de breedte */
+    margin-top: 15px;
+    transition: all 0.3s ease;
+    
+    overflow: hidden; /* Veiligheid: inhoud die overstroomt wordt verborgen */
+}
+
+.manage-ingredients-btn span {
+    white-space: normal; /* Tekst MOET naar beneden kunnen springen */
+    line-height: 1.1;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    flex: 1; /* Neemt alle beschikbare ruimte in naast het icoon */
+    word-wrap: break-word; /* Breekt lange woorden af indien nodig */
+}
+
+.manage-ingredients-btn i {
+    font-size: 1.1rem;
+    flex-shrink: 0; /* Icoon mag nooit kleiner worden */
+    color: #ffb347;
+}
+
+/* Hover effect */
+.manage-ingredients-btn:hover {
+    background: rgba(255, 179, 71, 0.15);
+    border-color: #ffb347;
+}
+
+/* --- Container Rechts (50%) --- */
+.container-right {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    /* De Divider Streep */
+    border-left: 1px solid #333; /* Subtiele donkere lijn zoals je horizontale divider */
+    padding-left: 24px;          /* Ruimte tussen de lijn en de fles/percentage */
+}
+
+.status-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.status-label-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1;
+}
+
+.status-label-group span {
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+#bar-pct-text {
+    font-size: 2.2rem; /* Compacte maat zodat hij niet uitsteekt */
+    font-weight: 900;
+    color: #ffb347;
+    line-height: 1;
+}
+
+.bottle-container {
+    width: 100%;
+    height: 220px; /* Verhoogd van 160px naar 220px voor een grotere fles */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    position: relative;
+    /* overflow: visible; zorgt dat de drop-shadow niet wordt afgekapt */
+    overflow: visible; 
+}
+
+.bottle-svg {
+    width: 100%;
+    height: 100%;
+    /* De filter maakt de fles visueel indrukwekkender */
+    filter: drop-shadow(0 0 25px rgba(255, 179, 71, 0.25));
+}
+
+.bottle-bg {
+    fill: #0c0c0c;
+    stroke: #333;
+    stroke-width: 2;
+}
+
+.progress-btn {
+    background-color: #ffb347;
+    color: #121212;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 50px;
+    width: 100%;
+    max-width: 130px; /* Iets smaller voor een compactere look */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1;
+}
+
+.btn-text span {
+    font-size: 0.65rem;
+    font-weight: 900;
+}
+
+.progress-btn i {
+    font-size: 1rem;
+}
+
+.progress-btn:hover {
+    background-color: #ffa321;
+    transform: scale(1.05);
+}
+
+/* --- Animatie vloeistof --- */
+#liquid-fill {
+    /* Smooth filling animation */
+    transition: y 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.highlight-orange {
+    color: #ffb347;
+    font-weight: 700;
+}
+
+/* --- Mobiele Responsiveness --- */
+@media (max-width: 320px) {
+    .bar-status-main {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .container-left, .container-right {
+        flex: 1 1 100%;
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+
+    .stats-content-wrapper {
+        align-items: center;
+    }
+
+    .inventory-summary-box {
+        margin: 0 auto;
+    }
 }
 
 /* ==========================================================================

@@ -37,8 +37,6 @@
  * ============================================================ */
 
 
-
-
 /* ============================================================
  * 2. APP STATE & INITIALIZATION
  * ============================================================ */
@@ -71,13 +69,24 @@ function navigateTo(pageId) {
     const activeNav = document.getElementById('nav-' + pageId);
     if (activeNav) activeNav.classList.add('active');
 
-    // Page-specific actions on load
+    // --- Page-specific actions ---
+    
+    // Als we naar de Fridge gaan: zet de vinkjes goed EN update de fles-status
+    if (pageId === 'fridge') {
+        syncCheckboxes();
+        calculateBarProgress(); // Zorgt dat de fles meeverandert als je vinkjes laadt
+    }
+
+    // Als we naar de Home gaan (of waar je Bar Status kaart staat):
+    // Zorg dat de fles daar ook de juiste data toont
+    if (pageId === 'home') {
+        calculateBarProgress();
+    }
+
     if (pageId === 'vault')    renderVault();
-    if (pageId === 'fridge')   syncCheckboxes();
     if (pageId === 'shopping') renderShoppingList();
     if (pageId === 'recipes')  renderMyRecipes();
 }
-
 
 
 /* ============================================================
@@ -786,6 +795,7 @@ function filterCategoryList(input) {
 function updateFridge(checkbox) {
     const value = checkbox.value.toLowerCase().trim();
     
+    // 1. Update de actieve ingrediëntenlijst
     if (checkbox.checked) {
         if (!myIngredients.includes(value)) {
             myIngredients.push(value);
@@ -794,8 +804,13 @@ function updateFridge(checkbox) {
         myIngredients = myIngredients.filter(ing => ing !== value);
     }
     
+    // 2. Sla de lijst op in localStorage
     localStorage.setItem('myIngredients', JSON.stringify(myIngredients));
     
+    // 3. Update de Bar Status (Fles & Getallen) direct live
+    calculateBarProgress();
+
+    // Optioneel: als je suggesties hebt
     if (typeof updateIngredientSuggestions === 'function') {
         updateIngredientSuggestions();
     }
@@ -803,9 +818,11 @@ function updateFridge(checkbox) {
 
 /* ---------- 8.4 syncCheckboxes() ---------- */
 function syncCheckboxes() {
-    const checkboxes = document.querySelectorAll('.category-content input[type="checkbox"]');
+    // Selecteer alle checkboxes binnen de fridge sectie
+    const checkboxes = document.querySelectorAll('.fridge-item input[type="checkbox"]');
     checkboxes.forEach(cb => {
-        cb.checked = myIngredients.includes(cb.value.toLowerCase().trim());
+        const val = cb.value.toLowerCase().trim();
+        cb.checked = myIngredients.includes(val);
     });
 }
 
@@ -1003,3 +1020,97 @@ function closeShakeModal() {
         modal.style.display = 'none';
     }, 400);
 }
+
+
+/* ============================================================
+ * 10. BAR STATUS LOGICA (DYNAMISCH)
+ * ============================================================ */
+
+function calculateBarProgress() {
+    const allCheckboxes = document.querySelectorAll('.category-content input[type="checkbox"]');
+    const checkedCount = Array.from(allCheckboxes).filter(cb => cb.checked).length;
+    
+    // 1. Update ingredienten getal
+    const bottleCountEl = document.getElementById('bottle-count');
+    if (bottleCountEl) bottleCountEl.innerText = checkedCount;
+
+    // 2. Bereken het aantal mogelijke cocktails (0 missing)
+    const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
+    const allCocktails = [...classicCocktails, ...myRecipes];
+    
+    const perfectMatches = allCocktails.filter(cocktail => {
+        const missing = cocktail.ingredients.filter(ing => {
+            const nameToSearch = (typeof ing === 'object' ? ing.name : ing).toLowerCase().trim();
+            return !myIngredients.some(mine => {
+                const cleanMine = mine.toLowerCase().trim();
+                return nameToSearch.includes(cleanMine) || cleanMine.includes(nameToSearch);
+            });
+        });
+        return missing.length === 0;
+    }).length;
+
+    // Update match getal
+    const matchCountEl = document.getElementById('match-count');
+    if (matchCountEl) matchCountEl.innerText = perfectMatches;
+
+    // 3. Update Dynamische status tekst op basis van aantal flessen
+    const unlockEl = document.getElementById('unlock-info');
+    if (unlockEl) {
+        if (checkedCount === 0) {
+            unlockEl.innerText = "Your bar is empty!";
+        } else if (checkedCount < 10) {
+            unlockEl.innerText = "A good start, keep going!";
+        } else if (checkedCount < 25) {
+            unlockEl.innerText = "You're a worthy bartender!";
+        } else {
+            unlockEl.innerText = "Professional Bar Setup!";
+        }
+    }
+
+    // Update ook de rest van de UI (fles en percentage)
+    const percentage = allCheckboxes.length > 0 ? Math.round((checkedCount / allCheckboxes.length) * 100) : 0;
+    updateBarUI(percentage, checkedCount);
+}
+
+function updateBarUI(pct, count) {
+    const liquid = document.getElementById('liquid-fill');
+    const text = document.getElementById('bar-pct-text');
+    const bottleCountEl = document.getElementById('bottle-count');
+    const messageEl = document.getElementById('bar-message');
+    const unlockEl = document.getElementById('unlock-info');
+
+    // 1. Update de Fles vulling
+    if (liquid) {
+        const maxHeight = 195; 
+        const fillValue = 200 - (pct / 100 * maxHeight);
+        liquid.setAttribute('y', fillValue);
+    }
+
+    // 2. Update Percentage tekst
+    if (text) text.innerText = pct + "%";
+
+    // 3. Update Flessen teller
+    if (bottleCountEl) bottleCountEl.innerText = count;
+
+    // 4. Dynamische teksten
+    if (messageEl && unlockEl) {
+        if (count === 0) {
+            messageEl.innerText = "Your bar is empty!";
+            unlockEl.innerText = "Start picking ingredients!";
+        } else if (pct < 30) {
+            messageEl.innerText = "A good start!";
+            unlockEl.innerText = "Add more to unlock classics.";
+        } else {
+            messageEl.innerText = "Professional Setup!";
+            unlockEl.innerText = "You're a real bartender!";
+        }
+    }
+}
+
+// Zorg dat bij het laden van de pagina alles goed staat
+window.addEventListener('DOMContentLoaded', () => {
+    // Eerst vinkjes synchroniseren met localStorage
+    syncCheckboxes();
+    // Dan de berekening uitvoeren voor de fles
+    calculateBarProgress();
+});
