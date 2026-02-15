@@ -55,6 +55,7 @@
  *      - Long Island Iced Tea
  *      - Lychacha
  *            - Mai Tai
+ *            - Manderin Daiquiri
  *      - Mango Mustache
  *      - Manhattan
  *      - Margarita
@@ -1556,7 +1557,7 @@ const classicCocktails = [
             Step 3: Stir until the cup frosts and garnish with mint.
         `.trim(),
         image: "./assets/mintjulep.png"
-    }
+    },
     { 
         id: 'mojito', 
         name: "Mojito", 
@@ -2520,7 +2521,7 @@ const classicCocktails = [
             Step 3: Garnish with a lime twist.
         `.trim(),
         image: "./assets/yellowbird.png"
-    }
+    },
     { 
         id: 'zombie', 
         name: "Zombie", 
