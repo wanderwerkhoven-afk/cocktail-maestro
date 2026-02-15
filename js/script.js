@@ -1081,7 +1081,7 @@ function updateBarUI(pct, count) {
         // We zetten de transitie even uit, resetten naar de bodem, 
         // en starten de stijging na een kleine delay.
         liquidGroup.style.transition = 'none';
-        liquidGroup.style.transform = 'translateY(230px)'; // Reset naar bodem
+        liquidGroup.style.transform = 'translateY(220px)'; // Reset naar bodem
         
         setTimeout(() => {
             // Veranderd van 1.5s naar 3.0s
