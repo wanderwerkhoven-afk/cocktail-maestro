@@ -1073,20 +1073,25 @@ function calculateBarProgress() {
 }
 
 function updateBarUI(pct, count) {
-    const liquid = document.getElementById('liquid-fill');
+    const liquidGroup = document.getElementById('liquid-group');
     const text = document.getElementById('bar-pct-text');
-    const bottleCountEl = document.getElementById('bottle-count');
-    const messageEl = document.getElementById('bar-message');
-    const unlockEl = document.getElementById('unlock-info');
+    // ... andere variabelen ...
 
-    // 1. Update de Fles vulling
-    if (liquid) {
-        const maxHeight = 195; 
-        const fillValue = 200 - (pct / 100 * maxHeight);
-        liquid.setAttribute('y', fillValue);
+    if (liquidGroup) {
+        // 0% is y = 230 (bodempje)
+        // 100% is y = 40 (onder de dop)
+        // De 'range' is dus 190 pixels (230 - 40)
+        
+        const bottomY = 243;
+        const topY = 30;
+        const range = bottomY - topY;
+        
+        const moveY = bottomY - (pct / 100 * range);
+        
+        // Pas de transform toe
+        liquidGroup.style.transform = `translateY(${moveY}px)`;
     }
 
-    // 2. Update Percentage tekst
     if (text) text.innerText = pct + "%";
 
     // 3. Update Flessen teller

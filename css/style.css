@@ -1538,10 +1538,12 @@ body {
 }
 
 .stats-content-wrapper {
-    width: 100%; /* Gebruik de volledige 50% breedte */
+    width: 100%;
+    height: 100%; /* Essentieel voor uitlijning */
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: space-between; /* Dit duwt de knop naar de bodem */
     gap: 12px;
 }
 
@@ -1583,6 +1585,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    margin-bottom: auto; /* Forceert alles hieronder (de knop) naar de bodem */
 }
 
 .cocktail-count-text {
@@ -1678,7 +1681,7 @@ body {
 .status-label-group {
     display: flex;
     flex-direction: column;
-    text-align: left;
+    text-align: right;
     line-height: 1;
 }
 
@@ -1696,29 +1699,60 @@ body {
     line-height: 1;
 }
 
+
+/* ============================================================
+   DRINK PROGRESSION (BOTTLE & ANIMATION) 
+   ============================================================ */
+
 .bottle-container {
     width: 100%;
-    height: 220px; /* Verhoogd van 160px naar 220px voor een grotere fles */
+    height: 220px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 10px 0;
     position: relative;
-    /* overflow: visible; zorgt dat de drop-shadow niet wordt afgekapt */
-    overflow: visible; 
+    overflow: visible; /* Zorgt dat de drop-shadow niet wordt afgekapt */
 }
 
 .bottle-svg {
     width: 100%;
     height: 100%;
-    /* De filter maakt de fles visueel indrukwekkender */
+    /* De gloed rondom de fles */
     filter: drop-shadow(0 0 25px rgba(255, 179, 71, 0.25));
 }
 
-.bottle-bg {
-    fill: #0c0c0c;
-    stroke: #333;
-    stroke-width: 2;
+/* De vloeistof groep die stijgt en daalt */
+#liquid-group {
+    /* De transform wordt aangestuurd via de JS functie (translateY) */
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+
+/* De kabbelende golven */
+.wave-front {
+    animation: wave-move-front 4s infinite linear;
+}
+
+.wave-back {
+    animation: wave-move-back 6s infinite linear;
+    filter: brightness(0.9);
+}
+
+@keyframes wave-move-front {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100px); }
+}
+
+@keyframes wave-move-back {
+    from { transform: translateX(-100px); }
+    to { transform: translateX(0); }
+}
+
+/* Knop en teksten */
+.highlight-orange {
+    color: #ffb347;
+    font-weight: 700;
 }
 
 .progress-btn {
@@ -1728,13 +1762,14 @@ body {
     padding: 10px 16px;
     border-radius: 50px;
     width: 100%;
-    max-width: 130px; /* Iets smaller voor een compactere look */
+    max-width: 130px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
+    margin-top: 10px;
 }
 
 .btn-text {
@@ -1758,16 +1793,6 @@ body {
     transform: scale(1.05);
 }
 
-/* --- Animatie vloeistof --- */
-#liquid-fill {
-    /* Smooth filling animation */
-    transition: y 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.highlight-orange {
-    color: #ffb347;
-    font-weight: 700;
-}
 
 /* --- Mobiele Responsiveness --- */
 @media (max-width: 320px) {
