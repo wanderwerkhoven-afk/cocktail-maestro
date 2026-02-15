@@ -8,12 +8,15 @@
          1.1  Meta Tags
          1.2  Favicon & App Icons
          1.3  Stylesheets
+
      2.  BODY
          2.1  PAGE: Home
               - Top Bar (empty header)
               - Hero Section
               - Menu Cards (Fridge / Vault / Recipe Book)
               - Info Block
+              - Shake it Randomizer Card
+
         2.3  PAGE: Fridge
               - Top Bar & Back Button
               - Ingredient Categories
@@ -24,22 +27,35 @@
                 · Fresh & Pantry
               - Find My Cocktails Button
               - Matching Results Grid (dynamically filled)
+
          2.3  PAGE: Cocktail Vault
               - Top Bar & Back Button
               - Search Bar
               - Cocktail Grid (dynamically filled)
+
          2.4  PAGE: Recipe Book
               - Top Bar & Back Button
               - Recipe Form (image upload, fields, save button)
+
          2.5  PAGE: Shopping List
               - Top Bar, Back Button & Clear Button
               - Empty State Placeholder
               - Shopping List Items
+
+         2.6  MODAL: Shake it up Result
+              - Modal Overlay & Content
+              - Close Button
+              - Result Card (dynamically filled)
+              - Action Button
+
      3.  NAVIGATION
          3.1  Bottom Navigation Bar
+         
      4.  SCRIPTS
          4.1  External Libraries
-         4.2  App Script
+         4.2  Cocktail Database
+         4.3  App Script
+
      ============================================================ -->
 
 <head>
@@ -530,7 +546,20 @@
 
 
 
-
+<!-- ============================================================
+     2.6  MODAL: SHAKE IT UP RESULT
+     ============================================================ -->
+<div id="shake-modal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="close-modal" onclick="closeShakeModal()">&times;</button>
+        <div id="shake-result-card">
+            </div>
+        <button class="modal-action-btn" onclick="closeShakeModal()">Cheers!</button>
+    </div>
+</div>
+<!-- ============================================================
+     END MODAL: SHAKE IT UP RESULT
+     ============================================================ -->
 
 
 
@@ -586,7 +615,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <!-- ============================================================
-     4.2  APP SCRIPT
+     4.2  COCKTAIL DATABASE
+     ============================================================ -->
+<script src="./js/database.js"></script>
+
+<!-- ============================================================
+     4.3  APP SCRIPT
      ============================================================ -->
 <script src="./js/script.js"></script>
 
