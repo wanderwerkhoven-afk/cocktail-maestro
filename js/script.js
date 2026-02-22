@@ -44,8 +44,8 @@
 /* ---------- 2.1  State Variables ---------- */
 let currentImageBase64 = "";
 let myIngredients = JSON.parse(localStorage.getItem('myIngredients')) || [];
-let myFavorites   = JSON.parse(localStorage.getItem('myFavorites'))   || [];
-let shoppingList  = JSON.parse(localStorage.getItem('shoppingList'))  || [];
+let myFavorites = JSON.parse(localStorage.getItem('myFavorites')) || [];
+let shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];
 
 /* ---------- 2.2  DOMContentLoaded Init ---------- */
 document.addEventListener('DOMContentLoaded', () => {
@@ -70,7 +70,7 @@ function navigateTo(pageId) {
     if (activeNav) activeNav.classList.add('active');
 
     // --- Page-specific actions ---
-    
+
     // Als we naar de Fridge gaan: zet de vinkjes goed EN update de fles-status
     if (pageId === 'fridge') {
         syncCheckboxes();
@@ -83,9 +83,9 @@ function navigateTo(pageId) {
         calculateBarProgress();
     }
 
-    if (pageId === 'vault')    renderVault();
+    if (pageId === 'vault') renderVault();
     if (pageId === 'shopping') renderShoppingList();
-    if (pageId === 'recipes')  renderMyRecipes();
+    if (pageId === 'recipes') renderMyRecipes();
 }
 
 
@@ -96,7 +96,7 @@ function navigateTo(pageId) {
 /* ---------- 4.1  renderShoppingList() ---------- */
 function renderShoppingList() {
     const listContainer = document.getElementById('shopping-list-items');
-    const emptyState    = document.getElementById('shopping-list-empty');
+    const emptyState = document.getElementById('shopping-list-empty');
     if (!listContainer) return;
 
     listContainer.innerHTML = "";
@@ -105,11 +105,11 @@ function renderShoppingList() {
         if (emptyState) emptyState.style.display = "block";
     } else {
         if (emptyState) emptyState.style.display = "none";
-        
+
         shoppingList.forEach((item, index) => {
             const li = document.createElement('li');
             li.className = `shopping-item ${item.checked ? 'checked' : ''}`;
-            
+
             li.innerHTML = `
                 <div class="shopping-item-info" onclick="toggleItemCheck(${index})">
                     <i class="${item.checked ? 'fa-solid fa-circle-check' : 'fa-regular fa-circle'}"></i>
@@ -151,9 +151,9 @@ function clearShoppingList() {
 /* ---------- 4.5  addToShoppingList() ---------- */
 function addToShoppingList(e, ingredient) {
     e.stopPropagation();
-    
+
     const exists = shoppingList.some(item => item.name === ingredient);
-    
+
     if (!exists) {
         shoppingList.push({ name: ingredient, checked: false });
         localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
@@ -171,16 +171,16 @@ function addToShoppingList(e, ingredient) {
 /* ---------- 5.1  toggleFavorite() ---------- */
 function toggleFavorite(e, cocktailId) {
     e.stopPropagation();
-    
+
     const index = myFavorites.indexOf(cocktailId);
     if (index > -1) {
         myFavorites.splice(index, 1);
     } else {
         myFavorites.push(cocktailId);
     }
-    
+
     localStorage.setItem('myFavorites', JSON.stringify(myFavorites));
-    
+
     // Re-render the active page to reflect the change
     if (document.getElementById('vault-page').classList.contains('active')) {
         renderVault(document.getElementById('vault-search')?.value || "");
@@ -200,7 +200,7 @@ function renderVault(filter = "") {
     if (!vaultGrid) return;
 
     const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
-    
+
     // Combine lists and sort: favorites first, then alphabetically
     const allCocktails = [...classicCocktails, ...myRecipes].sort((a, b) => {
         const aFav = myFavorites.includes(a.id);
@@ -220,7 +220,7 @@ function renderVault(filter = "") {
             const ingName = typeof i === 'object' ? i.name : i;
             return ingName.toLowerCase().includes(searchTerm);
         });
-        const categoryMatch = Array.isArray(c.category) 
+        const categoryMatch = Array.isArray(c.category)
             ? c.category.some(cat => cat.toLowerCase().includes(searchTerm))
             : c.category.toLowerCase().includes(searchTerm);
 
@@ -229,79 +229,7 @@ function renderVault(filter = "") {
 
     // Render cocktail cards
     filtered.forEach(cocktail => {
-        const isFav = myFavorites.includes(cocktail.id);
-        const card  = document.createElement('div');
-        card.className = `cocktail-card ${isFav ? 'is-favorite' : ''}`;
-        
-        card.onclick = function(e) { 
-            if (!e.target.closest('.download-btn') && 
-                !e.target.closest('.fav-btn') && 
-                !e.target.closest('.counter-btn')) {
-                this.classList.toggle('open'); 
-            }
-        };
-
-        card.innerHTML = `
-            <div class="card-thumb-large">
-                <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleFavorite(event, '${cocktail.id}')">
-                    <i class="${isFav ? 'fa-solid' : 'fa-regular'} fa-star"></i>
-                </button>
-                <img src="${cocktail.image}" alt="${cocktail.name}">
-                <button class="download-btn" onclick="downloadRecipe('${cocktail.id}')">
-                    <i class="fa-solid fa-download"></i>
-                </button>
-            </div>
-            <div class="card-content">
-                <h4>${cocktail.name} ${isFav ? '⭐' : ''}</h4>
-                <div class="category-container">
-                    ${Array.isArray(cocktail.category) 
-                        ? cocktail.category.map(cat => `<span class="category-tag">${cat}</span>`).join('')
-                        : `<span class="category-tag">${cocktail.category}</span>`
-                    }
-                </div>
-                <p class="description">${cocktail.description || "A custom masterpiece."}</p>
-                
-                <div class="collapsible-content">
-                    <div class="servings-control">
-                        <span>Servings:</span>
-                        <div class="counter-box">
-                            <button class="counter-btn" onclick="updateServings(event, '${cocktail.id}', -1)">-</button>
-                            <span id="servings-${cocktail.id}">1</span>
-                            <button class="counter-btn" onclick="updateServings(event, '${cocktail.id}', 1)">+</button>
-                        </div>
-                    </div>
-
-                    <div class="ingredients-section">
-                        <strong>Ingredients:</strong> 
-                        <ul class="ingredients-list" id="ingredients-${cocktail.id}">
-                            ${cocktail.ingredients.map(ing => {
-                                if (typeof ing === 'object' && ing.amount) {
-                                    return `<li><span><b class="amount">${ing.amount}</b> <b class="unit">${ing.unit}</b> ${ing.name}</span></li>`;
-                                }
-                                return `<li><span>${ing}</span></li>`;
-                            }).join('')}
-                        </ul>
-                    </div>
-
-                    <div class="hardware-section">
-                        <div class="hardware-column">
-                            <strong>Glassware:</strong>
-                            <p class="hardware-text">${cocktail.glassware}</p>
-                        </div>
-                        <div class="hardware-column">
-                            <strong>Ice:</strong>
-                            <p class="hardware-text">${cocktail.ice}</p>
-                        </div>
-                    </div>
-
-                    <div class="method-section">
-                        <strong>Method: ${cocktail.method}</strong>
-                        <p class="method-text">${cocktail.methodDesc}</p>
-                    </div>
-                </div>
-            </div>
-        `;
-        vaultGrid.appendChild(card);
+        vaultGrid.innerHTML += createCocktailCardHTML(cocktail);
     });
 }
 
@@ -312,9 +240,9 @@ async function downloadRecipe(cocktailId) {
 
     try {
         const btn = cardElement.querySelector('.download-btn');
-        
+
         // Temporarily hide button so it doesn't appear in the screenshot
-        if (btn) btn.style.opacity = '0'; 
+        if (btn) btn.style.opacity = '0';
 
         const canvas = await html2canvas(cardElement, {
             useCORS: true,
@@ -325,23 +253,23 @@ async function downloadRecipe(cocktailId) {
         });
 
         // Restore button visibility by removing the inline style
-        if (btn) btn.style.removeProperty('opacity'); 
+        if (btn) btn.style.removeProperty('opacity');
 
         const dataUrl = canvas.toDataURL("image/png");
-        
+
         if (navigator.canShare && navigator.share) {
-            const res  = await fetch(dataUrl);
+            const res = await fetch(dataUrl);
             const blob = await res.blob();
             const file = new File([blob], `Cocktail_${cocktailId}.png`, { type: "image/png" });
-            
+
             await navigator.share({
                 files: [file],
                 title: "Mijn Cocktail Recept",
                 text: "Kijk wat ik heb gemaakt!"
             });
         } else {
-            const link  = document.createElement('a');
-            link.href   = dataUrl;
+            const link = document.createElement('a');
+            link.href = dataUrl;
             link.download = `Cocktail_${cocktailId}.png`;
             link.click();
         }
@@ -354,13 +282,13 @@ async function downloadRecipe(cocktailId) {
 /* ---------- 6.3  updateServings() ---------- */
 function updateServings(e, cocktailId, delta) {
     if (e) e.stopPropagation();
-    
+
     // 1. Zoek de labels op de kaart waar geklikt is
     // We zoeken binnen de dichtstbijzijnde cocktail-card om de juiste te pakken
     const card = e.target.closest('.cocktail-card');
     const servingsLabel = card.querySelector(`[id="servings-${cocktailId}"]`);
     const listContainer = card.querySelector(`[id="ingredients-${cocktailId}"]`);
-    
+
     if (!servingsLabel || !listContainer) {
         console.error("Servings elementen niet gevonden voor ID:", cocktailId);
         return;
@@ -370,16 +298,16 @@ function updateServings(e, cocktailId, delta) {
     let currentServings = parseInt(servingsLabel.innerText);
     let newServings = currentServings + delta;
     if (newServings < 1) return;
-    
+
     servingsLabel.innerText = newServings;
-    
+
     // 3. Haal het originele recept op voor de basis-aantallen
     const allCocktails = [...classicCocktails, ...(JSON.parse(localStorage.getItem('myRecipes')) || [])];
     const cocktail = allCocktails.find(c => c.id.toString() === cocktailId.toString());
-    
+
     if (cocktail) {
         const listItems = listContainer.querySelectorAll('li');
-        
+
         cocktail.ingredients.forEach((ing, index) => {
             // Alleen updaten als het een object is met een amount
             if (typeof ing === 'object' && ing.amount !== undefined) {
@@ -388,14 +316,14 @@ function updateServings(e, cocktailId, delta) {
 
                 // Bereken nieuw aantal op basis van basis (amount / 1) * nieuwe servings
                 const newAmount = (ing.amount * newServings).toFixed(ing.amount % 1 === 0 ? 0 : 1);
-                
+
                 // Zoek de span waar de tekst in staat
                 const textSpan = li.querySelector('span');
                 if (textSpan) {
                     // Behoud het icoontje (voor de Fridge)
                     const icon = textSpan.querySelector('i');
                     const iconHTML = icon ? icon.outerHTML + " " : "";
-                    
+
                     // Update de inhoud van de span
                     textSpan.innerHTML = `${iconHTML}<b class="amount">${newAmount}</b> <b class="unit">${ing.unit}</b> ${ing.name}`;
                 }
@@ -421,9 +349,9 @@ function openRecipeForm() {
     // 2. Maak alle tekstvelden leeg
     document.getElementById('recipe-name').value = "";
     document.getElementById('recipe-description').value = "";
-    if(document.getElementById('recipe-category')) document.getElementById('recipe-category').value = "";
-    if(document.getElementById('recipe-glassware')) document.getElementById('recipe-glassware').value = "";
-    if(document.getElementById('recipe-ice')) document.getElementById('recipe-ice').value = "";
+    if (document.getElementById('recipe-category')) document.getElementById('recipe-category').value = "";
+    if (document.getElementById('recipe-glassware')) document.getElementById('recipe-glassware').value = "";
+    if (document.getElementById('recipe-ice')) document.getElementById('recipe-ice').value = "";
     document.getElementById('recipe-method').value = "";
     document.getElementById('recipe-desc').value = "";
 
@@ -433,12 +361,12 @@ function openRecipeForm() {
     display.src = "";
     display.style.display = 'none';
     placeholder.style.display = 'flex';
-    currentImageBase64 = ""; 
+    currentImageBase64 = "";
 
     // 4. Reset de ingrediënten naar 1 lege rij
     const container = document.getElementById('ingredient-inputs-container');
-    container.innerHTML = ""; 
-    addIngredientRow(); 
+    container.innerHTML = "";
+    addIngredientRow();
 
     // 5. Update suggesties en toon overlay
     updateIngredientSuggestions();
@@ -453,7 +381,7 @@ function addIngredientRow(amount = '', unit = '', name = '') {
     const container = document.getElementById('ingredient-inputs-container');
     const row = document.createElement('div');
     row.className = 'ingredient-row';
-    
+
     row.innerHTML = `
         <input type="number" class="ing-amount" value="${amount}" placeholder="50" oninput="checkRowTyping(this)">
         <input type="text" class="ing-unit" value="${unit}" placeholder="ml" oninput="checkRowTyping(this)">
@@ -462,10 +390,10 @@ function addIngredientRow(amount = '', unit = '', name = '') {
             <i class="fa-solid fa-xmark"></i>
         </button>
     `;
-    
+
     row.style.opacity = '0';
     container.appendChild(row);
-    
+
     setTimeout(() => {
         row.style.opacity = '1';
         row.style.transition = 'opacity 0.3s ease';
@@ -503,7 +431,7 @@ function previewImage(event) {
     if (!file) return;
 
     const reader = new FileReader();
-    reader.onload = function() {
+    reader.onload = function () {
         const display = document.getElementById('image-preview-display');
         const placeholder = document.getElementById('image-preview-placeholder');
         if (display && placeholder) {
@@ -621,9 +549,9 @@ function renderMyRecipes() {
     myRecipes.forEach(cocktail => {
         const card = document.createElement('div');
         card.className = 'cocktail-card';
-        
+
         // Klik-logica voor uitklappen (behalve op knoppen)
-        card.onclick = function(e) {
+        card.onclick = function (e) {
             if (!e.target.closest('.counter-btn') && !e.target.closest('.card-actions')) {
                 this.classList.toggle('open');
             }
@@ -647,7 +575,7 @@ function renderMyRecipes() {
                 
                 <div class="category-container">
                     ${(Array.isArray(cocktail.category) ? cocktail.category : [cocktail.category])
-                        .map(cat => `<span class="category-tag">${cat}</span>`).join('')}
+                .map(cat => `<span class="category-tag">${cat}</span>`).join('')}
                 </div>
                 
                 <p class="description">${cocktail.description || "A custom masterpiece."}</p>
@@ -706,12 +634,12 @@ function editRecipe(id) {
     // Vul velden
     document.getElementById('recipe-name').value = cocktail.name;
     document.getElementById('recipe-description').value = cocktail.description;
-    if(document.getElementById('recipe-category')) document.getElementById('recipe-category').value = cocktail.category.join(', ');
-    if(document.getElementById('recipe-glassware')) document.getElementById('recipe-glassware').value = cocktail.glassware || "";
-    if(document.getElementById('recipe-ice')) document.getElementById('recipe-ice').value = cocktail.ice || "";
+    if (document.getElementById('recipe-category')) document.getElementById('recipe-category').value = cocktail.category.join(', ');
+    if (document.getElementById('recipe-glassware')) document.getElementById('recipe-glassware').value = cocktail.glassware || "";
+    if (document.getElementById('recipe-ice')) document.getElementById('recipe-ice').value = cocktail.ice || "";
     document.getElementById('recipe-method').value = cocktail.method;
     document.getElementById('recipe-desc').value = cocktail.methodDesc;
-    
+
     // Foto
     const display = document.getElementById('image-preview-display');
     const placeholder = document.getElementById('image-preview-placeholder');
@@ -722,7 +650,7 @@ function editRecipe(id) {
 
     // Ingrediënten
     const container = document.getElementById('ingredient-inputs-container');
-    container.innerHTML = ''; 
+    container.innerHTML = '';
     cocktail.ingredients.forEach(ing => addIngredientRow(ing.amount, ing.unit, ing.name));
 
     // Knop omzetten naar Update
@@ -739,7 +667,7 @@ function deleteRecipe(id) {
         let myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
         myRecipes = myRecipes.filter(r => r.id !== id);
         localStorage.setItem('myRecipes', JSON.stringify(myRecipes));
-        renderMyRecipes(); 
+        renderMyRecipes();
     }
 }
 
@@ -747,7 +675,7 @@ function checkRowTyping(inputElement) {
     const row = inputElement.closest('.ingredient-row');
     const container = document.getElementById('ingredient-inputs-container');
     const isAnyFilled = Array.from(row.querySelectorAll('input')).some(i => i.value.trim().length > 0);
-    
+
     if (isAnyFilled) {
         row.classList.add('is-typing');
         if (row === container.lastElementChild) addIngredientRow();
@@ -766,10 +694,10 @@ function toggleCategory(id) {
     if (!content) return;
 
     content.classList.toggle('active');
-    
+
     const button = content.previousElementSibling;
-    const icon   = button ? button.querySelector('i') : null;
-    
+    const icon = button ? button.querySelector('i') : null;
+
     if (icon) {
         if (content.classList.contains('active')) {
             icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
@@ -794,7 +722,7 @@ function filterCategoryList(input) {
 /* ---------- 8.3 updateFridge() ---------- */
 function updateFridge(checkbox) {
     const value = checkbox.value.toLowerCase().trim();
-    
+
     // 1. Update de actieve ingrediëntenlijst
     if (checkbox.checked) {
         if (!myIngredients.includes(value)) {
@@ -803,10 +731,10 @@ function updateFridge(checkbox) {
     } else {
         myIngredients = myIngredients.filter(ing => ing !== value);
     }
-    
+
     // 2. Sla de lijst op in localStorage
     localStorage.setItem('myIngredients', JSON.stringify(myIngredients));
-    
+
     // 3. Update de Bar Status (Fles & Getallen) direct live
     calculateBarProgress();
 
@@ -828,38 +756,38 @@ function syncCheckboxes() {
 
 /* ---------- 8.5 checkMatches() ---------- */
 function checkMatches() {
-    const btn               = document.querySelector('.match-btn-large');
+    const btn = document.querySelector('.match-btn-large');
     const resultsContainer = document.getElementById('matching-results');
     if (!resultsContainer || !btn) return;
 
     // UI Feedback
-    btn.innerHTML           = `<i class="fa-solid fa-spinner fa-spin"></i> Searching...`;
+    btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Searching...`;
     btn.style.pointerEvents = "none";
 
     setTimeout(() => {
-        const myRecipes    = JSON.parse(localStorage.getItem('myRecipes')) || [];
+        const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
         const allCocktails = [...classicCocktails, ...myRecipes];
 
         const matches = allCocktails.map(cocktail => {
             const missing = cocktail.ingredients.filter(ing => {
                 const nameToSearch = (typeof ing === 'object' ? ing.name : ing).toLowerCase().trim();
-                
+
                 const isFound = myIngredients.some(mine => {
                     const cleanMine = mine.toLowerCase().trim();
                     return nameToSearch.includes(cleanMine) || cleanMine.includes(nameToSearch);
                 });
-                
+
                 return !isFound;
             });
             return { ...cocktail, missingCount: missing.length, missingItems: missing };
         })
-        .filter(c => c.missingCount <= 1) 
-        .sort((a, b) => {
-            if (a.missingCount !== b.missingCount) return a.missingCount - b.missingCount;
-            const aFav = myFavorites.includes(a.id);
-            const bFav = myFavorites.includes(b.id);
-            return bFav - aFav;
-        });
+            .filter(c => c.missingCount <= 1)
+            .sort((a, b) => {
+                if (a.missingCount !== b.missingCount) return a.missingCount - b.missingCount;
+                const aFav = myFavorites.includes(a.id);
+                const bFav = myFavorites.includes(b.id);
+                return bFav - aFav;
+            });
 
         resultsContainer.innerHTML = "";
 
@@ -871,86 +799,15 @@ function checkMatches() {
                 </div>`;
         } else {
             matches.forEach(cocktail => {
-                const isPerfect = cocktail.missingCount === 0;
-                const isFav     = myFavorites.includes(cocktail.id);
-                const isCustom  = cocktail.id.toString().startsWith('user-');
-                
-                const card      = document.createElement('div');
-                card.className  = `cocktail-card ${isPerfect ? '' : 'near-match'} ${isFav ? 'is-favorite' : ''}`;
-                
-                card.onclick = function(e) { 
-                    if (!e.target.closest('button')) {
-                        this.classList.toggle('open'); 
-                    }
-                };
-
-                card.innerHTML = `
-                    <div class="card-thumb-large">
-                        <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleFavorite(event, '${cocktail.id}')">
-                            <i class="${isFav ? 'fa-solid' : 'fa-regular'} fa-star"></i>
-                        </button>
-                        ${!isPerfect ? `<span class="missing-tag">Missing ${cocktail.missingCount}</span>` : ''}
-                        <img src="${cocktail.image}" alt="${cocktail.name}">
-                        ${isCustom ? `<span class="custom-badge">MINE</span>` : ''}
-                    </div>
-                    <div class="card-content">
-                        <h4>${cocktail.name} ${isPerfect ? '✨' : ''}</h4>
-                        <div class="category-container">
-                            ${Array.isArray(cocktail.category) 
-                                ? cocktail.category.map(cat => `<span class="category-tag">${cat}</span>`).join('')
-                                : `<span class="category-tag">${cocktail.category}</span>`
-                            }
-                        </div>
-                        
-                        <p class="description">${cocktail.description || ''}</p>
-
-                        <div class="collapsible-content">
-                            <div class="servings-control">
-                                <span>Servings:</span>
-                                <div class="counter-box">
-                                    <button class="counter-btn" onclick="updateServings(event, '${cocktail.id}', -1)">-</button>
-                                    <span id="servings-${cocktail.id}">1</span>
-                                    <button class="counter-btn" onclick="updateServings(event, '${cocktail.id}', 1)">+</button>
-                                </div>
-                            </div>
-                            <div class="ingredients-section">
-                                <strong>Ingredients:</strong> 
-                                <ul class="ingredients-list" id="ingredients-${cocktail.id}">
-                                    ${cocktail.ingredients.map(ing => {
-                                        const ingName = (typeof ing === 'object' ? ing.name : ing).toLowerCase().trim();
-                                        const isMissing = cocktail.missingItems.some(m => 
-                                            (typeof m === 'object' ? m.name : m).toLowerCase().trim() === ingName
-                                        );
-                                        
-                                        const amountPart = typeof ing === 'object' ? `<b class="amount">${ing.amount}</b> <b class="unit">${ing.unit}</b>` : '';
-                                        const namePart = typeof ing === 'object' ? ing.name : ing;
-
-                                        return `
-                                            <li class="${isMissing ? 'missing-ing' : 'available-ing'}">
-                                                <span>
-                                                    <i class="fa-solid ${isMissing ? 'fa-circle-xmark' : 'fa-circle-check'}"></i> 
-                                                    ${amountPart} ${namePart}
-                                                </span>
-                                                ${isMissing ? `
-                                                <button class="add-to-cart-btn" onclick="addToShoppingList(event, '${ingName}')">
-                                                    <i class="fa-solid fa-cart-plus"></i>
-                                                </button>` : ''}
-                                            </li>`;
-                                    }).join('')}
-                                </ul>
-                            </div>
-                            <div class="method-section">
-                                <strong>Method: ${cocktail.method}</strong>
-                                <p class="method-text">${cocktail.methodDesc}</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                resultsContainer.appendChild(card);
+                resultsContainer.innerHTML += createCocktailCardHTML(cocktail, {
+                    isPerfect: cocktail.missingCount === 0,
+                    missingCount: cocktail.missingCount,
+                    missingItems: cocktail.missingItems
+                });
             });
         }
 
-        btn.innerHTML           = `<i class="fa-solid fa-glass-citrus"></i> Find Cocktails`;
+        btn.innerHTML = `<i class="fa-solid fa-glass-citrus"></i> Find Cocktails`;
         btn.style.pointerEvents = "auto";
         resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 600);
@@ -976,30 +833,12 @@ function shakeForCocktail() {
 
         // Check of de lijst bestaat onder de juiste naam: classicCocktails
         if (typeof classicCocktails !== 'undefined' && classicCocktails.length > 0) {
-            
+
             // Kies een random cocktail uit de classicCocktails lijst
             const randomCocktail = classicCocktails[Math.floor(Math.random() * classicCocktails.length)];
 
             // Vul de popup
-            resultContainer.innerHTML = `
-                <img src="${randomCocktail.image}" alt="${randomCocktail.name}">
-                <h2>${randomCocktail.name}</h2>
-                <p style="color: #888; margin-bottom: 15px; font-size: 0.95rem;">${randomCocktail.description}</p>
-                
-                <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 20px; text-align: left; margin-bottom: 15px;">
-                    <h4 style="color: #ffb347; margin-bottom: 8px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Ingredients</h4>
-                    <ul style="list-style: none; padding: 0; margin: 0; color: #ccc; font-size: 0.9rem; line-height: 1.5;">
-                        ${randomCocktail.ingredients.map(i => `<li>• ${i.amount}${i.unit} ${i.name}</li>`).join('')}
-                    </ul>
-                </div>
-
-                <div style="background: rgba(255,179,71,0.05); padding: 15px; border-radius: 20px; text-align: left; border: 1px solid rgba(255,179,71,0.1);">
-                    <h4 style="color: #ffb347; margin-bottom: 5px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Method: ${randomCocktail.method}</h4>
-                    <p style="color: #bbb; margin: 0; font-size: 0.85rem; line-height: 1.4; font-style: italic;">
-                        ${randomCocktail.methodDesc}
-                    </p>
-                </div>
-            `;
+            resultContainer.innerHTML = createCocktailCardHTML(randomCocktail, { forceOpen: true });
 
             // Toon de popup
             modal.style.display = 'flex';
@@ -1011,10 +850,10 @@ function shakeForCocktail() {
 }
 function closeShakeModal() {
     const modal = document.getElementById('shake-modal');
-    
+
     // 1. Haal de 'show' class weg (start de CSS fade-out)
     modal.classList.remove('show');
-    
+
     // 2. Wacht tot de animatie klaar is (400ms) en zet dan display op none
     setTimeout(() => {
         modal.style.display = 'none';
@@ -1029,7 +868,7 @@ function closeShakeModal() {
 function calculateBarProgress() {
     const allCheckboxes = document.querySelectorAll('.category-content input[type="checkbox"]');
     const checkedCount = Array.from(allCheckboxes).filter(cb => cb.checked).length;
-    
+
     // 1. Update ingredienten getal
     const bottleCountEl = document.getElementById('bottle-count');
     if (bottleCountEl) bottleCountEl.innerText = checkedCount;
@@ -1037,7 +876,7 @@ function calculateBarProgress() {
     // 2. Bereken het aantal mogelijke cocktails (0 missing)
     const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
     const allCocktails = [...classicCocktails, ...myRecipes];
-    
+
     const perfectMatches = allCocktails.filter(cocktail => {
         const missing = cocktail.ingredients.filter(ing => {
             const nameToSearch = (typeof ing === 'object' ? ing.name : ing).toLowerCase().trim();
@@ -1075,14 +914,14 @@ function calculateBarProgress() {
 function updateBarUI(pct, count) {
     const liquidGroup = document.getElementById('liquid-group');
     const textEl = document.getElementById('bar-pct-text');
-    
+
     // 1. Reset & Heractiveer Vloeistof Animatie
     if (liquidGroup) {
         // We zetten de transitie even uit, resetten naar de bodem, 
         // en starten de stijging na een kleine delay.
         liquidGroup.style.transition = 'none';
         liquidGroup.style.transform = 'translateY(220px)'; // Reset naar bodem
-        
+
         setTimeout(() => {
             // Veranderd van 1.5s naar 3.0s
             liquidGroup.style.transition = 'transform 3.0s cubic-bezier(0.4, 0, 0.2, 1)';
@@ -1097,7 +936,7 @@ function updateBarUI(pct, count) {
     // 2. Percentage Optel Animatie
     if (textEl) {
         // Veranderd van 1500 naar 3000 om synchroon te lopen
-        animateValue(textEl, 0, pct, 3000); 
+        animateValue(textEl, 0, pct, 3000);
     }
 
     if (text) text.innerText = pct + "%";
@@ -1131,6 +970,135 @@ function animateValue(obj, start, end, duration) {
         }
     };
     window.requestAnimationFrame(step);
+}
+
+/* ============================================================
+ * 11. HELPER FUNCTIONS
+ * ============================================================ */
+
+function createCocktailCardHTML(cocktail, options = {}) {
+    const isFav = myFavorites.includes(cocktail.id);
+    const isCustom = cocktail.id.toString().startsWith('user-');
+    const {
+        isPerfect = true,
+        missingCount = 0,
+        missingItems = [],
+        forceOpen = false
+    } = options;
+
+    const isOpen = forceOpen ? 'open' : '';
+    const nearMatchClass = isPerfect ? '' : 'near-match';
+    const favClass = isFav ? 'is-favorite' : '';
+
+    const categoriesHTML = Array.isArray(cocktail.category)
+        ? cocktail.category.map(cat => `<span class="category-tag">${cat}</span>`).join('')
+        : `<span class="category-tag">${cocktail.category}</span>`;
+
+    const ingredientsHTML = cocktail.ingredients.map(ing => {
+        const isObj = typeof ing === 'object' && ing.name;
+        const ingName = isObj ? ing.name : ing;
+        const lowName = ingName.toLowerCase().trim();
+
+        // Check if missing (if data provided)
+        const isMissing = missingItems.length > 0 && missingItems.some(m => {
+            const mName = (typeof m === 'object' ? m.name : m).toLowerCase().trim();
+            return mName === lowName;
+        });
+
+        const iconClass = isMissing ? 'fa-circle-xmark' : 'fa-circle-check';
+        const itemClass = isMissing ? 'missing-ing' : 'available-ing';
+
+        return `
+            <li class="${itemClass}">
+                <span>
+                    <i class="fa-solid ${iconClass}"></i> 
+                    ${amountPart(ing)} ${ingName}
+                </span>
+                ${isMissing ? `
+                <button class="add-to-cart-btn" onclick="addToShoppingList(event, '${ingName}')">
+                    <i class="fa-solid fa-cart-plus"></i>
+                </button>` : ''}
+            </li>`;
+    }).join('');
+
+    // Internal helper for amount display
+    function amountPart(ing) {
+        if (typeof ing === 'object' && ing.amount !== undefined) {
+            return `<b class="amount">${ing.amount}</b> <b class="unit">${ing.unit}</b>`;
+        }
+        return '';
+    }
+
+    return `
+        <div class="cocktail-card ${favClass} ${nearMatchClass} ${isOpen}" 
+             ${!forceOpen ? `onclick="handleCardClick(event, '${cocktail.id}')"` : ''}>
+            <div class="card-thumb-large">
+                <button class="fav-btn ${isFav ? 'active' : ''}" onclick="toggleFavorite(event, '${cocktail.id}')">
+                    <i class="${isFav ? 'fa-solid' : 'fa-regular'} fa-star"></i>
+                </button>
+                ${!isPerfect ? `<span class="missing-tag">Missing ${missingCount}</span>` : ''}
+                <img src="${cocktail.image}" alt="${cocktail.name}">
+                ${isCustom ? `<span class="custom-badge">MINE</span>` : ''}
+                ${!forceOpen ? `
+                <button class="download-btn" onclick="downloadRecipe('${cocktail.id}')">
+                    <i class="fa-solid fa-download"></i>
+                </button>` : ''}
+            </div>
+            <div class="card-content">
+                <h4>${cocktail.name} ${isPerfect ? '✨' : ''} ${isFav ? '⭐' : ''}</h4>
+                <div class="category-container">
+                    ${categoriesHTML}
+                </div>
+                <p class="description">${cocktail.description || "A premium masterwork."}</p>
+                
+                <div class="collapsible-content">
+                    <div class="servings-control">
+                        <span>Servings:</span>
+                        <div class="counter-box">
+                            <button class="counter-btn" onclick="updateServings(event, '${cocktail.id}', -1)">-</button>
+                            <span id="servings-${cocktail.id}">1</span>
+                            <button class="counter-btn" onclick="updateServings(event, '${cocktail.id}', 1)">+</button>
+                        </div>
+                    </div>
+
+                    <div class="ingredients-section">
+                        <strong>Ingredients:</strong> 
+                        <ul class="ingredients-list" id="ingredients-${cocktail.id}">
+                            ${ingredientsHTML}
+                        </ul>
+                    </div>
+
+                    <div class="hardware-section">
+                        <div class="hardware-column">
+                            <strong>Glassware:</strong>
+                            <p class="hardware-text">${cocktail.glassware || 'Standard'}</p>
+                        </div>
+                        <div class="hardware-column">
+                            <strong>Ice:</strong>
+                            <p class="hardware-text">${cocktail.ice || 'None'}</p>
+                        </div>
+                    </div>
+
+                    <div class="method-section">
+                        <strong>Method: ${cocktail.method}</strong>
+                        <p class="method-text">${cocktail.methodDesc}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function handleCardClick(e, cocktailId) {
+    if (!e.target.closest('.download-btn') &&
+        !e.target.closest('.fav-btn') &&
+        !e.target.closest('.counter-btn') &&
+        !e.target.closest('.add-to-cart-btn') &&
+        !e.target.closest('.edit-recipe-btn') &&
+        !e.target.closest('.delete-recipe-btn')) {
+        const card = e.currentTarget;
+        card.classList.toggle('open');
+    }
 }
 
 // Zorg dat bij het laden van de pagina alles goed staat

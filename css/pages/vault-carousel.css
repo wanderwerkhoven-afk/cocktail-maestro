@@ -1,0 +1,74 @@
+/* Vault Carousel Styles */
+.vault-category-section {
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.category-heading {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0 0 0.8rem 1.5rem;
+    color: var(--primary-accent, #ffb347);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.carousel {
+    display: flex;
+    align-items: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 1.2rem;
+    padding: 0.5rem 1.5rem 1rem 1.5rem;
+    scrollbar-width: none;
+    /* Hide for Firefox */
+    -ms-overflow-style: none;
+    /* Hide for IE/Edge */
+}
+
+.carousel::-webkit-scrollbar {
+    display: none;
+    /* Hide for Chrome/Safari */
+}
+
+.carousel>.cocktail-card {
+    flex: 0 0 280px;
+    scroll-snap-align: center;
+    transition: transform 0.3s ease, height 0.3s ease;
+    height: 540px;
+    /* Increased height to prevent compression */
+    display: flex;
+    flex-direction: column;
+}
+
+.carousel>.cocktail-card.open {
+    height: auto;
+    min-height: 540px;
+    z-index: 10;
+}
+
+/* Ensure the image container never shrinks */
+.carousel>.cocktail-card .card-thumb-large {
+    flex-shrink: 0;
+}
+
+.carousel>.cocktail-card:not(.open) .description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.carousel>.cocktail-card .card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Optional smooth scrolling */
+.carousel {
+    scroll-behavior: smooth;
+}

@@ -3,14 +3,14 @@
  * ============================================================
  *  1.  COCKTAIL DATABASE (Classic Recipes)
  *      - Amaretto Sour
- *      - Americano
+ *          - Americano
  *      - Aperol Betty
  *      - Aperol Spritz
  *      - Aperol Sour
  *      - Army & Navy
  *      - Aviation
  *      - Bee's Knees
- *      - Bellini
+ *          - Bellini
  *      - Bijou
  *      - Black Russian
  *      - Bloody Mary
@@ -18,13 +18,13 @@
  *      - Blueberry Mule
  *      - Boulevardier
  *      - Bramble
- *      - Brown Derby
+ *           - Brown Derby
  *      - Caipirinha
- *      - Chartreuse Swizzle
+ *           - Chartreuse Swizzle
  *      - Clover Club
  *      - Corpse Reviver #2
  *      - Cosmopolitan
- *      - Cuba Libre
+ *           - Cuba Libre
  *      - Cucumber Gimlet
  *      - Daiquiri
  *      - Dark 'n Stormy
@@ -45,25 +45,25 @@
  *      - Gold Rush
  *      - Gordons Cup
  *      - Groen Plansoen
- *      - Hemingway Daiquiri
+ *            - Hemingway Daiquiri
  *      - Holy Peach
  *      - Hot Toddy
  *      - Hugo Spritz
  *      - Jungle Bird
- *      - Kir Royale
+ *            - Kir Royale
  *      - Last Word
  *      - Long Island Iced Tea
  *      - Lychacha
- *      - Mai Tai
- *      - Manderin Daiquiri
+ *            - Mai Tai
+ *            - Manderin Daiquiri
  *      - Mango Mustache
  *      - Manhattan
  *      - Margarita
  *      - Mary Pickford
  *      - Mezcal Margarita
- *      - Mint Julep
+ *            - mint julep
  *      - Mojito
- *      - Monte Carlo
+ *            - Monte Carlo
  *      - Moscow Mule
  *      - Muddy Mudslide
  *      - Naked & Famous
@@ -78,50 +78,43 @@
  *      - Pina Colada
  *      - Pisco Punch
  *      - Pisco Sour
- *      - Planter's Punch
+ *            - Planter's Punch
  *      - Pornstar Martini
  *      - Ramos Gin Fizz
  *      - Red Flamingo
  *      - Rosemary & Peach Sour
- *      - Sazerac
- *      - Screwdriver
- *      - Sea Breeze
+ *            - Sazerac
+ *            - Screwdriver
+ *            - Sea Breeze
  *      - Sidecar
  *      - Singapore Sling
  *      - South Side
- *      - Spicy Margarita
- *      - Spritz Veneziano
+              - Spicy Margarita
+ *            - Spritz Veneziano
  *      - Tequila Sunrise
  *      - Tommy's Margarita
  *      - Tropical Hurricane
- *      - Vieux Carré
- *      - Vodka Martini
+ *            - Vieux Carré
+ *            - Vodka Martini
  *      - Wandering Cosmo
  *      - Whiskey Sour
  *      - White Lady
  *      - White Russian
- *      - Yellow Bird
+ *            - Yellow Bird
  *      - Zombie
  *  
- *      FRIDGE CATEGORIES
- *      - spirits               "spirit"    
- *      - liqueurs & vermouths  "liqueur"
- *      - bitters & tinctures   "bitters"
- *      - syrups & purees       "syrup"
- *      - juices & mixers       "juice"
- *      - fresh & pantry        "fresh"
  *      
- *    
+ * 
  */
 
-const classicCocktails = [
+export const classicCocktails = [
     {
         id: 'amaretto-sour',
         name: "Amaretto Sour",
         category: ["Sweet", "Sour", "Classic", "Almond"],
         description: "A perfectly balanced classic with deep almond warmth, fresh lemon bite and a luxuriously silky foam.",
         ingredients: [
-            { amount: 60, unit: "ml", name: "Amaretto", fridgeCategory: "spirit" },
+            { amount: 60, unit: "ml", name: "Amaretto", fridgeCategory: "liqueur" },
             { amount: 30, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
             { amount: 1, unit: "pcs", name: "Egg white", fridgeCategory: "fresh" },
             { amount: 2, unit: "dashes", name: "Angostura bitters", fridgeCategory: "bitters" }
@@ -146,7 +139,7 @@ const classicCocktails = [
         category: ["Low Alcohol", "Bitter", "Classic"],
         description: "A light and refreshing aperitivo with bittersweet depth and gentle effervescence.",
         ingredients: [
-            { amount: 30, unit: "ml", name: "Campari", fridgeCategory: "spirit" },
+            { amount: 30, unit: "ml", name: "Campari", fridgeCategory: "liqueur" },
             { amount: 30, unit: "ml", name: "Sweet vermouth", fridgeCategory: "liqueur" },
             { amount: 60, unit: "ml", name: "Soda water", fridgeCategory: "juice" }
         ],
@@ -319,7 +312,7 @@ const classicCocktails = [
         category: ["Sparkling", "Fruity", "Classic"],
         description: "Elegant and delicate with fresh peach sweetness and lively bubbles.",
         ingredients: [
-            { amount: 60, unit: "ml", name: "Peach purée", fridgeCategory: "juice" },
+            { amount: 60, unit: "ml", name: "Peach purée", fridgeCategory: "liqueur" },
             { amount: 90, unit: "ml", name: "Prosecco", fridgeCategory: "liqueur" }
         ],
         glassware: "Flute",
@@ -513,9 +506,9 @@ const classicCocktails = [
         category: ["Whiskey", "Citrus", "Classic"],
         description: "Smooth bourbon balanced by bright grapefruit and honeyed sweetness.",
         ingredients: [
-            { amount: 60, unit: "ml", name: "Bourbon", fridgeCategory: "spirit" },
-            { amount: 30, unit: "ml", name: "Grapefruit juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Honey syrup", fridgeCategory: "syrup" }
+            { amount: 60, unit: "ml", name: "Bourbon" },
+            { amount: 30, unit: "ml", name: "Grapefruit juice" },
+            { amount: 15, unit: "ml", name: "Honey syrup" }
         ],
         glassware: "Coupe",
         ice: "No ice",
@@ -535,9 +528,9 @@ const classicCocktails = [
         category: ["Strong", "Sour", "Fresh"],
         description: "A bold and refreshing classic with bright lime, rustic sweetness and the raw character of cachaça.",
         ingredients: [
-            { amount: 60, unit: "ml", name: "Cachaça", fridgeCategory: "spirit" },
-            { amount: 1, unit: "pcs", name: "Lime", fridgeCategory: "fresh" },
-            { amount: 2, unit: "tsp", name: "Brown sugar", fridgeCategory: "fresh" }
+            { amount: 60, unit: "ml", name: "Cachaça" },
+            { amount: 1, unit: "pcs", name: "Lime (in wedges)" },
+            { amount: 2, unit: "tsp", name: "Brown sugar" }
         ],
         glassware: "Rocks glass",
         ice: "Crushed ice",
@@ -559,10 +552,10 @@ const classicCocktails = [
         category: ["Herbal", "Tiki", "Complex"],
         description: "Intensely herbal, citrusy and exotic with a cooling crushed-ice texture.",
         ingredients: [
-            { amount: 45, unit: "ml", name: "Green Chartreuse", fridgeCategory: "liqueur" },
-            { amount: 20, unit: "ml", name: "Pineapple juice", fridgeCategory: "juice" },
+            { amount: 45, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
+            { amount: 30, unit: "ml", name: "Grapefruit juice", fridgeCategory: "juice" },
             { amount: 15, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
-            { amount: 10, unit: "ml", name: "Falernum", fridgeCategory: "liqueur" }
+            { amount: 60, unit: "ml", name: "Soda", fridgeCategory: "juice" }
         ],
         glassware: "Highball",
         ice: "Crushed ice",
@@ -778,7 +771,7 @@ const classicCocktails = [
         description: "A crisp tequila highball with ginger spice, bright lime and a dark berry finish.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Tequila Reposado", fridgeCategory: "spirit" },
-            { amount: 15, unit: "ml", name: "Crème de Framboise", fridgeCategory: "liqueur" },
+            { amount: 15, unit: "ml", name: "Crème de Framboise", fridgeCategory: "syrup" },
             { amount: 15, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
             { amount: 90, unit: "ml", name: "Ginger beer", fridgeCategory: "juice" }
         ],
@@ -806,7 +799,7 @@ const classicCocktails = [
             { amount: 30, unit: "ml", name: "Campari", fridgeCategory: "liqueur" },
             { amount: 20, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
             { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
-            { amount: 5, unit: "pcs", name: "Red grapes", fridgeCategory: "fresh" }
+            { amount: 5, unit: "pcs", name: "Red grapes", fridgeCategory: "juice" }
         ],
         glassware: "Rocks glass",
         ice: "Large ice cube",
@@ -879,10 +872,10 @@ const classicCocktails = [
         category: ["Energy", "Coffee", "Sweet", "Bitter"],
         description: "A rich and indulgent espresso martini with roasted coffee depth and smooth hazelnut warmth.",
         ingredients: [
-            { amount: 45, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
-            { amount: 15, unit: "ml", name: "Frangelico", fridgeCategory: "liqueur" },
-            { amount: 30, unit: "ml", name: "Espresso", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Hazelnut syrup", fridgeCategory: "syrup" }
+            { amount: 45, unit: "ml", name: "Vodka" },
+            { amount: 15, unit: "ml", name: "Frangelico" },
+            { amount: 30, unit: "ml", name: "Espresso" },
+            { amount: 15, unit: "ml", name: "Hazelnut syrup" }
         ],
         glassware: "Coupe glass",
         ice: "Cubed ice",
@@ -1126,10 +1119,10 @@ const classicCocktails = [
         description: "A crisp cucumber-lime muddle with bright gin, gentle sweetness and a subtle saline snap.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
-            { amount: 3, unit: "wedges", name: "Lime", fridgeCategory: "fresh" },
+            { amount: 3, unit: "wedges", name: "Lime", fridgeCategory: "juice" },
             { amount: 3, unit: "slices", name: "Cucumber", fridgeCategory: "fresh" },
             { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
-            { amount: 1, unit: "pinch", name: "Salt", fridgeCategory: "fresh" }
+            { amount: 1, unit: "pinch", name: "Salt", fridgeCategory: "bitters" }
         ],
         glassware: "Rocks glass",
         ice: "Cubed ice",
@@ -1155,7 +1148,7 @@ const classicCocktails = [
             { amount: 15, unit: "ml", name: "Elderflower liqueur", fridgeCategory: "liqueur" },
             { amount: 15, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
             { amount: 15, unit: "ml", name: "Elderflower syrup", fridgeCategory: "syrup" },
-            { amount: 20, unit: "ml", name: "Cucumber juice", fridgeCategory: "juice" },
+            { amount: 20, unit: "ml", name: "Cucumber juice", fridgeCategory: "fresh" },
             { amount: 30, unit: "ml", name: "Iced tea", fridgeCategory: "juice" }
         ],
         glassware: "Highball glass",
@@ -1227,8 +1220,8 @@ const classicCocktails = [
             { amount: 50, unit: "ml", name: "Bourbon or Scotch", fridgeCategory: "spirit" },
             { amount: 20, unit: "ml", name: "Honey", fridgeCategory: "syrup" },
             { amount: 20, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 150, unit: "ml", name: "Hot water", fridgeCategory: "juice" },
-            { amount: 1, unit: "pcs", name: "Cinnamon stick", fridgeCategory: "fresh" }
+            { amount: 150, unit: "ml", name: "Hot water", fridgeCategory: "syrup" },
+            { amount: 1, unit: "pcs", name: "Cinnamon stick", fridgeCategory: "bitters" }
         ],
         glassware: "Mug",
         ice: "No ice",
@@ -1301,8 +1294,8 @@ const classicCocktails = [
         category: ["Sparkling", "Elegant", "Classic"],
         description: "A luxurious aperitif with dark berry sweetness and crisp champagne.",
         ingredients: [
-            { amount: 15, unit: "ml", name: "Crème de cassis", fridgeCategory: "liqueur" },
-            { amount: 120, unit: "ml", name: "Champagne", fridgeCategory: "liqueur" }
+            { amount: 15, unit: "ml", name: "Crème de cassis" },
+            { amount: 120, unit: "ml", name: "Champagne" }
         ],
         glassware: "Flute",
         ice: "No ice",
@@ -1313,31 +1306,6 @@ const classicCocktails = [
             Step 2: Top gently with champagne.
         `.trim(),
         image: "./assets/kirroyale.png"
-    },
-    {
-        id: 'lady-marmalade',
-        name: "Lady Marmalade",
-        category: ["Breakfast", "Vodka", "Vermout"],
-        description: "A delicious twist on a breakfast martini, A wonderfull complexity to the finsh.",
-        ingredients: [
-            { amount: 25, unit: "ml", name: "Marmalade Vodka", fridgeCategory: "spirit" },
-            { amount: 25, unit: "ml", name: "Red Vermouth", fridgeCategory: "liqueur" },
-            { amount: 15, unit: "ml", name: "L&G (-> kitchen)", fridgeCategory: "syrup" },
-            { amount: 30, unit: "ml", name: "bergamot Dilution (-> kitchen)", fridgeCategory: "juice" }
-        ],
-        glassware: "Rocks glass",
-        ice: "Cubed ice",
-        method: "Shaken",
-        methodDesc: `
-            Step 1: Add all ingredients to a shaker filled with cubed ice.
-
-            Step 2: Shake hard until well chilled and properly diluted.
-
-            Step 3: Double strain into a chilled rocks glass for a clean, elegant texture.
-
-            Step 4: Garnish with a lime twist or a brandied cherry.
-        `.trim(),
-        image: ""
     },
     {
         id: 'last-word',
@@ -1475,9 +1443,9 @@ const classicCocktails = [
         category: ["Strong", "Spirit-Forward"],
         description: "A rich and moody whiskey classic with silky vermouth depth and a bittersweet finish.",
         ingredients: [
-            { amount: 50, unit: "ml", name: "Rye Whiskey", fridgeCategory: "spirit" },
-            { amount: 30, unit: "ml", name: "Sweet Vermouth", fridgeCategory: "liqueur" },
-            { amount: 2, unit: "dashes", name: "Angostura bitters", fridgeCategory: "bitters" }
+            { amount: 50, unit: "ml", name: "Rye Whiskey" },
+            { amount: 30, unit: "ml", name: "Sweet Vermouth" },
+            { amount: 2, unit: "dashes", name: "Angostura bitters" }
         ],
         glassware: "Coupe glass",
         ice: "Cubed ice",
@@ -1502,7 +1470,7 @@ const classicCocktails = [
             { amount: 50, unit: "ml", name: "Tequila", fridgeCategory: "spirit" },
             { amount: 25, unit: "ml", name: "Cointreau", fridgeCategory: "liqueur" },
             { amount: 25, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
-            { amount: 1, unit: "tsp", name: "Salt", fridgeCategory: "fresh" }
+            { amount: 1, unit: "tsp", name: "Salt", fridgeCategory: "bitters" }
         ],
         glassware: "Rocks glass",
         ice: "Cubed ice",
@@ -1622,9 +1590,9 @@ const classicCocktails = [
         category: ["Whiskey", "Strong", "Classic"],
         description: "A richer, spiced twist on the Old Fashioned with herbal depth from Benedictine.",
         ingredients: [
-            { amount: 60, unit: "ml", name: "Rye whiskey", fridgeCategory: "spirit" },
-            { amount: 15, unit: "ml", name: "Benedictine", fridgeCategory: "liqueur" },
-            { amount: 2, unit: "dashes", name: "Angostura bitters", fridgeCategory: "bitters" }
+            { amount: 60, unit: "ml", name: "Rye whiskey" },
+            { amount: 15, unit: "ml", name: "Benedictine" },
+            { amount: 2, unit: "dashes", name: "Angostura bitters" }
         ],
         glassware: "Rocks glass",
         ice: "Large ice cube",
@@ -1800,7 +1768,7 @@ const classicCocktails = [
             { amount: 45, unit: "ml", name: "Bourbon", fridgeCategory: "spirit" },
             { amount: 1, unit: "cube", name: "Sugar cube", fridgeCategory: "fresh" },
             { amount: 2, unit: "drops", name: "Angostura bitters", fridgeCategory: "bitters" },
-            { amount: 1, unit: "tsp", name: "Orange zest", fridgeCategory: "fresh" }
+            { amount: 1, unit: "tsp", name: "Orange zest", fridgeCategory: "bitters" }
         ],
         glassware: "Rocks glass",
         ice: "Large ice cube",
@@ -1899,7 +1867,7 @@ const classicCocktails = [
             { amount: 45, unit: "ml", name: "Blended Scotch", fridgeCategory: "spirit" },
             { amount: 20, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
             { amount: 20, unit: "ml", name: "Honey-Ginger syrup", fridgeCategory: "syrup" },
-            { amount: 10, unit: "ml", name: "Islay Single Malt (float)", fridgeCategory: "spirit" }
+            { amount: 10, unit: "ml", name: "Islay Single Malt (float)", fridgeCategory: "liqueur" }
         ],
         glassware: "Rocks glass",
         ice: "Large ice cube",
@@ -2022,7 +1990,7 @@ const classicCocktails = [
         ingredients: [
             { amount: 45, unit: "ml", name: "Vanilla Vodka", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Passoa", fridgeCategory: "liqueur" },
-            { amount: 30, unit: "ml", name: "Passionfruit puree", fridgeCategory: "juice" },
+            { amount: 30, unit: "ml", name: "Passionfruit puree", fridgeCategory: "syrup" },
             { amount: 10, unit: "ml", name: "Vanilla syrup", fridgeCategory: "syrup" },
             { amount: 30, unit: "ml", name: "Prosecco (side)", fridgeCategory: "liqueur" }
         ],
@@ -2052,7 +2020,7 @@ const classicCocktails = [
             { amount: 30, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
             { amount: 30, unit: "ml", name: "Egg white", fridgeCategory: "fresh" },
             { amount: 30, unit: "ml", name: "Heavy cream", fridgeCategory: "fresh" },
-            { amount: 3, unit: "drops", name: "Orange flower water", fridgeCategory: "juice" },
+            { amount: 3, unit: "drops", name: "Orange flower water", fridgeCategory: "bitters" },
             { amount: 30, unit: "ml", name: "Soda water", fridgeCategory: "juice" }
         ],
         glassware: "Highball glass",
@@ -2195,7 +2163,7 @@ const classicCocktails = [
         category: ['Classic', 'Sour', 'Cognac', "1920's"],
         description: 'A legendary cognac sour with bright citrus, warm orange notes and a crisp sugar rim.',
         ingredients: [
-            { amount: 45, unit: "ml", name: "Cognac", fridgeCategory: "spirit" },
+            { amount: 45, unit: "ml", name: "Cognac", fridgeCategory: "liqueur" },
             { amount: 15, unit: "ml", name: "Cointreau", fridgeCategory: "liqueur" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
             { amount: 10, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" }
@@ -2277,7 +2245,7 @@ const classicCocktails = [
             { amount: 25, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
             { amount: 20, unit: "ml", name: "Triple sec", fridgeCategory: "liqueur" },
             { amount: 10, unit: "ml", name: "Agave syrup", fridgeCategory: "syrup" },
-            { amount: 2, unit: "slices", name: "Fresh chili", fridgeCategory: "fresh" }
+            { amount: 2, unit: "slices", name: "Fresh chili", fridgeCategory: "bitters" }
         ],
         glassware: "Rocks glass",
         ice: "Ice cubes",
@@ -2393,7 +2361,7 @@ const classicCocktails = [
         description: "Deep and layered with whiskey, cognac and herbal sweetness.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Rye whiskey", fridgeCategory: "spirit" },
-            { amount: 30, unit: "ml", name: "Cognac", fridgeCategory: "spirit" },
+            { amount: 30, unit: "ml", name: "Cognac", fridgeCategory: "liqueur" },
             { amount: 30, unit: "ml", name: "Sweet vermouth", fridgeCategory: "liqueur" },
             { amount: 10, unit: "ml", name: "Benedictine", fridgeCategory: "liqueur" },
             { amount: 2, unit: "dashes", name: "Peychaud’s bitters", fridgeCategory: "bitters" }
@@ -2465,7 +2433,7 @@ const classicCocktails = [
         ingredients: [
             { amount: 45, unit: "ml", name: "Bourbon", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 10, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
             { amount: 1, unit: "pcs", name: "Egg white", fridgeCategory: "fresh" }
         ],
         glassware: "Rocks glass",
@@ -2481,36 +2449,6 @@ const classicCocktails = [
             Step 4: Garnish with a few drops of bitters or a lemon twist.
         `.trim(),
         image: "./assets/whiskeysour.png"
-    },
-    {
-        id: 'white-Cosmo',
-        name: "White Lady",
-        category: ["Classic", "Sour", "Gin"],
-        description: "A crisp and elegant gin sour with bright citrus, orange warmth and a clean, refined finish.",
-        ingredients: [
-            { amount: 4, unit: "pieces", name: "Grapes", fridgeCategory: "fresh" },
-            { amount: 15, unit: "ml", name: "Elderflower liqueur", fridgeCategory: "liqueur" },
-            { amount: 25, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
-            { amount: 15, unit: "ml", name: "Cointreau", fridgeCategory: "liqueur" },
-            { amount: 5, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
-            { amount: 15, unit: "ml", name: "Water", fridgeCategory: "fresh" },
-            { amount: 7.5, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "lemon juice", fridgeCategory: "juice" },
-            { amount: 2, unit: "dashes", name: "lemon bitters", fridgeCategory: "bitters" }
-        ],
-        glassware: "Martini glass",
-        ice: "Cubed ice",
-        method: "Shaken",
-        methodDesc: `
-            Step 1: Add all ingredients to a shaker filled with cubed ice.
-
-            Step 2: Shake hard until well chilled and properly diluted.
-
-            Step 3: Double strain into a chilled martini glass for a clean, silky texture.
-
-            Step 4: Garnish with an expressed lemon twist.
-        `.trim(),
-        image: "./assets/whitelady.png"
     },
     {
         id: 'white-lady',
@@ -2590,12 +2528,14 @@ const classicCocktails = [
         category: ["Strong", "Tiki", "Unique"],
         description: "A famous tiki powerhouse with layered rums, tropical sweetness and a dangerously bold kick.",
         ingredients: [
-            { amount: 30, unit: "ml", name: "White Rum", fridgeCategory: "spirit" },
-            { amount: 30, unit: "ml", name: "Dark Rum", fridgeCategory: "spirit" },
-            { amount: 20, unit: "ml", name: "Orange juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Grenadine", fridgeCategory: "syrup" },
-            { amount: 10, unit: "ml", name: "Cinnamon syrup", fridgeCategory: "syrup" },
-            { amount: 2, unit: "dashes", name: "Angostura bitters", fridgeCategory: "bitters" }
+            { amount: 30, unit: "ml", name: "White rum", fridgeCategory: "spirit" },
+            { amount: 30, unit: "ml", name: "Dark rum", fridgeCategory: "spirit" },
+            { amount: 15, unit: "ml", name: "Overproof rum", fridgeCategory: "spirit" },
+            { amount: 15, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
+            { amount: 45, unit: "ml", name: "Pineapple juice", fridgeCategory: "juice" },
+            { amount: 7.5, unit: "ml", name: "Falernum", fridgeCategory: "liqueur" },
+            { amount: 5, unit: "ml", name: "Grenadine", fridgeCategory: "syrup" },
+            { amount: 1, unit: "dash", name: "Pernod", fridgeCategory: "liqueur" }
         ],
         glassware: "Tiki mug",
         ice: "Crushed ice",
@@ -2612,4 +2552,4 @@ const classicCocktails = [
         image: "./assets/zombie.png"
     },
 
-];
+]

@@ -73,184 +73,238 @@
 
     <!-- ========== 1.3 STYLESHEETS ========== -->
     <link rel="stylesheet" href="css/style.css">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 </head>
 
 <body>
 
-<!-- ============================================================
+    <!-- ============================================================
      2.1  PAGE: HOME
      ============================================================ -->
-<main id="home-page" class="page active">
+    <main id="home-page" class="page active">
 
-    <!-- Top Bar (empty on home) -->
-    <header class="top-bar"></header>
+        <!-- Top Bar (empty on home) -->
+        <header class="top-bar"></header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h2 class="brand-title">Cocktail Maestro</h2>
-        <p class="subtitle">Discover, create, and master the art of cocktails</p>
-    </section>
+        <!-- Hero Section -->
+        <section class="hero">
+            <h2 class="brand-title">Cocktail <br> Maestro</h2>
+            <p class="subtitle">Discover, create, and master the art of cocktails</p>
+        </section>
 
-    <!-- Menu Cards -->
-    <section class="menu-cards">
-        <div class="card" onclick="navigateTo('fridge')">
-            <div class="icon-box">
-                <svg class="custom-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="5" y1="10" x2="19" y2="10"></line><line x1="15" y1="2" x2="15" y2="10"></line></svg>
-            </div>
-            <div class="card-text">
-                <h3>Fridge</h3>
-                <p>Manage your ingredients & find cocktails</p>
-            </div>
-        </div>
-
-        <div class="card" onclick="navigateTo('vault')">
-            <div class="icon-box">
-                <i class="fa-solid fa-wine-glass"></i>
-            </div>
-            <div class="card-text">
-                <h3>Cocktail Vault</h3>
-                <p>Browse classic cocktail recipes</p>
-            </div>
-        </div>
-
-        <div class="card" onclick="navigateTo('recipes')">
-            <div class="icon-box">
-                <i class="fa-solid fa-book-open"></i>
-            </div>
-            <div class="card-text">
-                <h3>Recipe Book</h3>
-                <p>Your personal cocktail collection</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Info Block -->
-    <div class="info-block">
-        <p>Start by adding your ingredients in the Fridge to see what cocktails you can make!</p>
-    </div>
-
-    <!-- Divider streepje -->
-    <div class="home-divider"></div>
-
-    <!-- Shake it Randomizer -->
-   <section class="home-action-section">
-        <div class="shake-card" id="main-shaker-card" onclick="shakeForCocktail()">
-            <div class="shaker-icon-wrapper">
-                <img src="./assets/shaker_laadscherm.png" alt="Shaker" class="shaker-img-anim">
-            </div>
-            <div class="shake-content">
-                <h3>Shake it up!</h3>
-                <p>Can't choose? Let fate decide your drink.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Divider streepje -->
-    <div class="home-divider"></div>
-
-    <!-- Bar stock stats -->
-    <section class="bar-status-card">
-        <div class="bar-status-top">
-            <h2>YOUR BAR STATUS</h2>
-            <p class="subtitle">Your current cocktail potential</p>
-            <hr class="divider">
-        </div>
-
-        <div class="bar-status-main">
-            <div class="container-left">
-                <div class="stats-content-wrapper">
-                    <h3 class="accent-title">BAR STATS:</h3>
-                    
-                    <div class="inventory-summary-box">
-                        <span class="big-number" id="bottle-count">0</span>
-                        <span class="box-label">Ingredients in stock</span>
-                    </div>
-
-                    <div class="inventory-summary-box">
-                        <div class="stat-unit">
-                            <span class="big-number" id="match-count">0</span>
-                            <span class="box-label">Cocktails possible to make</span>
-                        </div>
-                    </div>
-
-                    <a href="javascript:void(0)" onclick="navigateTo('fridge')" class="manage-ingredients-btn">
-                        <i class="fa-solid fa-list-ul"></i>
-                        <span>Manage Fridge</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="container-right">
-                <div class="status-header">
-                    <div class="status-label-group">
-                        <span>YOUR</span>
-                        <span>BAR</span>
-                        <span>STATUS</span>
-                    </div>
-                    <span id="bar-pct-text">78%</span>
-                </div>
-
-                <div class="bottle-container">
-                    <svg class="bottle-svg" viewBox="0 0 100 250" preserveAspectRatio="xMidYMid meet">
-                        <defs>
-                            <linearGradient id="liquid-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" style="stop-color:#ffb347;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#ff9f1a;stop-opacity:1" />
-                            </linearGradient>
-                            
-                            <path id="bottle-path" d="M38,10 L62,10 L62,40 Q62,60 75,80 L80,120 L80,230 Q80,245 65,245 L35,245 Q20,245 20,230 L20,120 L25,80 Q38,60 38,40 Z" />
-
-                            <mask id="bottle-mask">
-                                <use href="#bottle-path" fill="white" />
-                            </mask>
-                        </defs>
-
-                        <use href="#bottle-path" fill="#121212" stroke="#333" stroke-width="1.5" />
-
-                        <g mask="url(#bottle-mask)">
-                            <g id="liquid-group" style="transform: translateY(240px); transition: transform 3.0s cubic-bezier(0.4, 0, 0.2, 1);">
-                                <rect x="-50" y="0" width="200" height="300" fill="url(#liquid-gradient)" />
-                                
-                                <circle class="bubble b1" cx="35" cy="80" r="2.5" fill="rgba(255,255,255,0.8)" />
-                                <circle class="bubble b2" cx="55" cy="120" r="4.2" fill="rgba(255,255,255,0.6)" />
-                                <circle class="bubble b3" cx="45" cy="160" r="2.2" fill="rgba(255,255,255,0.9)" />
-                                <circle class="bubble b4" cx="65" cy="60" r="4.0" fill="rgba(255,255,255,0.5)" />
-                                <circle class="bubble b5" cx="30" cy="140" r="1.8" fill="rgba(255,255,255,0.8)" />
-
-                                <path class="wave wave-back" d="M-100 0 Q-75 -10 -50 0 T0 0 T50 0 T100 0 T150 0 T200 0 V20 H-100 Z" fill="url(#liquid-gradient)" opacity="0.5" />
-                                <path class="wave wave-front" d="M-100 0 Q-75 10 -50 0 T0 0 T50 0 T100 0 T150 0 T200 0 V20 H-100 Z" fill="url(#liquid-gradient)" />
-                            </g>
-                        </g>
-
-                        <path d="M38,10 L62,10 L62,40 Q62,60 75,80 L80,120 L80,230 Q80,245 65,245 L35,245 Q20,245 20,230 L20,120 L25,80 Q38,60 38,40 Z" fill="rgba(255,255,255,0.05)" pointer-events="none" />
-                        
-                        <path d="M37,5 L63,5 L64,15 L36,15 Z" fill="#222" stroke="#444" stroke-width="1" />
+        <!-- Menu Cards -->
+        <section class="menu-cards">
+            <div class="card" onclick="navigateTo('fridge')">
+                <div class="icon-box">
+                    <svg class="custom-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                        <line x1="5" y1="10" x2="19" y2="10"></line>
+                        <line x1="15" y1="2" x2="15" y2="10"></line>
                     </svg>
                 </div>
-
-                <button class="progress-btn" onclick="calculateBarProgress()">
-                    <i class="fa-solid fa-arrows-rotate"></i>
-                    <div class="btn-text">
-                        <span>UPDATE</span>
-                        <span>STATUS</span>
-                    </div>
-                </button>
+                <div class="card-text">
+                    <h3>Fridge</h3>
+                    <p>Manage your ingredients & find cocktails</p>
+                </div>
             </div>
+
+            <div class="card" onclick="navigateTo('vault')">
+                <div class="icon-box">
+                    <i class="fa-solid fa-wine-glass"></i>
+                </div>
+                <div class="card-text">
+                    <h3>Cocktail Vault</h3>
+                    <p>Browse classic cocktail recipes</p>
+                </div>
+            </div>
+
+            <div class="card" onclick="navigateTo('recipes')">
+                <div class="icon-box">
+                    <i class="fa-solid fa-book-open"></i>
+                </div>
+                <div class="card-text">
+                    <h3>Recipe Book</h3>
+                    <p>Your personal cocktail collection</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Info Block -->
+        <div class="info-block">
+            <p>Start by adding your ingredients in the Fridge to see what cocktails you can make!</p>
         </div>
-    </section>
 
-    <!-- Divider streepje -->
-    <div class="home-divider"></div>
+        <!-- Divider streepje -->
+        <div class="home-divider"></div>
+
+        <!-- Shake it Randomizer -->
+        <section class="home-action-section">
+            <div class="shake-card" id="main-shaker-card" onclick="shakeForCocktail()">
+                <div class="shaker-icon-wrapper">
+                    <img src="./assets/shaker_laadscherm.png" alt="Shaker" class="shaker-img-anim">
+                </div>
+                <div class="shake-content">
+                    <h3>Shake it up!</h3>
+                    <p>Can't choose? Let fate decide your drink.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider streepje -->
+        <div class="home-divider"></div>
+
+        <!-- Bar stock stats -->
+        <section class="bar-status-card">
+            <div class="bar-status-top">
+                <h2>YOUR BAR STATUS</h2>
+                <p class="subtitle">Your current cocktail potential</p>
+                <hr class="divider">
+            </div>
+
+            <div class="bar-status-main">
+                <div class="container-left">
+                    <div class="stats-content-wrapper">
+                        <h3 class="accent-title">BAR STATS:</h3>
+
+                        <div class="inventory-summary-box">
+                            <span class="big-number" id="bottle-count">0</span>
+                            <span class="box-label">Ingredients in stock</span>
+                        </div>
+
+                        <div class="inventory-summary-box">
+                            <div class="stat-unit">
+                                <span class="big-number" id="match-count">0</span>
+                                <span class="box-label">Cocktails possible to make</span>
+                            </div>
+                        </div>
+
+                        <a href="javascript:void(0)" onclick="navigateTo('fridge')" class="manage-ingredients-btn">
+                            <i class="fa-solid fa-list-ul"></i>
+                            <span>Manage Fridge</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="container-right">
+                    <div class="status-header">
+                        <div class="status-label-group">
+                            <span>YOUR</span>
+                            <span>BAR</span>
+                            <span>STATUS</span>
+                        </div>
+                        <span id="bar-pct-text">78%</span>
+                    </div>
+
+                    <div class="bottle-container">
+                        <!-- Pulsing Background Halo -->
+                        <div class="bottle-halo"></div>
+
+                        <svg class="bottle-svg" viewBox="0 0 100 250" preserveAspectRatio="xMidYMid meet">
+                            <defs>
+                                <linearGradient id="liquid-gradient" x1="0" y1="250" x2="0" y2="0"
+                                    gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" style="stop-color:#ff4757;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#ff9f1a;stop-opacity:1" />
+                                </linearGradient>
+
+                                <!-- Gold Label Gradient -->
+                                <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#ffe259;stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:#ffa751;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#ffe259;stop-opacity:1" />
+                                </linearGradient>
+
+                                <path id="bottle-path"
+                                    d="M38,10 L62,10 L62,40 Q62,60 75,80 L80,120 L80,230 Q80,245 65,245 L35,245 Q20,245 20,230 L20,120 L25,80 Q38,60 38,40 Z" />
+
+                                <mask id="bottle-mask">
+                                    <use href="#bottle-path" fill="white" />
+                                </mask>
+                            </defs>
+
+                            <!-- Glass Background -->
+                            <use href="#bottle-path" fill="#121212" stroke="#333" stroke-width="1.5" />
+
+                            <!-- Liquid Group -->
+                            <g mask="url(#bottle-mask)">
+                                <g id="liquid-group"
+                                    style="transform: translateY(240px); transition: transform 3.0s cubic-bezier(0.4, 0, 0.2, 1);">
+                                    <!-- Main Liquid Body -->
+                                    <rect x="-50" y="0" width="200" height="300" fill="url(#liquid-gradient)" />
+
+                                    <!-- Bubbles (Legendary Physics) -->
+                                    <circle class="bubble b1" cx="35" cy="80" r="2.5" fill="rgba(255,180,71,0.6)" />
+                                    <circle class="bubble b2" cx="55" cy="120" r="4.2" fill="rgba(255,180,71,0.4)" />
+                                    <circle class="bubble b3" cx="45" cy="160" r="2.2" fill="rgba(255,180,71,0.7)" />
+                                    <circle class="bubble b4" cx="65" cy="60" r="4.0" fill="rgba(255,180,71,0.3)" />
+                                    <circle class="bubble b5" cx="30" cy="140" r="1.8" fill="rgba(255,180,71,0.6)" />
+
+                                    <!-- Triple-Layer Dynamic Waves -->
+                                    <path class="wave wave-back"
+                                        d="M-100 0 Q-75 -10 -50 0 T0 0 T50 0 T100 0 T150 0 T200 0 V20 H-100 Z"
+                                        fill="url(#liquid-gradient)" opacity="0.3" />
+                                    <path class="wave wave-middle"
+                                        d="M-100 0 Q-75 -5 -50 0 T0 0 T50 0 T100 0 T150 0 T200 0 V20 H-100 Z"
+                                        fill="url(#liquid-gradient)" opacity="0.6" />
+                                    <path class="wave wave-front"
+                                        d="M-100 0 Q-75 10 -50 0 T0 0 T50 0 T100 0 T150 0 T200 0 V20 H-100 Z"
+                                        fill="url(#liquid-gradient)" />
+                                </g>
+                            </g>
+
+                            <!-- Glass Reflections & Label -->
+                            <g pointer-events="none">
+                                <!-- Inner Gloss -->
+                                <path class="shimmer-glass" d="M25,120 L27,140 Q28,150 28,160 L28,210" stroke="white"
+                                    stroke-width="2" stroke-opacity="0.15" fill="none" />
+
+                                <!-- Central Label (3D Embossed) -->
+                                <g class="label-group">
+                                    <rect x="26" y="131" width="48" height="33" rx="4" fill="black"
+                                        fill-opacity="0.4" />
+                                    <rect x="25" y="130" width="48" height="33" rx="4" fill="#1a1a1a"
+                                        stroke="url(#gold-gradient)" stroke-width="1.2" />
+                                    <text x="49" y="147" text-anchor="middle" fill="url(#gold-gradient)"
+                                        font-weight="900" font-size="7.5"
+                                        style="font-family: 'Inter', sans-serif; letter-spacing: 0.8px; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));">MAESTRO</text>
+                                    <text x="49" y="156" text-anchor="middle" fill="#777" font-weight="700"
+                                        font-size="3.5"
+                                        style="font-family: 'Inter', sans-serif; letter-spacing: 1.2px;">EST.
+                                        2024</text>
+                                </g>
+
+
+                                <!-- Top Gloss Reflection -->
+                                <path d="M30,85 Q38,65 38,45 L38,20" stroke="white" stroke-width="2.5"
+                                    stroke-opacity="0.08" fill="none" />
+                            </g>
+
+                            <!-- Bottle Cap -->
+                            <path d="M37,5 L63,5 L64,15 L36,15 Z" fill="#222" stroke="#444" stroke-width="1" />
+                        </svg>
+                    </div>
+
+                    <button class="progress-btn" onclick="calculateBarProgress()">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                        <div class="btn-text">
+                            <span>UPDATE</span>
+                            <span>STATUS</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider streepje -->
+        <div class="home-divider"></div>
 
 
 
-</main>
-<!-- ============================================================
+    </main>
+    <!-- ============================================================
      END PAGE: HOME
      ============================================================ -->
 
@@ -261,198 +315,144 @@
 
 
 
-<!-- ============================================================
+    <!-- ============================================================
      2.3  PAGE: FRIDGE
      ============================================================ -->
-<main id="fridge-page" class="page">
+    <main id="fridge-page" class="page">
 
-    <!-- Top Bar & Back Button -->
-    <header class="top-bar">
-        <div class="header-flex">
-            <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
-            <h1>My Fridge</h1>
-        </div>
-    </header>
+        <!-- Top Bar & Back Button -->
+        <header class="top-bar">
+            <div class="header-flex">
+                <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
+                <h1>My Fridge</h1>
+            </div>
+        </header>
 
-    <section class="fridge-container">
-        <h2>What do we have available?</h2>
+        <section class="fridge-container">
+            <h2>What do we have available?</h2>
 
-        <!-- Ingredient Category: Spirits -->
-        <div class="fridge-category">
-            <button class="category-toggle" onclick="toggleCategory('cat-spirits')">
-                Spirits <i class="fa-solid fa-chevron-down"></i>
-            </button>
-            <div id="cat-spirits" class="category-content">
-                <div class="category-search-wrapper">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" 
-                           placeholder="Search spirits..." 
-                           class="category-search-input" 
-                           onkeyup="filterCategoryList(this)">
-                </div>
+            <!-- Ingredient Category: Spirits -->
+            <div class="fridge-category">
+                <button class="category-toggle" onclick="toggleCategory('cat-spirits')">
+                    Spirits <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div id="cat-spirits" class="category-content">
+                    <div class="category-search-wrapper">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search spirits..." class="category-search-input"
+                            onkeyup="filterCategoryList(this)">
+                    </div>
 
-                <div class="ingredient-checkbox-list">
-                    <label class="fridge-item"><input type="checkbox" value="vodka" onchange="updateFridge(this)"> <span>Vodka</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="vodka citron" onchange="updateFridge(this)"> <span>Vodka Citron</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="caramel vodka" onchange="updateFridge(this)"> <span>Caramel Vodka</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="gin" onchange="updateFridge(this)"> <span>Gin</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="bramble gin" onchange="updateFridge(this)"> <span>Bramble Gin</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="white rum" onchange="updateFridge(this)"> <span>White Rum</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="dark rum" onchange="updateFridge(this)"> <span>Dark Rum</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="bacardi rasp" onchange="updateFridge(this)"> <span>Bacardi Rasp</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="tequila" onchange="updateFridge(this)"> <span>Tequila</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="bourbon" onchange="updateFridge(this)"> <span>Bourbon</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="rye whiskey" onchange="updateFridge(this)"> <span>Rye Whiskey</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="jameson" onchange="updateFridge(this)"> <span>Jameson / Irish Whiskey</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="cognac" onchange="updateFridge(this)"> <span>Cognac</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="jagermeister" onchange="updateFridge(this)"> <span>Jägermeister</span></label>
+                    <div class="ingredient-checkbox-list" id="list-spirits">
+                        <!-- Dynamically filled by JS -->
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Ingredient Category: Liqueurs & Vermouth -->
-        <div class="fridge-category">
-            <button class="category-toggle" onclick="toggleCategory('cat-liqueurs')">
-                Liqueurs & Vermouth <i class="fa-solid fa-chevron-down"></i>
-            </button>
-            
-            <div id="cat-liqueurs" class="category-content">
-                <div class="category-search-wrapper">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" 
-                        placeholder="Search liqueurs..." 
-                        class="category-search-input" 
-                        onkeyup="filterCategoryList(this)">
-                </div>
+            <!-- Ingredient Category: Liqueurs & Vermouths -->
+            <div class="fridge-category">
+                <button class="category-toggle" onclick="toggleCategory('cat-liqueurs')">
+                    Liqueurs & Vermouths <i class="fa-solid fa-chevron-down"></i>
+                </button>
 
-                <div class="ingredient-checkbox-list">
-                    <label class="fridge-item"><input type="checkbox" value="cointreau" onchange="updateFridge(this)"> <span>Cointreau / Triple Sec</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="campari" onchange="updateFridge(this)"> <span>Campari</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="aperol" onchange="updateFridge(this)"> <span>Aperol</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="sweet vermouth" onchange="updateFridge(this)"> <span>Sweet Vermouth</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="dry vermouth" onchange="updateFridge(this)"> <span>Dry Vermouth</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="amaretto" onchange="updateFridge(this)"> <span>Amaretto</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="coffee liqueur" onchange="updateFridge(this)"> <span>Coffee Liqueur</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="peachtree" onchange="updateFridge(this)"> <span>Peachtree</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="licor 43" onchange="updateFridge(this)"> <span>Licor 43</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="frangelico" onchange="updateFridge(this)"> <span>Frangelico</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="lillet blanc" onchange="updateFridge(this)"> <span>Lillet Blanc</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="lychee liqueur" onchange="updateFridge(this)"> <span>Lychee Liqueur</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="baileys" onchange="updateFridge(this)"> <span>Baileys</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="blue curacao" onchange="updateFridge(this)"> <span>Blue Curaçao</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="passoa" onchange="updateFridge(this)"> <span>Passoa</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="elderflower liqueur" onchange="updateFridge(this)"> <span>Elderflower Liqueur</span></label>
-                    <label class="fridge-item"><input type="checkbox" value="blueberry liqueur" onchange="updateFridge(this)"> <span>Blueberry Liqueur</span></label>
+                <div id="cat-liqueurs" class="category-content">
+                    <div class="category-search-wrapper">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search liqueurs..." class="category-search-input"
+                            onkeyup="filterCategoryList(this)">
+                    </div>
+
+                    <div class="ingredient-checkbox-list" id="list-liqueurs">
+                        <!-- Dynamically filled by JS -->
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Ingredient Category: Syrups & Puree -->
-        <div class="fridge-category">
-            <button class="category-toggle" onclick="toggleCategory('cat-syrups')">
-                Syrups & Puree <i class="fa-solid fa-chevron-down"></i>
-            </button>
-            <div id="cat-syrups" class="category-content">
-                <div class="category-search-wrapper">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" 
-                        placeholder="Search syrups..." 
-                        class="category-search-input" 
-                        onkeyup="filterCategoryList(this)">
-                </div>
+            <!-- Ingredient Category: Bitters & Tinctures -->
+            <div class="fridge-category">
+                <button class="category-toggle" onclick="toggleCategory('cat-bitters')">
+                    Bitters & Tinctures <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div id="cat-bitters" class="category-content">
+                    <div class="category-search-wrapper">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search bitters..." class="category-search-input"
+                            onkeyup="filterCategoryList(this)">
+                    </div>
 
-                <div class="ingredient-checkbox-list">
-                    <label class="fridge-item"><input type="checkbox" value="sugar syrup" onchange="updateFridge(this)"> Sugar Syrup</label>
-                    <label class="fridge-item"><input type="checkbox" value="orgeat" onchange="updateFridge(this)"> Orgeat (Almond)</label>
-                    <label class="fridge-item"><input type="checkbox" value="grenadine" onchange="updateFridge(this)"> Grenadine</label>
-                    <label class="fridge-item"><input type="checkbox" value="mango puree" onchange="updateFridge(this)"> Mango Puree</label>
-                    <label class="fridge-item"><input type="checkbox" value="coconut cream" onchange="updateFridge(this)"> Coconut Cream</label>
-                    <label class="fridge-item"><input type="checkbox" value="raspberry syrup" onchange="updateFridge(this)"> Raspberry Syrup</label>
-                    <label class="fridge-item"><input type="checkbox" value="hazelnut syrup" onchange="updateFridge(this)"> Hazelnut Syrup</label>
-                    <label class="fridge-item"><input type="checkbox" value="cinnamon syrup" onchange="updateFridge(this)"> Cinnamon Syrup</label>
-                    <label class="fridge-item"><input type="checkbox" value="honey" onchange="updateFridge(this)"> Honey</label>
-                    <label class="fridge-item"><input type="checkbox" value="elderflower syrup" onchange="updateFridge(this)"> Elderflower Syrup</label>
+                    <div class="ingredient-checkbox-list" id="list-bitters">
+                        <!-- Dynamically filled by JS -->
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Ingredient Category: Juices & Sodas -->
-        <div class="fridge-category">
-            <button class="category-toggle" onclick="toggleCategory('cat-juices')">
-                Juices & Soda's <i class="fa-solid fa-chevron-down"></i>
-            </button>
-            <div id="cat-juices" class="category-content">
-                <div class="category-search-wrapper">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" 
-                        placeholder="Search mixers..." 
-                        class="category-search-input" 
-                        onkeyup="filterCategoryList(this)">
-                </div>
+            <!-- Ingredient Category: Syrups & Purees -->
+            <div class="fridge-category">
+                <button class="category-toggle" onclick="toggleCategory('cat-syrups')">
+                    Syrups & Purees <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div id="cat-syrups" class="category-content">
+                    <div class="category-search-wrapper">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search syrups..." class="category-search-input"
+                            onkeyup="filterCategoryList(this)">
+                    </div>
 
-                <div class="ingredient-checkbox-list">
-                    <label class="fridge-item"><input type="checkbox" value="lime juice" onchange="updateFridge(this)"> Lime Juice</label>
-                    <label class="fridge-item"><input type="checkbox" value="lemon juice" onchange="updateFridge(this)"> Lemon Juice</label>
-                    <label class="fridge-item"><input type="checkbox" value="orange juice" onchange="updateFridge(this)"> Orange Juice</label>
-                    <label class="fridge-item"><input type="checkbox" value="pineapple juice" onchange="updateFridge(this)"> Pineapple Juice</label>
-                    <label class="fridge-item"><input type="checkbox" value="cranberry juice" onchange="updateFridge(this)"> Cranberry Juice</label>
-                    <label class="fridge-item"><input type="checkbox" value="tomato juice" onchange="updateFridge(this)"> Tomato Juice</label>
-                    <label class="fridge-item"><input type="checkbox" value="grapefruit soda" onchange="updateFridge(this)"> Grapefruit Soda</label>
-                    <label class="fridge-item"><input type="checkbox" value="soda water" onchange="updateFridge(this)"> Soda Water</label>
-                    <label class="fridge-item"><input type="checkbox" value="ginger beer" onchange="updateFridge(this)"> Ginger Beer</label>
-                    <label class="fridge-item"><input type="checkbox" value="tonic water" onchange="updateFridge(this)"> Tonic Water</label>
-                    <label class="fridge-item"><input type="checkbox" value="elderflower tonic" onchange="updateFridge(this)"> Elderflower Tonic</label>
-                    <label class="fridge-item"><input type="checkbox" value="prosecco/champagne" onchange="updateFridge(this)"> Prosecco / Champagne</label>
-                    <label class="fridge-item"><input type="checkbox" value="cola" onchange="updateFridge(this)"> Cola</label>
-                    <label class="fridge-item"><input type="checkbox" value="iced tea" onchange="updateFridge(this)"> Iced Tea</label>
-                    <label class="fridge-item"><input type="checkbox" value="sprite" onchange="updateFridge(this)"> Sprite / 7-Up</label>
-                    <label class="fridge-item"><input type="checkbox" value="fruit soda" onchange="updateFridge(this)"> Red Fruit Soda (DubbelFrisss)</label>
+                    <div class="ingredient-checkbox-list" id="list-syrups">
+                        <!-- Dynamically filled by JS -->
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Ingredient Category: Fresh & Pantry -->
-        <div class="fridge-category">
-            <button class="category-toggle" onclick="toggleCategory('cat-fresh')">
-                Fresh & Pantry <i class="fa-solid fa-chevron-down"></i>
-            </button>
-            <div id="cat-fresh" class="category-content">
-                <div class="category-search-wrapper">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" 
-                        placeholder="Search pantry..." 
-                        class="category-search-input" 
-                        onkeyup="filterCategoryList(this)">
-                </div>
+            <!-- Ingredient Category: Juices & Mixers -->
+            <div class="fridge-category">
+                <button class="category-toggle" onclick="toggleCategory('cat-juices')">
+                    Juices & Mixers <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div id="cat-juices" class="category-content">
+                    <div class="category-search-wrapper">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search mixers..." class="category-search-input"
+                            onkeyup="filterCategoryList(this)">
+                    </div>
 
-                <div class="ingredient-checkbox-list">
-                    <label class="fridge-item"><input type="checkbox" value="fresh mint" onchange="updateFridge(this)"> Fresh Mint</label>
-                    <label class="fridge-item"><input type="checkbox" value="fresh basil" onchange="updateFridge(this)"> Fresh Basil</label>
-                    <label class="fridge-item"><input type="checkbox" value="egg white" onchange="updateFridge(this)"> Egg White</label>
-                    <label class="fridge-item"><input type="checkbox" value="angostura bitters" onchange="updateFridge(this)"> Angostura Bitters</label>
-                    <label class="fridge-item"><input type="checkbox" value="sugar cube" onchange="updateFridge(this)"> Sugar Cube</label>
-                    <label class="fridge-item"><input type="checkbox" value="espresso" onchange="updateFridge(this)"> Fresh Espresso</label>
-                    <label class="fridge-item"><input type="checkbox" value="olives" onchange="updateFridge(this)"> Olives</label>
-                    <label class="fridge-item"><input type="checkbox" value="cucumber" onchange="updateFridge(this)"> Cucumber</label>
-                    <label class="fridge-item"><input type="checkbox" value="red wine" onchange="updateFridge(this)"> Red Wine</label>
-                    <label class="fridge-item"><input type="checkbox" value="milk" onchange="updateFridge(this)"> Milk</label>
+                    <div class="ingredient-checkbox-list" id="list-juices">
+                        <!-- Dynamically filled by JS -->
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Find My Cocktails Button -->
-        <button class="match-btn-large" onclick="checkMatches()">
-            <i class="fa-solid fa-shaker"></i> Find My Cocktails
-        </button>
-    </section>
+            <!-- Ingredient Category: Fresh & Pantry -->
+            <div class="fridge-category">
+                <button class="category-toggle" onclick="toggleCategory('cat-fresh')">
+                    Fresh & Pantry <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div id="cat-fresh" class="category-content">
+                    <div class="category-search-wrapper">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search pantry..." class="category-search-input"
+                            onkeyup="filterCategoryList(this)">
+                    </div>
 
-    <!-- Matching Results Grid (dynamically filled by JS) -->
-    <section id="matching-results" class="cocktail-grid"></section>
+                    <div class="ingredient-checkbox-list" id="list-fresh">
+                        <!-- Dynamically filled by JS -->
+                    </div>
+                </div>
+            </div>
 
-    
+            <!-- Find My Cocktails Button -->
+            <button class="match-btn-large" onclick="checkMatches()">
+                <i class="fa-solid fa-shaker"></i> Find My Cocktails
+            </button>
+        </section>
 
-</main>
-<!-- ============================================================
+        <!-- Matching Results Grid (dynamically filled by JS) -->
+        <section id="matching-results" class="cocktail-grid"></section>
+
+
+
+    </main>
+    <!-- ============================================================
      END PAGE: FRIDGE
      ============================================================ -->
 
@@ -462,32 +462,32 @@
 
 
 
-<!-- ============================================================
+    <!-- ============================================================
      2.3  PAGE: COCKTAIL VAULT
      ============================================================ -->
-<main id="vault-page" class="page">
+    <main id="vault-page" class="page">
 
-    <!-- Top Bar & Back Button -->
-    <header class="top-bar">
-        <div class="header-flex">
-            <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
-            <h1>Cocktail Vault</h1>
-        </div>
-    </header>
+        <!-- Top Bar & Back Button -->
+        <header class="top-bar">
+            <div class="header-flex">
+                <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
+                <h1>Cocktail Vault</h1>
+            </div>
+        </header>
 
-    <!-- Search Bar -->
-    <section class="search-section">
-        <div class="search-bar">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="vaultSearch" placeholder="Search cocktails..." oninput="renderVault(this.value)">
-        </div>
-    </section>
+        <!-- Search Bar -->
+        <section class="search-section">
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="vaultSearch" placeholder="Search cocktails..." oninput="renderVault(this.value)">
+            </div>
+        </section>
 
-    <!-- Cocktail Grid (dynamically filled by JS) -->
-    <section id="vault-grid" class="cocktail-grid"></section>
+        <!-- Cocktail Grid (dynamically filled by JS) -->
+        <section id="vault-grid" class="cocktail-grid"></section>
 
-</main>
-<!-- ============================================================
+    </main>
+    <!-- ============================================================
      END PAGE: COCKTAIL VAULT
      ============================================================ -->
 
@@ -498,106 +498,110 @@
 
 
 
-<!-- ============================================================
+    <!-- ============================================================
      2.4  PAGE: RECIPE BOOK
      ============================================================ -->
-<main id="recipes-page" class="page">
-    <header class="top-bar">
-        <div class="header-flex">
-            <button class="back-btn" onclick="navigateTo('home')">
-                <i class="fa-solid fa-chevron-left"></i>
-            </button>
-            <h1>My Recipes</h1>
-        </div>
-    </header>
+    <main id="recipes-page" class="page">
+        <header class="top-bar">
+            <div class="header-flex">
+                <button class="back-btn" onclick="navigateTo('home')">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <h1>My Recipes</h1>
+            </div>
+        </header>
 
-    <datalist id="ingredients-suggestions"></datalist>
+        <datalist id="ingredients-suggestions"></datalist>
 
-    <div id="my-recipes-grid"></div>
+        <div id="my-recipes-grid"></div>
 
-    <button class="floating-add-btn" onclick="openRecipeForm()">
-        <i class="fa-solid fa-plus"></i>
-    </button>
+        <button class="floating-add-btn" onclick="openRecipeForm()">
+            <i class="fa-solid fa-plus"></i>
+        </button>
 
-    <div id="recipe-form-overlay" class="form-overlay" style="display: none;">
-        <div class="form-container">
-            <header class="form-header">
-                <h2>New Recipe</h2>
-                <button class="close-btn" onclick="closeRecipeForm()">&times;</button>
-            </header>
+        <div id="recipe-form-overlay" class="form-overlay" style="display: none;">
+            <div class="form-container">
+                <header class="form-header">
+                    <h2>New Recipe</h2>
+                    <button class="close-btn" onclick="closeRecipeForm()">&times;</button>
+                </header>
 
-            <section class="recipe-form-container">
-                <div class="image-upload-wrapper" onclick="document.getElementById('recipe-image-input').click()">
-                    <input type="file" id="recipe-image-input" accept="image/*" hidden onchange="previewImage(event)">
-                    <div id="image-preview-placeholder">
-                        <i class="fa-solid fa-camera"></i>
-                        <span>Upload Cocktail Photo</span>
+                <section class="recipe-form-container">
+                    <div class="image-upload-wrapper" onclick="document.getElementById('recipe-image-input').click()">
+                        <input type="file" id="recipe-image-input" accept="image/*" hidden
+                            onchange="previewImage(event)">
+                        <div id="image-preview-placeholder">
+                            <i class="fa-solid fa-camera"></i>
+                            <span>Upload Cocktail Photo</span>
+                        </div>
+                        <img id="image-preview-display" src="" alt="Preview" style="display: none;">
                     </div>
-                    <img id="image-preview-display" src="" alt="Preview" style="display: none;">
-                </div>
 
-                <div class="input-group">
-                    <label>Cocktail Name</label>
-                    <input type="text" id="recipe-name" placeholder="bijv. Espresso Martini">
-                </div>
+                    <div class="input-group">
+                        <label>Cocktail Name</label>
+                        <input type="text" id="recipe-name" placeholder="bijv. Espresso Martini">
+                    </div>
 
-                <div class="input-group">
-                    <label>Short Description</label>
-                    <input type="text" id="recipe-description" placeholder="bijv. Een frisse klassieker met een twist.">
-                </div>
+                    <div class="input-group">
+                        <label>Short Description</label>
+                        <input type="text" id="recipe-description"
+                            placeholder="bijv. Een frisse klassieker met een twist.">
+                    </div>
 
-                <div class="input-group">
-                    <label>Ingredients (Amount | Unit | Name)</label>
-                    <div id="ingredient-inputs-container">
-                        <div class="ingredient-row">
-                            <input type="number" class="ing-amount" placeholder="50">
-                            <input type="text" class="ing-unit" placeholder="ml">
-                            <input type="text" class="ing-name" placeholder="Vodka" list="ingredients-suggestions">
-                            
-                            <button type="button" class="remove-ingredient-btn" onclick="this.parentElement.remove()">
-                                <i class="fa-solid fa-xmark"></i>
-                            </button>
+                    <div class="input-group">
+                        <label>Ingredients (Amount | Unit | Name)</label>
+                        <div id="ingredient-inputs-container">
+                            <div class="ingredient-row">
+                                <input type="number" class="ing-amount" placeholder="50">
+                                <input type="text" class="ing-unit" placeholder="ml">
+                                <input type="text" class="ing-name" placeholder="Vodka" list="ingredients-suggestions">
+
+                                <button type="button" class="remove-ingredient-btn"
+                                    onclick="this.parentElement.remove()">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="add-line-btn" onclick="addIngredientRow()">
+                            <i class="fa-solid fa-plus"></i> Add Ingredient
+                        </button>
+                    </div>
+
+                    <div class="input-row-flex" style="display: flex; gap: 10px;">
+                        <div class="input-group" style="flex: 1;">
+                            <label>Glassware</label>
+                            <input type="text" id="recipe-glassware" placeholder="bijv. Coupe">
+                        </div>
+                        <div class="input-group" style="flex: 1;">
+                            <label>Ice</label>
+                            <input type="text" id="recipe-ice" placeholder="bijv. Cubed">
                         </div>
                     </div>
-                    <button class="add-line-btn" onclick="addIngredientRow()">
-                        <i class="fa-solid fa-plus"></i> Add Ingredient
+
+                    <div class="input-group">
+                        <label>Categories (comma separated)</label>
+                        <input type="text" id="recipe-category" placeholder="bijv. Classic, Strong, Sweet">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Method</label>
+                        <input type="text" id="recipe-method" placeholder="bijv. Shaken">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Instructions</label>
+                        <textarea id="recipe-desc" rows="3"
+                            placeholder="bijv. Shake alle ingrediënten krachtig met ijs en serveer in een koud glas."></textarea>
+                    </div>
+
+                    <button class="save-btn" onclick="saveNewRecipe()">
+                        <i class="fa-solid fa-check"></i> Save Recipe
                     </button>
-                </div>
-
-                <div class="input-row-flex" style="display: flex; gap: 10px;">
-                    <div class="input-group" style="flex: 1;">
-                        <label>Glassware</label>
-                        <input type="text" id="recipe-glassware" placeholder="bijv. Coupe">
-                    </div>
-                    <div class="input-group" style="flex: 1;">
-                        <label>Ice</label>
-                        <input type="text" id="recipe-ice" placeholder="bijv. Cubed">
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label>Categories (comma separated)</label>
-                    <input type="text" id="recipe-category" placeholder="bijv. Classic, Strong, Sweet">
-                </div>
-
-                <div class="input-group">
-                    <label>Method</label>
-                    <input type="text" id="recipe-method" placeholder="bijv. Shaken">
-                </div>
-
-                <div class="input-group">
-                    <label>Instructions</label>
-                    <textarea id="recipe-desc" rows="3" placeholder="bijv. Shake alle ingrediënten krachtig met ijs en serveer in een koud glas."></textarea>
-                </div>
-
-                <button class="save-btn" onclick="saveNewRecipe()">
-                    <i class="fa-solid fa-check"></i> Save Recipe
-                </button>
-            </section>
+                </section>
+            </div>
         </div>
-    </div>
-</main>
-<!-- ============================================================
+    </main>
+    <!-- ============================================================
      END PAGE: RECIPE BOOK
      ============================================================ -->
 
@@ -608,84 +612,85 @@
 
 
 
-<!-- ============================================================
+    <!-- ============================================================
      2.5  PAGE: SHOPPING LIST
      ============================================================ -->
-<main id="shopping-page" class="page">
+    <main id="shopping-page" class="page">
 
-    <!-- Top Bar, Back Button & Clear Button -->
-    <header class="top-bar">
-        <div class="header-flex">
-            <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
-            <h1>Shopping List</h1>
-            <button class="clear-list-btn" onclick="clearShoppingList()"><i class="fa-solid fa-trash-can"></i></button>
+        <!-- Top Bar, Back Button & Clear Button -->
+        <header class="top-bar">
+            <div class="header-flex">
+                <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
+                <h1>Shopping List</h1>
+                <button class="clear-list-btn" onclick="clearShoppingList()"><i
+                        class="fa-solid fa-trash-can"></i></button>
+            </div>
+        </header>
+
+        <div class="shopping-container">
+
+            <!-- Empty State Placeholder -->
+            <div id="shopping-list-empty" class="empty-state-container" style="display: none;">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <p>Your list is empty.<br>Start adding ingredients!</p>
+            </div>
+
+            <!-- Shopping List Items (dynamically filled by JS) -->
+            <ul id="shopping-list-items" class="shopping-list"></ul>
+
         </div>
-    </header>
 
-    <div class="shopping-container">
-
-        <!-- Empty State Placeholder -->
-        <div id="shopping-list-empty" class="placeholder-text" style="display: none;">
-            <i class="fa-solid fa-cart-shopping" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
-            <p>Your list is empty. Start adding ingredients!</p>
-        </div>
-
-        <!-- Shopping List Items (dynamically filled by JS) -->
-        <ul id="shopping-list-items" class="shopping-list"></ul>
-
-    </div>
-
-</main>
-<!-- ============================================================
+    </main>
+    <!-- ============================================================
      END PAGE: SHOPPING LIST
      ============================================================ -->
 
 
 
-<!-- ============================================================
+    <!-- ============================================================
      2.6  MODAL: SHAKE IT UP RESULT
      ============================================================ -->
-<div id="shake-modal" class="modal-overlay">
-    <div class="modal-content">
-        <button class="close-modal" onclick="closeShakeModal()">&times;</button>
-        <div id="shake-result-card">
+    <div id="shake-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeShakeModal()">&times;</button>
+            <div id="shake-result-card">
             </div>
-        <button class="modal-action-btn" onclick="closeShakeModal()">Cheers!</button>
+            <button class="modal-action-btn" onclick="closeShakeModal()">Cheers!</button>
+        </div>
     </div>
-</div>
-<!-- ============================================================
+    <!-- ============================================================
      END MODAL: SHAKE IT UP RESULT
      ============================================================ -->
 
 
 
 
-<!-- ============================================================
+    <!-- ============================================================
      3.1  BOTTOM NAVIGATION BAR
      ============================================================ -->
-<nav class="bottom-nav">
-    <div class="nav-item active" id="nav-home" onclick="navigateTo('home')">
-        <i class="fa-solid fa-house"></i>
-        <span>Home</span>
-    </div>
-    <div class="nav-item" id="nav-fridge" onclick="navigateTo('fridge')">
-        <i class="fa-solid fa-box-archive"></i>
-        <span>Fridge</span>
-    </div>
-    <div class="nav-item" id="nav-vault" onclick="navigateTo('vault')">
-        <i class="fa-solid fa-wine-glass-empty"></i>
-        <span>Vault</span>
-    </div>
-    <div class="nav-item" id="nav-recipes" onclick="navigateTo('recipes')">
-        <i class="fa-solid fa-book"></i>
-        <span>Recipes</span>
-    </div>
-    <div class="nav-item" id="nav-shopping" onclick="navigateTo('shopping')">
-        <i class="fa-solid fa-cart-shopping"></i>
-        <span>Shopping</span>
-    </div>
-</nav>
-<!-- ============================================================
+    <nav class="bottom-nav">
+        <div class="nav-item active" id="nav-home" onclick="navigateTo('home')">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-item" id="nav-fridge" onclick="navigateTo('fridge')">
+            <i class="fa-solid fa-box-archive"></i>
+            <span>Fridge</span>
+        </div>
+        <div class="nav-item" id="nav-vault" onclick="navigateTo('vault')">
+            <i class="fa-solid fa-wine-glass-empty"></i>
+            <span>Vault</span>
+        </div>
+        <div class="nav-item" id="nav-recipes" onclick="navigateTo('recipes')">
+            <i class="fa-solid fa-book"></i>
+            <span>Recipes</span>
+        </div>
+        <div class="nav-item" id="nav-shopping" onclick="navigateTo('shopping')">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Shopping</span>
+        </div>
+    </nav>
+    <!-- ============================================================
      END BOTTOM NAVIGATION BAR
      ============================================================ -->
 
@@ -693,33 +698,29 @@
 
 
 
-<div id="shake-modal" class="modal-overlay">
-    <div class="modal-content">
-        <button class="close-modal" onclick="closeShakeModal()">&times;</button>
-        <div id="shake-result-card">
+    <div id="shake-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeShakeModal()">&times;</button>
+            <div id="shake-result-card">
             </div>
-        <button class="modal-action-btn" onclick="closeShakeModal()">Cheers!</button>
+            <button class="modal-action-btn" onclick="closeShakeModal()">Cheers!</button>
+        </div>
     </div>
-</div>
 
 
 
 
-<!-- ============================================================
+    <!-- ============================================================
      4.1  EXTERNAL LIBRARIES
      ============================================================ -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-<!-- ============================================================
-     4.2  COCKTAIL DATABASE
+    <!-- ============================================================
+     4.2  MODULAR APP ENTRY POINT
      ============================================================ -->
-<script src="./js/database.js"></script>
-
-<!-- ============================================================
-     4.3  APP SCRIPT
-     ============================================================ -->
-<script src="./js/script.js"></script>
+    <script type="module" src="./js/ui.js"></script>
 
 
 </body>
+
 </html>

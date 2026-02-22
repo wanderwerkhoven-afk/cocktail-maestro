@@ -1,0 +1,99 @@
+/* ==========================================================================
+   8. PAGE: SHOPPING LIST
+   ========================================================================== */
+
+.shopping-container {
+    padding: 20px;
+}
+
+.shopping-list {
+    list-style: none;
+    padding: 0;
+}
+
+.shopping-item {
+    background: #2a2a2a;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 4px solid #ff4757;
+    transition: all 0.3s ease;
+    animation: slideIn 0.3s ease-out;
+}
+
+.shopping-item-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+.shopping-item-name {
+    font-weight: 500;
+    color: #eee;
+    transition: color 0.3s ease;
+}
+
+.shopping-item.checked {
+    border-left-color: #2ed573;
+    opacity: 0.7;
+}
+
+.shopping-item.checked .shopping-item-name {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.shopping-item.checked .fa-circle-check {
+    color: #2ed573 !important;
+}
+
+.remove-item-btn {
+    background: transparent;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: color 0.2s;
+    margin-left: 10px;
+}
+
+.remove-item-btn:hover {
+    color: #ff4757;
+}
+
+.clear-list-btn {
+    background: transparent;
+    border: none;
+    color: #bbb;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* Empty State Styling */
+.empty-state-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    text-align: center;
+    color: #888;
+    padding: 20px;
+}
+
+.empty-state-container i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.3;
+}
+
+.empty-state-container p {
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.5;
+}

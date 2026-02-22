@@ -1,0 +1,181 @@
+/* ==========================================================================
+   5. PAGE: FRIDGE
+   ========================================================================== */
+
+/* ---------- 5.1 Fridge Container ---------- */
+.fridge-container {
+    padding: 0 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ---------- 5.2 Ingredient Category Accordion ---------- */
+.fridge-category {
+    border: 1px solid #333;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #1E1E1E;
+}
+
+.category-toggle {
+    width: 100%;
+    padding: 16px;
+    background: #1E1E1E;
+    color: #ffb347;
+    border: none;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.0rem;
+    cursor: pointer;
+}
+
+.category-content {
+    display: flex;
+    flex-direction: column;
+    background: #181818;
+    border-top: 1px solid transparent;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0 16px;
+    transition: max-height 0.4s ease-out, opacity 0.3s ease, padding 0.3s ease;
+}
+
+.category-content.active {
+    max-height: 2000px;
+    opacity: 1;
+    padding: 0 0 16px 0;
+    border-top: 1px solid #252525;
+    overflow-y: visible;
+}
+
+/* ---------- 5.3 Category Search Bar ---------- */
+.category-search-wrapper {
+    position: sticky;
+    top: 0;
+    background: #181818;
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #252525;
+    z-index: 5;
+    margin-bottom: 10px;
+}
+
+.category-search-wrapper i {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.category-search-input {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 0.9rem;
+    width: 100%;
+    margin-left: 10px;
+    outline: none;
+}
+
+.category-search-input::placeholder {
+    color: #444;
+}
+
+/* ---------- 5.4 Checkbox List Styling ---------- */
+.ingredient-checkbox-list {
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px;
+}
+
+.fridge-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 10px;
+    font-size: 1rem;
+    color: #efefef;
+    cursor: pointer;
+    border-bottom: 1px solid #252525;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    margin-bottom: 2px;
+}
+
+.fridge-item:hover {
+    background: #222;
+    color: #ffb347;
+}
+
+.fridge-item input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: #2a2a2a;
+    border: 2px solid #444;
+    border-radius: 6px;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.fridge-item input[type="checkbox"]:checked {
+    background-color: #ffb347;
+    border-color: #ffb347;
+}
+
+.fridge-item input[type="checkbox"]::before {
+    content: "\f00c";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 14px;
+    color: #000;
+    transform: scale(0);
+    transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.fridge-item input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
+.fridge-item:has(input:checked) {
+    color: #fff;
+    font-weight: 500;
+}
+
+/* ---------- 5.5 Find My Cocktails Button ---------- */
+.match-action-container {
+    padding: 20px;
+}
+
+.match-btn-large {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, #ffb347 0%, #ffcc33 100%);
+    color: #000;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(255, 179, 71, 0.3);
+}
+
+.match-btn-large:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 179, 71, 0.5);
+}
