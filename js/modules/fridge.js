@@ -162,10 +162,6 @@ export function checkMatches(silent = false) {
                     // Fallback to name-based fuzzy matching
                     if (nameToSearch.includes(cleanMine) || cleanMine.includes(nameToSearch)) return true;
 
-                    // Broad category matching: if the target has a category, check if the user's ingredient belongs to it
-                    const userCategory = categoryMap[cleanMine];
-                    if (targetCategory && userCategory === targetCategory) return true;
-
                     return false;
                 });
 
@@ -234,9 +230,6 @@ export function calculateBarProgress() {
                 const cleanMine = mine.toLowerCase().trim();
 
                 if (nameToSearch.includes(cleanMine) || cleanMine.includes(nameToSearch)) return true;
-
-                const userCategory = categoryMap[cleanMine];
-                if (targetCategory && userCategory === targetCategory) return true;
 
                 return false;
             });

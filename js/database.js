@@ -121,7 +121,7 @@ const classicCocktails = [
         category: ["Sweet", "Sour", "Classic", "Almond"],
         description: "A perfectly balanced classic with deep almond warmth, fresh lemon bite and a luxuriously silky foam.",
         ingredients: [
-            { amount: 60, unit: "ml", name: "Amaretto", fridgeCategory: "spirit" },
+            { amount: 60, unit: "ml", name: "Amaretto", fridgeCategory: "liqueur" },
             { amount: 30, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
             { amount: 1, unit: "pcs", name: "Egg white", fridgeCategory: "fresh" },
             { amount: 2, unit: "dashes", name: "Angostura bitters", fridgeCategory: "bitters" }
@@ -562,7 +562,7 @@ const classicCocktails = [
             { amount: 45, unit: "ml", name: "Green Chartreuse", fridgeCategory: "liqueur" },
             { amount: 20, unit: "ml", name: "Pineapple juice", fridgeCategory: "juice" },
             { amount: 15, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
-            { amount: 10, unit: "ml", name: "Falernum", fridgeCategory: "liqueur" }
+            { amount: 10, unit: "ml", name: "Falernum", fridgeCategory: "syrup" }
         ],
         glassware: "Highball",
         ice: "Crushed ice",
@@ -829,7 +829,7 @@ const classicCocktails = [
         description: "A bold coffee-tiki fusion with spiced rum, tropical pineapple and a silky espresso foam.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Spiced Rum", fridgeCategory: "spirit" },
-            { amount: 30, unit: "ml", name: "Espresso", fridgeCategory: "juice" },
+            { amount: 30, unit: "ml", name: "Espresso", fridgeCategory: "fresh" },
             { amount: 15, unit: "ml", name: "Coffee liqueur", fridgeCategory: "liqueur" },
             { amount: 15, unit: "ml", name: "Pineapple juice", fridgeCategory: "juice" },
             { amount: 5, unit: "ml", name: "Orgeat", fridgeCategory: "syrup" }
@@ -856,7 +856,7 @@ const classicCocktails = [
         ingredients: [
             { amount: 45, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Coffee liqueur", fridgeCategory: "liqueur" },
-            { amount: 30, unit: "ml", name: "Espresso", fridgeCategory: "juice" },
+            { amount: 30, unit: "ml", name: "Espresso", fridgeCategory: "fresh" },
             { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" }
         ],
         glassware: "Coupe glass",
@@ -881,7 +881,7 @@ const classicCocktails = [
         ingredients: [
             { amount: 45, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Frangelico", fridgeCategory: "liqueur" },
-            { amount: 30, unit: "ml", name: "Espresso", fridgeCategory: "juice" },
+            { amount: 30, unit: "ml", name: "Espresso", fridgeCategory: "fresh" },
             { amount: 15, unit: "ml", name: "Hazelnut syrup", fridgeCategory: "syrup" }
         ],
         glassware: "Coupe glass",
@@ -1227,7 +1227,7 @@ const classicCocktails = [
             { amount: 50, unit: "ml", name: "Bourbon or Scotch", fridgeCategory: "spirit" },
             { amount: 20, unit: "ml", name: "Honey", fridgeCategory: "syrup" },
             { amount: 20, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 150, unit: "ml", name: "Hot water", fridgeCategory: "juice" },
+            { amount: 150, unit: "ml", name: "Hot water", fridgeCategory: "fresh" },
             { amount: 1, unit: "pcs", name: "Cinnamon stick", fridgeCategory: "fresh" }
         ],
         glassware: "Mug",
@@ -1322,8 +1322,8 @@ const classicCocktails = [
         ingredients: [
             { amount: 25, unit: "ml", name: "Marmalade Vodka", fridgeCategory: "spirit" },
             { amount: 25, unit: "ml", name: "Red Vermouth", fridgeCategory: "liqueur" },
-            { amount: 15, unit: "ml", name: "L&G (-> kitchen)", fridgeCategory: "syrup" },
-            { amount: 30, unit: "ml", name: "bergamot Dilution (-> kitchen)", fridgeCategory: "juice" }
+            { amount: 15, unit: "ml", name: "L&G (-> kitchen)", fridgeCategory: "juice" },
+            { amount: 30, unit: "ml", name: "bergamot Dilution (-> kitchen)", fridgeCategory: "fresh" }
         ],
         glassware: "Rocks glass",
         ice: "Cubed ice",
@@ -1673,7 +1673,7 @@ const classicCocktails = [
             { amount: 30, unit: "ml", name: "Baileys", fridgeCategory: "liqueur" },
             { amount: 30, unit: "ml", name: "Caramel vodka", fridgeCategory: "spirit" },
             { amount: 30, unit: "ml", name: "Coffee liqueur", fridgeCategory: "liqueur" },
-            { amount: 30, unit: "ml", name: "Espresso", fridgeCategory: "juice" }
+            { amount: 30, unit: "ml", name: "Espresso", fridgeCategory: "fresh" }
         ],
         glassware: "Rocks glass",
         ice: "Large ice cube",
@@ -1825,7 +1825,7 @@ const classicCocktails = [
             { amount: 60, unit: "ml", name: "Navy Strength Rum", fridgeCategory: "spirit" },
             { amount: 120, unit: "ml", name: "Pineapple juice", fridgeCategory: "juice" },
             { amount: 30, unit: "ml", name: "Orange juice", fridgeCategory: "juice" },
-            { amount: 30, unit: "ml", name: "Cream of coconut", fridgeCategory: "fresh" }
+            { amount: 30, unit: "ml", name: "Cream of coconut", fridgeCategory: "syrup" }
         ],
         glassware: "Hurricane glass",
         ice: "Crushed ice",
@@ -1922,7 +1922,7 @@ const classicCocktails = [
         description: "A tropical escape with creamy coconut, ripe pineapple and smooth rum.",
         ingredients: [
             { amount: 45, unit: "ml", name: "White Rum", fridgeCategory: "spirit" },
-            { amount: 30, unit: "ml", name: "Coconut cream", fridgeCategory: "fresh" },
+            { amount: 30, unit: "ml", name: "Coconut cream", fridgeCategory: "syrup" },
             { amount: 60, unit: "ml", name: "Pineapple juice", fridgeCategory: "juice" }
         ],
         glassware: "Hurricane glass",
@@ -2052,7 +2052,7 @@ const classicCocktails = [
             { amount: 30, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
             { amount: 30, unit: "ml", name: "Egg white", fridgeCategory: "fresh" },
             { amount: 30, unit: "ml", name: "Heavy cream", fridgeCategory: "fresh" },
-            { amount: 3, unit: "drops", name: "Orange flower water", fridgeCategory: "juice" },
+            { amount: 3, unit: "drops", name: "Orange flower water", fridgeCategory: "fresh" },
             { amount: 30, unit: "ml", name: "Soda water", fridgeCategory: "juice" }
         ],
         glassware: "Highball glass",
@@ -2130,7 +2130,7 @@ const classicCocktails = [
             { amount: 60, unit: "ml", name: "Rye whiskey", fridgeCategory: "spirit" },
             { amount: 10, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup" },
             { amount: 2, unit: "dashes", name: "Peychaud’s bitters", fridgeCategory: "bitters" },
-            { amount: 1, unit: "rinse", name: "Absinthe", fridgeCategory: "liqueur" }
+            { amount: 1, unit: "rinse", name: "Absinthe", fridgeCategory: "spirit" }
         ],
         glassware: "Rocks glass",
         ice: "No ice",
