@@ -38,7 +38,9 @@ function renderKitchen() {
     const carousels = {
         'ingredients': document.getElementById('carousel-ingredients'),
         'techniques': document.getElementById('carousel-techniques'),
-        'tricks': document.getElementById('carousel-tricks')
+        'tricks': document.getElementById('carousel-tricks'),
+        'bartools': document.getElementById('carousel-bartools'),
+        'glassware': document.getElementById('carousel-glassware')
     };
 
     // Clear existing content (so we can re-render cleanly if needed)
@@ -46,13 +48,34 @@ function renderKitchen() {
         if (c) c.innerHTML = '';
     });
 
+    const iconMap = {
+        'hero-syrup': 'fa-droplet',
+        'hero-syrup-rich': 'fa-cubes-stacked',
+        'hero-strain': 'fa-filter',
+        'hero-fatwash': 'fa-bacon',
+        'hero-milk-clarification': 'fa-cow',
+        'hero-smog': 'fa-smog',
+        'hero-vial': 'fa-vial',
+        'hero-bolt': 'fa-bolt',
+        'hero-ellipsis': 'fa-ellipsis',
+        'hero-palette': 'fa-palette',
+        'hero-thermometer': 'fa-temperature-half',
+        'hero-shaker': 'fa-bottle-water',
+        'hero-jigger': 'fa-fill-drip',
+        'hero-spoon': 'fa-utensils',
+        'hero-coupe': 'fa-glass-martini-alt',
+        'hero-rocks': 'fa-glass-whiskey',
+        'hero-highball': 'fa-wine-glass-alt'
+    };
+
     kitchenItems.forEach(item => {
         const targetCarousel = carousels[item.category];
         if (!targetCarousel) return;
 
+        const iconClass = iconMap[item.heroClass] || 'fa-star';
         const heroContent = item.image
             ? `<img src="${item.image}" alt="${item.title}" style="width: 100%; height: 100%; object-fit: cover; z-index: 0; position: absolute; top: 0; left: 0;">`
-            : `<i class="fa-solid fa-${item.heroClass === 'hero-syrup' ? 'droplet' : item.heroClass === 'hero-syrup-rich' ? 'cubes-stacked' : item.heroClass === 'hero-strain' ? 'filter' : 'bacon'}"></i>`;
+            : `<i class="fa-solid ${iconClass}"></i>`;
 
         let ingredientsHTML = '';
         if (item.ingredients && item.ingredients.length > 0) {

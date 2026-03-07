@@ -74,13 +74,199 @@ export const kitchenItems = [
         difficulty: "hard",
         heroClass: "hero-milk-clarification",
         image: null,
-        description: "A culinary technique that adds savory flavor and silky texture to a spirit without leaving it greasy.",
+        description: "A technique that uses the proteins in milk to strip tannins and solids from a cocktail, leaving it crystal clear and silky smooth.",
         instructionsTitle: "How it works",
         instructions: [
-            "Mix a liquid fat (like melted butter or bacon fat) into a spirit.",
-            "Let it infuse at room temperature for a few hours.",
-            "Freeze the mixture overnight so the fat solidifies.",
-            "Strain out the solid fat, leaving the flavor and texture behind in the spirit."
+            "Add a high-acid cocktail to cold whole milk (never the other way around).",
+            "The milk will curdle instantly. Let it sit for at least an hour.",
+            "Strain the mixture through a coffee filter. The curds will act as a secondary filter.",
+            "The result is a clear, shelf-stable drink with a luxurious mouthfeel."
+        ]
+    },
+    {
+        id: "smoked-cocktails",
+        category: "tricks",
+        title: "Smoked Cocktails",
+        difficulty: "medium",
+        heroClass: "hero-smog",
+        image: null,
+        description: "Infuse your drinks with campfire-like aromas using wood chips, herbs, or spices.",
+        instructionsTitle: "Technique",
+        instructions: [
+            "Use a smoking gun to fill a decanter with smoke, then pour the drink in and swirl.",
+            "Or, torch a cinnamon stick or rosemary sprig and trap the smoke under a glass before pouring.",
+            "Smoking adds a deep, savory layer that transforms classic spirits."
+        ]
+    },
+    {
+        id: "saline-solution",
+        category: "tricks",
+        title: "Saline Solution",
+        difficulty: "easy",
+        heroClass: "hero-vial",
+        image: null,
+        description: "The 'secret' ingredient that makes flavors pop. Salt suppresses bitterness and enhances sweetness and citrus.",
+        instructionsTitle: "How to use",
+        instructions: [
+            "Mix 20g of salt with 80ml of water to create a 20% solution.",
+            "Add 2-4 drops to almost any cocktail (especially Margaritas or sours).",
+            "It won't make the drink salty, but it will make it taste more vivid."
+        ]
+    },
+    {
+        id: "nitrous-infusion",
+        category: "tricks",
+        title: "Rapid Nitrous Infusion",
+        difficulty: "hard",
+        heroClass: "hero-bolt",
+        image: null,
+        description: "Use a whipped cream charger to infuse flavors into spirits in seconds instead of weeks.",
+        instructionsTitle: "Process",
+        instructions: [
+            "Add spirit and aromatics (like cacao nibs or peppers) to an iSi siphon.",
+            "Charge with N2O; the pressure forces the spirit into the pores of the ingredient.",
+            "Release the pressure rapidly to pull the flavor back into the liquid.",
+            "Strain and serve immediately."
+        ]
+    },
+    {
+        id: "spherification",
+        category: "tricks",
+        title: "Spherification",
+        difficulty: "hard",
+        heroClass: "hero-ellipsis",
+        image: null,
+        description: "The art of turning liquids into delicate spheres that burst with flavor, often called 'Cocktail Caviar'.",
+        instructionsTitle: "Basic Method",
+        instructions: [
+            "Mix sodium alginate into your flavored liquid.",
+            "Drip the mixture into a calcium chloride bath using a syringe.",
+            "The spheres will form a thin gel membrane instantly.",
+            "Rinse in clean water and add to your cocktail for a burst of flavor."
+        ]
+    },
+    {
+        id: "ph-color-change",
+        category: "tricks",
+        title: "pH Color Change",
+        difficulty: "medium",
+        heroClass: "hero-palette",
+        image: null,
+        description: "Create a magical visual experience by making a cocktail change color right before the guest's eyes.",
+        instructionsTitle: "The Science",
+        instructions: [
+            "Infuse your spirit with Butterfly Pea Blossoms to get a deep blue hue.",
+            "When acidic citrus (like lemon or lime) is added, the pH level drops.",
+            "This causes a chemical reaction that shifts the color from blue to vibrant purple or pink.",
+            "Serve the citrus on the side for an interactive experience."
+        ]
+    },
+    {
+        id: "thermal-illusion",
+        category: "tricks",
+        title: "Thermal Taste Illusion",
+        difficulty: "hard",
+        heroClass: "hero-thermometer",
+        image: null,
+        description: "A trick that plays with temperature layers to fool the palate and create a multi-course flavor experience in one glass.",
+        instructionsTitle: "Preparation",
+        instructions: [
+            "Prepare a base liquid and heat a portion of it with a thickening agent.",
+            "Layer the hot, dense liquid carefully over a chilled, higher-alcohol base.",
+            "The density and temperature difference creates two distinct layers.",
+            "The guest experiences a warm, rich start followed by a crisp, cold finish."
+        ]
+    },
+    // BARTOOLS
+    {
+        id: "boston-shaker",
+        category: "bartools",
+        title: "Boston Shaker",
+        difficulty: "easy",
+        heroClass: "hero-shaker",
+        image: null,
+        description: "The professional's choice. Consists of two tins (or one tin and one glass) that nest together.",
+        instructionsTitle: "Why use it?",
+        instructions: [
+            "Larger volume allows for better aeration.",
+            "Easier to clean during a busy shift.",
+            "Doesn't freeze shut as easily as cobbler shakers."
+        ]
+    },
+    {
+        id: "jigger",
+        category: "bartools",
+        title: "Jigger",
+        difficulty: "easy",
+        heroClass: "hero-jigger",
+        image: null,
+        description: "An essential measuring tool to ensure consistency and balance in every cocktail.",
+        instructionsTitle: "Pro Tip",
+        instructions: [
+            "Always measure to the very rim for accuracy.",
+            "Use a Japanese-style jigger for a more controlled pour.",
+            "Consistency is the difference between a good drink and a great one."
+        ]
+    },
+    {
+        id: "bar-spoon",
+        category: "bartools",
+        title: "Bar Spoon",
+        difficulty: "medium",
+        heroClass: "hero-spoon",
+        image: null,
+        description: "Long-handled spoon used for stirring drinks, measuring small amounts, and layering ingredients.",
+        instructionsTitle: "The Technique",
+        instructions: [
+            "Keep the back of the spoon against the glass.",
+            "Use your fingers to rotate the spoon smoothly around the edge.",
+            "Stir until the outside of the glass feels ice-cold."
+        ]
+    },
+    // GLASSWARE
+    {
+        id: "coupe-glass",
+        category: "glassware",
+        title: "Coupe Glass",
+        difficulty: "easy",
+        heroClass: "hero-coupe",
+        image: null,
+        description: "The elegant choice for drinks served 'up' (chilled but without ice).",
+        instructionsTitle: "Best for",
+        instructions: [
+            "Cosmopolitans, Sidecars, and Daiquiris.",
+            "The wide bowl showcases the color and aroma.",
+            "The stem prevents your hands from warming the drink."
+        ]
+    },
+    {
+        id: "rocks-glass",
+        category: "glassware",
+        title: "Rocks Glass",
+        difficulty: "easy",
+        heroClass: "hero-rocks",
+        image: null,
+        description: "Also known as an Old Fashioned glass. Short, sturdy, and used for drinks with large ice cubes.",
+        instructionsTitle: "Best for",
+        instructions: [
+            "Old Fashioneds, Negronis, and neat spirits.",
+            "Perfect for 'building' drinks directly in the glass.",
+            "Heavy base provides stability while muddling."
+        ]
+    },
+    {
+        id: "highball-glass",
+        category: "glassware",
+        title: "Highball Glass",
+        difficulty: "easy",
+        heroClass: "hero-highball",
+        image: null,
+        description: "Tall and narrow glass used for 'long' drinks served with plenty of ice and carbonated mixers.",
+        instructionsTitle: "Best for",
+        instructions: [
+            "Gin & Tonics, Mojitos, and Palomas.",
+            "The height helps preserve carbonation.",
+            "Ideal for drinks that are light and refreshing."
         ]
     }
 ];

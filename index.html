@@ -522,6 +522,19 @@
             </div>
         </header>
 
+        <!-- Cocktail Vault Intro Header -->
+        <section class="vault-intro">
+            <div class="vault-intro-icon">
+                <i class="fa-solid fa-wine-glass"></i>
+            </div>
+            <h2>The Cocktail Vault</h2>
+            <p>Explore our curated collection of classic and modern cocktails. From timeless sours to complex tiki drinks, every recipe is a masterpiece waiting to be discovered.</p>
+            <div class="vault-intro-note">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span>Use the search bar to find cocktails by name, spirit, or flavor profile. Tap a card to see the full recipe.</span>
+            </div>
+        </section>
+
         <!-- Search Bar -->
         <section class="search-section">
             <div class="search-bar">
@@ -557,6 +570,19 @@
                 <h1>My Recipes</h1>
             </div>
         </header>
+
+        <!-- Recipe Book Intro Header -->
+        <section class="recipes-intro">
+            <div class="recipes-intro-icon">
+                <i class="fa-solid fa-book-open"></i>
+            </div>
+            <h2>Your Recipe Book</h2>
+            <p>Your personal collection of custom creations and variations. Save your own unique recipes here, complete with photos, history, and detailed instructions.</p>
+            <div class="recipes-intro-note">
+                <i class="fa-solid fa-plus"></i>
+                <span>Tap the plus button below to create a new recipe. All your recipes are saved locally on your device.</span>
+            </div>
+        </section>
 
         <datalist id="ingredients-suggestions"></datalist>
 
@@ -676,6 +702,9 @@
 
         <div class="shopping-container">
 
+            <!-- Smart Shopping Recommendation -->
+            <section id="smart-recommendation" class="smart-recommendation-section"></section>
+
             <!-- Empty State Placeholder -->
             <div id="shopping-list-empty" class="empty-state-container" style="display: none;">
                 <i class="fa-solid fa-cart-shopping"></i>
@@ -778,6 +807,24 @@
                     <!-- Cards will be dynamically injected here by JS -->
                 </div>
                 <div class="carousel-indicators" id="dots-carousel-tricks"></div>
+            </div>
+
+            <!-- Category 4: BARTOOLS -->
+            <div class="vault-category-section">
+                <h3 class="category-heading">Bartools</h3>
+                <div class="carousel" id="carousel-bartools" onscroll="updateCarouselDots('carousel-bartools')">
+                    <!-- Cards will be dynamically injected here by JS -->
+                </div>
+                <div class="carousel-indicators" id="dots-carousel-bartools"></div>
+            </div>
+
+            <!-- Category 5: GLASSWARE -->
+            <div class="vault-category-section">
+                <h3 class="category-heading">Glassware</h3>
+                <div class="carousel" id="carousel-glassware" onscroll="updateCarouselDots('carousel-glassware')">
+                    <!-- Cards will be dynamically injected here by JS -->
+                </div>
+                <div class="carousel-indicators" id="dots-carousel-glassware"></div>
             </div>
 
         </div>
