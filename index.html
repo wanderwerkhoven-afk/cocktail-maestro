@@ -130,6 +130,16 @@
                     <p>Your personal cocktail collection</p>
                 </div>
             </div>
+
+            <div class="card" onclick="navigateTo('kitchen')">
+                <div class="icon-box">
+                    <i class="fa-solid fa-fire-burner"></i>
+                </div>
+                <div class="card-text">
+                    <h3>Kitchen</h3>
+                    <p>Make syrups, infusions & garnishes</p>
+                </div>
+            </div>
         </section>
 
         <!-- Info Block -->
@@ -328,13 +338,30 @@
             </div>
         </header>
 
+        <!-- Fridge Intro Header -->
+        <section class="fridge-intro">
+            <div class="fridge-intro-icon">
+                <i class="fa-solid fa-snowflake"></i>
+            </div>
+            <h2>Your Virtual Bar</h2>
+            <p>Welcome to your personal inventory. Tell us what bottles, juices, and extras you have at home, and the Maestro will figure out exactly which cocktails you can make!</p>
+            <div class="fridge-intro-note">
+                <i class="fa-solid fa-lightbulb"></i>
+                <span>Tip: Be as specific as possible to get the best matches. Your ingredients are saved automatically.</span>
+            </div>
+        </section>
+
         <section class="fridge-container">
             <h2>What do we have available?</h2>
 
             <!-- Ingredient Category: Spirits -->
             <div class="fridge-category">
                 <button class="category-toggle" onclick="toggleCategory('cat-spirits')">
-                    Spirits <i class="fa-solid fa-chevron-down"></i>
+                    <div class="category-label">
+                        <img src="assets/Fridge/spirits.png" alt="Spirits" class="category-icon">
+                        <span>Spirits</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div id="cat-spirits" class="category-content">
                     <div class="category-search-wrapper">
@@ -352,7 +379,11 @@
             <!-- Ingredient Category: Liqueurs & Vermouths -->
             <div class="fridge-category">
                 <button class="category-toggle" onclick="toggleCategory('cat-liqueurs')">
-                    Liqueurs & Vermouths <i class="fa-solid fa-chevron-down"></i>
+                    <div class="category-label">
+                        <img src="assets/Fridge/liqueurs.png" alt="Liqueurs & Vermouths" class="category-icon">
+                        <span>Liqueurs & Vermouths</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down"></i>
                 </button>
 
                 <div id="cat-liqueurs" class="category-content">
@@ -371,7 +402,11 @@
             <!-- Ingredient Category: Bitters & Tinctures -->
             <div class="fridge-category">
                 <button class="category-toggle" onclick="toggleCategory('cat-bitters')">
-                    Bitters & Tinctures <i class="fa-solid fa-chevron-down"></i>
+                    <div class="category-label">
+                        <img src="assets/Fridge/bitters.png" alt="Bitters & Tinctures" class="category-icon">
+                        <span>Bitters & Tinctures</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div id="cat-bitters" class="category-content">
                     <div class="category-search-wrapper">
@@ -389,7 +424,11 @@
             <!-- Ingredient Category: Syrups & Purees -->
             <div class="fridge-category">
                 <button class="category-toggle" onclick="toggleCategory('cat-syrups')">
-                    Syrups & Purees <i class="fa-solid fa-chevron-down"></i>
+                    <div class="category-label">
+                        <img src="assets/Fridge/syrups.png" alt="Syrups & Purees" class="category-icon">
+                        <span>Syrups & Purees</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div id="cat-syrups" class="category-content">
                     <div class="category-search-wrapper">
@@ -407,7 +446,11 @@
             <!-- Ingredient Category: Juices & Mixers -->
             <div class="fridge-category">
                 <button class="category-toggle" onclick="toggleCategory('cat-juices')">
-                    Juices & Mixers <i class="fa-solid fa-chevron-down"></i>
+                    <div class="category-label">
+                        <img src="assets/Fridge/juices.png" alt="Juices & Mixers" class="category-icon">
+                        <span>Juices & Mixers</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div id="cat-juices" class="category-content">
                     <div class="category-search-wrapper">
@@ -425,7 +468,11 @@
             <!-- Ingredient Category: Fresh & Pantry -->
             <div class="fridge-category">
                 <button class="category-toggle" onclick="toggleCategory('cat-fresh')">
-                    Fresh & Pantry <i class="fa-solid fa-chevron-down"></i>
+                    <div class="category-label">
+                        <img src="assets/Fridge/fresh.png" alt="Fresh & Pantry" class="category-icon">
+                        <span>Fresh & Pantry</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down"></i>
                 </button>
                 <div id="cat-fresh" class="category-content">
                     <div class="category-search-wrapper">
@@ -663,6 +710,81 @@
      ============================================================ -->
 
 
+
+    <!-- ============================================================
+     2.7  PAGE: KITCHEN
+     ============================================================ -->
+    <main id="kitchen-page" class="page">
+        <!-- Top Bar & Back Button -->
+        <header class="top-bar">
+            <div class="header-flex">
+                <button class="back-btn" onclick="navigateTo('home')">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <h1>Kitchen</h1>
+            </div>
+        </header>
+
+        <!-- Kitchen Intro Header -->
+        <section class="kitchen-intro">
+            <div class="kitchen-intro-icon">
+                <i class="fa-solid fa-fire-burner"></i>
+            </div>
+            <h2>The Kitchen</h2>
+            <p>Welcome to the Kitchen! Here you'll find instructions on various cocktail techniques, fascinating
+                mixology chemistry tricks, and recipes for special ingredients that require a little extra preparation.
+            </p>
+            <div class="kitchen-intro-note">
+                <i class="fa-solid fa-tags"></i>
+                <span>If any of these technique or ingredients are used in a cocktail, it will be indicated with a
+                    special Kitchen Marker. Learn and enjoy!</span>
+            </div>
+        </section>
+
+        <!-- Search Bar -->
+        <section class="search-section">
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="kitchenSearch" placeholder="Search recipes or techniques..."
+                    oninput="filterKitchen(this.value)">
+            </div>
+        </section>
+
+        <!-- Carousels Area -->
+        <div class="kitchen-grid">
+
+            <!-- Category 1: INGREDIENTS -->
+            <div class="vault-category-section">
+                <h3 class="category-heading">Ingredients</h3>
+                <div class="carousel" id="carousel-ingredients" onscroll="updateCarouselDots('carousel-ingredients')">
+                    <!-- Cards will be dynamically injected here by JS -->
+                </div>
+                <div class="carousel-indicators" id="dots-carousel-ingredients"></div>
+            </div>
+
+            <!-- Category 2: TECHNIQUES -->
+            <div class="vault-category-section">
+                <h3 class="category-heading">Techniques</h3>
+                <div class="carousel" id="carousel-techniques" onscroll="updateCarouselDots('carousel-techniques')">
+                    <!-- Cards will be dynamically injected here by JS -->
+                </div>
+                <div class="carousel-indicators" id="dots-carousel-techniques"></div>
+            </div>
+
+            <!-- Category 3: MIXOLOGY TRICKS -->
+            <div class="vault-category-section">
+                <h3 class="category-heading">Mixology Tricks</h3>
+                <div class="carousel" id="carousel-tricks" onscroll="updateCarouselDots('carousel-tricks')">
+                    <!-- Cards will be dynamically injected here by JS -->
+                </div>
+                <div class="carousel-indicators" id="dots-carousel-tricks"></div>
+            </div>
+
+        </div>
+    </main>
+    <!-- ============================================================
+     END PAGE: KITCHEN
+     ============================================================ -->
 
 
     <!-- ============================================================

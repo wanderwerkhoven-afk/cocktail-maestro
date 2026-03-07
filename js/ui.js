@@ -6,6 +6,7 @@ import { openRecipeForm, closeRecipeForm, addIngredientRow, removeIngredientRow,
 import { toggleCategory, filterCategoryList, updateFridge, syncCheckboxes, checkMatches, calculateBarProgress, renderFridgeCategories } from './modules/fridge.js';
 import { shakeForCocktail, closeShakeModal } from './modules/randomizer.js';
 import { handleCardClick } from './core/ui-utils.js';
+import { filterKitchen, updateCarouselDots, initKitchenCarousels, toggleKitchenCard } from './pages/kitchen.js';
 
 // Expose functions to global scope for HTML onclick handlers
 window.navigateTo = navigateTo;
@@ -37,17 +38,21 @@ window.calculateBarProgress = calculateBarProgress;
 window.shakeForCocktail = shakeForCocktail;
 window.closeShakeModal = closeShakeModal;
 window.handleCardClick = handleCardClick;
+window.filterKitchen = filterKitchen;
+window.updateCarouselDots = updateCarouselDots;
+window.toggleKitchenCard = toggleKitchenCard;
 
 // Initialisatie
 document.addEventListener('DOMContentLoaded', () => {
     renderFridgeCategories();
+    initKitchenCarousels();
     navigateTo('home');
 
     // Zorg dat we ingrediënt suggesties updaten als dat nodig is
     window.updateIngredientSuggestions = () => {
         const datalist = document.getElementById('ingredients-suggestions');
         if (!datalist) return;
-        const checkboxes = document.querySelectorAll('.category-content input[type="checkbox"]');
+        const checkboxes = document.querySelectorAll('.fridge-item-premium input[type="checkbox"]');
         let ingredients = Array.from(checkboxes).map(cb => cb.value);
         ingredients = [...new Set(ingredients)].sort();
         datalist.innerHTML = ingredients.map(ing => `<option value="${ing}">`).join('');

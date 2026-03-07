@@ -23,7 +23,7 @@ export function toggleCategory(id) {
 export function filterCategoryList(input) {
     const filter = input.value.toLowerCase().trim();
     const container = input.closest('.category-content');
-    const items = container.querySelectorAll('.fridge-item');
+    const items = container.querySelectorAll('.fridge-item-premium');
 
     items.forEach(item => {
         const text = item.textContent.toLowerCase();
@@ -56,7 +56,7 @@ export function updateFridge(checkbox) {
 }
 
 export function syncCheckboxes() {
-    const checkboxes = document.querySelectorAll('.fridge-item input[type="checkbox"]');
+    const checkboxes = document.querySelectorAll('.fridge-item-premium input[type="checkbox"]');
     checkboxes.forEach(cb => {
         const val = cb.value.toLowerCase().trim();
         // Check against object key
@@ -114,9 +114,10 @@ export function renderFridgeCategories() {
         const items = Array.from(grouped[catKey].entries()).sort((a, b) => a[1].localeCompare(b[1]));
 
         container.innerHTML = items.map(([val, display]) => `
-            <label class="fridge-item">
+            <label class="fridge-item-premium">
+                <span class="item-name">${display}</span>
                 <input type="checkbox" value="${val}" onchange="updateFridge(this)">
-                ${display}
+                <span class="toggle-switch"></span>
             </label>
         `).join('');
     }
@@ -207,7 +208,7 @@ export function checkMatches(silent = false) {
 
 export function calculateBarProgress() {
     // Collect all possible ingredient names from the DOM checkboxes
-    const allCheckboxes = document.querySelectorAll('.fridge-item input[type="checkbox"]');
+    const allCheckboxes = document.querySelectorAll('.fridge-item-premium input[type="checkbox"]');
     const allPossibleValues = Array.from(allCheckboxes).map(cb => cb.value.toLowerCase().trim());
 
     // 1. Count only valid ingredients that are checked in state

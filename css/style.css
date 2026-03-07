@@ -18,6 +18,7 @@
 @import url('./pages/vault-carousel.css');
 @import url('./pages/recipes.css');
 @import url('./pages/shopping.css');
+@import url('./pages/kitchen.css');
 
 /* 5. Utilities & Animations */
 @import url('./utilities/animations.css');

@@ -1,27 +1,113 @@
 /* ==========================================================================
-   5. PAGE: FRIDGE
+   5. PAGE: FRIDGE (Premium Accordion List Redesign)
    ========================================================================== */
 
-/* ---------- 5.1 Fridge Container ---------- */
+/* ---------- 5.1 Fridge Intro Tile ---------- */
+.fridge-intro {
+    background: linear-gradient(145deg, rgba(30, 30, 30, 0.7), rgba(18, 18, 18, 0.9));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    margin: 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 179, 71, 0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Optional background glow */
+.fridge-intro::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 179, 71, 0.03) 0%, transparent 60%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.fridge-intro-icon {
+    font-size: 2.5rem;
+    color: #ffb347;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 0 10px rgba(255, 179, 71, 0.3));
+}
+
+.fridge-intro h2 {
+    color: #ffffff;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.5px;
+}
+
+.fridge-intro p {
+    color: #cccccc;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.fridge-intro-note {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: rgba(255, 179, 71, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 3px solid #ffb347;
+    text-align: left;
+    position: relative;
+    z-index: 1;
+}
+
+.fridge-intro-note i {
+    color: #ffb347;
+    font-size: 1.1rem;
+    margin-top: 3px;
+}
+
+.fridge-intro-note span {
+    color: #e0e0e0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* ---------- 5.2 Fridge Container ---------- */
 .fridge-container {
-    padding: 0 20px 20px 20px;
+    padding: 0 20px 40px 20px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 15px;
 }
 
 /* ---------- 5.2 Ingredient Category Accordion ---------- */
 .fridge-category {
-    border: 1px solid #333;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
-    overflow: hidden;
-    background: #1E1E1E;
+    background: rgba(30, 30, 30, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.fridge-category:focus-within {
+    border-color: rgba(255, 179, 71, 0.3);
 }
 
 .category-toggle {
     width: 100%;
-    padding: 16px;
-    background: #1E1E1E;
+    padding: 12px 20px; /* Reduced vertical padding since image adds height */
+    background: transparent;
     color: #ffb347;
     border: none;
     text-align: left;
@@ -29,125 +115,178 @@
     justify-content: space-between;
     align-items: center;
     font-weight: 600;
-    font-size: 1.0rem;
+    font-size: 1.05rem;
     cursor: pointer;
+    letter-spacing: 0.5px;
+    border-radius: 12px;
+    transition: background 0.3s ease, border-radius 0.3s ease;
+}
+
+.category-label {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.category-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px; /* Slightly rounded corners for the images */
+    object-fit: contain;
+    background: rgba(255, 255, 255, 0.05); /* Safe background in case of transparency */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Make toggle sticky when the accordion is expanded */
+.fridge-category:has(.category-content.active) .category-toggle {
+    position: sticky;
+    top: 20px;
+    z-index: 10;
+    background: rgba(30, 30, 30, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .category-content {
     display: flex;
     flex-direction: column;
-    background: #181818;
+    background: rgba(0, 0, 0, 0.2);
     border-top: 1px solid transparent;
     max-height: 0;
     opacity: 0;
-    overflow: hidden;
+    overflow: hidden; /* Hides content when collapsed */
     padding: 0 16px;
     transition: max-height 0.4s ease-out, opacity 0.3s ease, padding 0.3s ease;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
 }
 
 .category-content.active {
-    max-height: 2000px;
+    max-height: 3000px;
     opacity: 1;
     padding: 0 0 16px 0;
-    border-top: 1px solid #252525;
-    overflow-y: visible;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: visible; /* Needs to be visible for sticky children inside to work */
 }
 
 /* ---------- 5.3 Category Search Bar ---------- */
 .category-search-wrapper {
     position: sticky;
-    top: 0;
-    background: #181818;
+    top: 77px; /* Sit right underneath the sticky category-toggle (57px + 20px top offset) */
+    background: #151515;
     display: flex;
     align-items: center;
-    padding: 12px 16px;
-    border-bottom: 1px solid #252525;
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     z-index: 5;
     margin-bottom: 10px;
 }
 
 .category-search-wrapper i {
-    color: #666;
-    font-size: 0.9rem;
+    color: #ffb347;
+    font-size: 0.95rem;
+    opacity: 0.8;
 }
 
 .category-search-input {
     background: transparent;
     border: none;
     color: white;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     width: 100%;
-    margin-left: 10px;
+    margin-left: 12px;
     outline: none;
 }
 
 .category-search-input::placeholder {
-    color: #444;
+    color: #555;
+    font-style: italic;
 }
 
-/* ---------- 5.4 Checkbox List Styling ---------- */
+/* ---------- 5.4 Premium Interactive Rows ---------- */
 .ingredient-checkbox-list {
     display: flex;
     flex-direction: column;
     padding: 0 16px;
+    gap: 6px;
 }
 
-.fridge-item {
+.fridge-item-premium {
     display: flex;
     align-items: center;
-    gap: 15px;
-    padding: 12px 10px;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.item-name {
     font-size: 1rem;
-    color: #efefef;
-    cursor: pointer;
-    border-bottom: 1px solid #252525;
-    transition: all 0.2s ease;
-    border-radius: 8px;
-    margin-bottom: 2px;
+    color: #ccc;
+    font-weight: 500;
+    transition: color 0.3s ease;
 }
 
-.fridge-item:hover {
-    background: #222;
-    color: #ffb347;
+/* Hide native checkbox */
+.fridge-item-premium input[type="checkbox"] {
+    display: none;
 }
 
-.fridge-item input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    background-color: #2a2a2a;
-    border: 2px solid #444;
-    border-radius: 6px;
-    display: grid;
-    place-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
+/* iOS-style Toggle Switch */
+.toggle-switch {
+    width: 44px;
+    height: 24px;
+    background-color: #333;
+    border-radius: 24px;
+    position: relative;
+    transition: background-color 0.3s ease;
     flex-shrink: 0;
 }
 
-.fridge-item input[type="checkbox"]:checked {
+.toggle-switch::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background-color: #888;
+    border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease;
+}
+
+/* Checked State: Golden Glow Effect */
+.fridge-item-premium:has(input[type="checkbox"]:checked) {
+    background: linear-gradient(135deg, rgba(255, 179, 71, 0.1) 0%, rgba(255, 204, 51, 0.05) 100%);
+    border-color: rgba(255, 179, 71, 0.4);
+    box-shadow: 0 4px 15px rgba(255, 179, 71, 0.05);
+    transform: scale(1.01);
+}
+
+.fridge-item-premium:has(input[type="checkbox"]:checked) .item-name {
+    color: #ffb347;
+    font-weight: 600;
+}
+
+.fridge-item-premium:has(input[type="checkbox"]:checked) .toggle-switch {
+    background-color: rgba(255, 179, 71, 0.3);
+}
+
+.fridge-item-premium:has(input[type="checkbox"]:checked) .toggle-switch::after {
+    transform: translateX(20px);
     background-color: #ffb347;
-    border-color: #ffb347;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.2);
 }
 
-.fridge-item input[type="checkbox"]::before {
-    content: "\f00c";
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
-    font-size: 14px;
-    color: #000;
-    transform: scale(0);
-    transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.fridge-item input[type="checkbox"]:checked::before {
-    transform: scale(1);
-}
-
-.fridge-item:has(input:checked) {
-    color: #fff;
-    font-weight: 500;
+/* Hover Effect */
+.fridge-item-premium:hover:not(:has(input[type="checkbox"]:checked)) {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 /* ---------- 5.5 Find My Cocktails Button ---------- */
@@ -171,6 +310,8 @@
     align-items: center;
     justify-content: center;
     gap: 12px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 4px 15px rgba(255, 179, 71, 0.3);
 }
