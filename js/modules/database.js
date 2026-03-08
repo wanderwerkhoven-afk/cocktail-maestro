@@ -465,7 +465,7 @@ export const classicCocktails = [
         description: "A bold and refined classic, blending rich bourbon warmth with bittersweet depth and elegance.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Bourbon", fridgeCategory: "spirit" },
-            { amount: 30, unit: "ml", name: "Campari", fridgeCategory: "liqueur" },
+            { amount: 30, unit: "ml", name: "Campari", fridgeCategory: "spirit" },
             { amount: 30, unit: "ml", name: "Sweet vermouth", fridgeCategory: "liqueur" }
         ],
         glassware: "Rocks glass",
@@ -536,7 +536,7 @@ export const classicCocktails = [
         description: "A bold and refreshing classic with bright lime, rustic sweetness and the raw character of cachaça.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Cachaça", fridgeCategory: "spirit" },
-            { amount: 1, unit: "pcs", name: "Lime", fridgeCategory: "fresh" },
+            { amount: 1, unit: "pcs", name: "Fresh lime", fridgeCategory: "fresh" },
             { amount: 2, unit: "tsp", name: "Brown sugar", fridgeCategory: "fresh" }
         ],
         glassware: "Rocks glass",
@@ -956,7 +956,7 @@ export const classicCocktails = [
             { amount: 20, unit: "ml", name: "Elderflower liqueur", fridgeCategory: "liqueur" },
             { amount: 50, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 20, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
-            { amount: 6, unit: "pcs", name: "Cucumber", fridgeCategory: "fresh" },
+            { amount: 6, unit: "pcs", name: "Fresh Cucumber", fridgeCategory: "fresh" },
             { amount: 15, unit: "ml", name: "Sprite", fridgeCategory: "juice" }
         ],
         glassware: "Highball glass",
@@ -979,7 +979,7 @@ export const classicCocktails = [
         category: ["Aperitivo", "Simple", "Orange"],
         description: "A simple aperitivo made magical with fluffy, aerated orange juice and bittersweet Campari.",
         ingredients: [
-            { amount: 45, unit: "ml", name: "Campari", fridgeCategory: "liqueur" },
+            { amount: 45, unit: "ml", name: "Campari", fridgeCategory: "spirit" },
             { amount: 120, unit: "ml", name: "Freshly aerated Orange juice", fridgeCategory: "juice" }
         ],
         glassware: "Highball glass",
@@ -1125,8 +1125,8 @@ export const classicCocktails = [
         description: "A crisp cucumber-lime muddle with bright gin, gentle sweetness and a subtle saline snap.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
-            { amount: 3, unit: "wedges", name: "Lime", fridgeCategory: "fresh" },
-            { amount: 3, unit: "slices", name: "Cucumber", fridgeCategory: "fresh" },
+            { amount: 3, unit: "wedges", name: "Fresh lime", fridgeCategory: "fresh" },
+            { amount: 3, unit: "slices", name: "Fresh Cucumber", fridgeCategory: "fresh" },
             { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
             { amount: 1, unit: "pinch", name: "Salt", fridgeCategory: "fresh" }
         ],
@@ -1275,7 +1275,7 @@ export const classicCocktails = [
         description: "A bold tiki classic balancing tropical pineapple sweetness with bittersweet Campari depth.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Dark Rum", fridgeCategory: "spirit" },
-            { amount: 20, unit: "ml", name: "Campari", fridgeCategory: "liqueur" },
+            { amount: 20, unit: "ml", name: "Campari", fridgeCategory: "spirit" },
             { amount: 45, unit: "ml", name: "Pineapple juice", fridgeCategory: "juice" },
             { amount: 15, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
             { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" }
@@ -1720,7 +1720,7 @@ export const classicCocktails = [
         description: "A bold bartender's classic with bittersweet depth, herbal balance and ruby-red elegance.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
-            { amount: 30, unit: "ml", name: "Campari", fridgeCategory: "liqueur" },
+            { amount: 30, unit: "ml", name: "Campari", fridgeCategory: "spirit" },
             { amount: 30, unit: "ml", name: "Sweet vermouth", fridgeCategory: "liqueur" }
         ],
         glassware: "Rocks glass",
@@ -2128,7 +2128,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 60, unit: "ml", name: "Rye whiskey", fridgeCategory: "spirit" },
             { amount: 10, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup" },
-            { amount: 2, unit: "dashes", name: "Peychaudâ€™s bitters", fridgeCategory: "bitters" },
+            { amount: 2, unit: "dashes", name: "Peychaud's bitters", fridgeCategory: "bitters" },
             { amount: 1, unit: "rinse", name: "Absinthe", fridgeCategory: "spirit" }
         ],
         glassware: "Rocks glass",
