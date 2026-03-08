@@ -147,12 +147,15 @@
 }
 
 .recommendation-card {
-    flex: 0 0 280px;
-    background: linear-gradient(145deg, rgba(45, 45, 45, 0.8), rgba(25, 25, 25, 0.95));
-    border-radius: 20px;
-    padding: 1.2rem;
-    border: 1px solid rgba(255, 179, 71, 0.15);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    flex: 0 0 320px;
+    background: linear-gradient(155deg, rgba(55, 48, 35, 0.92) 0%, rgba(22, 20, 18, 0.98) 100%);
+    border-radius: 22px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 179, 71, 0.28);
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.55),
+        0 0 0 0.5px rgba(255, 179, 71, 0.07) inset,
+        0 1px 0 rgba(255, 210, 120, 0.18) inset;
     scroll-snap-align: start;
     position: relative;
     overflow: hidden;
@@ -160,28 +163,64 @@
 
 .rank-badge {
     position: absolute;
-    top: 12px;
-    left: 12px;
+    top: 14px;
+    left: 14px;
     background: rgba(255, 179, 71, 0.2);
     color: #ffb347;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     font-weight: 800;
-    padding: 4px 8px;
-    border-radius: 8px;
+    padding: 5px 10px;
+    border-radius: 9px;
     border: 1px solid rgba(255, 179, 71, 0.3);
     z-index: 2;
     backdrop-filter: blur(4px);
 }
 
+/* Lava lamp blob animation keyframes */
+@keyframes lava-blob-1 {
+    0%   { transform: translate(0, 0) scale(1); }
+    33%  { transform: translate(-20px, 15px) scale(1.15); }
+    66%  { transform: translate(10px, -20px) scale(0.9); }
+    100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes lava-blob-2 {
+    0%   { transform: translate(0, 0) scale(1); }
+    33%  { transform: translate(15px, -10px) scale(0.85); }
+    66%  { transform: translate(-10px, 20px) scale(1.1); }
+    100% { transform: translate(0, 0) scale(1); }
+}
+
+/* Top-right warm amber blob */
 .recommendation-card::before {
     content: '';
     position: absolute;
-    top: -10%;
-    right: -5%;
-    width: 100px;
-    height: 100px;
-    background: radial-gradient(circle, rgba(255, 179, 71, 0.08) 0%, transparent 70%);
+    top: -50px;
+    right: -50px;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(255, 160, 50, 0.22) 0%, transparent 65%);
     z-index: 0;
+    pointer-events: none;
+    border-radius: 50%;
+    animation: lava-blob-1 8s ease-in-out infinite;
+    filter: blur(8px);
+}
+
+/* Bottom-left warm orange blob */
+.recommendation-card::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: -40px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(255, 100, 30, 0.14) 0%, transparent 65%);
+    z-index: 0;
+    pointer-events: none;
+    border-radius: 50%;
+    animation: lava-blob-2 11s ease-in-out infinite;
+    filter: blur(10px);
 }
 
 .bottle-display {
@@ -195,15 +234,15 @@
 }
 
 .bottle-image-wrapper {
-    width: 70px;
-    height: 70px;
+    width: 110px;
+    height: 110px;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 1px solid rgba(255, 179, 71, 0.2);
-    padding: 10px;
+    padding: 14px;
 }
 
 .bottle-image-wrapper img {
@@ -217,31 +256,31 @@
 }
 
 .bottle-name {
-    font-size: 1.1rem;
+    font-size: 1.35rem;
     font-weight: 700;
     color: #fff;
     display: block;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
 }
 
 .unlock-count {
-    font-size: 0.8rem;
+    font-size: 1rem;
     color: #ffb347;
     font-weight: 600;
 }
 
 .add-recommendation-btn {
-    margin-top: 10px;
+    margin-top: 12px;
     background: #ffb347;
     color: #000;
     border: none;
-    padding: 8px 16px;
-    border-radius: 10px;
+    padding: 11px 22px;
+    border-radius: 12px;
     font-weight: 700;
-    font-size: 0.8rem;
+    font-size: 1rem;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
 }
@@ -257,21 +296,42 @@
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     position: relative;
     z-index: 1;
+    /* Extend full width by cancelling card padding */
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    margin-bottom: -1.5rem;
 }
 
 .unlocked-carousel-container h4 {
-    font-size: 0.65rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
     color: #666;
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.9rem;
     letter-spacing: 1px;
+    padding: 0 1.5rem;
 }
 
 .mini-cocktail-list {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     overflow-x: auto;
     scrollbar-width: none;
+    padding: 0 1.5rem 1.5rem;
+    /* Fade on both sides to hint at scrollability */
+    mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 8%,
+        black 92%,
+        transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 8%,
+        black 92%,
+        transparent 100%
+    );
 }
 
 .mini-cocktail-list::-webkit-scrollbar {
@@ -279,17 +339,17 @@
 }
 
 .mini-cocktail-card {
-    flex: 0 0 60px;
+    flex: 0 0 90px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
 }
 
 .mini-cocktail-img {
-    width: 50px;
-    height: 50px;
-    border-radius: 10px;
+    width: 85px;
+    height: 85px;
+    border-radius: 16px;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -301,11 +361,12 @@
 }
 
 .mini-cocktail-name {
-    font-size: 0.6rem;
+    font-size: 0.72rem;
     color: #888;
     text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
+    overflow: visible;
+    word-break: break-word;
     width: 100%;
+    line-height: 1.3;
 }
