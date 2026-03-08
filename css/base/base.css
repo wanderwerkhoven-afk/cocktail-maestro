@@ -1,8 +1,14 @@
-* {
+html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* Disables double-tap to zoom but allows pinch-to-zoom */
+    touch-action: manipulation;
+}
+
+* {
+    box-sizing: inherit;
 }
 
 body {
