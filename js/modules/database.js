@@ -533,9 +533,9 @@ export const classicCocktails = [
         id: 'caipirinha',
         name: "Caipirinha",
         category: ["Strong", "Sour", "Fresh"],
-        description: "A bold and refreshing classic with bright lime, rustic sweetness and the raw character of cachaÃ§a.",
+        description: "A bold and refreshing classic with bright lime, rustic sweetness and the raw character of cachaça.",
         ingredients: [
-            { amount: 60, unit: "ml", name: "Cachacha", fridgeCategory: "spirit" },
+            { amount: 60, unit: "ml", name: "Cachaça", fridgeCategory: "spirit" },
             { amount: 1, unit: "pcs", name: "Lime", fridgeCategory: "fresh" },
             { amount: 2, unit: "tsp", name: "Brown sugar", fridgeCategory: "fresh" }
         ],
@@ -547,7 +547,7 @@ export const classicCocktails = [
 
             Step 2: Gently muddle to release the lime juice and oils without over-crushing the peel.
 
-            Step 3: Fill the glass with crushed ice and pour in the cachaÃ§a.
+            Step 3: Fill the glass with crushed ice and pour in the cachaça.
 
             Step 4: Stir well to combine and garnish with a fresh lime wedge.
         `.trim(),
@@ -1000,10 +1000,10 @@ export const classicCocktails = [
         id: 'giant-sucker',
         name: "Giant Sucker",
         category: ["Herbal", "Unique", "Bubbly"],
-        description: "A bold herbal mix where JÃ¤germeister meets honey sweetness and floral bubbles.",
+        description: "A bold herbal mix where Jägermeister meets honey sweetness and floral bubbles.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Honey", fridgeCategory: "syrup" },
-            { amount: 45, unit: "ml", name: "JÃ¤germeister", fridgeCategory: "liqueur" },
+            { amount: 45, unit: "ml", name: "Jägermeister", fridgeCategory: "liqueur" },
             { amount: 10, unit: "pcs", name: "Fresh mint", fridgeCategory: "fresh" },
             { amount: 15, unit: "ml", name: "Elderflower tonic", fridgeCategory: "juice" }
         ],
@@ -1011,7 +1011,7 @@ export const classicCocktails = [
         ice: "Cubed ice",
         method: "Stirred",
         methodDesc: `
-            Step 1: Add the honey and JÃ¤germeister to a mixing glass and stir until fully dissolved.
+            Step 1: Add the honey and Jägermeister to a mixing glass and stir until fully dissolved.
 
             Step 2: Add fresh mint and gently bruise to release aroma.
 
@@ -1426,7 +1426,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 40, unit: "ml", name: "Aged rum", fridgeCategory: "spirit" },
             { amount: 20, unit: "ml", name: "White rum", fridgeCategory: "spirit" },
-            { amount: 15, unit: "ml", name: "Orange curaÃ§ao", fridgeCategory: "liqueur" },
+            { amount: 15, unit: "ml", name: "Orange curaçao", fridgeCategory: "liqueur" },
             { amount: 15, unit: "ml", name: "Orgeat syrup", fridgeCategory: "syrup" },
             { amount: 20, unit: "ml", name: "Lime juice", fridgeCategory: "juice" }
         ],
@@ -1717,7 +1717,7 @@ export const classicCocktails = [
         id: 'negroni',
         name: "Negroni",
         category: ["Bitter", "Gin"],
-        description: "A bold bartenderâ€™s classic with bittersweet depth, herbal balance and ruby-red elegance.",
+        description: "A bold bartender's classic with bittersweet depth, herbal balance and ruby-red elegance.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 30, unit: "ml", name: "Campari", fridgeCategory: "liqueur" },
@@ -1991,7 +1991,7 @@ export const classicCocktails = [
     },
     {
         id: 'planters-punch',
-        name: "Planterâ€™s Punch",
+        name: "Planter's Punch",
         category: ["Tiki", "Rum", "Fruity"],
         description: "A bold Caribbean classic bursting with rum, citrus and tropical sweetness.",
         ingredients: [
@@ -2395,7 +2395,7 @@ export const classicCocktails = [
             { amount: 30, unit: "ml", name: "Cognac", fridgeCategory: "spirit" },
             { amount: 30, unit: "ml", name: "Sweet vermouth", fridgeCategory: "liqueur" },
             { amount: 10, unit: "ml", name: "Benedictine", fridgeCategory: "liqueur" },
-            { amount: 2, unit: "dashes", name: "Peychaudâ€™s bitters", fridgeCategory: "bitters" }
+            { amount: 2, unit: "dashes", name: "Peychaud's bitters", fridgeCategory: "bitters" }
         ],
         glassware: "Rocks glass",
         ice: "Large ice cube",
