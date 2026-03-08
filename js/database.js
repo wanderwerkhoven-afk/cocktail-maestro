@@ -130,7 +130,7 @@ const classicCocktails = [
         ice: "Large ice cube",
         method: "Shaken",
         methodDesc: `
-            Step 1: Add all ingredients to a shaker and dry shake (no ice) for 10–15 seconds to emulsify the egg white and build a silky foam.
+            Step 1: Add all ingredients to a shaker and dry shake (no ice) for 10-15 seconds to emulsify the egg white and build a silky foam.
 
             Step 2: Add ice and shake hard until the shaker is well chilled.
 
@@ -228,7 +228,7 @@ const classicCocktails = [
         ice: "Cubed ice",
         method: "Dry & Wet Shake",
         methodDesc: `
-            Step 1: Add all ingredients to a shaker and dry shake (no ice) for 10–15 seconds to build foam.
+            Step 1: Add all ingredients to a shaker and dry shake (no ice) for 10-15 seconds to build foam.
 
             Step 2: Add cubed ice and shake hard until well chilled.
 
@@ -246,7 +246,7 @@ const classicCocktails = [
         ingredients: [
             { amount: 60, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 25, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 20, unit: "ml", name: "Orgeat (Almond) syrup", fridgeCategory: "syrup" },
+            { amount: 20, unit: "ml", name: "Orgeat syrup", fridgeCategory: "syrup" },
             { amount: 2, unit: "dashes", name: "Angostura bitters", fridgeCategory: "bitters" }
         ],
         glassware: "Coupe glass",
@@ -341,7 +341,7 @@ const classicCocktails = [
         description: "A jewel-box classic with herbal intensity, vermouth richness and a crisp, elegant finish.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
-            { amount: 30, unit: "ml", name: "Sweet Vermouth", fridgeCategory: "liqueur" },
+            { amount: 30, unit: "ml", name: "Sweet vermouth", fridgeCategory: "liqueur" },
             { amount: 30, unit: "ml", name: "Green Chartreuse", fridgeCategory: "liqueur" },
             { amount: 1, unit: "dash", name: "Orange bitters", fridgeCategory: "bitters" }
         ],
@@ -351,7 +351,7 @@ const classicCocktails = [
         methodDesc: `
             Step 1: Add all ingredients to a mixing glass filled with cubed ice.
 
-            Step 2: Stir smoothly for 25–30 seconds until ice cold and properly diluted.
+            Step 2: Stir smoothly for 25-30 seconds until ice cold and properly diluted.
 
             Step 3: Strain into a chilled coupe glass.
 
@@ -376,7 +376,7 @@ const classicCocktails = [
 
             Step 2: Add vodka and coffee liqueur.
 
-            Step 3: Stir gently for 10–15 seconds to chill and combine.
+            Step 3: Stir gently for 10-15 seconds to chill and combine.
 
             Step 4: Garnish with a maraschino cherry if desired.
         `.trim(),
@@ -414,7 +414,7 @@ const classicCocktails = [
         description: "A vibrant blue refresher with zesty citrus, crisp vodka and an easy summer sparkle.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
-            { amount: 20, unit: "ml", name: "Blue Curacao", fridgeCategory: "liqueur" },
+            { amount: 20, unit: "ml", name: "Blue Curaçao", fridgeCategory: "liqueur" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
             { amount: 90, unit: "ml", name: "Lemonade or Sprite", fridgeCategory: "juice" }
         ],
@@ -466,7 +466,7 @@ const classicCocktails = [
         ingredients: [
             { amount: 30, unit: "ml", name: "Bourbon", fridgeCategory: "spirit" },
             { amount: 30, unit: "ml", name: "Campari", fridgeCategory: "liqueur" },
-            { amount: 30, unit: "ml", name: "Sweet Vermouth", fridgeCategory: "liqueur" }
+            { amount: 30, unit: "ml", name: "Sweet vermouth", fridgeCategory: "liqueur" }
         ],
         glassware: "Rocks glass",
         ice: "Large ice cube",
@@ -474,7 +474,7 @@ const classicCocktails = [
         methodDesc: `
             Step 1: Add all ingredients to a mixing glass filled with cubed ice.
 
-            Step 2: Stir smoothly for 25–30 seconds until well chilled and properly diluted.
+            Step 2: Stir smoothly for 25-30 seconds until well chilled and properly diluted.
 
             Step 3: Strain into a chilled rocks glass over a large clear ice cube.
 
@@ -591,7 +591,7 @@ const classicCocktails = [
         ice: "Cubed ice",
         method: "Dry Shake & Shake",
         methodDesc: `
-            Step 1: Add all ingredients to a shaker and dry shake (no ice) for 10–15 seconds to build a smooth, airy foam.
+            Step 1: Add all ingredients to a shaker and dry shake (no ice) for 10-15 seconds to build a smooth, airy foam.
 
             Step 2: Add cubed ice and shake hard until the shaker is well chilled.
 
@@ -763,7 +763,7 @@ const classicCocktails = [
         methodDesc: `
             Step 1: Add all ingredients to a mixing glass filled with cubed ice.
 
-            Step 2: Stir smoothly for 25–30 seconds until ice cold and properly diluted.
+            Step 2: Stir smoothly for 25-30 seconds until ice cold and properly diluted.
 
             Step 3: Strain into a chilled martini glass.
 
@@ -832,7 +832,7 @@ const classicCocktails = [
             { amount: 30, unit: "ml", name: "Espresso", fridgeCategory: "fresh" },
             { amount: 15, unit: "ml", name: "Coffee liqueur", fridgeCategory: "liqueur" },
             { amount: 15, unit: "ml", name: "Pineapple juice", fridgeCategory: "juice" },
-            { amount: 5, unit: "ml", name: "Orgeat", fridgeCategory: "syrup" }
+            { amount: 5, unit: "ml", name: "Orgeat syrup", fridgeCategory: "syrup" }
         ],
         glassware: "Coupe glass",
         ice: "Cubed ice",
@@ -840,7 +840,7 @@ const classicCocktails = [
         methodDesc: `
             Step 1: Add all ingredients to a shaker filled with cubed ice.
 
-            Step 2: Shake hard for 15–20 seconds to create a smooth, lightly tropical foam.
+            Step 2: Shake hard for 15-20 seconds to create a smooth, lightly tropical foam.
 
             Step 3: Double strain into a chilled coupe glass.
 
@@ -865,7 +865,7 @@ const classicCocktails = [
         methodDesc: `
             Step 1: Add all ingredients to a shaker filled with cubed ice.
 
-            Step 2: Shake hard for 15–20 seconds to create a thick, velvety foam.
+            Step 2: Shake hard for 15-20 seconds to create a thick, velvety foam.
 
             Step 3: Double strain into a chilled coupe glass.
 
@@ -890,7 +890,7 @@ const classicCocktails = [
         methodDesc: `
             Step 1: Add all ingredients to a shaker filled with cubed ice.
 
-            Step 2: Shake hard for 15–20 seconds to build a thick, creamy foam.
+            Step 2: Shake hard for 15-20 seconds to build a thick, creamy foam.
 
             Step 3: Double strain into a chilled coupe glass.
 
@@ -939,7 +939,7 @@ const classicCocktails = [
         methodDesc: `
             Step 1: Add all ingredients to a shaker filled with cubed ice.
 
-            Step 2: Shake very hard for 15–20 seconds to create a thick, silky foam.
+            Step 2: Shake very hard for 15-20 seconds to create a thick, silky foam.
 
             Step 3: Double strain into a chilled coupe glass.
 
@@ -1028,7 +1028,7 @@ const classicCocktails = [
         description: "A crisp botanical classic with bright lime, clean acidity and a sharp, refreshing finish.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
-            { amount: 30, unit: "ml", name: "Lime cordial or Lime juice", fridgeCategory: "juice" },
+            { amount: 30, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
             { amount: 10, unit: "ml", name: "Sugar syrup (if using fresh lime)", fridgeCategory: "syrup" }
         ],
         glassware: "Coupe glass",
@@ -1409,7 +1409,7 @@ const classicCocktails = [
         ice: "Cubed ice",
         method: "Shaken",
         methodDesc: `
-            Step 1: Add all ingredients to a shaker and dry shake (no ice) for 10–15 seconds to build a thick foam.
+            Step 1: Add all ingredients to a shaker and dry shake (no ice) for 10-15 seconds to build a thick foam.
 
             Step 2: Add cubed ice and shake hard until the shaker is well chilled.
 
@@ -1459,7 +1459,7 @@ const classicCocktails = [
         ice: "Cubed ice",
         method: "Shaken",
         methodDesc: `
-            Step 1: Add all ingredients to a shaker and dry shake (no ice) for 10–15 seconds to emulsify and build foam.
+            Step 1: Add all ingredients to a shaker and dry shake (no ice) for 10-15 seconds to emulsify and build foam.
 
             Step 2: Add cubed ice and shake hard until well chilled and properly diluted.
 
@@ -1476,7 +1476,7 @@ const classicCocktails = [
         description: "A rich and moody whiskey classic with silky vermouth depth and a bittersweet finish.",
         ingredients: [
             { amount: 50, unit: "ml", name: "Rye Whiskey", fridgeCategory: "spirit" },
-            { amount: 30, unit: "ml", name: "Sweet Vermouth", fridgeCategory: "liqueur" },
+            { amount: 30, unit: "ml", name: "Sweet vermouth", fridgeCategory: "liqueur" },
             { amount: 2, unit: "dashes", name: "Angostura bitters", fridgeCategory: "bitters" }
         ],
         glassware: "Coupe glass",
@@ -1485,7 +1485,7 @@ const classicCocktails = [
         methodDesc: `
             Step 1: Add all ingredients to a mixing glass filled with cubed ice.
 
-            Step 2: Stir smoothly for 25–30 seconds until well chilled and properly diluted.
+            Step 2: Stir smoothly for 25-30 seconds until well chilled and properly diluted.
 
             Step 3: Strain into a chilled coupe glass for a clean, spirit-forward serve.
 
@@ -1681,7 +1681,7 @@ const classicCocktails = [
         methodDesc: `
             Step 1: Add all ingredients to a mixing glass with a large ice cube.
 
-            Step 2: Stir gently for 10–15 seconds to chill without over-dilution.
+            Step 2: Stir gently for 10-15 seconds to chill without over-dilution.
 
             Step 3: Strain into a chilled rocks glass over a fresh large ice cube.
 
@@ -1730,7 +1730,7 @@ const classicCocktails = [
         methodDesc: `
             Step 1: Add all ingredients to a mixing glass filled with cubed ice.
 
-            Step 2: Stir smoothly for 25–30 seconds until chilled and properly diluted.
+            Step 2: Stir smoothly for 25-30 seconds until chilled and properly diluted.
 
             Step 3: Strain into a rocks glass over a large clear ice cube.
 
@@ -1754,7 +1754,7 @@ const classicCocktails = [
         ice: "Large ice cube",
         method: "Shake & Float",
         methodDesc: `
-            Step 1: Add whiskey, lemon juice, sugar syrup and egg white to a shaker and dry shake for 10–15 seconds.
+            Step 1: Add whiskey, lemon juice, sugar syrup and egg white to a shaker and dry shake for 10-15 seconds.
 
             Step 2: Add ice and shake hard until well chilled.
 
@@ -1774,7 +1774,7 @@ const classicCocktails = [
             { amount: 20, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
             { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
             { amount: 2, unit: "dashes", name: "Angostura bitters", fridgeCategory: "bitters" },
-            { amount: 6, unit: "leaves", name: "Mint", fridgeCategory: "fresh" },
+            { amount: 6, unit: "leaves", name: "Fresh mint", fridgeCategory: "fresh" },
             { amount: 60, unit: "ml", name: "Champagne/Prosecco", fridgeCategory: "liqueur" }
         ],
         glassware: "Coupe glass",
@@ -1810,7 +1810,7 @@ const classicCocktails = [
 
             Step 2: Muddle gently until dissolved.
 
-            Step 3: Add bourbon and a large ice cube, then stir for 25–30 seconds.
+            Step 3: Add bourbon and a large ice cube, then stir for 25-30 seconds.
 
             Step 4: Express orange zest over the glass and garnish.
         `.trim(),
@@ -1980,7 +1980,7 @@ const classicCocktails = [
         ice: "Cubed ice",
         method: "Dry & Wet Shake",
         methodDesc: `
-            Step 1: Add all ingredients except bitters to a shaker and dry shake for 10–15 seconds.
+            Step 1: Add all ingredients except bitters to a shaker and dry shake for 10-15 seconds.
 
             Step 2: Add cubed ice and shake hard until well chilled.
 
@@ -2059,9 +2059,9 @@ const classicCocktails = [
         ice: "No ice",
         method: "Hard Shake",
         methodDesc: `
-            Step 1: Add all ingredients except soda water to a shaker and dry shake (no ice) for 60–90 seconds to build structure.
+            Step 1: Add all ingredients except soda water to a shaker and dry shake (no ice) for 60-90 seconds to build structure.
 
-            Step 2: Add cubed ice and shake hard for another 60–90 seconds until the mixture is icy cold.
+            Step 2: Add cubed ice and shake hard for another 60-90 seconds until the mixture is icy cold.
 
             Step 3: Double strain into a chilled highball glass with no ice.
 
@@ -2113,7 +2113,7 @@ const classicCocktails = [
         methodDesc: `
             Step 1: Add all ingredients to a shaker filled with cubed ice.
 
-            Step 2: Shake hard for 15–20 seconds to chill and create a smooth, velvety texture.
+            Step 2: Shake hard for 15-20 seconds to chill and create a smooth, velvety texture.
 
             Step 3: Double strain into a chilled coupe glass for a clean finish.
 
@@ -2345,7 +2345,7 @@ const classicCocktails = [
         ingredients: [
             { amount: 50, unit: "ml", name: "Tequila Blanco", fridgeCategory: "spirit" },
             { amount: 25, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Agave nectar", fridgeCategory: "syrup" }
+            { amount: 15, unit: "ml", name: "Agave syrup", fridgeCategory: "syrup" }
         ],
         glassware: "Rocks glass",
         ice: "Cubed ice",
@@ -2353,7 +2353,7 @@ const classicCocktails = [
         methodDesc: `
             Step 1: Fill a rocks glass with fresh cubed ice (optional: half salt rim).
 
-            Step 2: Add tequila, lime juice and agave nectar to a shaker filled with cubed ice.
+            Step 2: Add tequila, lime juice and agave syrup to a shaker filled with cubed ice.
 
             Step 3: Shake hard until well chilled and properly diluted.
 
@@ -2472,7 +2472,7 @@ const classicCocktails = [
         ice: "Large ice cube",
         method: "Dry & Wet Shake",
         methodDesc: `
-            Step 1: Add all ingredients to a shaker and dry shake (no ice) for 10–15 seconds to build foam.
+            Step 1: Add all ingredients to a shaker and dry shake (no ice) for 10-15 seconds to build foam.
 
             Step 2: Add cubed ice and shake hard until well chilled.
 

@@ -60,7 +60,8 @@
     border-top: 1px solid #333;
     display: flex;
     justify-content: space-around;
-    padding: 12px 0 25px 0;
+    /* Added side padding and increased bottom padding for better accessibility */
+    padding: 15px 15px calc(30px + env(safe-area-inset-bottom)) 15px;
     z-index: 1000;
 }
 

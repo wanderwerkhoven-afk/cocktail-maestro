@@ -8,5 +8,5 @@
 body {
     background-color: #121212;
     color: #ffffff;
-    padding-bottom: 80px; /* Space for the fixed bottom nav */
+    padding-bottom: 110px; /* Space for the larger fixed bottom nav */
 }
