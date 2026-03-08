@@ -320,3 +320,15 @@
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(255, 179, 71, 0.5);
 }
+
+/* ---------- 5.6 Matching Results Grid (Responsive) ---------- */
+/* Mobile: stays full-width single column (inherits .cocktail-grid flex-column) */
+
+/* iPad / Tablet & Desktop: 3 columns */
+@media (min-width: 768px) {
+    #matching-results {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+}

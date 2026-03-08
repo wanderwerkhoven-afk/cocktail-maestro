@@ -2,9 +2,84 @@
    8. PAGE: SHOPPING LIST
    ========================================================================== */
 
-.shopping-container {
-    padding: 20px;
+/* ---------- 8.1 Shopping Intro Tile ---------- */
+.shopping-intro {
+    background: linear-gradient(145deg, rgba(30, 30, 30, 0.7), rgba(18, 18, 18, 0.9));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    margin: 1.5rem 1.5rem 1rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 179, 71, 0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
 }
+
+.shopping-intro::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 179, 71, 0.04) 0%, transparent 60%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.shopping-intro-icon {
+    font-size: 2.5rem;
+    color: #ffb347;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 0 10px rgba(255, 179, 71, 0.3));
+}
+
+.shopping-intro h2 {
+    color: #ffffff;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.5px;
+}
+
+.shopping-intro p {
+    color: #cccccc;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.shopping-intro-note {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: rgba(255, 179, 71, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 3px solid #ffb347;
+    text-align: left;
+    position: relative;
+    z-index: 1;
+}
+
+.shopping-intro-note i {
+    color: #ffb347;
+    font-size: 1.1rem;
+    margin-top: 3px;
+}
+
+.shopping-intro-note span {
+    color: #e0e0e0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
 
 .shopping-list {
     list-style: none;
