@@ -173,7 +173,7 @@ const classicCocktails = [
             { amount: 60, unit: "ml", name: "Aperol", fridgeCategory: "liqueur" },
             { amount: 30, unit: "ml", name: "Orange juice", fridgeCategory: "juice" },
             { amount: 15, unit: "ml", name: "Grapefruit juice", fridgeCategory: "juice" },
-            { amount: 60, unit: "ml", name: "Prosecco", fridgeCategory: "liqueur" }
+            { amount: 60, unit: "ml", name: "Prosecco/Champagne", fridgeCategory: "liqueur" }
         ],
         glassware: "Wine glass",
         ice: "Large ice cubes",
@@ -183,7 +183,7 @@ const classicCocktails = [
 
             Step 2: Add Aperol, orange juice and grapefruit juice.
 
-            Step 3: Top gently with Prosecco to keep the bubbles lively.
+            Step 3: Top gently with Prosecco or Champagne to keep the bubbles lively.
 
             Step 4: Give one gentle stir and garnish with an orange slice or grapefruit wedge.
         `.trim(),
@@ -195,7 +195,7 @@ const classicCocktails = [
         category: ["Light", "Sparkling", "Bitter"],
         description: "Bright, bittersweet and effortlessly refreshing, with lively bubbles and a sun-kissed finish.",
         ingredients: [
-            { amount: 60, unit: "ml", name: "Prosecco", fridgeCategory: "liqueur" },
+            { amount: 60, unit: "ml", name: "Prosecco/Champagne", fridgeCategory: "liqueur" },
             { amount: 30, unit: "ml", name: "Aperol", fridgeCategory: "liqueur" },
             { amount: 15, unit: "ml", name: "Soda water", fridgeCategory: "juice" }
         ],
@@ -205,7 +205,7 @@ const classicCocktails = [
         methodDesc: `
             Step 1: Fill a chilled wine glass generously with large ice cubes.
 
-            Step 2: Pour in the Prosecco first to preserve its freshness and bubbles.
+            Step 2: Pour in the Prosecco or Champagne first to preserve its freshness and bubbles.
 
             Step 3: Add the Aperol, followed by a splash of soda water.
 
@@ -320,7 +320,7 @@ const classicCocktails = [
         description: "Elegant and delicate with fresh peach sweetness and lively bubbles.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Peach purée", fridgeCategory: "juice" },
-            { amount: 90, unit: "ml", name: "Prosecco", fridgeCategory: "liqueur" }
+            { amount: 90, unit: "ml", name: "Prosecco/Champagne", fridgeCategory: "liqueur" }
         ],
         glassware: "Flute",
         ice: "No ice",
@@ -328,7 +328,7 @@ const classicCocktails = [
         methodDesc: `
             Step 1: Add peach purée to a chilled flute.
 
-            Step 2: Slowly top with prosecco.
+            Step 2: Slowly top with Prosecco or Champagne.
 
             Step 3: Gently stir once to combine.
         `.trim(),
@@ -416,7 +416,7 @@ const classicCocktails = [
             { amount: 45, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
             { amount: 20, unit: "ml", name: "Blue Curaçao", fridgeCategory: "liqueur" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 90, unit: "ml", name: "Lemonade or Sprite", fridgeCategory: "juice" }
+            { amount: 90, unit: "ml", name: "Sprite", fridgeCategory: "juice" }
         ],
         glassware: "Highball glass",
         ice: "Cubed ice",
@@ -533,9 +533,9 @@ const classicCocktails = [
         id: 'caipirinha',
         name: "Caipirinha",
         category: ["Strong", "Sour", "Fresh"],
-        description: "A bold and refreshing classic with bright lime, rustic sweetness and the raw character of cachaça.",
+        description: "A bold and refreshing classic with bright lime, rustic sweetness and the raw character of cachaÃ§a.",
         ingredients: [
-            { amount: 60, unit: "ml", name: "Cachaça", fridgeCategory: "spirit" },
+            { amount: 60, unit: "ml", name: "Cachacha", fridgeCategory: "spirit" },
             { amount: 1, unit: "pcs", name: "Lime", fridgeCategory: "fresh" },
             { amount: 2, unit: "tsp", name: "Brown sugar", fridgeCategory: "fresh" }
         ],
@@ -547,7 +547,7 @@ const classicCocktails = [
 
             Step 2: Gently muddle to release the lime juice and oils without over-crushing the peel.
 
-            Step 3: Fill the glass with crushed ice and pour in the cachaça.
+            Step 3: Fill the glass with crushed ice and pour in the cachaÃ§a.
 
             Step 4: Stir well to combine and garnish with a fresh lime wedge.
         `.trim(),
@@ -1000,10 +1000,10 @@ const classicCocktails = [
         id: 'giant-sucker',
         name: "Giant Sucker",
         category: ["Herbal", "Unique", "Bubbly"],
-        description: "A bold herbal mix where Jägermeister meets honey sweetness and floral bubbles.",
+        description: "A bold herbal mix where JÃ¤germeister meets honey sweetness and floral bubbles.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Honey", fridgeCategory: "syrup" },
-            { amount: 45, unit: "ml", name: "Jägermeister", fridgeCategory: "liqueur" },
+            { amount: 45, unit: "ml", name: "JÃ¤germeister", fridgeCategory: "liqueur" },
             { amount: 10, unit: "pcs", name: "Fresh mint", fridgeCategory: "fresh" },
             { amount: 15, unit: "ml", name: "Elderflower tonic", fridgeCategory: "juice" }
         ],
@@ -1011,7 +1011,7 @@ const classicCocktails = [
         ice: "Cubed ice",
         method: "Stirred",
         methodDesc: `
-            Step 1: Add the honey and Jägermeister to a mixing glass and stir until fully dissolved.
+            Step 1: Add the honey and JÃ¤germeister to a mixing glass and stir until fully dissolved.
 
             Step 2: Add fresh mint and gently bruise to release aroma.
 
@@ -1028,8 +1028,7 @@ const classicCocktails = [
         description: "A crisp botanical classic with bright lime, clean acidity and a sharp, refreshing finish.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
-            { amount: 30, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
-            { amount: 10, unit: "ml", name: "Sugar syrup (if using fresh lime)", fridgeCategory: "syrup" }
+            { amount: 30, unit: "ml", name: "Lime juice", fridgeCategory: "juice" }
         ],
         glassware: "Coupe glass",
         ice: "Cubed ice",
@@ -1251,7 +1250,7 @@ const classicCocktails = [
         description: "A light and floral spritz with elderflower charm, crisp bubbles and fresh mint brightness.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Elderflower liqueur", fridgeCategory: "liqueur" },
-            { amount: 90, unit: "ml", name: "Prosecco", fridgeCategory: "liqueur" },
+            { amount: 90, unit: "ml", name: "Prosecco/Champagne", fridgeCategory: "liqueur" },
             { amount: 30, unit: "ml", name: "Soda water", fridgeCategory: "juice" },
             { amount: 5, unit: "leaves", name: "Fresh mint", fridgeCategory: "fresh" }
         ],
@@ -1263,7 +1262,7 @@ const classicCocktails = [
 
             Step 2: Add the elderflower liqueur and gently clap the mint leaves before adding.
 
-            Step 3: Pour in the Prosecco, then top with soda water.
+            Step 3: Pour in the Prosecco or Champagne, then top with soda water.
 
             Step 4: Give one gentle stir and garnish with a lime wheel and fresh mint.
         `.trim(),
@@ -1302,7 +1301,7 @@ const classicCocktails = [
         description: "A luxurious aperitif with dark berry sweetness and crisp champagne.",
         ingredients: [
             { amount: 15, unit: "ml", name: "Crème de cassis", fridgeCategory: "liqueur" },
-            { amount: 120, unit: "ml", name: "Champagne", fridgeCategory: "liqueur" }
+            { amount: 120, unit: "ml", name: "Prosecco/Champagne", fridgeCategory: "liqueur" }
         ],
         glassware: "Flute",
         ice: "No ice",
@@ -1310,7 +1309,7 @@ const classicCocktails = [
         methodDesc: `
             Step 1: Add crème de cassis to a chilled flute.
 
-            Step 2: Top gently with champagne.
+            Step 2: Top gently with Prosecco or Champagne.
         `.trim(),
         image: "./assets/Cocktails/kirroyale.png"
     },
@@ -1321,7 +1320,7 @@ const classicCocktails = [
         description: "A delicious twist on a breakfast martini, A wonderfull complexity to the finsh.",
         ingredients: [
             { amount: 25, unit: "ml", name: "Marmalade Vodka", fridgeCategory: "spirit" },
-            { amount: 25, unit: "ml", name: "Red Vermouth", fridgeCategory: "liqueur" },
+            { amount: 25, unit: "ml", name: "Sweet vermouth", fridgeCategory: "liqueur" },
             { amount: 15, unit: "ml", name: "L&G (-> kitchen)", fridgeCategory: "juice" },
             { amount: 30, unit: "ml", name: "bergamot Dilution (-> kitchen)", fridgeCategory: "fresh" }
         ],
@@ -1427,7 +1426,7 @@ const classicCocktails = [
         ingredients: [
             { amount: 40, unit: "ml", name: "Aged rum", fridgeCategory: "spirit" },
             { amount: 20, unit: "ml", name: "White rum", fridgeCategory: "spirit" },
-            { amount: 15, unit: "ml", name: "Orange curaçao", fridgeCategory: "liqueur" },
+            { amount: 15, unit: "ml", name: "Orange curaÃ§ao", fridgeCategory: "liqueur" },
             { amount: 15, unit: "ml", name: "Orgeat syrup", fridgeCategory: "syrup" },
             { amount: 20, unit: "ml", name: "Lime juice", fridgeCategory: "juice" }
         ],
@@ -1718,11 +1717,11 @@ const classicCocktails = [
         id: 'negroni',
         name: "Negroni",
         category: ["Bitter", "Gin"],
-        description: "A bold bartender’s classic with bittersweet depth, herbal balance and ruby-red elegance.",
+        description: "A bold bartenderâ€™s classic with bittersweet depth, herbal balance and ruby-red elegance.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 30, unit: "ml", name: "Campari", fridgeCategory: "liqueur" },
-            { amount: 30, unit: "ml", name: "Sweet Vermouth", fridgeCategory: "liqueur" }
+            { amount: 30, unit: "ml", name: "Sweet vermouth", fridgeCategory: "liqueur" }
         ],
         glassware: "Rocks glass",
         ice: "Large ice cube",
@@ -1775,7 +1774,7 @@ const classicCocktails = [
             { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
             { amount: 2, unit: "dashes", name: "Angostura bitters", fridgeCategory: "bitters" },
             { amount: 6, unit: "leaves", name: "Fresh mint", fridgeCategory: "fresh" },
-            { amount: 60, unit: "ml", name: "Champagne/Prosecco", fridgeCategory: "liqueur" }
+            { amount: 60, unit: "ml", name: "Prosecco/Champagne", fridgeCategory: "liqueur" }
         ],
         glassware: "Coupe glass",
         ice: "Cubed ice",
@@ -1787,7 +1786,7 @@ const classicCocktails = [
 
             Step 3: Double strain into a chilled coupe glass.
 
-            Step 4: Top gently with Champagne/Prosecco and garnish with a mint leaf.
+            Step 4: Top gently with Prosecco or Champagne and garnish with a mint leaf.
         `.trim(),
         image: "./assets/Cocktails/oldcuban.png"
     },
@@ -1992,7 +1991,7 @@ const classicCocktails = [
     },
     {
         id: 'planters-punch',
-        name: "Planter’s Punch",
+        name: "Planterâ€™s Punch",
         category: ["Tiki", "Rum", "Fruity"],
         description: "A bold Caribbean classic bursting with rum, citrus and tropical sweetness.",
         ingredients: [
@@ -2024,19 +2023,19 @@ const classicCocktails = [
             { amount: 15, unit: "ml", name: "Passoa", fridgeCategory: "liqueur" },
             { amount: 30, unit: "ml", name: "Passionfruit puree", fridgeCategory: "juice" },
             { amount: 10, unit: "ml", name: "Vanilla syrup", fridgeCategory: "syrup" },
-            { amount: 30, unit: "ml", name: "Prosecco (side)", fridgeCategory: "liqueur" }
+            { amount: 30, unit: "ml", name: "Prosecco/Champagne", fridgeCategory: "liqueur" }
         ],
         glassware: "Coupe glass",
         ice: "Cubed ice",
         method: "Shaken",
         methodDesc: `
-            Step 1: Add all ingredients except Prosecco to a shaker filled with cubed ice.
+            Step 1: Add all ingredients except Prosecco/Champagne to a shaker filled with cubed ice.
 
             Step 2: Shake hard until well chilled.
 
             Step 3: Double strain into a chilled coupe glass.
 
-            Step 4: Serve Prosecco in a separate shot glass alongside.
+            Step 4: Serve the Prosecco or Champagne in a separate shot glass alongside.
         `.trim(),
         image: "./assets/Cocktails/pornstar.png"
     },
@@ -2129,7 +2128,7 @@ const classicCocktails = [
         ingredients: [
             { amount: 60, unit: "ml", name: "Rye whiskey", fridgeCategory: "spirit" },
             { amount: 10, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup" },
-            { amount: 2, unit: "dashes", name: "Peychaud’s bitters", fridgeCategory: "bitters" },
+            { amount: 2, unit: "dashes", name: "Peychaudâ€™s bitters", fridgeCategory: "bitters" },
             { amount: 1, unit: "rinse", name: "Absinthe", fridgeCategory: "spirit" }
         ],
         glassware: "Rocks glass",
@@ -2298,7 +2297,7 @@ const classicCocktails = [
         description: "Bright, bittersweet and bubbly with vibrant orange aromatics.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Aperol", fridgeCategory: "liqueur" },
-            { amount: 90, unit: "ml", name: "Prosecco", fridgeCategory: "liqueur" },
+            { amount: 90, unit: "ml", name: "Prosecco/Champagne", fridgeCategory: "liqueur" },
             { amount: 30, unit: "ml", name: "Soda water", fridgeCategory: "juice" }
         ],
         glassware: "Wine glass",
@@ -2307,7 +2306,7 @@ const classicCocktails = [
         methodDesc: `
             Step 1: Fill a wine glass with ice.
 
-            Step 2: Add prosecco, Aperol and soda.
+            Step 2: Add Prosecco or Champagne, Aperol and soda.
 
             Step 3: Gently stir and garnish with orange.
         `.trim(),
@@ -2396,7 +2395,7 @@ const classicCocktails = [
             { amount: 30, unit: "ml", name: "Cognac", fridgeCategory: "spirit" },
             { amount: 30, unit: "ml", name: "Sweet vermouth", fridgeCategory: "liqueur" },
             { amount: 10, unit: "ml", name: "Benedictine", fridgeCategory: "liqueur" },
-            { amount: 2, unit: "dashes", name: "Peychaud’s bitters", fridgeCategory: "bitters" }
+            { amount: 2, unit: "dashes", name: "Peychaudâ€™s bitters", fridgeCategory: "bitters" }
         ],
         glassware: "Rocks glass",
         ice: "Large ice cube",
