@@ -221,7 +221,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 60, unit: "ml", name: "Aperol", fridgeCategory: "liqueur" },
             { amount: 30, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 1, unit: "pcs", name: "Egg white", fridgeCategory: "fresh" }
         ],
         glassware: "Coupe glass",
@@ -297,7 +297,7 @@ export const classicCocktails = [
             { amount: 45, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
             { amount: 15, unit: "ml", name: "Honey syrup", fridgeCategory: "syrup" },
-            { amount: 10, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" }
+            { amount: 10, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" }
         ],
         glassware: "Coupe glass",
         ice: "Cubed ice",
@@ -490,14 +490,14 @@ export const classicCocktails = [
         ingredients: [
             { amount: 45, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 20, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 15, unit: "ml", name: "Crème de Mure", fridgeCategory: "liqueur" }
         ],
         glassware: "Rocks glass",
         ice: "Crushed ice",
         method: "Built & Bleed",
         methodDesc: `
-            Step 1: Add the gin, fresh lemon juice and sugar syrup to a shaker filled with cubed ice.
+            Step 1: Add the gin, fresh lemon juice and simple syrup to a shaker filled with cubed ice.
 
             Step 2: Shake briefly until chilled, then strain into a rocks glass filled with crushed ice.
 
@@ -682,7 +682,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 50, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 20, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 3, unit: "slices", name: "Fresh cucumber", fridgeCategory: "fresh" }
         ],
         glassware: "Coupe glass",
@@ -691,7 +691,7 @@ export const classicCocktails = [
         methodDesc: `
             Step 1: Add cucumber slices to a shaker and gently muddle to release fresh cucumber juice.
 
-            Step 2: Add gin, lime juice and sugar syrup, then fill with cubed ice.
+            Step 2: Add gin, lime juice and simple syrup, then fill with cubed ice.
 
             Step 3: Shake hard until well chilled.
 
@@ -707,7 +707,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 45, unit: "ml", name: "White Rum", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" }
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" }
         ],
         glassware: "Coupe glass",
         ice: "Cubed ice",
@@ -805,7 +805,7 @@ export const classicCocktails = [
             { amount: 30, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 30, unit: "ml", name: "Campari", fridgeCategory: "liqueur" },
             { amount: 20, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 5, unit: "pcs", name: "Red grapes", fridgeCategory: "fresh" }
         ],
         glassware: "Rocks glass",
@@ -814,7 +814,7 @@ export const classicCocktails = [
         methodDesc: `
             Step 1: Add the grapes to a shaker and gently muddle to release juice (avoid crushing skins too aggressively).
 
-            Step 2: Add gin, Campari, lemon juice and sugar syrup, then fill with cubed ice.
+            Step 2: Add gin, Campari, lemon juice and simple syrup, then fill with cubed ice.
 
             Step 3: Shake hard until well chilled.
 
@@ -857,7 +857,7 @@ export const classicCocktails = [
             { amount: 45, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Coffee liqueur", fridgeCategory: "liqueur" },
             { amount: 30, unit: "ml", name: "Espresso", fridgeCategory: "fresh" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" }
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" }
         ],
         glassware: "Coupe glass",
         ice: "Cubed ice",
@@ -906,14 +906,14 @@ export const classicCocktails = [
         ingredients: [
             { amount: 30, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 90, unit: "ml", name: "Prosecco/Champagne", fridgeCategory: "liqueur" }
         ],
         glassware: "Flute glass",
         ice: "Cubed ice",
         method: "Shaken & Layered",
         methodDesc: `
-            Step 1: Add the gin, lemon juice and sugar syrup to a shaker filled with cubed ice.
+            Step 1: Add the gin, lemon juice and simple syrup to a shaker filled with cubed ice.
 
             Step 2: Shake briefly until chilled and strain into a chilled flute glass.
 
@@ -1052,14 +1052,14 @@ export const classicCocktails = [
         ingredients: [
             { amount: 45, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 10, unit: "pcs", name: "Fresh basil", fridgeCategory: "fresh" }
         ],
         glassware: "Rocks glass",
         ice: "Cubed ice",
         method: "Muddled & Shaken",
         methodDesc: `
-            Step 1: Add basil leaves and sugar syrup to a shaker and gently muddle.
+            Step 1: Add basil leaves and simple syrup to a shaker and gently muddle.
 
             Step 2: Add gin and lemon juice with cubed ice.
 
@@ -1077,14 +1077,14 @@ export const classicCocktails = [
         ingredients: [
             { amount: 45, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 30, unit: "ml", name: "Soda water", fridgeCategory: "juice" }
         ],
         glassware: "Highball glass",
         ice: "Cubed ice",
         method: "Shaken & Built",
         methodDesc: `
-            Step 1: Add gin, lemon juice and sugar syrup to a shaker filled with cubed ice.
+            Step 1: Add gin, lemon juice and simple syrup to a shaker filled with cubed ice.
 
             Step 2: Shake briefly until chilled and strain into a highball glass.
 
@@ -1127,7 +1127,7 @@ export const classicCocktails = [
             { amount: 60, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 3, unit: "wedges", name: "Fresh lime", fridgeCategory: "fresh" },
             { amount: 3, unit: "slices", name: "Fresh Cucumber", fridgeCategory: "fresh" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 1, unit: "pinch", name: "Salt", fridgeCategory: "fresh" }
         ],
         glassware: "Rocks glass",
@@ -1136,7 +1136,7 @@ export const classicCocktails = [
         methodDesc: `
             Step 1: Add lime wedges and cucumber slices to a shaker and gently muddle to release juice and aroma.
 
-            Step 2: Add gin, sugar syrup and a pinch of salt, then fill with cubed ice.
+            Step 2: Add gin, simple syrup and a pinch of salt, then fill with cubed ice.
 
             Step 3: Shake hard until well chilled.
 
@@ -1278,7 +1278,7 @@ export const classicCocktails = [
             { amount: 20, unit: "ml", name: "Campari", fridgeCategory: "spirit" },
             { amount: 45, unit: "ml", name: "Pineapple juice", fridgeCategory: "juice" },
             { amount: 15, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" }
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" }
         ],
         glassware: "Rocks glass",
         ice: "Crushed ice",
@@ -1375,7 +1375,7 @@ export const classicCocktails = [
             { amount: 20, unit: "ml", name: "Tequila", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Cointreau", fridgeCategory: "liqueur" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 30, unit: "ml", name: "Cola", fridgeCategory: "juice" }
         ],
         glassware: "Highball glass",
@@ -1384,7 +1384,7 @@ export const classicCocktails = [
         methodDesc: `
             Step 1: Fill a highball glass with fresh cubed ice.
 
-            Step 2: Add all spirits, Cointreau, lemon juice and sugar syrup.
+            Step 2: Add all spirits, Cointreau, lemon juice and simple syrup.
 
             Step 3: Top with cola and stir gently to combine without losing fizz.
 
@@ -1448,7 +1448,7 @@ export const classicCocktails = [
         category: ["Fruity", "Sour", "Sweet", "Mango"],
         description: "A tropical silky sour with bright mango fruit, fresh citrus snap and a smooth gin backbone.",
         ingredients: [
-            { amount: 20, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 20, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 20, unit: "ml", name: "Mango puree", fridgeCategory: "syrup" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
             { amount: 30, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -1574,7 +1574,7 @@ export const classicCocktails = [
         description: "Cooling mint and subtle sweetness wrapped around bold bourbon.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Bourbon", fridgeCategory: "spirit" },
-            { amount: 10, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup" },
+            { amount: 10, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 10, unit: "leaves", name: "Fresh mint", fridgeCategory: "fresh" }
         ],
         glassware: "Julep cup",
@@ -1597,7 +1597,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 50, unit: "ml", name: "White Rum", fridgeCategory: "spirit" },
             { amount: 10, unit: "g", name: "Fresh mint", fridgeCategory: "fresh" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 25, unit: "ml", name: "Soda water", fridgeCategory: "juice" },
             { amount: 25, unit: "ml", name: "Lime juice", fridgeCategory: "juice" }
         ],
@@ -1605,7 +1605,7 @@ export const classicCocktails = [
         ice: "Crushed ice",
         method: "Muddled",
         methodDesc: `
-            Step 1: Add mint and sugar syrup to a highball glass and gently press to release aroma (do not shred the mint).
+            Step 1: Add mint and simple syrup to a highball glass and gently press to release aroma (do not shred the mint).
 
             Step 2: Add lime juice and white rum, then fill the glass with crushed ice.
 
@@ -1745,7 +1745,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 45, unit: "ml", name: "Jameson", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 1, unit: "pcs", name: "Egg white", fridgeCategory: "fresh" },
             { amount: 30, unit: "ml", name: "Red wine", fridgeCategory: "liqueur" }
         ],
@@ -1753,7 +1753,7 @@ export const classicCocktails = [
         ice: "Large ice cube",
         method: "Shake & Float",
         methodDesc: `
-            Step 1: Add whiskey, lemon juice, sugar syrup and egg white to a shaker and dry shake for 10-15 seconds.
+            Step 1: Add whiskey, lemon juice, simple syrup and egg white to a shaker and dry shake for 10-15 seconds.
 
             Step 2: Add ice and shake hard until well chilled.
 
@@ -1771,7 +1771,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 45, unit: "ml", name: "Aged Rum", fridgeCategory: "spirit" },
             { amount: 20, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 2, unit: "dashes", name: "Angostura bitters", fridgeCategory: "bitters" },
             { amount: 6, unit: "leaves", name: "Fresh mint", fridgeCategory: "fresh" },
             { amount: 60, unit: "ml", name: "Prosecco/Champagne", fridgeCategory: "liqueur" }
@@ -1780,7 +1780,7 @@ export const classicCocktails = [
         ice: "Cubed ice",
         method: "Shake & Top",
         methodDesc: `
-            Step 1: Add rum, lime juice, sugar syrup, bitters and mint to a shaker with cubed ice.
+            Step 1: Add rum, lime juice, simple syrup, bitters and mint to a shaker with cubed ice.
 
             Step 2: Shake briefly to chill and lightly infuse the mint.
 
@@ -1971,7 +1971,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 60, unit: "ml", name: "Pisco", fridgeCategory: "spirit" },
             { amount: 30, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
-            { amount: 20, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 20, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 1, unit: "pcs", name: "Egg white", fridgeCategory: "fresh" },
             { amount: 3, unit: "drops", name: "Angostura bitters", fridgeCategory: "bitters" }
         ],
@@ -1998,7 +1998,7 @@ export const classicCocktails = [
             { amount: 60, unit: "ml", name: "Dark rum", fridgeCategory: "spirit" },
             { amount: 30, unit: "ml", name: "Pineapple juice", fridgeCategory: "juice" },
             { amount: 20, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 2, unit: "dashes", name: "Angostura bitters", fridgeCategory: "bitters" }
         ],
         glassware: "Highball",
@@ -2048,7 +2048,7 @@ export const classicCocktails = [
             { amount: 60, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
             { amount: 15, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
-            { amount: 30, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 30, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 30, unit: "ml", name: "Egg white", fridgeCategory: "fresh" },
             { amount: 30, unit: "ml", name: "Heavy cream", fridgeCategory: "fresh" },
             { amount: 3, unit: "drops", name: "Orange flower water", fridgeCategory: "fresh" },
@@ -2103,7 +2103,7 @@ export const classicCocktails = [
             { amount: 45, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
             { amount: 20, unit: "ml", name: "Peachtree", fridgeCategory: "liqueur" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 10, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 10, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 20, unit: "ml", name: "Milk", fridgeCategory: "fresh" }
         ],
         glassware: "Coupe glass",
@@ -2127,7 +2127,7 @@ export const classicCocktails = [
         description: "Powerful and aromatic with rye spice, subtle sweetness and an anise finish.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Rye whiskey", fridgeCategory: "spirit" },
-            { amount: 10, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup" },
+            { amount: 10, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 2, unit: "dashes", name: "Peychaud's bitters", fridgeCategory: "bitters" },
             { amount: 1, unit: "rinse", name: "Absinthe", fridgeCategory: "spirit" }
         ],
@@ -2197,7 +2197,7 @@ export const classicCocktails = [
             { amount: 45, unit: "ml", name: "Cognac", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Cointreau", fridgeCategory: "liqueur" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 10, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" }
+            { amount: 10, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" }
         ],
         glassware: "Coupe glass",
         ice: "Cubed ice",
@@ -2205,7 +2205,7 @@ export const classicCocktails = [
         methodDesc: `
             Step 1: Rim a chilled coupe glass with sugar and set aside.
 
-            Step 2: Add cognac, Cointreau, lemon juice and sugar syrup to a shaker filled with cubed ice.
+            Step 2: Add cognac, Cointreau, lemon juice and simple syrup to a shaker filled with cubed ice.
 
             Step 3: Shake hard until well chilled and properly diluted.
 
@@ -2249,14 +2249,14 @@ export const classicCocktails = [
         ingredients: [
             { amount: 45, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 10, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 10, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 8, unit: "leaves", name: "Fresh mint", fridgeCategory: "fresh" }
         ],
         glassware: "Coupe glass",
         ice: "Cubed ice",
         method: 'Shaken',
         methodDesc: `
-            Step 1: Add mint and sugar syrup to a shaker and gently bruise to release aroma.
+            Step 1: Add mint and simple syrup to a shaker and gently bruise to release aroma.
 
             Step 2: Add gin and lemon juice with cubed ice.
 
@@ -2464,7 +2464,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 45, unit: "ml", name: "Bourbon", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 10, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 10, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 1, unit: "pcs", name: "Egg white", fridgeCategory: "fresh" }
         ],
         glassware: "Rocks glass",
@@ -2491,7 +2491,7 @@ export const classicCocktails = [
             { amount: 15, unit: "ml", name: "Elderflower liqueur", fridgeCategory: "liqueur" },
             { amount: 25, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Cointreau", fridgeCategory: "liqueur" },
-            { amount: 5, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 5, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 15, unit: "ml", name: "Water", fridgeCategory: "fresh" },
             { amount: 7.5, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
             { amount: 15, unit: "ml", name: "lemon juice", fridgeCategory: "juice" },
@@ -2520,7 +2520,7 @@ export const classicCocktails = [
             { amount: 45, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 25, unit: "ml", name: "Cointreau", fridgeCategory: "liqueur" },
             { amount: 20, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 10, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" }
+            { amount: 10, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" }
         ],
         glassware: "Martini glass",
         ice: "Cubed ice",

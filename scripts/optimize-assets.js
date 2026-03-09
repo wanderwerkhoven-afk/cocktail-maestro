@@ -32,7 +32,8 @@ async function main() {
         path.join(__dirname, '../assets'),
         path.join(__dirname, '../assets/Cocktails'),
         path.join(__dirname, '../assets/Fridge'),
-        path.join(__dirname, '../assets/logo')
+        path.join(__dirname, '../assets/logo'),
+        path.join(__dirname, '../assets/Kitchen')
     ];
 
     const dbFiles = [

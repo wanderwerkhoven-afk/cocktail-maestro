@@ -5,7 +5,7 @@ export const kitchenItems = [
         title: "Simple Syrup",
         difficulty: "easy",
         heroClass: "hero-syrup",
-        image: null,
+        image: "assets/Kitchen/simple_syrup.webp",
         description: "The most essential sweetener for cocktails. A simple 1:1 ratio of sugar and water.",
         ingredients: [
             "1 cup White Sugar",
@@ -24,7 +24,7 @@ export const kitchenItems = [
         title: "Rich Sugar Syrup",
         difficulty: "easy",
         heroClass: "hero-syrup-rich",
-        image: null,
+        image: "assets/Kitchen/rich_simple_syrup.webp",
         description: "A thicker, sweeter syrup (2:1 ratio) that adds better texture to drinks and lasts longer in the fridge.",
         ingredients: [
             "2 cups White Sugar",
@@ -42,7 +42,7 @@ export const kitchenItems = [
         title: "Honey-Ginger Syrup",
         difficulty: "medium",
         heroClass: "hero-syrup",
-        image: null,
+        image: "assets/Kitchen/ginger_honey_syrup.webp",
         description: "A spicy, floral sweetener essential for the Penicillin cocktail.",
         ingredients: [
             "1 cup Honey",
@@ -63,7 +63,7 @@ export const kitchenItems = [
         title: "Lime & Ginger (L&G) Dilution",
         difficulty: "easy",
         heroClass: "hero-syrup",
-        image: null,
+        image: "assets/Kitchen/l&g_syrup.webp",
         description: "A specialized dilution used to balance sharp vodka and vermouth notes.",
         ingredients: [
             "50ml Fresh Lime Juice",
@@ -82,7 +82,7 @@ export const kitchenItems = [
         title: "Bergamot Dilution",
         difficulty: "medium",
         heroClass: "hero-syrup",
-        image: null,
+        image: "assets/Kitchen/bergamot_dilution.webp",
         description: "A fragrant, citrusy dilution that adds an Earl Grey-like complexity.",
         ingredients: [
             "100ml Water",
@@ -102,7 +102,7 @@ export const kitchenItems = [
         title: "Double Strain",
         difficulty: "medium",
         heroClass: "hero-strain",
-        image: null,
+        image: "assets/Kitchen/dubble_strain.webp",
         description: "Also known as fine straining. Pouring a cocktail through both a primary strainer (like a Hawthorne) and a secondary fine-mesh strainer.",
         instructionsTitle: "Why do it?",
         instructions: [
@@ -117,7 +117,7 @@ export const kitchenItems = [
         title: "Fat Washing",
         difficulty: "hard",
         heroClass: "hero-fatwash",
-        image: null,
+        image: "assets/Kitchen/fat_wash.webp",
         description: "A culinary technique that adds savory flavor and silky texture to a spirit without leaving it greasy.",
         instructionsTitle: "How it works",
         instructions: [
@@ -133,7 +133,7 @@ export const kitchenItems = [
         title: "Milk Clarification",
         difficulty: "hard",
         heroClass: "hero-milk-clarification",
-        image: null,
+        image: "assets/Kitchen/milk_clarification.webp",
         description: "A technique that uses the proteins in milk to strip tannins and solids from a cocktail, leaving it crystal clear and silky smooth.",
         instructionsTitle: "How it works",
         instructions: [
@@ -149,7 +149,7 @@ export const kitchenItems = [
         title: "Smoked Cocktails",
         difficulty: "medium",
         heroClass: "hero-smog",
-        image: null,
+        image: "assets/Kitchen/smoking.webp",
         description: "Infuse your drinks with campfire-like aromas using wood chips, herbs, or spices.",
         instructionsTitle: "Technique",
         instructions: [
@@ -164,7 +164,7 @@ export const kitchenItems = [
         title: "Saline Solution",
         difficulty: "easy",
         heroClass: "hero-vial",
-        image: null,
+        image: "assets/Kitchen/saline_solution.webp",
         description: "The 'secret' ingredient that makes flavors pop. Salt suppresses bitterness and enhances sweetness and citrus.",
         instructionsTitle: "How to use",
         instructions: [
@@ -179,7 +179,7 @@ export const kitchenItems = [
         title: "Rapid Nitrous Infusion",
         difficulty: "hard",
         heroClass: "hero-bolt",
-        image: null,
+        image: "assets/Kitchen/nitrous_infusion.webp",
         description: "Use a whipped cream charger to infuse flavors into spirits in seconds instead of weeks.",
         instructionsTitle: "Process",
         instructions: [
@@ -195,7 +195,7 @@ export const kitchenItems = [
         title: "Spherification",
         difficulty: "hard",
         heroClass: "hero-ellipsis",
-        image: null,
+        image: "assets/Kitchen/spherification.webp",
         description: "The art of turning liquids into delicate spheres that burst with flavor, often called 'Cocktail Caviar'.",
         instructionsTitle: "Basic Method",
         instructions: [
@@ -211,7 +211,7 @@ export const kitchenItems = [
         title: "pH Color Change",
         difficulty: "medium",
         heroClass: "hero-palette",
-        image: null,
+        image: "assets/Kitchen/ph_change.webp",
         description: "Create a magical visual experience by making a cocktail change color right before the guest's eyes.",
         instructionsTitle: "The Science",
         instructions: [
@@ -244,7 +244,7 @@ export const kitchenItems = [
         title: "Boston Shaker",
         difficulty: "easy",
         heroClass: "hero-shaker",
-        image: null,
+        image: "assets/Kitchen/boston_shaker.webp",
         description: "The professional's choice. Consists of two tins (or one tin and one glass) that nest together.",
         instructionsTitle: "Why use it?",
         instructions: [
@@ -254,12 +254,42 @@ export const kitchenItems = [
         ]
     },
     {
+        id: "hawthorne-strainer",
+        category: "bartools",
+        title: "Hawthorne Strainer",
+        difficulty: "easy",
+        heroClass: "hero-strain",
+        image: "assets/Kitchen/hawthornstrainer.webp",
+        description: "The most versatile strainer, featuring a spring that fits snugly inside a mixing tin or glass.",
+        instructionsTitle: "Pro Tip",
+        instructions: [
+            "The spring filters out large ice chunks and fruit pulp.",
+            "Adjust the 'gate' by pushing the strainer forward to control the flow.",
+            "Essential for any shaken drink."
+        ]
+    },
+    {
+        id: "julep-strainer",
+        category: "bartools",
+        title: "Julep Strainer",
+        difficulty: "easy",
+        heroClass: "hero-strain",
+        image: "assets/Kitchen/julip_strainer.webp",
+        description: "A classic, perforated bowl-shaped strainer designed to fit perfectly into a mixing glass.",
+        instructionsTitle: "Pro Tip",
+        instructions: [
+            "Best used for stirred drinks like a Martini or Manhattan.",
+            "Place it bowl-side down at an angle for the smoothest pour.",
+            "Originally designed to keep ice away from the teeth while drinking a Mint Julep."
+        ]
+    },
+    {
         id: "jigger",
         category: "bartools",
         title: "Jigger",
         difficulty: "easy",
         heroClass: "hero-jigger",
-        image: null,
+        image: "assets/Kitchen/jigger.webp",
         description: "An essential measuring tool to ensure consistency and balance in every cocktail.",
         instructionsTitle: "Pro Tip",
         instructions: [
@@ -274,7 +304,7 @@ export const kitchenItems = [
         title: "Bar Spoon",
         difficulty: "medium",
         heroClass: "hero-spoon",
-        image: null,
+        image: "assets/Kitchen/barspoon.webp",
         description: "Long-handled spoon used for stirring drinks, measuring small amounts, and layering ingredients.",
         instructionsTitle: "The Technique",
         instructions: [
@@ -290,7 +320,7 @@ export const kitchenItems = [
         title: "Coupe Glass",
         difficulty: "easy",
         heroClass: "hero-coupe",
-        image: null,
+        image: "assets/Kitchen/coupe.webp",
         description: "The elegant choice for drinks served 'up' (chilled but without ice).",
         instructionsTitle: "Best for",
         instructions: [
@@ -300,12 +330,27 @@ export const kitchenItems = [
         ]
     },
     {
+        id: "martini-glass",
+        category: "glassware",
+        title: "Martini Glass",
+        difficulty: "easy",
+        heroClass: "hero-coupe",
+        image: "assets/Kitchen/martini.webp",
+        description: "The iconic V-shaped glass, synonymous with sophisticated cocktail culture.",
+        instructionsTitle: "Best for",
+        instructions: [
+            "Classic Martinis, Manhattans, and Gimbels.",
+            "The long stem keeps the drink cold by preventing hand contact.",
+            "The wide brim allows the aromas of the spirit to breathe."
+        ]
+    },
+    {
         id: "rocks-glass",
         category: "glassware",
         title: "Rocks Glass",
         difficulty: "easy",
         heroClass: "hero-rocks",
-        image: null,
+        image: "assets/Kitchen/tumbler.webp",
         description: "Also known as an Old Fashioned glass. Short, sturdy, and used for drinks with large ice cubes.",
         instructionsTitle: "Best for",
         instructions: [
@@ -320,7 +365,7 @@ export const kitchenItems = [
         title: "Highball Glass",
         difficulty: "easy",
         heroClass: "hero-highball",
-        image: null,
+        image: "assets/Kitchen/longdrink.webp",
         description: "Tall and narrow glass used for 'long' drinks served with plenty of ice and carbonated mixers.",
         instructionsTitle: "Best for",
         instructions: [
