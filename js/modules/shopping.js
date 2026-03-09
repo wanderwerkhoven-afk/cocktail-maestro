@@ -50,12 +50,12 @@ export function renderSmartRecommendation() {
     }
 
     const categoryIcons = {
-        'spirit': 'assets/Fridge/spirits.png',
-        'liqueur': 'assets/Fridge/liqueurs.png',
-        'bitters': 'assets/Fridge/bitters.png',
-        'syrup': 'assets/Fridge/syrups.png',
-        'juice': 'assets/Fridge/juices.png',
-        'fresh': 'assets/Fridge/fresh.png'
+        'spirit': 'assets/Fridge/spirits.webp',
+        'liqueur': 'assets/Fridge/liqueurs.webp',
+        'bitters': 'assets/Fridge/bitters.webp',
+        'syrup': 'assets/Fridge/syrups.webp',
+        'juice': 'assets/Fridge/juices.webp',
+        'fresh': 'assets/Fridge/fresh.webp'
     };
 
     recommendationContainer.innerHTML = `
@@ -67,7 +67,7 @@ export function renderSmartRecommendation() {
         </div>
         <div class="recommendation-carousel" id="shopping-recommendations-carousel" onscroll="window.updateCarouselDots('shopping-recommendations-carousel')">
             ${recommendations.map((rec, index) => {
-                const iconPath = categoryIcons[rec.category] || 'assets/Fridge/spirits.png';
+                const iconPath = categoryIcons[rec.category] || 'assets/Fridge/spirits.webp';
                 return `
                     <div class="recommendation-card">
                         <div class="rank-badge">#${index + 1}</div>
