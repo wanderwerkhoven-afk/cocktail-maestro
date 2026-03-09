@@ -91,7 +91,7 @@
 
 /* ---------- 5.2 Ingredient Category Accordion ---------- */
 .fridge-category {
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid transparent; /* Replaced visible border with transparent */
     border-radius: 12px;
     background: rgba(30, 30, 30, 0.6);
     backdrop-filter: blur(10px);
@@ -101,7 +101,7 @@
 }
 
 .fridge-category:focus-within {
-    border-color: rgba(255, 179, 71, 0.3);
+    border-color: transparent; /* Keep transparent on focus */
 }
 
 .category-toggle {
@@ -146,6 +146,38 @@
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ---------- 5.2.5 Universal Search ---------- */
+.universal-search-wrapper {
+    background: #151515;
+    display: flex;
+    align-items: center;
+    padding: 14px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05); /* very subtle border */
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.universal-search-wrapper i {
+    color: #ffb347;
+    font-size: 0.95rem;
+    opacity: 0.8;
+}
+
+.universal-search-wrapper input {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 0.95rem;
+    width: 100%;
+    margin-left: 12px;
+    outline: none;
+}
+
+.universal-search-wrapper input::placeholder {
+    color: #555;
+    font-style: italic;
 }
 
 .category-content {
@@ -208,21 +240,26 @@
 .ingredient-checkbox-list {
     display: flex;
     flex-direction: column;
-    padding: 0 16px;
-    gap: 6px;
+    padding: 0; /* Remove padding to span full width */
+    gap: 0; /* Remove gap so items touch */
 }
 
 .fridge-item-premium {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 12px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    padding: 12px 20px; /* Internal padding matches the toggle padding */
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Subtle separator instead of full border */
+    border-radius: 0; /* No rounded corners for full-width items */
+    transition: background 0.3s ease;
     -webkit-tap-highlight-color: transparent;
     gap: 8px;
+}
+
+.fridge-item-premium:last-child {
+    border-bottom: none; /* Hide border on the last item */
 }
 
 .item-main-click {
@@ -272,9 +309,7 @@
 /* Checked State: Golden Glow Effect */
 .fridge-item-premium:has(input[type="checkbox"]:checked) {
     background: linear-gradient(135deg, rgba(255, 179, 71, 0.1) 0%, rgba(255, 204, 51, 0.05) 100%);
-    border-color: rgba(255, 179, 71, 0.4);
-    box-shadow: 0 4px 15px rgba(255, 179, 71, 0.05);
-    transform: scale(1.01);
+    border-bottom: 1px solid rgba(255, 179, 71, 0.2);
 }
 
 .fridge-item-premium:has(input[type="checkbox"]:checked) .item-name {

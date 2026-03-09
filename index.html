@@ -354,6 +354,14 @@
         <section class="fridge-container">
             <h2>What do we have available?</h2>
 
+            <!-- Universal Search -->
+            <div class="universal-search-wrapper">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="universal-fridge-search" placeholder="Search all ingredients..."
+                    onkeyup="window.filterAllIngredients(this.value)">
+            </div>
+
+
             <!-- Ingredient Category: Spirits -->
             <div class="fridge-category">
                 <button class="category-toggle" onclick="toggleCategory('cat-spirits')">
@@ -871,6 +879,10 @@
         <div class="nav-item" id="nav-recipes" onclick="navigateTo('recipes')">
             <i class="fa-solid fa-book"></i>
             <span>Recipes</span>
+        </div>
+        <div class="nav-item" id="nav-kitchen" onclick="navigateTo('kitchen')">
+            <i class="fa-solid fa-utensils"></i>
+            <span>Kitchen</span>
         </div>
         <div class="nav-item" id="nav-shopping" onclick="navigateTo('shopping')">
             <i class="fa-solid fa-cart-shopping"></i>

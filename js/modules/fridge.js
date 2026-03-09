@@ -31,6 +31,40 @@ export function filterCategoryList(input) {
     });
 }
 
+export function filterAllIngredients(searchTerm) {
+    const filter = searchTerm.toLowerCase().trim();
+    const categories = document.querySelectorAll('.fridge-category');
+
+    categories.forEach(category => {
+        const content = category.querySelector('.category-content');
+        const items = category.querySelectorAll('.fridge-item-premium');
+        let hasVisibleItem = false;
+
+        items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            if (text.includes(filter)) {
+                item.style.display = "flex";
+                hasVisibleItem = true;
+            } else {
+                item.style.display = "none";
+            }
+        });
+
+        // Toggle category visibility and expansion based on global search
+        if (filter !== "") {
+            category.style.display = hasVisibleItem ? "block" : "none";
+            if (hasVisibleItem && content && !content.classList.contains('active')) {
+                // Auto-expand category if matches are found inside
+                content.classList.add('active');
+                const icon = category.querySelector('.category-toggle i');
+                if (icon) icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+            }
+        } else {
+            category.style.display = "block";
+        }
+    });
+}
+
 export function updateFridge(checkbox) {
     if (!checkbox) return;
     const value = checkbox.value.toLowerCase().trim();
