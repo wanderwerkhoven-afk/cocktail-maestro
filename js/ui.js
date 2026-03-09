@@ -1,12 +1,12 @@
 import { navigateTo } from './core/navigation.js';
-import { toggleItemCheck, removeFromShoppingList, clearShoppingList, addToShoppingList } from './modules/shopping.js';
+import { toggleItemCheck, removeFromShoppingList, clearShoppingList, addToShoppingList, downloadShoppingList } from './modules/shopping.js';
 import { toggleFavorite } from './modules/favorites.js';
 import { renderVault, downloadRecipe, updateServings } from './pages/vault.js';
 import { openRecipeForm, closeRecipeForm, addIngredientRow, removeIngredientRow, previewImage, saveNewRecipe, updateRecipe, editRecipe, deleteRecipe, checkRowTyping, renderMyRecipes } from './pages/recipes.js';
 import { toggleCategory, filterCategoryList, updateFridge, syncCheckboxes, checkMatches, calculateBarProgress, renderFridgeCategories } from './modules/fridge.js';
 import { shakeForCocktail, closeShakeModal } from './modules/randomizer.js';
-import { handleCardClick } from './core/ui-utils.js';
-import { filterKitchen, updateCarouselDots, initKitchenCarousels, toggleKitchenCard } from './pages/kitchen.js';
+import { handleCardClick, showToast, createCocktailCardHTML, updateCarouselDots } from './core/ui-utils.js';
+import { filterKitchen, initKitchenCarousels, toggleKitchenCard, openKitchenItem } from './pages/kitchen.js';
 
 // Expose functions to global scope for HTML onclick handlers
 window.navigateTo = navigateTo;
@@ -14,6 +14,7 @@ window.toggleItemCheck = toggleItemCheck;
 window.removeFromShoppingList = removeFromShoppingList;
 window.clearShoppingList = clearShoppingList;
 window.addToShoppingList = addToShoppingList;
+window.downloadShoppingList = downloadShoppingList;
 window.toggleFavorite = toggleFavorite;
 window.renderVault = renderVault;
 window.downloadRecipe = downloadRecipe;
@@ -38,9 +39,22 @@ window.calculateBarProgress = calculateBarProgress;
 window.shakeForCocktail = shakeForCocktail;
 window.closeShakeModal = closeShakeModal;
 window.handleCardClick = handleCardClick;
+window.showToast = showToast;
+window.createCocktailCardHTML = createCocktailCardHTML;
 window.filterKitchen = filterKitchen;
 window.updateCarouselDots = updateCarouselDots;
 window.toggleKitchenCard = toggleKitchenCard;
+window.openKitchenItem = openKitchenItem;
+
+// Navigation bridge to specific kitchen items
+window.goToKitchenItem = (event, kitchenId) => {
+    if (event) event.stopPropagation();
+    navigateTo('kitchen');
+    // Small delay to ensure the page is active before scrolling/opening
+    setTimeout(() => {
+        openKitchenItem(kitchenId);
+    }, 100);
+};
 
 // Initialisatie
 document.addEventListener('DOMContentLoaded', () => {

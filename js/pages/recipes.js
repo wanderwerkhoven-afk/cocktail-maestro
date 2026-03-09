@@ -80,17 +80,57 @@ export function previewImage(event) {
     const file = event.target.files[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = function () {
-        const display = document.getElementById('image-preview-display');
-        const placeholder = document.getElementById('image-preview-placeholder');
-        if (display && placeholder) {
-            display.src = reader.result;
-            display.style.display = 'block';
-            placeholder.style.display = 'none';
-        }
-        setCurrentImageBase64(reader.result);
+    // Optional: basic image type check (accept="image/*" already handles this mostly)
+    if (!file.type.startsWith('image/')) {
+        alert('Please select an image file.');
+        return;
     }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+            // Create a canvas for WebP conversion & resizing
+            const canvas = document.createElement('canvas');
+            
+            // Set max dimensions to save localStorage space
+            const MAX_SIZE = 800;
+            let width = img.width;
+            let height = img.height;
+            
+            if (width > height) {
+                if (width > MAX_SIZE) {
+                    height = Math.round((height * MAX_SIZE) / width);
+                    width = MAX_SIZE;
+                }
+            } else {
+                if (height > MAX_SIZE) {
+                    width = Math.round((width * MAX_SIZE) / height);
+                    height = MAX_SIZE;
+                }
+            }
+            
+            canvas.width = width;
+            canvas.height = height;
+            
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            
+            // Export as WebP format with 85% quality
+            const webpDataUrl = canvas.toDataURL('image/webp', 0.85);
+
+            const display = document.getElementById('image-preview-display');
+            const placeholder = document.getElementById('image-preview-placeholder');
+            if (display && placeholder) {
+                display.src = webpDataUrl; // Use webp for preview too
+                display.style.display = 'block';
+                placeholder.style.display = 'none';
+            }
+            // Save webp format to state
+            setCurrentImageBase64(webpDataUrl);
+        };
+        img.src = e.target.result;
+    };
     reader.readAsDataURL(file);
 }
 
@@ -194,75 +234,18 @@ export function renderMyRecipes() {
     }
 
     myRecipes.forEach(cocktail => {
-        const card = document.createElement('div');
-        card.className = 'cocktail-card';
-
-        card.onclick = function (e) {
-            if (!e.target.closest('.counter-btn') && !e.target.closest('.card-actions')) {
-                this.classList.toggle('open');
-            }
-        };
-
-        card.innerHTML = `
-            <div class="card-thumb-large">
-                <img src="${cocktail.image}" alt="${cocktail.name}">
-                <div class="card-actions" style="position: absolute; top: 12px; right: 12px; display: flex; gap: 8px; z-index: 10;">
-                    <button class="edit-recipe-btn" onclick="window.editRecipe('${cocktail.id}')" style="background: rgba(255, 179, 71, 0.9); border: none; color: #000; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
-                        <i class="fa-solid fa-pen"></i>
-                    </button>
-                    <button class="delete-recipe-btn" onclick="window.deleteRecipe('${cocktail.id}')" style="background: rgba(255, 71, 87, 0.9); border: none; color: #fff; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.9rem;">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="card-content">
-                <h4>${cocktail.name}</h4>
-                <div class="category-container">
-                    ${(Array.isArray(cocktail.category) ? cocktail.category : [cocktail.category])
-                .map(cat => `<span class="category-tag">${cat}</span>`).join('')}
-                </div>
-                <p class="description">${cocktail.description || "A custom masterpiece."}</p>
-                <div class="collapsible-content">
-                    <div class="ingredients-section">
-                        <div class="servings-control">
-                            <span>Servings:</span>
-                            <div class="counter-box">
-                                <button class="counter-btn" onclick="window.updateServings(event, '${cocktail.id}', -1)">-</button>
-                                <span id="servings-${cocktail.id}">1</span>
-                                <button class="counter-btn" onclick="window.updateServings(event, '${cocktail.id}', 1)">+</button>
-                            </div>
-                        </div>
-                        <strong>Ingredients:</strong>
-                        <ul class="ingredients-list" id="ingredients-${cocktail.id}">
-                            ${cocktail.ingredients.map(ing => `
-                                <li>
-                                    <span>
-                                        <b class="amount" data-base="${ing.amount}">${ing.amount}</b> 
-                                        <b class="unit">${ing.unit}</b> ${ing.name}
-                                    </span>
-                                </li>
-                            `).join('')}
-                        </ul>
-                    </div>
-                    <div class="hardware-section">
-                        <div class="hardware-column">
-                            <strong>Glassware:</strong>
-                            <p class="hardware-text">${cocktail.glassware || 'Standard Glass'}</p>
-                        </div>
-                        <div class="hardware-column">
-                            <strong>Ice:</strong>
-                            <p class="hardware-text">${cocktail.ice || 'None'}</p>
-                        </div>
-                    </div>
-                    <div class="method-section">
-                        <strong>Method: ${cocktail.method}</strong>
-                        <p class="method-text">${cocktail.methodDesc}</p>
-                    </div>
-                </div>
-            </div>
-        `;
-        grid.appendChild(card);
+        const cardHTML = window.createCocktailCardHTML(cocktail, {
+            showEditBtn: true,
+            showDeleteBtn: true,
+            hideFavorite: true, // Favorites are for the Vault
+            isNeutral: true     // No red/green status colors in Recipe Book
+        });
+        
+        const tempContainer = document.createElement('div');
+        tempContainer.innerHTML = cardHTML.trim();
+        const cardElement = tempContainer.firstChild;
+        
+        grid.appendChild(cardElement);
     });
 }
 

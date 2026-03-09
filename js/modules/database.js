@@ -221,7 +221,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 60, unit: "ml", name: "Aperol", fridgeCategory: "liqueur" },
             { amount: 30, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 1, unit: "pcs", name: "Egg white", fridgeCategory: "fresh" }
         ],
         glassware: "Coupe glass",
@@ -490,7 +490,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 45, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 20, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 15, unit: "ml", name: "Crème de Mure", fridgeCategory: "liqueur" }
         ],
         glassware: "Rocks glass",
@@ -682,7 +682,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 50, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 20, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 3, unit: "slices", name: "Fresh cucumber", fridgeCategory: "fresh" }
         ],
         glassware: "Coupe glass",
@@ -707,7 +707,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 45, unit: "ml", name: "White Rum", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" }
+            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" }
         ],
         glassware: "Coupe glass",
         ice: "Cubed ice",
@@ -805,7 +805,7 @@ export const classicCocktails = [
             { amount: 30, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 30, unit: "ml", name: "Campari", fridgeCategory: "liqueur" },
             { amount: 20, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 5, unit: "pcs", name: "Red grapes", fridgeCategory: "fresh" }
         ],
         glassware: "Rocks glass",
@@ -857,7 +857,7 @@ export const classicCocktails = [
             { amount: 45, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Coffee liqueur", fridgeCategory: "liqueur" },
             { amount: 30, unit: "ml", name: "Espresso", fridgeCategory: "fresh" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" }
+            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" }
         ],
         glassware: "Coupe glass",
         ice: "Cubed ice",
@@ -906,7 +906,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 30, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 90, unit: "ml", name: "Prosecco/Champagne", fridgeCategory: "liqueur" }
         ],
         glassware: "Flute glass",
@@ -1052,7 +1052,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 45, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 10, unit: "pcs", name: "Fresh basil", fridgeCategory: "fresh" }
         ],
         glassware: "Rocks glass",
@@ -1077,7 +1077,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 45, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 30, unit: "ml", name: "Soda water", fridgeCategory: "juice" }
         ],
         glassware: "Highball glass",
@@ -1127,7 +1127,7 @@ export const classicCocktails = [
             { amount: 60, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
             { amount: 3, unit: "wedges", name: "Fresh lime", fridgeCategory: "fresh" },
             { amount: 3, unit: "slices", name: "Fresh Cucumber", fridgeCategory: "fresh" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 1, unit: "pinch", name: "Salt", fridgeCategory: "fresh" }
         ],
         glassware: "Rocks glass",
@@ -1278,7 +1278,7 @@ export const classicCocktails = [
             { amount: 20, unit: "ml", name: "Campari", fridgeCategory: "spirit" },
             { amount: 45, unit: "ml", name: "Pineapple juice", fridgeCategory: "juice" },
             { amount: 15, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" }
+            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" }
         ],
         glassware: "Rocks glass",
         ice: "Crushed ice",
@@ -1321,8 +1321,8 @@ export const classicCocktails = [
         ingredients: [
             { amount: 25, unit: "ml", name: "Marmalade Vodka", fridgeCategory: "spirit" },
             { amount: 25, unit: "ml", name: "Sweet vermouth", fridgeCategory: "liqueur" },
-            { amount: 15, unit: "ml", name: "L&G (-> kitchen)", fridgeCategory: "juice" },
-            { amount: 30, unit: "ml", name: "bergamot Dilution (-> kitchen)", fridgeCategory: "fresh" }
+            { amount: 15, unit: "ml", name: "L&G", fridgeCategory: "juice", kitchenId: "lime-ginger-dilution" },
+            { amount: 30, unit: "ml", name: "bergamot Dilution", fridgeCategory: "fresh", kitchenId: "bergamot-dilution" }
         ],
         glassware: "Rocks glass",
         ice: "Cubed ice",
@@ -1375,7 +1375,7 @@ export const classicCocktails = [
             { amount: 20, unit: "ml", name: "Tequila", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Cointreau", fridgeCategory: "liqueur" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 30, unit: "ml", name: "Cola", fridgeCategory: "juice" }
         ],
         glassware: "Highball glass",
@@ -1597,7 +1597,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 50, unit: "ml", name: "White Rum", fridgeCategory: "spirit" },
             { amount: 10, unit: "g", name: "Fresh mint", fridgeCategory: "fresh" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 25, unit: "ml", name: "Soda water", fridgeCategory: "juice" },
             { amount: 25, unit: "ml", name: "Lime juice", fridgeCategory: "juice" }
         ],
@@ -1745,7 +1745,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 45, unit: "ml", name: "Jameson", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 1, unit: "pcs", name: "Egg white", fridgeCategory: "fresh" },
             { amount: 30, unit: "ml", name: "Red wine", fridgeCategory: "liqueur" }
         ],
@@ -1771,7 +1771,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 45, unit: "ml", name: "Aged Rum", fridgeCategory: "spirit" },
             { amount: 20, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 2, unit: "dashes", name: "Angostura bitters", fridgeCategory: "bitters" },
             { amount: 6, unit: "leaves", name: "Fresh mint", fridgeCategory: "fresh" },
             { amount: 60, unit: "ml", name: "Prosecco/Champagne", fridgeCategory: "liqueur" }
@@ -1897,8 +1897,8 @@ export const classicCocktails = [
         ingredients: [
             { amount: 45, unit: "ml", name: "Blended Scotch", fridgeCategory: "spirit" },
             { amount: 20, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 20, unit: "ml", name: "Honey-Ginger syrup", fridgeCategory: "syrup" },
-            { amount: 10, unit: "ml", name: "Islay Single Malt (float)", fridgeCategory: "spirit" }
+            { amount: 20, unit: "ml", name: "Honey-Ginger syrup", fridgeCategory: "syrup", kitchenId: "honey-ginger-syrup" },
+            { amount: 10, unit: "ml", name: "Islay Single Malt", fridgeCategory: "spirit" }
         ],
         glassware: "Rocks glass",
         ice: "Large ice cube",

@@ -216,13 +216,22 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 16px;
+    padding: 8px 12px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 10px;
-    cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     -webkit-tap-highlight-color: transparent;
+    gap: 8px;
+}
+
+.item-main-click {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    cursor: pointer;
+    padding: 4px 0;
 }
 
 .item-name {
@@ -237,12 +246,12 @@
     display: none;
 }
 
-/* iOS-style Toggle Switch */
+/* Compact iOS-style Toggle Switch */
 .toggle-switch {
-    width: 44px;
-    height: 24px;
+    width: 36px;
+    height: 20px;
     background-color: #333;
-    border-radius: 24px;
+    border-radius: 20px;
     position: relative;
     transition: background-color 0.3s ease;
     flex-shrink: 0;
@@ -253,8 +262,8 @@
     position: absolute;
     top: 2px;
     left: 2px;
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     background-color: #888;
     border-radius: 50%;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease;
@@ -278,9 +287,34 @@
 }
 
 .fridge-item-premium:has(input[type="checkbox"]:checked) .toggle-switch::after {
-    transform: translateX(20px);
+    transform: translateX(16px);
     background-color: #ffb347;
     box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+}
+
+/* Fridge Shopping Cart Button */
+.fridge-item-premium .add-to-cart-btn {
+    background: rgba(255, 179, 71, 0.05);
+    border: 1px solid rgba(255, 179, 71, 0.1);
+    color: #ffb347;
+    border-radius: 8px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+}
+
+.fridge-item-premium .add-to-cart-btn:hover {
+    background: rgba(255, 179, 71, 0.2);
+    transform: scale(1.05);
+}
+
+.fridge-item-premium .add-to-cart-btn:active {
+    transform: scale(0.95);
 }
 
 /* Hover Effect */
@@ -321,14 +355,7 @@
     box-shadow: 0 8px 25px rgba(255, 179, 71, 0.5);
 }
 
-/* ---------- 5.6 Matching Results Grid (Responsive) ---------- */
-/* Mobile: stays full-width single column (inherits .cocktail-grid flex-column) */
-
-/* iPad / Tablet & Desktop: 3 columns */
-@media (min-width: 768px) {
-    #matching-results {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-    }
+/* Mobile, iPad, and Desktop all use full-width sections now (carousel handles the horizonal flow) */
+#matching-results {
+    width: 100%;
 }

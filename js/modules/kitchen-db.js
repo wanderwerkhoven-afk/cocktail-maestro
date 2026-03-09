@@ -37,6 +37,66 @@ export const kitchenItems = [
         ]
     },
     {
+        id: "honey-ginger-syrup",
+        category: "ingredients",
+        title: "Honey-Ginger Syrup",
+        difficulty: "medium",
+        heroClass: "hero-syrup",
+        image: null,
+        description: "A spicy, floral sweetener essential for the Penicillin cocktail.",
+        ingredients: [
+            "1 cup Honey",
+            "1 cup Water",
+            "1 large Ginger root (peeled and sliced)"
+        ],
+        instructions: [
+            "Combine honey, water, and sliced ginger in a small saucepan.",
+            "Bring to a gentle boil over medium heat.",
+            "Reduce heat to low and simmer for 5 minutes.",
+            "Remove from heat and let it steep for at least 30 minutes.",
+            "Strain through a fine-mesh sieve and refrigerate."
+        ]
+    },
+    {
+        id: "lime-ginger-dilution",
+        category: "ingredients",
+        title: "Lime & Ginger (L&G) Dilution",
+        difficulty: "easy",
+        heroClass: "hero-syrup",
+        image: null,
+        description: "A specialized dilution used to balance sharp vodka and vermouth notes.",
+        ingredients: [
+            "50ml Fresh Lime Juice",
+            "50ml Ginger juice or strong Ginger tea",
+            "25ml Water"
+        ],
+        instructions: [
+            "Mix all ingredients together in a small bottle.",
+            "Shake well to combine.",
+            "Keep chilled and use within 24 hours for maximum freshness."
+        ]
+    },
+    {
+        id: "bergamot-dilution",
+        category: "ingredients",
+        title: "Bergamot Dilution",
+        difficulty: "medium",
+        heroClass: "hero-syrup",
+        image: null,
+        description: "A fragrant, citrusy dilution that adds an Earl Grey-like complexity.",
+        ingredients: [
+            "100ml Water",
+            "2 Earl Grey tea bags (or 10g loose leaf)",
+            "10ml Bergamot oil or fresh Bergamot juice"
+        ],
+        instructions: [
+            "Steep the Earl Grey tea in hot water for 5 minutes.",
+            "Remove tea and let the liquid cool completely.",
+            "Add bergamot oil/juice and stir well.",
+            "Bottle and keep refrigerated."
+        ]
+    },
+    {
         id: "double-strain",
         category: "techniques",
         title: "Double Strain",

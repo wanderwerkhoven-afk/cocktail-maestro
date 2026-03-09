@@ -138,7 +138,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a cherry or orange slice and finish with a few drops of Angostura bitters on the foam.
         `.trim(),
-        image: "./assets/Cocktails/amarettosour.png"
+        image: "./assets/Cocktails/amarettosour.webp"
     },
     {
         id: 'americano',
@@ -162,7 +162,7 @@ const classicCocktails = [
 
             Step 4: Garnish with an orange slice.
         `.trim(),
-        image: "./assets/Cocktails/americano.png"
+        image: "./assets/Cocktails/americano.webp"
     },
     {
         id: 'aperol-betty',
@@ -187,7 +187,7 @@ const classicCocktails = [
 
             Step 4: Give one gentle stir and garnish with an orange slice or grapefruit wedge.
         `.trim(),
-        image: "./assets/Cocktails/aperolbetty.png"
+        image: "./assets/Cocktails/aperolbetty.webp"
     },
     {
         id: 'aperol-spritz',
@@ -211,7 +211,7 @@ const classicCocktails = [
 
             Step 4: Gently stir once to combine and garnish with a fresh orange slice.
         `.trim(),
-        image: "./assets/Cocktails/aperolspritz.png"
+        image: "./assets/Cocktails/aperolspritz.webp"
     },
     {
         id: 'aperol-sour',
@@ -236,7 +236,7 @@ const classicCocktails = [
 
             Step 4: Garnish with an orange twist or a few drops of bitters on the foam.
         `.trim(),
-        image: "./assets/Cocktails/aperolsour.png"
+        image: "./assets/Cocktails/aperolsour.webp"
     },
     {
         id: 'army&navy',
@@ -261,7 +261,7 @@ const classicCocktails = [
 
             Step 4: Garnish with an expressed grapefruit twist.
         `.trim(),
-        image: "./assets/Cocktails/armynavy.png"
+        image: "./assets/Cocktails/armynavy.webp"
     },
     {
         id: 'aviation',
@@ -286,7 +286,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a cocktail cherry or a light lemon twist.
         `.trim(),
-        image: "./assets/Cocktails/aviation.png"
+        image: "./assets/Cocktails/aviation.webp"
     },
     {
         id: 'bees-knees',
@@ -311,7 +311,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a lemon twist or lemon peel to enhance the citrus aroma.
         `.trim(),
-        image: "./assets/Cocktails/beesknees.png"
+        image: "./assets/Cocktails/beesknees.webp"
     },
     {
         id: 'bellini',
@@ -332,7 +332,7 @@ const classicCocktails = [
 
             Step 3: Gently stir once to combine.
         `.trim(),
-        image: "./assets/Cocktails/bellini.png"
+        image: "./assets/Cocktails/bellini.webp"
     },
     {
         id: 'bijou',
@@ -357,7 +357,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a cherry or an expressed lemon twist.
         `.trim(),
-        image: "./assets/Cocktails/bijou.png"
+        image: "./assets/Cocktails/bijou.webp"
     },
     {
         id: 'black-russian',
@@ -380,7 +380,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a maraschino cherry if desired.
         `.trim(),
-        image: "./assets/Cocktails/blackrussian.png"
+        image: "./assets/Cocktails/blackrussian.webp"
     },
     {
         id: 'bloody-mary',
@@ -405,7 +405,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a celery stick, lemon wedge or olives for a classic Bloody Mary finish.
         `.trim(),
-        image: "./assets/Cocktails/bloodymary.png"
+        image: "./assets/Cocktails/bloodymary.webp"
     },
     {
         id: 'blue-lagoon',
@@ -430,7 +430,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a lemon wheel and a cherry.
         `.trim(),
-        image: "./assets/Cocktails/bluelagoon.png"
+        image: "./assets/Cocktails/bluelagoon.webp"
     },
     {
         id: 'blueberry-mule',
@@ -456,7 +456,7 @@ const classicCocktails = [
 
             Step 4: Garnish with fresh blueberries and a lime wheel for a bold mule finish.
         `.trim(),
-        image: "./assets/Cocktails/blueberrymule.png"
+        image: "./assets/Cocktails/blueberrymule.webp"
     },
     {
         id: 'boulevardier',
@@ -480,7 +480,7 @@ const classicCocktails = [
 
             Step 4: Express an orange twist over the glass, rim the edge and drop it in as garnish.
         `.trim(),
-        image: "./assets/Cocktails/boulevardier.png"
+        image: "./assets/Cocktails/boulevardier.webp"
     },
     {
         id: 'bramble',
@@ -505,7 +505,7 @@ const classicCocktails = [
 
             Step 4: Garnish with fresh blackberries and a lemon slice for a classic Bramble finish.
         `.trim(),
-        image: "./assets/Cocktails/bramble.png"
+        image: "./assets/Cocktails/bramble.webp"
     },
     {
         id: 'brown-derby',
@@ -527,7 +527,7 @@ const classicCocktails = [
 
             Step 3: Fine strain into a chilled coupe.
         `.trim(),
-        image: "./assets/Cocktails/brownderby.png"
+        image: "./assets/Cocktails/brownderby.webp"
     },
     {
         id: 'caipirinha',
@@ -551,7 +551,7 @@ const classicCocktails = [
 
             Step 4: Stir well to combine and garnish with a fresh lime wedge.
         `.trim(),
-        image: "./assets/Cocktails/caipirinha.png"
+        image: "./assets/Cocktails/caipirinha.webp"
     },
     {
         id: 'chartreuse-swizzle',
@@ -574,7 +574,7 @@ const classicCocktails = [
 
             Step 3: Top with more crushed ice and garnish with mint.
         `.trim(),
-        image: "./assets/Cocktails/chartreuseswizzle.png"
+        image: "./assets/Cocktails/chartreuseswizzle.webp"
     },
     {
         id: 'clover-club',
@@ -599,7 +599,7 @@ const classicCocktails = [
 
             Step 4: Garnish with fresh raspberries or a light lemon twist.
         `.trim(),
-        image: "./assets/Cocktails/cloverclub.png"
+        image: "./assets/Cocktails/cloverclub.webp"
     },
     {
         id: 'corpse-reviver-2',
@@ -625,7 +625,7 @@ const classicCocktails = [
 
             Step 4: Double strain into the prepared glass for a crisp, aromatic finish.
         `.trim(),
-        image: "./assets/Cocktails/corpsreviver2.png"
+        image: "./assets/Cocktails/corpsreviver2.webp"
     },
     {
         id: 'cosmopolitan',
@@ -650,7 +650,7 @@ const classicCocktails = [
 
             Step 4: Garnish with an expressed orange peel for a refined finish.
         `.trim(),
-        image: "./assets/Cocktails/cosmopolitan.png"
+        image: "./assets/Cocktails/cosmopolitan.webp"
     },
     {
         id: 'cuba-libre',
@@ -672,7 +672,7 @@ const classicCocktails = [
 
             Step 3: Top with cola and gently stir.
         `.trim(),
-        image: "./assets/Cocktails/cubalibre.png"
+        image: "./assets/Cocktails/cubalibre.webp"
     },
     {
         id: 'cucumber-gimlet',
@@ -697,7 +697,7 @@ const classicCocktails = [
 
             Step 4: Double strain into a chilled coupe and garnish with a thin cucumber ribbon.
         `.trim(),
-        image: "./assets/Cocktails/cucumbergimlet.png"
+        image: "./assets/Cocktails/cucumbergimlet.webp"
     },
     {
         id: 'daiquiri',
@@ -721,7 +721,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a thin lime wheel or no garnish for a classic presentation.
         `.trim(),
-        image: "./assets/Cocktails/daiquri.png"
+        image: "./assets/Cocktails/daiquri.webp"
     },
     {
         id: 'dark-n-stormy',
@@ -745,7 +745,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a lime wedge for a dramatic finish.
         `.trim(),
-        image: "./assets/Cocktails/darkenstormy.png"
+        image: "./assets/Cocktails/darkenstormy.webp"
     },
     {
         id: 'dry-martini',
@@ -769,7 +769,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a lemon twist or olive, according to preference.
         `.trim(),
-        image: "./assets/Cocktails/drymartini.jpg"
+        image: "./assets/Cocktails/drymartini.webp"
     },
     {
         id: 'el-diablo',
@@ -794,7 +794,7 @@ const classicCocktails = [
 
             Step 4: Slowly float the Crème de Framboise over the top for a bleeding effect and garnish with a lime wheel.
         `.trim(),
-        image: "./assets/Cocktails/eldiablo.png"
+        image: "./assets/Cocktails/eldiablo.webp"
     },
     {
         id: 'enzoni',
@@ -820,7 +820,7 @@ const classicCocktails = [
 
             Step 4: Double strain into a rocks glass over a large ice cube and garnish with a grape.
         `.trim(),
-        image: "./assets/Cocktails/enzoni.png"
+        image: "./assets/Cocktails/enzoni.webp"
     },
     {
         id: 'espresso-martiki',
@@ -846,7 +846,7 @@ const classicCocktails = [
 
             Step 4: Garnish with pineapple leaf or a few coffee beans for contrast.
         `.trim(),
-        image: "./assets/Cocktails/espressomartiki.png"
+        image: "./assets/Cocktails/espressomartiki.webp"
     },
     {
         id: 'espresso-martini',
@@ -871,7 +871,7 @@ const classicCocktails = [
 
             Step 4: Garnish with three coffee beans for a classic finish.
         `.trim(),
-        image: "./assets/Cocktails/espressomartini.png"
+        image: "./assets/Cocktails/espressomartini.webp"
     },
     {
         id: 'espresso-martini-bueno',
@@ -896,7 +896,7 @@ const classicCocktails = [
 
             Step 4: Garnish with coffee beans or grated chocolate for a decadent finish.
         `.trim(),
-        image: "./assets/Cocktails/bueno.png"
+        image: "./assets/Cocktails/bueno.webp"
     },
     {
         id: 'french-75',
@@ -921,7 +921,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a lemon twist for a refined finish.
         `.trim(),
-        image: "./assets/Cocktails/french75.png"
+        image: "./assets/Cocktails/french75.webp"
     },
     {
         id: 'french-martini',
@@ -945,7 +945,7 @@ const classicCocktails = [
 
             Step 4: Garnish with fresh raspberries or a lemon twist.
         `.trim(),
-        image: "./assets/Cocktails/frenchmartini.png"
+        image: "./assets/Cocktails/frenchmartini.webp"
     },
     {
         id: 'garden-cocktail',
@@ -971,7 +971,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a cucumber ribbon or mint sprig.
         `.trim(),
-        image: "./assets/Cocktails/garden.png"
+        image: "./assets/Cocktails/garden.webp"
     },
     {
         id: 'garibaldi',
@@ -994,7 +994,7 @@ const classicCocktails = [
 
             Step 4: Give one gentle stir and garnish with an orange slice.
         `.trim(),
-        image: "./assets/Cocktails/garibaldi.png"
+        image: "./assets/Cocktails/garibaldi.webp"
     },
     {
         id: 'giant-sucker',
@@ -1019,7 +1019,7 @@ const classicCocktails = [
 
             Step 4: Top with elderflower tonic and garnish with mint.
         `.trim(),
-        image: "./assets/Cocktails/giantsucker.png"
+        image: "./assets/Cocktails/giantsucker.webp"
     },
     {
         id: 'gimlet',
@@ -1042,7 +1042,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a lime wheel or expressed lime peel.
         `.trim(),
-        image: "./assets/Cocktails/gimlet.png"
+        image: "./assets/Cocktails/gimlet.webp"
     },
     {
         id: 'gin-basil-smash',
@@ -1067,7 +1067,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a fresh basil leaf.
         `.trim(),
-        image: "./assets/Cocktails/ginbasil.png"
+        image: "./assets/Cocktails/ginbasil.webp"
     },
     {
         id: 'gin-fizz',
@@ -1092,7 +1092,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a lemon slice or twist.
         `.trim(),
-        image: "./assets/Cocktails/ginfizz.png"
+        image: "./assets/Cocktails/ginfizz.webp"
     },
     {
         id: 'gold-rush',
@@ -1116,7 +1116,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a lemon twist to lift the aroma.
         `.trim(),
-        image: "./assets/Cocktails/goldrush.png"
+        image: "./assets/Cocktails/goldrush.webp"
     },
     {
         id: 'gordons-cup',
@@ -1142,7 +1142,7 @@ const classicCocktails = [
 
             Step 4: Dirty pour (ice and all) into a rocks glass and garnish with a cucumber slice.
         `.trim(),
-        image: "./assets/Cocktails/gordonscup.png"
+        image: "./assets/Cocktails/gordonscup.webp"
     },
     {
         id: 'groen-plansoen',
@@ -1169,7 +1169,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a cucumber ribbon or edible flower.
         `.trim(),
-        image: "./assets/Cocktails/groenplansoen.png"
+        image: "./assets/Cocktails/groenplansoen.webp"
     },
     {
         id: 'hemingway-daiquiri',
@@ -1190,7 +1190,7 @@ const classicCocktails = [
 
             Step 2: Double strain into a chilled coupe.
         `.trim(),
-        image: "./assets/Cocktails/hemingwaydaiquiri.png"
+        image: "./assets/Cocktails/hemingwaydaiquiri.webp"
     },
     {
         id: 'holypeach',
@@ -1215,7 +1215,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a lime wheel or a peach slice for a bright finish.
         `.trim(),
-        image: "./assets/Cocktails/holypeach.png"
+        image: "./assets/Cocktails/holypeach.webp"
     },
     {
         id: 'hot-toddy',
@@ -1241,7 +1241,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a cinnamon stick and a lemon wheel.
         `.trim(),
-        image: "./assets/Cocktails/hottoddy.png"
+        image: "./assets/Cocktails/hottoddy.webp"
     },
     {
         id: 'hugo-spritz',
@@ -1266,7 +1266,7 @@ const classicCocktails = [
 
             Step 4: Give one gentle stir and garnish with a lime wheel and fresh mint.
         `.trim(),
-        image: "./assets/Cocktails/hugo.png"
+        image: "./assets/Cocktails/hugo.webp"
     },
     {
         id: 'jungle-bird',
@@ -1292,7 +1292,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a pineapple wedge and a lime wheel.
         `.trim(),
-        image: "./assets/Cocktails/junglebird.png"
+        image: "./assets/Cocktails/junglebird.webp"
     },
     {
         id: 'kir-royale',
@@ -1311,7 +1311,7 @@ const classicCocktails = [
 
             Step 2: Top gently with Prosecco or Champagne.
         `.trim(),
-        image: "./assets/Cocktails/kirroyale.png"
+        image: "./assets/Cocktails/kirroyale.webp"
     },
     {
         id: 'lady-marmalade',
@@ -1361,7 +1361,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a lime twist or a brandied cherry.
         `.trim(),
-        image: "./assets/Cocktails/lastword.png"
+        image: "./assets/Cocktails/lastword.webp"
     },
     {
         id: 'long-island-ice-tea',
@@ -1390,7 +1390,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a lemon wedge for a classic finish.
         `.trim(),
-        image: "./assets/Cocktails/longisland.png"
+        image: "./assets/Cocktails/longisland.webp"
     },
     {
         id: 'lychacha',
@@ -1416,7 +1416,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a lychee on a pick or a lemon twist to lift the aroma.
         `.trim(),
-        image: "./assets/Cocktails/lychacha.png"
+        image: "./assets/Cocktails/lychacha.webp"
     },
     {
         id: 'mai-tai',
@@ -1440,7 +1440,7 @@ const classicCocktails = [
 
             Step 3: Garnish with mint and lime.
         `.trim(),
-        image: "./assets/Cocktails/maitai.png"
+        image: "./assets/Cocktails/maitai.webp"
     },
     {
         id: 'mango-mustache',
@@ -1466,7 +1466,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a thin mango slice or a lemon twist.
         `.trim(),
-        image: "./assets/Cocktails/mangomustach.png"
+        image: "./assets/Cocktails/mangomustach.webp"
     },
     {
         id: 'manhattan',
@@ -1490,7 +1490,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a cocktail cherry and express an orange twist if desired.
         `.trim(),
-        image: "./assets/Cocktails/manhattan.png"
+        image: "./assets/Cocktails/manhattan.webp"
     },
     {
         id: 'margarita',
@@ -1515,7 +1515,7 @@ const classicCocktails = [
 
             Step 4: Strain into the prepared glass and garnish with a lime wheel.
         `.trim(),
-        image: "./assets/Cocktails/margerita.png"
+        image: "./assets/Cocktails/margerita.webp"
     },
     {
         id: 'mary-pickford',
@@ -1540,7 +1540,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a cocktail cherry or expressed lime twist.
         `.trim(),
-        image: "./assets/Cocktails/marypickford.png"
+        image: "./assets/Cocktails/marypickford.webp"
     },
     {
         id: 'mezcal-margarita',
@@ -1565,7 +1565,7 @@ const classicCocktails = [
 
             Step 4: Strain into the prepared glass and garnish with a lime wheel.
         `.trim(),
-        image: "./assets/Cocktails/mezcalmargarita.png"
+        image: "./assets/Cocktails/mezcalmargarita.webp"
     },
     {
         id: 'mint-julep',
@@ -1587,7 +1587,7 @@ const classicCocktails = [
 
             Step 3: Stir until the cup frosts and garnish with mint.
         `.trim(),
-        image: "./assets/Cocktails/mintjulep.png"
+        image: "./assets/Cocktails/mintjulep.webp"
     },
     {
         id: 'mojito',
@@ -1613,7 +1613,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a mint bouquet and a lime wheel.
         `.trim(),
-        image: "./assets/Cocktails/mojito.png"
+        image: "./assets/Cocktails/mojito.webp"
     },
     {
         id: 'monte-carlo',
@@ -1637,7 +1637,7 @@ const classicCocktails = [
 
             Step 4: Garnish with an orange twist.
         `.trim(),
-        image: "./assets/Cocktails/montecarlo.png"
+        image: "./assets/Cocktails/montecarlo.webp"
     },
     {
         id: 'moscow-mule',
@@ -1661,7 +1661,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a lime wheel and a mint sprig for a classic mule finish.
         `.trim(),
-        image: "./assets/Cocktails/moskoumule.png"
+        image: "./assets/Cocktails/moskoumule.webp"
     },
     {
         id: 'muddy-mudslide',
@@ -1686,7 +1686,7 @@ const classicCocktails = [
 
             Step 4: Garnish with grated chocolate or coffee beans.
         `.trim(),
-        image: "./assets/Cocktails/mudslide.jpg"
+        image: "./assets/Cocktails/mudslide.webp"
     },
     {
         id: 'naked-and-famous',
@@ -1711,7 +1711,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a lime twist.
         `.trim(),
-        image: "./assets/Cocktails/nakedfamous.png"
+        image: "./assets/Cocktails/nakedfamous.webp"
     },
     {
         id: 'negroni',
@@ -1735,7 +1735,7 @@ const classicCocktails = [
 
             Step 4: Express an orange peel over the drink and drop it in.
         `.trim(),
-        image: "./assets/Cocktails/negroni.png"
+        image: "./assets/Cocktails/negroni.webp"
     },
     {
         id: 'new-york-sour',
@@ -1761,7 +1761,7 @@ const classicCocktails = [
 
             Step 4: Gently float red wine over the top using the back of a spoon.
         `.trim(),
-        image: "./assets/Cocktails/newyorksour.png"
+        image: "./assets/Cocktails/newyorksour.webp"
     },
     {
         id: 'old-cuban',
@@ -1788,7 +1788,7 @@ const classicCocktails = [
 
             Step 4: Top gently with Prosecco or Champagne and garnish with a mint leaf.
         `.trim(),
-        image: "./assets/Cocktails/oldcuban.png"
+        image: "./assets/Cocktails/oldcuban.webp"
     },
     {
         id: 'old-fashioned',
@@ -1813,7 +1813,7 @@ const classicCocktails = [
 
             Step 4: Express orange zest over the glass and garnish.
         `.trim(),
-        image: "./assets/Cocktails/oldfashion.png"
+        image: "./assets/Cocktails/oldfashion.webp"
     },
     {
         id: 'painkiller',
@@ -1838,7 +1838,7 @@ const classicCocktails = [
 
             Step 4: Garnish with an orange slice and grate fresh nutmeg generously on top.
         `.trim(),
-        image: "./assets/Cocktails/painkiller.png"
+        image: "./assets/Cocktails/painkiller.webp"
     },
     {
         id: 'paloma',
@@ -1862,7 +1862,7 @@ const classicCocktails = [
 
             Step 4: Stir gently and garnish with a grapefruit wedge.
         `.trim(),
-        image: "./assets/Cocktails/paloma.png"
+        image: "./assets/Cocktails/paloma.webp"
     },
     {
         id: 'paper-plane',
@@ -1887,7 +1887,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a lemon twist.
         `.trim(),
-        image: "./assets/Cocktails/paperplane.png"
+        image: "./assets/Cocktails/paperplane.webp"
     },
     {
         id: 'penicillin',
@@ -1912,7 +1912,7 @@ const classicCocktails = [
 
             Step 4: Garnish with candied ginger or lemon peel.
         `.trim(),
-        image: "./assets/Cocktails/penicillin.png"
+        image: "./assets/Cocktails/penicillin.webp"
     },
     {
         id: 'pina-colada',
@@ -1936,7 +1936,7 @@ const classicCocktails = [
 
             Step 4: Garnish with pineapple leaves and a cherry.
         `.trim(),
-        image: "./assets/Cocktails/pinacolada.png"
+        image: "./assets/Cocktails/pinacolada.webp"
     },
     {
         id: 'pisco-punch',
@@ -1961,7 +1961,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a fresh pineapple wedge or expressed orange peel.
         `.trim(),
-        image: "./assets/Cocktails/piscopunch.png"
+        image: "./assets/Cocktails/piscopunch.webp"
     },
     {
         id: 'pisco-sour',
@@ -1987,7 +1987,7 @@ const classicCocktails = [
 
             Step 4: Finish with Angostura bitters on the foam.
         `.trim(),
-        image: "./assets/Cocktails/piscosour.png"
+        image: "./assets/Cocktails/piscosour.webp"
     },
     {
         id: 'planters-punch',
@@ -2011,7 +2011,7 @@ const classicCocktails = [
 
             Step 3: Garnish with mint and seasonal fruit.
         `.trim(),
-        image: "./assets/Cocktails/planterspunch.png"
+        image: "./assets/Cocktails/planterspunch.webp"
     },
     {
         id: 'pornstar-martini',
@@ -2037,7 +2037,7 @@ const classicCocktails = [
 
             Step 4: Serve the Prosecco or Champagne in a separate shot glass alongside.
         `.trim(),
-        image: "./assets/Cocktails/pornstar.png"
+        image: "./assets/Cocktails/pornstar.webp"
     },
     {
         id: 'ramos-gin-fizz',
@@ -2066,7 +2066,7 @@ const classicCocktails = [
 
             Step 4: Top slowly with soda water to lift the foam into a tall, creamy head.
         `.trim(),
-        image: "./assets/Cocktails/ramosginfizz.png"
+        image: "./assets/Cocktails/ramosginfizz.webp"
     },
     {
         id: 'red-flamingo',
@@ -2092,7 +2092,7 @@ const classicCocktails = [
 
             Step 4: Garnish with fresh raspberries or a lemon twist.
         `.trim(),
-        image: "./assets/Cocktails/redflamingo.png"
+        image: "./assets/Cocktails/redflamingo.webp"
     },
     {
         id: 'rosemary-peach-sour',
@@ -2118,7 +2118,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a rosemary sprig (clap first to release aroma) and a thin peach slice.
         `.trim(),
-        image: './assets/Cocktails/rosemarypeach.png'
+        image: './assets/Cocktails/rosemarypeach.webp'
     },
     {
         id: 'sazerac',
@@ -2143,7 +2143,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a lemon peel.
         `.trim(),
-        image: "./assets/Cocktails/sazerac.png"
+        image: "./assets/Cocktails/sazerac.webp"
     },
     {
         id: 'screwdriver',
@@ -2164,7 +2164,7 @@ const classicCocktails = [
 
             Step 3: Stir gently.
         `.trim(),
-        image: "./assets/Cocktails/screwdriver.png"
+        image: "./assets/Cocktails/screwdriver.webp"
     },
     {
         id: 'sea-breeze',
@@ -2186,7 +2186,7 @@ const classicCocktails = [
 
             Step 3: Stir gently and garnish with lime.
         `.trim(),
-        image: "./assets/Cocktails/seabreeze.png"
+        image: "./assets/Cocktails/seabreeze.webp"
     },
     {
         id: 'sidecar',
@@ -2211,7 +2211,7 @@ const classicCocktails = [
 
             Step 4: Double strain into the prepared glass and garnish with an expressed orange twist.
         `.trim(),
-        image: './assets/Cocktails/sidecar.png'
+        image: './assets/Cocktails/sidecar.webp'
     },
     {
         id: 'singapore-sling',
@@ -2239,7 +2239,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a cherry and a pineapple wedge for a classic finish.
         `.trim(),
-        image: "./assets/Cocktails/singaporesling.png"
+        image: "./assets/Cocktails/singaporesling.webp"
     },
     {
         id: 'south-side',
@@ -2264,7 +2264,7 @@ const classicCocktails = [
 
             Step 4: Double strain into a chilled coupe and garnish with a mint leaf.
         `.trim(),
-        image: './assets/Cocktails/southside.png'
+        image: './assets/Cocktails/southside.webp'
     },
     {
         id: 'spicy-margarita',
@@ -2288,7 +2288,7 @@ const classicCocktails = [
 
             Step 3: Shake and strain over ice into a salt-rimmed glass.
         `.trim(),
-        image: "./assets/Cocktails/spicymargarita.png"
+        image: "./assets/Cocktails/spicymargarita.webp"
     },
     {
         id: 'spritz-veneziano',
@@ -2310,7 +2310,7 @@ const classicCocktails = [
 
             Step 3: Gently stir and garnish with orange.
         `.trim(),
-        image: "./assets/Cocktails/spritzveneziano.png"
+        image: "./assets/Cocktails/spritzveneziano.webp"
     },
     {
         id: 'tequila-sunrise',
@@ -2334,7 +2334,7 @@ const classicCocktails = [
 
             Step 4: Garnish with an orange slice and a cherry without disturbing the layers.
         `.trim(),
-        image: "./assets/Cocktails/tequilasunrise.png"
+        image: "./assets/Cocktails/tequilasunrise.webp"
     },
     {
         id: 'tommys-margarita',
@@ -2358,7 +2358,7 @@ const classicCocktails = [
 
             Step 4: Strain into the prepared glass and garnish with a lime wheel.
         `.trim(),
-        image: "./assets/Cocktails/tommysmargarita.png"
+        image: "./assets/Cocktails/tommysmargarita.webp"
     },
     {
         id: 'tropical-hurricane',
@@ -2383,7 +2383,7 @@ const classicCocktails = [
 
             Step 4: Garnish with an orange slice and top with passion fruit juice if desired.
         `.trim(),
-        image: "./assets/Cocktails/tropicalhurricane.png"
+        image: "./assets/Cocktails/tropicalhurricane.webp"
     },
     {
         id: 'vieux-carre',
@@ -2407,7 +2407,7 @@ const classicCocktails = [
 
             Step 3: Garnish with lemon peel.
         `.trim(),
-        image: "./assets/Cocktails/vieuxcarre.png"
+        image: "./assets/Cocktails/vieuxcarre.webp"
     },
     {
         id: 'vodka-martini',
@@ -2428,7 +2428,7 @@ const classicCocktails = [
 
             Step 3: Garnish with an olive or lemon twist.
         `.trim(),
-        image: "./assets/Cocktails/vodkamartini.png"
+        image: "./assets/Cocktails/vodkamartini.webp"
     },
     {
         id: 'wandering-cosmo',
@@ -2454,7 +2454,7 @@ const classicCocktails = [
 
             Step 4: Top with red fruit soda and garnish with a lime twist.
         `.trim(),
-        image: "./assets/Cocktails/wanderingcosmo.png"
+        image: "./assets/Cocktails/wanderingcosmo.webp"
     },
     {
         id: 'whiskey-sour',
@@ -2479,7 +2479,7 @@ const classicCocktails = [
 
             Step 4: Garnish with a few drops of bitters or a lemon twist.
         `.trim(),
-        image: "./assets/Cocktails/whiskeysour.png"
+        image: "./assets/Cocktails/whiskeysour.webp"
     },
     {
         id: 'white-Cosmo',
@@ -2509,7 +2509,7 @@ const classicCocktails = [
 
             Step 4: Garnish with an expressed lemon twist.
         `.trim(),
-        image: "./assets/Cocktails/whitelady.png"
+        image: "./assets/Cocktails/whitelady.webp"
     },
     {
         id: 'white-lady',
@@ -2534,7 +2534,7 @@ const classicCocktails = [
 
             Step 4: Garnish with an expressed lemon twist.
         `.trim(),
-        image: "./assets/Cocktails/whitelady.png"
+        image: "./assets/Cocktails/whitelady.webp"
     },
     {
         id: 'white-russian',
@@ -2558,7 +2558,7 @@ const classicCocktails = [
 
             Step 4: Garnish with grated nutmeg or coffee beans if desired.
         `.trim(),
-        image: "./assets/Cocktails/whiterussian.png"
+        image: "./assets/Cocktails/whiterussian.webp"
     },
     {
         id: 'yellow-bird',
@@ -2581,7 +2581,7 @@ const classicCocktails = [
 
             Step 3: Garnish with a lime twist.
         `.trim(),
-        image: "./assets/Cocktails/yellowbird.png"
+        image: "./assets/Cocktails/yellowbird.webp"
     },
     {
         id: 'zombie',
@@ -2608,7 +2608,7 @@ const classicCocktails = [
 
             Step 4: Garnish with mint and citrus; ignite the overproof rum only if safe and permitted.
         `.trim(),
-        image: "./assets/Cocktails/zombie.png"
+        image: "./assets/Cocktails/zombie.webp"
     },
 
 ];

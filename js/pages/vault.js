@@ -108,11 +108,16 @@ export function renderVault(filter = "") {
         title.innerText = cat.name;
         section.appendChild(title);
 
+        const carouselId = `vault-carousel-${cat.id}`;
         const carousel = document.createElement('div');
         carousel.className = 'carousel';
+        carousel.id = carouselId;
 
-        // Close any open cards when scrolling through the carousel
+        // Add scroll listener for dots
         carousel.addEventListener('scroll', () => {
+            window.updateCarouselDots(carouselId);
+            
+            // Close any open cards when scrolling through the carousel
             const openCards = carousel.querySelectorAll('.cocktail-card.open');
             openCards.forEach(card => card.classList.remove('open'));
         }, { passive: true });
@@ -128,7 +133,22 @@ export function renderVault(filter = "") {
         });
 
         section.appendChild(carousel);
+
+        // Add dots container right below the carousel
+        const dotsContainer = document.createElement('div');
+        dotsContainer.className = 'carousel-indicators';
+        dotsContainer.id = `dots-${carouselId}`;
+        
+        // Populate initial dots
+        cocktails.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.className = index === 0 ? 'dot active' : 'dot';
+            dotsContainer.appendChild(dot);
+        });
+
+        section.appendChild(dotsContainer);
         vaultGrid.appendChild(section);
+
     });
 
 }

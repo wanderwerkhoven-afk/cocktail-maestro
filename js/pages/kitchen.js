@@ -74,7 +74,7 @@ function renderKitchen() {
 
         const iconClass = iconMap[item.heroClass] || 'fa-star';
         const heroContent = item.image
-            ? `<img src="${item.image}" alt="${item.title}" style="width: 100%; height: 100%; object-fit: cover; z-index: 0; position: absolute; top: 0; left: 0;">`
+            ? `<img src="${item.image}" alt="${item.title}" loading="lazy" onload="this.classList.add('loaded'); this.parentElement.classList.add('image-loaded')">`
             : `<i class="fa-solid ${iconClass}"></i>`;
 
         let ingredientsHTML = '';
@@ -108,7 +108,7 @@ function renderKitchen() {
         }
 
         const cardHTML = `
-            <div class="kitchen-card" onclick="toggleKitchenCard(this)" data-title="${item.title.toLowerCase()}" data-desc="${item.description.toLowerCase()}">
+            <div class="kitchen-card" id="kitchen-item-${item.id}" onclick="toggleKitchenCard(this)" data-title="${item.title.toLowerCase()}" data-desc="${item.description.toLowerCase()}">
                 <div class="kitchen-card-hero ${item.heroClass}">
                     ${heroContent}
                 </div>
@@ -129,47 +129,23 @@ function renderKitchen() {
 }
 
 /**
- * Updates the active dot for a specific carousel based on horizontal scroll.
- * Called directly via onscroll="updateCarouselDots('id')" on the carousel HTML element.
+ * Programmatically opens and scrolls to a kitchen item.
+ * @param {string} itemId The unique ID of the kitchen item (without prefix).
  */
-export function updateCarouselDots(carouselId) {
-    const carousel = document.getElementById(carouselId);
-    const dotsContainer = document.getElementById(`dots-${carouselId}`);
+export function openKitchenItem(itemId) {
+    const card = document.getElementById(`kitchen-item-${itemId}`);
+    if (!card) return;
 
-    if (!carousel || !dotsContainer) return;
-
-    const cards = carousel.querySelectorAll('.kitchen-card');
-    const dots = dotsContainer.querySelectorAll('.dot');
-
-    if (cards.length === 0 || dots.length === 0) return;
-
-    // Calculate which card is currently taking up most of the view
-    // Using scrollLeft + (containerWidth / 2) to find the center point
-    const scrollPos = carousel.scrollLeft;
-    const centerPoint = scrollPos + (carousel.clientWidth / 2);
-
-    let activeIndex = 0;
-
-    // Find the card closest to the center point
-    for (let i = 0; i < cards.length; i++) {
-        const cardLeft = cards[i].offsetLeft - carousel.offsetLeft;
-        const cardRight = cardLeft + cards[i].offsetWidth;
-
-        if (centerPoint >= cardLeft && centerPoint <= cardRight) {
-            activeIndex = i;
-            break;
-        }
+    // Expand if not already open
+    if (!card.classList.contains('open')) {
+        toggleKitchenCard(card);
+    } else {
+        // Just scroll if already open
+        card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
-
-    // Update dots DOM
-    dots.forEach((dot, index) => {
-        if (index === activeIndex) {
-            dot.classList.add('active');
-        } else {
-            dot.classList.remove('active');
-        }
-    });
 }
+
+
 
 /**
  * Filters the kitchen cards based on a search term.

@@ -59,7 +59,6 @@ export function syncCheckboxes() {
     const checkboxes = document.querySelectorAll('.fridge-item-premium input[type="checkbox"]');
     checkboxes.forEach(cb => {
         const val = cb.value.toLowerCase().trim();
-        // Check against object key
         cb.checked = !!myIngredients[val];
     });
 }
@@ -114,11 +113,16 @@ export function renderFridgeCategories() {
         const items = Array.from(grouped[catKey].entries()).sort((a, b) => a[1].localeCompare(b[1]));
 
         container.innerHTML = items.map(([val, display]) => `
-            <label class="fridge-item-premium">
-                <span class="item-name">${display}</span>
-                <input type="checkbox" value="${val}" onchange="updateFridge(this)">
-                <span class="toggle-switch"></span>
-            </label>
+            <div class="fridge-item-premium">
+                <div class="item-main-click" onclick="const cb = this.querySelector('input'); cb.checked = !cb.checked; updateFridge(cb);">
+                    <span class="item-name">${display}</span>
+                    <input type="checkbox" value="${val}" style="display:none;">
+                    <span class="toggle-switch"></span>
+                </div>
+                <button class="add-to-cart-btn" onclick="window.addToShoppingList(event, '${display}')" title="Add to shopping list">
+                    <i class="fa-solid fa-cart-plus"></i>
+                </button>
+            </div>
         `).join('');
     }
 
@@ -187,16 +191,72 @@ export function checkMatches(silent = false) {
                     <p>No close matches found.<br><small>Try selecting more spirits!</small></p>
                 </div>`;
         } else {
+            // Group matches by missing count
+            const groups = {
+                0: { title: "Perfect Matches", items: [] },
+                1: { title: "Missing 1 Ingredient", items: [] },
+                2: { title: "Missing 2 Ingredients", items: [] }
+            };
+
             matches.forEach(cocktail => {
-                const cardHTML = createCocktailCardHTML(cocktail, {
-                    isPerfect: cocktail.missingCount === 0,
-                    missingCount: cocktail.missingCount,
-                    missingItems: cocktail.missingItems
+                groups[cocktail.missingCount].items.push(cocktail);
+            });
+
+            // Render each group as a carousel section
+            [0, 1, 2].forEach(missingCount => {
+                const group = groups[missingCount];
+                if (group.items.length === 0) return;
+
+                const section = document.createElement('div');
+                section.className = 'vault-category-section'; // Reuse Vault styling
+                section.style.marginBottom = '2rem';
+
+                const title = document.createElement('h3');
+                title.className = 'category-heading';
+                title.innerText = group.title;
+                section.appendChild(title);
+
+                const carouselId = `fridge-carousel-missing-${missingCount}`;
+                const carousel = document.createElement('div');
+                carousel.className = 'carousel';
+                carousel.id = carouselId;
+
+                // Scroll listener for dots
+                carousel.addEventListener('scroll', () => {
+                    window.updateCarouselDots(carouselId);
+                    
+                    const openCards = carousel.querySelectorAll('.cocktail-card.open');
+                    openCards.forEach(card => card.classList.remove('open'));
+                }, { passive: true });
+
+                group.items.forEach(cocktail => {
+                    const cardWrapper = document.createElement('div');
+                    cardWrapper.innerHTML = createCocktailCardHTML(cocktail, {
+                        isPerfect: cocktail.missingCount === 0,
+                        missingCount: cocktail.missingCount,
+                        missingItems: cocktail.missingItems
+                    });
+                    carousel.appendChild(cardWrapper.firstElementChild);
                 });
-                const cardWrapper = document.createElement('div');
-                cardWrapper.innerHTML = cardHTML;
-                const card = cardWrapper.firstElementChild;
-                resultsContainer.appendChild(card);
+
+                section.appendChild(carousel);
+
+                // Add dots container for this carousel
+                const dotsContainer = document.createElement('div');
+                dotsContainer.className = 'carousel-indicators';
+                dotsContainer.id = `dots-${carouselId}`;
+                
+                group.items.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.className = index === 0 ? 'dot active' : 'dot';
+                    dotsContainer.appendChild(dot);
+                });
+
+                section.appendChild(dotsContainer);
+                resultsContainer.appendChild(section);
+                
+                // Ensure active dot is calculated properly after DOM insertion
+                setTimeout(() => window.updateCarouselDots(carouselId), 50);
             });
         }
 

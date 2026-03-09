@@ -10,7 +10,11 @@ export function createCocktailCardHTML(cocktail, options = {}) {
         forceOpen = false,
         hideFavorite = false,
         isNeutral = false,
-        hideIngredientIcons = false
+        hideIngredientIcons = false,
+        showEditBtn = false,      // NEW: for Recipe Book
+        showDeleteBtn = false,    // NEW: for Recipe Book
+        onEdit = null,            // NEW: for Recipe Book
+        onDelete = null           // NEW: for Recipe Book
     } = options;
 
     const isOpen = forceOpen ? 'open' : '';
@@ -34,17 +38,24 @@ export function createCocktailCardHTML(cocktail, options = {}) {
 
         const iconClass = isMissing ? 'fa-circle-xmark' : 'fa-circle-check';
         const itemClass = isNeutral ? 'neutral-ing' : (isMissing ? 'missing-ing' : 'available-ing');
+        const kitchenLink = ing.kitchenId ? `
+            <span class="kitchen-link-tag" onclick="window.goToKitchenItem(event, '${ing.kitchenId}')" title="View in Kitchen">
+                <i class="fa-solid fa-fire-burner"></i>
+            </span>` : '';
 
         return `
             <li class="${itemClass}">
-                <span>
-                    ${!hideIngredientIcons ? `<i class="fa-solid ${iconClass}"></i>` : ''}
-                    ${amountPart(ing)} ${ingName}
-                </span>
-                ${isMissing ? `
-                <button class="add-to-cart-btn" onclick="window.addToShoppingList(event, '${ingName}')">
-                    <i class="fa-solid fa-cart-plus"></i>
-                </button>` : ''}
+                <div class="ing-row-content">
+                    <span>
+                        ${!hideIngredientIcons ? `<i class="fa-solid ${iconClass}"></i>` : ''}
+                        ${amountPart(ing)} ${ingName}
+                    </span>
+                    ${kitchenLink}
+                    ${isMissing ? `
+                    <button class="add-to-cart-btn" onclick="window.addToShoppingList(event, '${ingName}')">
+                        <i class="fa-solid fa-cart-plus"></i>
+                    </button>` : ''}
+                </div>
             </li>`;
     }).join('');
 
@@ -64,13 +75,27 @@ export function createCocktailCardHTML(cocktail, options = {}) {
                 <button class="fav-btn ${isFav ? 'active' : ''}" onclick="window.toggleFavorite(event, '${cocktail.id}')">
                     <i class="${isFav ? 'fa-solid' : 'fa-regular'} fa-star"></i>
                 </button>` : ''}
-                ${!isPerfect ? `<span class="missing-tag">Missing ${missingCount}</span>` : ''}
-                <img src="${cocktail.image}" alt="${cocktail.name}">
-                ${isCustom ? `<span class="custom-badge">MINE</span>` : ''}
-                ${!forceOpen ? `
-                <button class="download-btn" onclick="window.downloadRecipe('${cocktail.id}')">
-                    <i class="fa-solid fa-download"></i>
-                </button>` : ''}
+                ${!isPerfect ? `<span class="missing-tag missing-${missingCount}">Missing ${missingCount}</span>` : ''}
+                <img src="${cocktail.image}" 
+                     alt="${cocktail.name}" 
+                     loading="lazy" 
+                     onload="this.classList.add('loaded'); this.parentElement.classList.add('image-loaded')">
+                ${isCustom && !showEditBtn ? `<span class="custom-badge">MINE</span>` : ''}
+                
+                <div class="card-actions">
+                    ${showEditBtn ? `
+                    <button class="edit-recipe-btn" onclick="${onEdit || `window.editRecipe('${cocktail.id}')`}">
+                        <i class="fa-solid fa-pen"></i>
+                    </button>` : ''}
+                    ${showDeleteBtn ? `
+                    <button class="delete-recipe-btn" onclick="${onDelete || `window.deleteRecipe('${cocktail.id}')`}">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>` : ''}
+                    ${!showEditBtn && !forceOpen ? `
+                    <button class="download-btn" onclick="window.downloadRecipe('${cocktail.id}')">
+                        <i class="fa-solid fa-download"></i>
+                    </button>` : ''}
+                </div>
             </div>
             <div class="card-content">
                 <h4>${cocktail.name} ${isFav && !hideFavorite ? '⭐' : ''}</h4>
@@ -127,4 +152,77 @@ export function handleCardClick(e, cocktailId) {
         const card = e.currentTarget;
         card.classList.toggle('open');
     }
+}
+
+export function showToast(message, type = 'success') {
+    let container = document.getElementById('toast-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'toast-container';
+        document.body.appendChild(container);
+    }
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type === 'error' ? 'already-exists' : ''}`;
+    
+    const icon = type === 'error' ? 'fa-circle-info' : 'fa-circle-check';
+    
+    toast.innerHTML = `
+        <i class="fa-solid ${icon}"></i>
+        <span>${message}</span>
+    `;
+
+    container.appendChild(toast);
+
+    // Remove from DOM after animation completes
+    setTimeout(() => {
+        toast.remove();
+        if (container.children.length === 0) {
+            container.remove();
+        }
+    }, 3200);
+}
+
+/**
+ * Updates the active dot for a specific carousel based on horizontal scroll.
+ * Supports both generic 'cocktail-card' and 'kitchen-card' elements.
+ */
+export function updateCarouselDots(carouselId) {
+    const carousel = document.getElementById(carouselId);
+    if (!carousel) return;
+    
+    const dotsContainer = document.getElementById(`dots-${carouselId}`);
+    if (!dotsContainer) return;
+
+    // Select all types of carousel cards
+    const cards = carousel.querySelectorAll('.kitchen-card, .cocktail-card, .recommendation-card');
+    const dots = dotsContainer.querySelectorAll('.dot');
+
+    if (cards.length === 0 || dots.length === 0) return;
+
+    // Calculate which card is currently taking up most of the view
+    const scrollPos = carousel.scrollLeft;
+    const centerPoint = scrollPos + (carousel.clientWidth / 2);
+
+    let activeIndex = 0;
+
+    // Find the card closest to the center point
+    for (let i = 0; i < cards.length; i++) {
+        const cardLeft = cards[i].offsetLeft - carousel.offsetLeft;
+        const cardRight = cardLeft + cards[i].offsetWidth;
+
+        if (centerPoint >= cardLeft && centerPoint <= cardRight) {
+            activeIndex = i;
+            break;
+        }
+    }
+
+    // Update dots DOM
+    dots.forEach((dot, index) => {
+        if (index === activeIndex) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
 }

@@ -67,8 +67,8 @@
 
     <!-- ========== 1.2 FAVICON & APP ICONS ========== -->
     <link rel="icon" href="assets/logo/favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="96x96" href="assets/logo/favicon-96x96.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/logo/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/logo/favicon-96x96.webp">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/logo/apple-touch-icon.webp">
     <link rel="manifest" href="site.webmanifest">
 
     <!-- ========== 1.3 STYLESHEETS ========== -->
@@ -154,7 +154,7 @@
         <section class="home-action-section">
             <div class="shake-card" id="main-shaker-card" onclick="shakeForCocktail()">
                 <div class="shaker-icon-wrapper">
-                    <img src="./assets/shaker_laadscherm.png" alt="Shaker" class="shaker-img-anim">
+                    <img src="./assets/shaker_laadscherm.webp" alt="Shaker" class="shaker-img-anim" loading="lazy">
                 </div>
                 <div class="shake-content">
                     <h3>Shake it up!</h3>
@@ -358,7 +358,7 @@
             <div class="fridge-category">
                 <button class="category-toggle" onclick="toggleCategory('cat-spirits')">
                     <div class="category-label">
-                        <img src="assets/Fridge/spirits.png" alt="Spirits" class="category-icon">
+                        <img src="assets/Fridge/spirits.webp" alt="Spirits" class="category-icon">
                         <span>Spirits</span>
                     </div>
                     <i class="fa-solid fa-chevron-down"></i>
@@ -380,7 +380,7 @@
             <div class="fridge-category">
                 <button class="category-toggle" onclick="toggleCategory('cat-liqueurs')">
                     <div class="category-label">
-                        <img src="assets/Fridge/liqueurs.png" alt="Liqueurs & Vermouths" class="category-icon">
+                        <img src="assets/Fridge/liqueurs.webp" alt="Liqueurs & Vermouths" class="category-icon">
                         <span>Liqueurs & Vermouths</span>
                     </div>
                     <i class="fa-solid fa-chevron-down"></i>
@@ -403,7 +403,7 @@
             <div class="fridge-category">
                 <button class="category-toggle" onclick="toggleCategory('cat-bitters')">
                     <div class="category-label">
-                        <img src="assets/Fridge/bitters.png" alt="Bitters & Tinctures" class="category-icon">
+                        <img src="assets/Fridge/bitters.webp" alt="Bitters & Tinctures" class="category-icon">
                         <span>Bitters & Tinctures</span>
                     </div>
                     <i class="fa-solid fa-chevron-down"></i>
@@ -425,7 +425,7 @@
             <div class="fridge-category">
                 <button class="category-toggle" onclick="toggleCategory('cat-syrups')">
                     <div class="category-label">
-                        <img src="assets/Fridge/syrups.png" alt="Syrups & Purees" class="category-icon">
+                        <img src="assets/Fridge/syrups.webp" alt="Syrups & Purees" class="category-icon">
                         <span>Syrups & Purees</span>
                     </div>
                     <i class="fa-solid fa-chevron-down"></i>
@@ -447,7 +447,7 @@
             <div class="fridge-category">
                 <button class="category-toggle" onclick="toggleCategory('cat-juices')">
                     <div class="category-label">
-                        <img src="assets/Fridge/juices.png" alt="Juices & Mixers" class="category-icon">
+                        <img src="assets/Fridge/juices.webp" alt="Juices & Mixers" class="category-icon">
                         <span>Juices & Mixers</span>
                     </div>
                     <i class="fa-solid fa-chevron-down"></i>
@@ -469,7 +469,7 @@
             <div class="fridge-category">
                 <button class="category-toggle" onclick="toggleCategory('cat-fresh')">
                     <div class="category-label">
-                        <img src="assets/Fridge/fresh.png" alt="Fresh & Pantry" class="category-icon">
+                        <img src="assets/Fridge/fresh.webp" alt="Fresh & Pantry" class="category-icon">
                         <span>Fresh & Pantry</span>
                     </div>
                     <i class="fa-solid fa-chevron-down"></i>
@@ -695,8 +695,6 @@
             <div class="header-flex">
                 <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
                 <h1>Shopping List</h1>
-                <button class="clear-list-btn" onclick="clearShoppingList()"><i
-                        class="fa-solid fa-trash-can"></i></button>
             </div>
         </header>
 
@@ -725,6 +723,13 @@
             </div>
 
             <!-- Shopping List Items (dynamically filled by JS) -->
+            <div id="shopping-list-title-container" class="list-title-flex" style="display: none;">
+                <h3 class="section-title">Your Current List</h3>
+                <div class="header-actions">
+                    <button class="action-btn-header" onclick="downloadShoppingList()"><i class="fa-solid fa-share-nodes"></i></button>
+                    <button class="clear-list-btn" onclick="clearShoppingList()"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+            </div>
             <ul id="shopping-list-items" class="shopping-list"></ul>
 
         </div>

@@ -10,6 +10,7 @@
 
 /* 3. Components (Cards, Buttons, Inputs) */
 @import url('./components/cards.css');
+@import url('./components/notifications.css');
 
 /* 4. Page Specific Styles */
 @import url('./pages/home.css');
