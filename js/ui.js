@@ -74,16 +74,16 @@ document.addEventListener('DOMContentLoaded', () => {
         splashScreen.classList.remove('hide');
         splashScreen.style.opacity = '1';
         splashScreen.style.visibility = 'visible';
-        
+
         // 2. Restart animations: Remove current, force reflow, then add original clone
         const currentContent = splashScreen.querySelector('.splash-content');
         if (currentContent) {
             currentContent.remove();
         }
-        
+
         // Force Reflow to ensure browser registers the removal
         void splashScreen.offsetWidth;
-        
+
         // Add fresh clone from the original state
         const newContent = originalContent.cloneNode(true);
         splashScreen.appendChild(newContent);

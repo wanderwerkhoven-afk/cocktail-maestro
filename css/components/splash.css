@@ -16,7 +16,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: none; /* Instant show by default */
+    padding-bottom: 8vh; /* Nudge content slightly higher */
+    transition: none;
+    /* Instant show by default */
 }
 
 /* When the hide class is added, fade out */
