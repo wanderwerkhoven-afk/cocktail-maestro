@@ -65,17 +65,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Splash Screen Logic
     const splashScreen = document.getElementById('splash-screen');
-    if (splashScreen) {
-        // Wait 3.8 seconds (animation sequence shortened), then fade out
+    const splashContent = splashScreen?.querySelector('.splash-content');
+
+    window.triggerSplash = () => {
+        if (!splashScreen || !splashContent) return;
+
+        // 1. Reset: Show splash and remove old content to kill animations
+        splashScreen.classList.remove('hide');
+        const newContent = splashContent.cloneNode(true);
+        splashContent.parentNode.replaceChild(newContent, splashContent);
+
+        // 2. Lifecycle: Fade out after short duration
+        // We use the 3.2s duration from the user's recent manual tweak
         setTimeout(() => {
             splashScreen.classList.add('hide');
-
-            // Remove from DOM after fade completes (0.8s transition in CSS)
-            setTimeout(() => {
-                splashScreen.remove();
-            }, 800);
         }, 3200);
-    }
+    };
+
+    // Initial trigger
+    window.triggerSplash();
+
+    // Re-trigger when app returns to foreground (visibility change)
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            window.triggerSplash();
+        }
+    });
 
     // Zorg dat we ingrediënt suggesties updaten als dat nodig is
     window.updateIngredientSuggestions = () => {
