@@ -65,27 +65,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Splash Screen Logic
     const splashScreen = document.getElementById('splash-screen');
-    const splashContent = splashScreen?.querySelector('.splash-content');
+    const originalContent = splashScreen?.querySelector('.splash-content')?.cloneNode(true);
 
     window.triggerSplash = () => {
-        if (!splashScreen || !splashContent) return;
+        if (!splashScreen || !originalContent) return;
 
-        // 1. Reset: Show splash and remove old content to kill animations
+        // 1. Reset state: remove hide class AND force instant opacity
         splashScreen.classList.remove('hide');
-        const newContent = splashContent.cloneNode(true);
-        splashContent.parentNode.replaceChild(newContent, splashContent);
+        splashScreen.style.opacity = '1';
+        splashScreen.style.visibility = 'visible';
+        
+        // 2. Restart animations: Remove current, force reflow, then add original clone
+        const currentContent = splashScreen.querySelector('.splash-content');
+        if (currentContent) {
+            currentContent.remove();
+        }
+        
+        // Force Reflow to ensure browser registers the removal
+        void splashScreen.offsetWidth;
+        
+        // Add fresh clone from the original state
+        const newContent = originalContent.cloneNode(true);
+        splashScreen.appendChild(newContent);
 
-        // 2. Lifecycle: Fade out after short duration
-        // We use the 3.2s duration from the user's recent manual tweak
+        // 3. Lifecycle: Fade out after duration (using user's 3.2s tweak)
         setTimeout(() => {
             splashScreen.classList.add('hide');
+            // Clean up inline styles to let CSS transition take over
+            splashScreen.style.opacity = '';
+            splashScreen.style.visibility = '';
         }, 3200);
     };
 
     // Initial trigger
     window.triggerSplash();
 
-    // Re-trigger when app returns to foreground (visibility change)
+    // Re-trigger when app returns to foreground
     document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible') {
             window.triggerSplash();
