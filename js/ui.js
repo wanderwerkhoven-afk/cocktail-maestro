@@ -63,6 +63,20 @@ document.addEventListener('DOMContentLoaded', () => {
     initKitchenCarousels();
     navigateTo('home');
 
+    // Splash Screen Logic
+    const splashScreen = document.getElementById('splash-screen');
+    if (splashScreen) {
+        // Wait 4.5 seconds (animation sequence 4s + buffer), then fade out
+        setTimeout(() => {
+            splashScreen.classList.add('hide');
+            
+            // Remove from DOM after fade completes (0.8s transition in CSS)
+            setTimeout(() => {
+                splashScreen.remove();
+            }, 800);
+        }, 4500);
+    }
+
     // Zorg dat we ingrediënt suggesties updaten als dat nodig is
     window.updateIngredientSuggestions = () => {
         const datalist = document.getElementById('ingredients-suggestions');
