@@ -78,7 +78,8 @@ const mapping = {
     "sugar cube": "sugar cube",
     "espresso": "espresso",
     "olives": "olives",
-    "cucumber": "cucumber",
+    "cucumber": "Fresh cucumber",
+    "Fresh cucumber": "Fresh cucumber",
     "red wine": "red wine",
     "milk": "milk"
 };

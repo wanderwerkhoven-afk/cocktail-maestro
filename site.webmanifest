@@ -1,6 +1,6 @@
 {
   "name": "Cocktail Maestro",
-  "short_name": "Maestro",
+  "short_name": "Cocktail Maestro",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#121113",

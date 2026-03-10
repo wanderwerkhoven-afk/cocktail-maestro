@@ -4,7 +4,7 @@ import { toggleFavorite } from './modules/favorites.js';
 import { renderVault, downloadRecipe, updateServings } from './pages/vault.js';
 import { openRecipeForm, closeRecipeForm, addIngredientRow, removeIngredientRow, previewImage, saveNewRecipe, updateRecipe, editRecipe, deleteRecipe, checkRowTyping, renderMyRecipes } from './pages/recipes.js';
 import { toggleCategory, filterCategoryList, filterAllIngredients, updateFridge, syncCheckboxes, checkMatches, calculateBarProgress, renderFridgeCategories } from './modules/fridge.js';
-import { shakeForCocktail, closeShakeModal } from './modules/randomizer.js';
+import { shakeForCocktail, closeShakeModal, toggleRandomizerFullscreen } from './modules/randomizer.js';
 import { handleCardClick, showToast, createCocktailCardHTML, updateCarouselDots } from './core/ui-utils.js';
 import { filterKitchen, initKitchenCarousels, toggleKitchenCard, openKitchenItem } from './pages/kitchen.js';
 
@@ -39,6 +39,7 @@ window.checkMatches = checkMatches;
 window.calculateBarProgress = calculateBarProgress;
 window.shakeForCocktail = shakeForCocktail;
 window.closeShakeModal = closeShakeModal;
+window.toggleRandomizerFullscreen = toggleRandomizerFullscreen;
 window.handleCardClick = handleCardClick;
 window.showToast = showToast;
 window.createCocktailCardHTML = createCocktailCardHTML;

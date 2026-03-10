@@ -164,163 +164,192 @@
         <!-- Divider streepje -->
         <div class="home-divider"></div>
 
-        <!-- Shake it Randomizer -->
-        <section class="home-action-section">
-            <div class="shake-card" id="main-shaker-card" onclick="shakeForCocktail()">
-                <div class="shaker-icon-wrapper">
-                    <img src="./assets/shaker_laadscherm.webp" alt="Shaker" class="shaker-img-anim" loading="lazy">
-                </div>
-                <div class="shake-content">
-                    <h3>Shake it up!</h3>
-                    <p>Can't choose? Let fate decide your drink.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Divider streepje -->
-        <div class="home-divider"></div>
-
-        <!-- Bar stock stats -->
-        <section class="bar-status-card">
-            <div class="bar-status-top">
-                <h2>YOUR BAR STATUS</h2>
-                <p class="subtitle">Your current cocktail potential</p>
-                <hr class="divider">
-            </div>
-
-            <div class="bar-status-main">
-                <div class="container-left">
-                    <div class="stats-content-wrapper">
-                        <h3 class="accent-title">BAR STATS:</h3>
-
-                        <div class="inventory-summary-box">
-                            <span class="big-number" id="bottle-count">0</span>
-                            <span class="box-label">Ingredients in stock</span>
-                        </div>
-
-                        <div class="inventory-summary-box">
-                            <div class="stat-unit">
-                                <span class="big-number" id="match-count">0</span>
-                                <span class="box-label">Cocktails possible to make</span>
-                            </div>
-                        </div>
-
-                        <a href="javascript:void(0)" onclick="navigateTo('fridge')" class="manage-ingredients-btn">
-                            <i class="fa-solid fa-list-ul"></i>
-                            <span>Manage Fridge</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="container-right">
-                    <div class="status-header">
-                        <div class="status-label-group">
-                            <span>YOUR</span>
-                            <span>BAR</span>
-                            <span>STATUS</span>
-                        </div>
-                        <span id="bar-pct-text">78%</span>
-                    </div>
-
-                    <div class="bottle-container">
-                        <!-- Pulsing Background Halo -->
-                        <div class="bottle-halo"></div>
-
-                        <svg class="bottle-svg" viewBox="0 0 100 250" preserveAspectRatio="xMidYMid meet">
-                            <defs>
-                                <linearGradient id="liquid-gradient" x1="0" y1="250" x2="0" y2="0"
-                                    gradientUnits="userSpaceOnUse">
-                                    <stop offset="0%" style="stop-color:#ff4757;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#ff9f1a;stop-opacity:1" />
-                                </linearGradient>
-
-                                <!-- Gold Label Gradient -->
-                                <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#ffe259;stop-opacity:1" />
-                                    <stop offset="50%" style="stop-color:#ffa751;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#ffe259;stop-opacity:1" />
-                                </linearGradient>
-
-                                <path id="bottle-path"
-                                    d="M38,10 L62,10 L62,40 Q62,60 75,80 L80,120 L80,230 Q80,245 65,245 L35,245 Q20,245 20,230 L20,120 L25,80 Q38,60 38,40 Z" />
-
-                                <mask id="bottle-mask">
-                                    <use href="#bottle-path" fill="white" />
-                                </mask>
-                            </defs>
-
-                            <!-- Glass Background -->
-                            <use href="#bottle-path" fill="#121212" stroke="#333" stroke-width="1.5" />
-
-                            <!-- Liquid Group -->
-                            <g mask="url(#bottle-mask)">
-                                <g id="liquid-group"
-                                    style="transform: translateY(240px); transition: transform 3.0s cubic-bezier(0.4, 0, 0.2, 1);">
-                                    <!-- Main Liquid Body -->
-                                    <rect x="-50" y="0" width="200" height="300" fill="url(#liquid-gradient)" />
-
-                                    <!-- Bubbles (Legendary Physics) -->
-                                    <circle class="bubble b1" cx="35" cy="80" r="2.5" fill="rgba(255,180,71,0.6)" />
-                                    <circle class="bubble b2" cx="55" cy="120" r="4.2" fill="rgba(255,180,71,0.4)" />
-                                    <circle class="bubble b3" cx="45" cy="160" r="2.2" fill="rgba(255,180,71,0.7)" />
-                                    <circle class="bubble b4" cx="65" cy="60" r="4.0" fill="rgba(255,180,71,0.3)" />
-                                    <circle class="bubble b5" cx="30" cy="140" r="1.8" fill="rgba(255,180,71,0.6)" />
-
-                                    <!-- Triple-Layer Dynamic Waves -->
-                                    <path class="wave wave-back"
-                                        d="M-100 0 Q-75 -10 -50 0 T0 0 T50 0 T100 0 T150 0 T200 0 V20 H-100 Z"
-                                        fill="url(#liquid-gradient)" opacity="0.3" />
-                                    <path class="wave wave-middle"
-                                        d="M-100 0 Q-75 -5 -50 0 T0 0 T50 0 T100 0 T150 0 T200 0 V20 H-100 Z"
-                                        fill="url(#liquid-gradient)" opacity="0.6" />
-                                    <path class="wave wave-front"
-                                        d="M-100 0 Q-75 10 -50 0 T0 0 T50 0 T100 0 T150 0 T200 0 V20 H-100 Z"
-                                        fill="url(#liquid-gradient)" />
-                                </g>
-                            </g>
-
-                            <!-- Glass Reflections & Label -->
-                            <g pointer-events="none">
-                                <!-- Inner Gloss -->
-                                <path class="shimmer-glass" d="M25,120 L27,140 Q28,150 28,160 L28,210" stroke="white"
-                                    stroke-width="2" stroke-opacity="0.15" fill="none" />
-
-                                <!-- Central Label (3D Embossed) -->
-                                <g class="label-group">
-                                    <rect x="26" y="131" width="48" height="33" rx="4" fill="black"
-                                        fill-opacity="0.4" />
-                                    <rect x="25" y="130" width="48" height="33" rx="4" fill="#1a1a1a"
-                                        stroke="url(#gold-gradient)" stroke-width="1.2" />
-                                    <text x="49" y="147" text-anchor="middle" fill="url(#gold-gradient)"
-                                        font-weight="900" font-size="7.5"
-                                        style="font-family: 'Inter', sans-serif; letter-spacing: 0.8px; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));">MAESTRO</text>
-                                    <text x="49" y="156" text-anchor="middle" fill="#777" font-weight="700"
-                                        font-size="3.5"
-                                        style="font-family: 'Inter', sans-serif; letter-spacing: 1.2px;">EST.
-                                        2024</text>
-                                </g>
-
-
-                                <!-- Top Gloss Reflection -->
-                                <path d="M30,85 Q38,65 38,45 L38,20" stroke="white" stroke-width="2.5"
-                                    stroke-opacity="0.08" fill="none" />
-                            </g>
-
-                            <!-- Bottle Cap -->
-                            <path d="M37,5 L63,5 L64,15 L36,15 Z" fill="#222" stroke="#444" stroke-width="1" />
-                        </svg>
-                    </div>
-
-                    <button class="progress-btn" onclick="calculateBarProgress()">
-                        <i class="fa-solid fa-arrows-rotate"></i>
-                        <div class="btn-text">
-                            <span>UPDATE</span>
-                            <span>STATUS</span>
-                        </div>
+        <!-- Home Tiles Grid (Randomizer + Bar Status) -->
+        <div class="home-tiles-grid">
+            <!-- Shake it Randomizer -->
+            <section class="home-action-section">
+                <div class="shake-card-super" id="main-shaker-card" onclick="shakeForCocktail()">
+                    <!-- Fullscreen & Menu controls -->
+                    <button class="super-tile-menu-btn" onclick="toggleRandomizerFullscreen(event)" title="Immersive Mode">
+                        <i class="fa-solid fa-ellipsis"></i>
                     </button>
+                    
+                    <button class="fullscreen-close-btn" onclick="toggleRandomizerFullscreen(event)" title="Exit Fullscreen">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+
+                    <!-- Decorative background elements -->
+                    <div class="super-tile-bg">
+                        <div class="energy-ring ring-1"></div>
+                        <div class="energy-ring ring-2"></div>
+                    </div>
+
+                    <!-- 1. Title + Subtext -->
+                    <div class="content-text-super">
+                        <h3>Shake it up!</h3>
+                        <p>Can't decide? Let fate pour your next masterwork.</p>
+                    </div>
+
+                    <!-- 2. Shaker Visual -->
+                    <div class="shaker-visual-area">
+                        <div class="shaker-icon-wrapper">
+                            <img src="./assets/shaker_laadscherm.webp" alt="Shaker" class="shaker-img-anim" loading="lazy">
+                        </div>
+                    </div>
+
+                    <!-- 3. Shake Button -->
+                    <div class="shake-action-indicator">
+                        <div class="pulse-ring"></div>
+                        <button class="shake-btn-inner">
+                            <i class="fa-solid fa-shaker"></i>
+                            <span>SHAKE</span>
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+
+            <!-- Bar stock stats -->
+            <section class="bar-status-card">
+                <div class="bar-status-top">
+                    <h2>YOUR BAR STATUS</h2>
+                    <p class="subtitle">Your current cocktail potential</p>
+                    <hr class="divider">
+                </div>
+
+                <div class="bar-status-main">
+                    <div class="container-left">
+                        <div class="stats-content-wrapper">
+                            <h3 class="accent-title">BAR STATS:</h3>
+
+                            <div class="inventory-summary-box">
+                                <span class="big-number" id="bottle-count">0</span>
+                                <span class="box-label">Ingredients in stock</span>
+                            </div>
+
+                            <div class="inventory-summary-box">
+                                <div class="stat-unit">
+                                    <span class="big-number" id="match-count">0</span>
+                                    <span class="box-label">Cocktails possible to make</span>
+                                </div>
+                            </div>
+
+                            <a href="javascript:void(0)" onclick="navigateTo('fridge')" class="manage-ingredients-btn">
+                                <i class="fa-solid fa-list-ul"></i>
+                                <span>Manage Fridge</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="container-right">
+                        <div class="status-header">
+                            <div class="status-label-group">
+                                <span>YOUR</span>
+                                <span>BAR</span>
+                                <span>STATUS</span>
+                            </div>
+                            <span id="bar-pct-text">78%</span>
+                        </div>
+
+                        <div class="bottle-container">
+                            <!-- Pulsing Background Halo -->
+                            <div class="bottle-halo"></div>
+
+                            <svg class="bottle-svg" viewBox="0 0 100 250" preserveAspectRatio="xMidYMid meet">
+                                <defs>
+                                    <linearGradient id="liquid-gradient" x1="0" y1="250" x2="0" y2="0"
+                                        gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" style="stop-color:#ff4757;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#ff9f1a;stop-opacity:1" />
+                                    </linearGradient>
+
+                                    <!-- Gold Label Gradient -->
+                                    <linearGradient id="gold-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#ffe259;stop-opacity:1" />
+                                        <stop offset="50%" style="stop-color:#ffa751;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#ffe259;stop-opacity:1" />
+                                    </linearGradient>
+
+                                    <path id="bottle-path"
+                                        d="M38,10 L62,10 L62,40 Q62,60 75,80 L80,120 L80,230 Q80,245 65,245 L35,245 Q20,245 20,230 L20,120 L25,80 Q38,60 38,40 Z" />
+
+                                    <mask id="bottle-mask">
+                                        <use href="#bottle-path" fill="white" />
+                                    </mask>
+                                </defs>
+
+                                <!-- Glass Background -->
+                                <use href="#bottle-path" fill="#121212" stroke="#333" stroke-width="1.5" />
+
+                                <!-- Liquid Group -->
+                                <g mask="url(#bottle-mask)">
+                                    <g id="liquid-group"
+                                        style="transform: translateY(240px); transition: transform 3.0s cubic-bezier(0.4, 0, 0.2, 1);">
+                                        <!-- Main Liquid Body -->
+                                        <rect x="-50" y="0" width="200" height="300" fill="url(#liquid-gradient)" />
+
+                                        <!-- Bubbles (Legendary Physics) -->
+                                        <circle class="bubble b1" cx="35" cy="80" r="2.5" fill="rgba(255,180,71,0.6)" />
+                                        <circle class="bubble b2" cx="55" cy="120" r="4.2" fill="rgba(255,180,71,0.4)" />
+                                        <circle class="bubble b3" cx="45" cy="160" r="2.2" fill="rgba(255,180,71,0.7)" />
+                                        <circle class="bubble b4" cx="65" cy="60" r="4.0" fill="rgba(255,180,71,0.3)" />
+                                        <circle class="bubble b5" cx="30" cy="140" r="1.8" fill="rgba(255,180,71,0.6)" />
+
+                                        <!-- Triple-Layer Dynamic Waves -->
+                                        <path class="wave wave-back"
+                                            d="M-100 0 Q-75 -10 -50 0 T0 0 T50 0 T100 0 T150 0 T200 0 V20 H-100 Z"
+                                            fill="url(#liquid-gradient)" opacity="0.3" />
+                                        <path class="wave wave-middle"
+                                            d="M-100 0 Q-75 -5 -50 0 T0 0 T50 0 T100 0 T150 0 T200 0 V20 H-100 Z"
+                                            fill="url(#liquid-gradient)" opacity="0.6" />
+                                        <path class="wave wave-front"
+                                            d="M-100 0 Q-75 10 -50 0 T0 0 T50 0 T100 0 T150 0 T200 0 V20 H-100 Z"
+                                            fill="url(#liquid-gradient)" />
+                                    </g>
+                                </g>
+
+                                <!-- Glass Reflections & Label -->
+                                <g pointer-events="none">
+                                    <!-- Inner Gloss -->
+                                    <path class="shimmer-glass" d="M25,120 L27,140 Q28,150 28,160 L28,210" stroke="white"
+                                        stroke-width="2" stroke-opacity="0.15" fill="none" />
+
+                                    <!-- Central Label (3D Embossed) -->
+                                    <g class="label-group">
+                                        <rect x="26" y="131" width="48" height="33" rx="4" fill="black"
+                                            fill-opacity="0.4" />
+                                        <rect x="25" y="130" width="48" height="33" rx="4" fill="#1a1a1a"
+                                            stroke="url(#gold-gradient)" stroke-width="1.2" />
+                                        <text x="49" y="147" text-anchor="middle" fill="url(#gold-gradient)"
+                                            font-weight="900" font-size="7.5"
+                                            style="font-family: 'Inter', sans-serif; letter-spacing: 0.8px; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));">MAESTRO</text>
+                                        <text x="49" y="156" text-anchor="middle" fill="#777" font-weight="700"
+                                            font-size="3.5"
+                                            style="font-family: 'Inter', sans-serif; letter-spacing: 1.2px;">EST.
+                                            2024</text>
+                                    </g>
+
+
+                                    <!-- Top Gloss Reflection -->
+                                    <path d="M30,85 Q38,65 38,45 L38,20" stroke="white" stroke-width="2.5"
+                                        stroke-opacity="0.08" fill="none" />
+                                </g>
+
+                                <!-- Bottle Cap -->
+                                <path d="M37,5 L63,5 L64,15 L36,15 Z" fill="#222" stroke="#444" stroke-width="1" />
+                            </svg>
+                        </div>
+
+                        <button class="progress-btn" onclick="calculateBarProgress()">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                            <div class="btn-text">
+                                <span>UPDATE</span>
+                                <span>STATUS</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
 
         <!-- Divider streepje -->
         <div class="home-divider"></div>
