@@ -154,6 +154,7 @@ export function handleCardClick(e, cocktailId) {
     }
 }
 
+
 export function showToast(message, type = 'success') {
     let container = document.getElementById('toast-container');
     if (!container) {
@@ -181,6 +182,39 @@ export function showToast(message, type = 'success') {
             container.remove();
         }
     }, 3200);
+}
+
+export function createPresentationHTML(cocktail) {
+    const categoriesHTML = Array.isArray(cocktail.category)
+        ? cocktail.category.map(cat => `<span class="category-tag">${cat}</span>`).join('')
+        : `<span class="category-tag">${cocktail.category}</span>`;
+
+    const ingredientsHTML = cocktail.ingredients.map(ing => {
+        const name = typeof ing === 'object' ? ing.name : ing;
+        return `<li><i class="fa-solid fa-circle-check"></i> ${name}</li>`;
+    }).join('');
+
+    return `
+        <div class="cocktail-presentation">
+            <div class="presentation-header">
+                <img src="${cocktail.image}" alt="${cocktail.name}" class="presentation-img">
+            </div>
+            <div class="presentation-body">
+                <h2 class="presentation-title">${cocktail.name}</h2>
+                <div class="category-container">
+                    ${categoriesHTML}
+                </div>
+                <p class="presentation-desc">${cocktail.description || "A masterwork of mixology."}</p>
+                
+                <div class="presentation-ingredients">
+                    <h3>Ingredients</h3>
+                    <ul class="presentation-list">
+                        ${ingredientsHTML}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    `;
 }
 
 /**

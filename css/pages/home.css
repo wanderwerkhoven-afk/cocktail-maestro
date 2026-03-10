@@ -110,12 +110,15 @@
     max-width: none;
     z-index: 9999;
     border-radius: 0;
-    padding: 60px 20px;
-    justify-content: space-around;
+    padding: 8vh 20px; /* Dynamic vertical padding */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around; /* Space Title, Shaker, and Button evenly */
     background: linear-gradient(135deg, #1e1e1e, #0a0a0a);
 }
 
-.super-tile-menu-btn, .fullscreen-close-btn {
+.super-tile-menu-btn {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -134,16 +137,35 @@
     backdrop-filter: blur(5px);
 }
 
-.super-tile-menu-btn:hover, .fullscreen-close-btn:hover {
+.fullscreen-close-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 10000;
+    transition: all 0.3s ease;
+    padding: 10px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: none;
+    opacity: 0.5; /* Muted by default */
+}
+
+.super-tile-menu-btn:hover {
     background: rgba(255, 255, 255, 0.15);
     transform: scale(1.1);
     border-color: #ffb347;
 }
 
-.fullscreen-close-btn {
-    display: none;
-    left: 20px;
-    right: auto;
+.fullscreen-close-btn:hover {
+    transform: scale(1.1);
+    color: #ffb347;
+    opacity: 1;
 }
 
 .is-fullscreen .fullscreen-close-btn {
@@ -156,16 +178,17 @@
 
 /* Scale up elements in fullscreen */
 .is-fullscreen .content-text-super h3 {
-    font-size: 2.5rem;
+    font-size: clamp(1.6rem, 6vh, 2.8rem); /* More fluid scaling */
 }
 
 .is-fullscreen .shaker-visual-area {
-    height: 400px;
+    height: min(45vh, 450px); /* Dynamic height based on viewport */
+    width: 100%;
 }
 
 .is-fullscreen .shaker-icon-wrapper {
-    width: 500px;
-    height: 400px;
+    width: 100%;
+    height: 100%;
 }
 
 .shake-card-super:hover {

@@ -1,0 +1,108 @@
+/* ============================================================
+   COCKTAIL PRESENTATION (Minimal Layout for Randomizer)
+   ============================================================ */
+
+.cocktail-presentation {
+    display: flex;
+    flex-direction: column;
+    background: #1e1e1e;
+    border-radius: 25px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255,179,71,0.2);
+    animation: presentation-fade-in 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes presentation-fade-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.presentation-header {
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+}
+
+.presentation-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.9);
+}
+
+.presentation-body {
+    padding: 25px;
+    text-align: center;
+}
+
+.presentation-title {
+    color: #ffb347;
+    font-size: 2rem;
+    font-weight: 900;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.presentation-body .category-container {
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.presentation-desc {
+    color: #a0a0a0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 15px 0 20px 0;
+}
+
+.presentation-ingredients {
+    text-align: left;
+    background: rgba(0,0,0,0.2);
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.presentation-ingredients h3 {
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.presentation-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.presentation-list li {
+    color: #ccc;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.presentation-list li i {
+    color: #ffb347;
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+/* Responsive adjustments for presentation */
+@media (max-width: 500px) {
+    .presentation-header { height: 280px; }
+    .presentation-title { font-size: 1.6rem; }
+    .presentation-list { grid-template-columns: 1fr; }
+}
