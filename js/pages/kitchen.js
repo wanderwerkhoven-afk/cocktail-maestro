@@ -116,8 +116,8 @@ function renderKitchen() {
                     <h3>${item.title}</h3>
                     <span class="difficulty-badge ${item.difficulty}">${item.difficulty.charAt(0).toUpperCase() + item.difficulty.slice(1)}</span>
                 </div>
+                <p class="kitchen-desc">${item.description}</p>
                 <div class="kitchen-card-body">
-                    <p class="kitchen-desc">${item.description}</p>
                     ${ingredientsHTML}
                     ${instructionsHTML}
                 </div>

@@ -105,7 +105,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding-bottom: 0.8rem;
 }
@@ -241,8 +241,20 @@
 .kitchen-desc {
     color: #b3b3b3;
     font-size: 0.95rem;
-    margin-bottom: 1.5rem;
     line-height: 1.5;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.kitchen-card.open .kitchen-desc {
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    color: #ffffff;
 }
 
 .kitchen-ingredients,

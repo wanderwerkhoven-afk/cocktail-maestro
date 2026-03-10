@@ -60,7 +60,7 @@ export const kitchenItems = [
     {
         id: "lime-ginger-dilution",
         category: "ingredients",
-        title: "Lime & Ginger (L&G) Dilution",
+        title: "Lime & Granulated Sugar (L&G) Dilution",
         difficulty: "easy",
         heroClass: "hero-syrup",
         image: "assets/Kitchen/l&g_syrup.webp",
