@@ -101,12 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial trigger
     window.triggerSplash();
 
-    // Re-trigger when app returns to foreground
-    document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'visible') {
-            window.triggerSplash();
-        }
-    });
 
     // Zorg dat we ingrediënt suggesties updaten als dat nodig is
     window.updateIngredientSuggestions = () => {
