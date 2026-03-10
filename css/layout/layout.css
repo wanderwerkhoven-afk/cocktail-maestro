@@ -71,28 +71,38 @@
     align-items: center;
     color: #666;
     font-size: 0.8rem;
-    gap: 6px;
+    /* Slightly smaller for better balance with larger icons */
+    gap: 4px;
     cursor: pointer;
     flex: 1;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .nav-item i {
-    font-size: 1.3rem;
+    font-size: 1.8rem;
+    /* Increased from 1.3rem */
+    margin-bottom: 2px;
 }
 
 .nav-item.active {
     color: #ffb347;
+    transform: translateY(-2px);
+    /* Subtle lift for active item */
 }
 
 @media (max-width: 400px) {
+    .bottom-nav {
+        padding: 12px 10px calc(25px + env(safe-area-inset-bottom)) 10px;
+    }
+
     .nav-item {
-        font-size: 0.65rem;
-        gap: 4px;
+        font-size: 0.7rem;
+        gap: 3px;
     }
 
     .nav-item i {
-        font-size: 1.05rem;
+        font-size: 1.6rem;
+        /* Still decent size on small screens */
     }
 }
 
