@@ -1,100 +1,401 @@
 export const kitchenItems = [
     {
-        id: "simple-syrup",
+        id: "brewed-teas",
         category: "ingredients",
-        title: "Simple Syrup",
+        title: "Brewed Teas",
+        difficulty: "easy",
+        heroClass: "hero-syrup",
+        image: "assets/Kitchen/tea.webp",
+        description: [
+            "Teas add complex flavor and tannins to drinks, especially zero-proof sips. Black teas are highest in tannins, while green, white, and herbal teas are lower.",
+            "An oversteeped tea doesn't always equal more flavor. Oversteeping tends to make tea bitter and too tannic."
+        ],
+        dropdown: {
+            label: "Select Tea Type",
+            options: [
+                {
+                    value: "chamomile",
+                    name: "Chamomile Tea",
+                    ingredients: ["2 tablespoons (4g) chamomile tea", "8 fluid ounces (240ml/g) filtered water"],
+                    instructions: [
+                        "Water temperature: 160°F (71°C).",
+                        "Steep in the hot water for 10 minutes.",
+                        "Strain carefully and let cool before use."
+                    ]
+                },
+                {
+                    value: "peach",
+                    name: "Peach Tea",
+                    ingredients: ["2 tablespoons (4g) herbal peach tea", "8 fluid ounces (240ml/g) filtered water"],
+                    instructions: [
+                        "Water temperature: 200°F (93°C).",
+                        "Steep in the hot water for 5 minutes.",
+                        "Strain carefully and let cool before use."
+                    ]
+                },
+                {
+                    value: "licorice",
+                    name: "Licorice Tea",
+                    ingredients: ["2 tablespoons (4g) licorice root tea", "8 fluid ounces (240ml/g) filtered water"],
+                    instructions: [
+                        "Water temperature: 200°F (93°C).",
+                        "Steep in the hot water for 10 minutes.",
+                        "Strain carefully and let cool before use."
+                    ]
+                },
+                {
+                    value: "lavender",
+                    name: "Lavender Tea",
+                    ingredients: ["2 tablespoons (4g) herbal lavender tea", "8 fluid ounces (240ml/g) filtered water"],
+                    instructions: [
+                        "Water temperature: 205°F (96°C).",
+                        "Steep in the hot water for 10 minutes.",
+                        "Strain carefully and let cool before use."
+                    ]
+                },
+                {
+                    value: "jasmine",
+                    name: "Jasmine Tea",
+                    ingredients: ["2 tablespoons (4g) jasmine tea", "8 fluid ounces (240ml/g) filtered water"],
+                    instructions: [
+                        "Water temperature: 185°F (85°C).",
+                        "Steep in the hot water for 3 minutes.",
+                        "Strain carefully and let cool before use."
+                    ]
+                },
+                {
+                    value: "lapsang",
+                    name: "Lapsang Souchong Tea",
+                    ingredients: ["2 tablespoons (4g) lapsang souchong tea", "8 fluid ounces (240ml/g) filtered water"],
+                    instructions: [
+                        "Water temperature: 203°F (95°C).",
+                        "Steep in the hot water for 3 minutes.",
+                        "Strain carefully and let cool before use."
+                    ]
+                },
+                {
+                    value: "earlgrey",
+                    name: "Earl Grey Tea",
+                    ingredients: ["2 tablespoons (4g) Earl Grey tea", "8 fluid ounces (240ml/g) filtered water"],
+                    instructions: [
+                        "Water temperature: 208°F (98°C).",
+                        "Steep in the hot water for 5 minutes.",
+                        "Strain carefully and let cool before use."
+                    ]
+                },
+                {
+                    value: "black",
+                    name: "Black Tea",
+                    ingredients: ["2 tablespoons (4g) black tea", "8 fluid ounces (240ml/g) filtered water"],
+                    instructions: [
+                        "Water temperature: 212°F (100°C).",
+                        "Steep in the hot water for 5 minutes.",
+                        "Strain carefully and let cool before use."
+                    ]
+                },
+                {
+                    value: "assam",
+                    name: "Assam Tea",
+                    ingredients: ["2 tablespoons (4g) Assam tea", "8 fluid ounces (240ml/g) filtered water"],
+                    instructions: [
+                        "Water temperature: 100°F (38°C).",
+                        "Steep in the warm water for 3 minutes.",
+                        "Strain carefully and let cool before use."
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        id: "infused-spirits",
+        category: "ingredients",
+        title: "Infused Spirits",
+        difficulty: "medium",
+        heroClass: "hero-syrup",
+        image: "assets/Kitchen/infusions.webp",
+        description: [
+            "An easy way to add even more flavor to your favorite cocktail is to infuse the spirits that you use. This doesn't require any fancy equipment, just a bit of time and patience.",
+            "Alcohol is a solvent and a master at extracting flavors. Use a French coffee press or a glass jar for easy execution and cleanup."
+        ],
+        dropdown: {
+            label: "Select Infusion Type",
+            options: [
+                {
+                    value: "blackberry-tequila",
+                    name: "Blackberry Tequila",
+                    ingredients: ["17 fluid ounces (500ml) Blanco Tequila", "1 cup (145g) frozen Blackberries"],
+                    instructions: [
+                        "In a French press or glass jar, combine the tequila and blackberries.",
+                        "Muddle or press down firmly and let sit at room temperature for 24 hours.",
+                        "Strain through a fine-mesh sieve or cheesecloth into a clean bottle and store in a cool dark place (up to 6 months).",
+                        "Add 10ml of vodka to the strained liquid to preserve it for longer."
+                    ]
+                },
+                {
+                    value: "blueberry-orange",
+                    name: "Blueberry Orange Liqueur",
+                    ingredients: ["17 fluid ounces (500ml) Orange Liqueur", "1 cup (145g) frozen Blueberries"],
+                    instructions: [
+                        "In a French press or glass jar, combine the liqueur and blueberries.",
+                        "Muddle or press down firmly and let sit at room temperature for 24 hours.",
+                        "Strain through a fine-mesh sieve or cheesecloth into a clean bottle and store in a cool dark place (up to 6 months).",
+                        "Add 10ml of vodka to the strained liquid to preserve it for longer."
+                    ]
+                },
+                {
+                    value: "earl-grey-gin",
+                    name: "Earl Grey Gin",
+                    ingredients: ["17 fluid ounces (500ml) London Dry Gin", "1 tablespoon (4g) Earl Grey tea leaves"],
+                    instructions: [
+                        "In a French press, combine the gin and Earl Grey tea leaves.",
+                        "Muddle or press down firmly and let sit at room temperature for 2 hours.",
+                        "Strain through a fine-mesh sieve or cheesecloth into a clean bottle and store in a cool dark place (up to 6 months).",
+                        "Add 10ml of vodka to the strained liquid to preserve it for longer."
+                    ]
+                },
+                {
+                    value: "raspberry-cognac",
+                    name: "Raspberry Cognac",
+                    ingredients: ["17 fluid ounces (500ml) Cognac", "1 cup (145g) frozen Raspberries"],
+                    instructions: [
+                        "In a French press or glass jar, combine the Cognac and raspberries.",
+                        "Muddle or press down firmly and let sit at room temperature for 24 hours.",
+                        "Strain through a fine-mesh sieve or cheesecloth into a clean bottle and store in a cool dark place (up to 6 months).",
+                        "Add 10ml of vodka to the strained liquid to preserve it for longer."
+                    ]
+                },
+                {
+                    value: "strawberry-cognac",
+                    name: "Strawberry Cognac",
+                    ingredients: ["17 fluid ounces (500ml) Cognac", "1 cup (145g) frozen Strawberries, chopped"],
+                    instructions: [
+                        "In a French press or glass jar, combine the Cognac and strawberries.",
+                        "Muddle or press down firmly and let sit at room temperature for 24 hours.",
+                        "Strain through a fine-mesh sieve or cheesecloth into a clean bottle and store in a cool dark place (up to 6 months).",
+                        "Add 10ml of vodka to the strained liquid to preserve it for longer."
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        id: "oleo-saccharums",
+        category: "ingredients",
+        title: "Oleo Saccharums",
+        difficulty: "easy",
+        heroClass: "hero-syrup",
+        image: "assets/Kitchen/oleo.webp",
+        description: [
+            "Oleo saccharum translates to 'oil sugar'. It is a traditional method of using sugar to extract the flavorful essential oils from fruit peels or fruit pieces.",
+            "The result is a highly concentrated, aromatic syrup that adds incredible depth to cocktails and mocktails without adding much extra liquid volume."
+        ],
+        dropdown: {
+            label: "Select Type",
+            options: [
+                {
+                    value: "lemon",
+                    name: "Lemon Oleo",
+                    ingredients: ["Peels of 4-6 Lemons", "1/2 cup (100g) White Sugar"],
+                    instructions: [
+                        "Peel the lemons, trying to avoid as much white pith as possible.",
+                        "In a bowl or bag, toss the peels with the sugar.",
+                        "Muddle gently or massage the bag to start the extraction.",
+                        "Let sit at room temperature for 4 to 12 hours.",
+                        "Remove peels and collect the thick, citrusy syrup."
+                    ]
+                },
+                {
+                    value: "orange",
+                    name: "Orange Oleo",
+                    ingredients: ["Peels of 3-4 Oranges", "1/2 cup (100g) White Sugar"],
+                    instructions: [
+                        "Peel the oranges, being careful to avoid the bitter white pith.",
+                        "Combine peels and sugar in a sealed container or bag.",
+                        "Muzzle or shake to coat the peels thoroughly.",
+                        "Let sit for 6 to 24 hours until sugar is completely dissolved into oil.",
+                        "Strain out the peels and bottle the syrup."
+                    ]
+                },
+                {
+                    value: "banana",
+                    name: "Banana Peel Oleo",
+                    ingredients: ["Peels of 2-3 ripe Bananas (chopped)", "1/2 cup (100g) White Sugar"],
+                    instructions: [
+                        "Wash the banana peels and chop them into small pieces.",
+                        "Combine with sugar in a vacuum bag or sealed jar.",
+                        "Let sit for 24 hours at room temperature.",
+                        "The sugar will pull the moisture and oils from the peels.",
+                        "Strain through a fine-mesh sieve."
+                    ]
+                },
+                {
+                    value: "grapefruit",
+                    name: "Grapefruit Oleo",
+                    ingredients: ["Peels of 2 large Grapefruits", "1/2 cup (100g) White Sugar"],
+                    instructions: [
+                        "Peel the grapefruits (avoiding pith) and combine with sugar.",
+                        "Muzzle or massage to ensure all peels are coated.",
+                        "Let sit for 12 to 24 hours.",
+                        "Strain and store in the fridge for up to 2 months."
+                    ]
+                },
+                {
+                    value: "pineapple",
+                    name: "Pineapple Oleo",
+                    ingredients: ["1 cup Pineapple base & bark", "1/2 cup (100g) White Sugar"],
+                    instructions: [
+                        "Chop your fruit scraps (cores or tops) into small pieces.",
+                        "Combine with sugar in a jar and shake well.",
+                        "Let sit for 24 hours. The sugar will macerate the fruit.",
+                        "Strain through a fine-mesh sieve.",
+                        "A great way to use up kitchen waste!"
+                    ]
+                },
+                {
+                    value: "strawberry",
+                    name: "Strawberry Oleo",
+                    ingredients: ["1 cup Strawberry tops & scrapes", "1/2 cup (100g) White Sugar"],
+                    instructions: [
+                        "Chop your fruit scraps (cores or tops) into small pieces.",
+                        "Combine with sugar in a jar and shake well.",
+                        "Let sit for 24 hours. The sugar will macerate the fruit.",
+                        "Strain through a fine-mesh sieve.",
+                        "A great way to use up kitchen waste!"
+                    ]
+                },
+                {
+                    value: "lg",
+                    name: "L&G",
+                    ingredients: [
+                        "20g finely grated Lemon zest or peel",
+                        "500ml freshly squeezed Lemon juice (~15 lemons)",
+                        "200g Caster sugar",
+                        "5ml (1 tsp) Lemon bitters"
+                    ],
+                    instructions: [
+                        "Place the lemon zest or peel in a large jug.",
+                        "Pour the lemon juice over the zest and leave to infuse for at least 30 minutes.",
+                        "Add the caster sugar (and lemon bitters optional) and stir to dissolve.",
+                        "Once sugar is dissolved, strain through a fine strainer to remove zest.",
+                        "Bottle and store in the fridge (keeps for 4 days)."
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        id: "syrups",
+        category: "ingredients",
+        title: "Syrups",
         difficulty: "easy",
         heroClass: "hero-syrup",
         image: "assets/Kitchen/simple_syrup.webp",
-        description: "The most essential sweetener for cocktails. A simple 1:1 ratio of sugar and water.",
-        ingredients: [
-            "1 cup White Sugar",
-            "1 cup Water"
+        description: [
+            "Syrups are the backbone of cocktail sweetness and texture. From the essential simple syrup to complex infusions, they balance the strong and sour elements of a drink.",
+            "Most syrups follow a basic ratio of sugar to water, but can be elevated with heat, time, and additional aromatics like ginger or tea.",
+            "While making your own is rewarding, don't be afraid to use store-bought versions — sometimes it's just as easy and effective!"
         ],
-        instructions: [
-            "Combine equal parts sugar and water in a saucepan.",
-            "Heat gently over medium heat, stirring occasionally until the sugar is completely dissolved. Do not let it boil.",
-            "Remove from heat and let it cool.",
-            "Store in an airtight bottle in the refrigerator. It will keep for about a month."
-        ]
-    },
-    {
-        id: "rich-syrup",
-        category: "ingredients",
-        title: "Rich Sugar Syrup",
-        difficulty: "easy",
-        heroClass: "hero-syrup-rich",
-        image: "assets/Kitchen/rich_simple_syrup.webp",
-        description: "A thicker, sweeter syrup (2:1 ratio) that adds better texture to drinks and lasts longer in the fridge.",
-        ingredients: [
-            "2 cups White Sugar",
-            "1 cup Water"
-        ],
-        instructions: [
-            "Combine 2 parts sugar and 1 part water in a saucepan.",
-            "Heat gently while stirring continuously until dissolved.",
-            "Let it cool completely and store in the fridge. Will last up to 6 months."
-        ]
-    },
-    {
-        id: "honey-ginger-syrup",
-        category: "ingredients",
-        title: "Honey-Ginger Syrup",
-        difficulty: "medium",
-        heroClass: "hero-syrup",
-        image: "assets/Kitchen/ginger_honey_syrup.webp",
-        description: "A spicy, floral sweetener essential for the Penicillin cocktail.",
-        ingredients: [
-            "1 cup Honey",
-            "1 cup Water",
-            "1 large Ginger root (peeled and sliced)"
-        ],
-        instructions: [
-            "Combine honey, water, and sliced ginger in a small saucepan.",
-            "Bring to a gentle boil over medium heat.",
-            "Reduce heat to low and simmer for 5 minutes.",
-            "Remove from heat and let it steep for at least 30 minutes.",
-            "Strain through a fine-mesh sieve and refrigerate."
-        ]
-    },
-    {
-        id: "lime-ginger-dilution",
-        category: "ingredients",
-        title: "Lime & Granulated Sugar (L&G) Dilution",
-        difficulty: "easy",
-        heroClass: "hero-syrup",
-        image: "assets/Kitchen/l&g_syrup.webp",
-        description: "A specialized dilution used to balance sharp vodka and vermouth notes.",
-        ingredients: [
-            "50ml Fresh Lime Juice",
-            "50ml Ginger juice or strong Ginger tea",
-            "25ml Water"
-        ],
-        instructions: [
-            "Mix all ingredients together in a small bottle.",
-            "Shake well to combine.",
-            "Keep chilled and use within 24 hours for maximum freshness."
-        ]
-    },
-    {
-        id: "bergamot-dilution",
-        category: "ingredients",
-        title: "Bergamot Dilution",
-        difficulty: "medium",
-        heroClass: "hero-syrup",
-        image: "assets/Kitchen/bergamot_dilution.webp",
-        description: "A fragrant, citrusy dilution that adds an Earl Grey-like complexity.",
-        ingredients: [
-            "100ml Water",
-            "2 Earl Grey tea bags (or 10g loose leaf)",
-            "10ml Bergamot oil or fresh Bergamot juice"
-        ],
-        instructions: [
-            "Steep the Earl Grey tea in hot water for 5 minutes.",
-            "Remove tea and let the liquid cool completely.",
-            "Add bergamot oil/juice and stir well.",
-            "Bottle and keep refrigerated."
-        ]
+        dropdown: {
+            label: "Select Syrup Type",
+            options: [
+                {
+                    value: "simple",
+                    name: "Simple Syrup",
+                    ingredients: ["1 cup White Sugar", "1 cup Water"],
+                    instructions: [
+                        "Combine equal parts sugar and water in a saucepan.",
+                        "Heat gently over medium heat, stirring occasionally until the sugar is completely dissolved. Do not let it boil.",
+                        "Remove from heat and let it cool.",
+                        "Store in an airtight bottle in the refrigerator. It will keep for about a month."
+                    ]
+                },
+                {
+                    value: "rich",
+                    name: "Rich Sugar Syrup",
+                    ingredients: ["2 cups White Sugar", "1 cup Water"],
+                    instructions: [
+                        "Combine 2 parts sugar and 1 part water in a saucepan.",
+                        "Heat gently while stirring continuously until dissolved.",
+                        "Let it cool completely and store in the fridge. Will last up to 6 months."
+                    ]
+                },
+                {
+                    value: "honey",
+                    name: "Honey Syrup",
+                    ingredients: ["1 cup Honey", "1/2 cup Warm Water"],
+                    instructions: [
+                        "Combine honey and warm water in a jar.",
+                        "Stir or shake until the honey is fully incorporated into the water.",
+                        "Let it cool and store in the fridge. Lasts for 1 month."
+                    ]
+                },
+                {
+                    value: "honey-ginger",
+                    name: "Honey-Ginger Syrup",
+                    ingredients: [
+                        "1 cup Honey",
+                        "1 cup Water",
+                        "1 large Ginger root (peeled and sliced)"
+                    ],
+                    instructions: [
+                        "Combine honey, water, and sliced ginger in a small saucepan.",
+                        "Bring to a gentle boil over medium heat.",
+                        "Reduce heat to low and simmer for 5 minutes.",
+                        "Remove from heat and let it steep for at least 30 minutes.",
+                        "Strain through a fine-mesh sieve and refrigerate."
+                    ]
+                },
+                {
+                    value: "grenadine",
+                    name: "Grenadine",
+                    ingredients: ["2 cups Pomegranate juice", "2 cups White Sugar", "1/2 tsp Orange blossom water", "10ml Vodka (optional)"],
+                    instructions: [
+                        "Combine juice and sugar in a saucepan over low heat.",
+                        "Stir until sugar is dissolved. Do not boil.",
+                        "Remove from heat, add orange blossom water and vodka.",
+                        "Bottle and refrigerate. Lasts for 2-3 months."
+                    ]
+                },
+                {
+                    value: "orgeat",
+                    name: "Orgeat (Almond Syrup)",
+                    ingredients: ["2 cups unsweetened Almond milk", "2 cups White Sugar", "1 tsp Almond extract", "1 tsp Orange blossom water"],
+                    instructions: [
+                        "Combine almond milk and sugar in a saucepan over medium heat.",
+                        "Stir until sugar is dissolved. Do not let it boil.",
+                        "Remove from heat, let it cool.",
+                        "Add almond extract and orange blossom water.",
+                        "Store in the fridge. Lasts for 1 month."
+                    ]
+                },
+                {
+                    value: "raspberry",
+                    name: "Raspberry Syrup",
+                    ingredients: ["1 cup Fresh raspberries", "1 cup White Sugar", "1/2 cup Water"],
+                    instructions: [
+                        "Muddle raspberries with sugar and water in a saucepan.",
+                        "Heat gently until sugar dissolves and juice is released.",
+                        "Strain through a fine-mesh sieve, pressing to get all the liquid.",
+                        "Bottle and refrigerate. Lasts for 2 weeks."
+                    ]
+                },
+                {
+                    value: "bergamot-dilution",
+                    name: "Bergamot Dilution",
+                    ingredients: [
+                        "100ml Water",
+                        "2 Earl Grey tea bags (or 10g loose leaf)",
+                        "10ml Bergamot oil or fresh Bergamot juice"
+                    ],
+                    instructions: [
+                        "Steep the Earl Grey tea in hot water for 5 minutes.",
+                        "Remove tea and let the liquid cool completely.",
+                        "Add bergamot oil/juice and stir well.",
+                        "Bottle and keep refrigerated."
+                    ]
+                }
+            ]
+        }
     },
     {
         id: "double-strain",
@@ -180,7 +481,7 @@ export const kitchenItems = [
         difficulty: "hard",
         heroClass: "hero-bolt",
         image: "assets/Kitchen/nitrous_infusion.webp",
-        description: "Use a whipped cream charger to infuse flavors into spirits in seconds instead of weeks.",
+        description: "Use a whipped cream charger to infuse flavors into spirits in seconds",
         instructionsTitle: "Process",
         instructions: [
             "Add spirit and aromatics (like cacao nibs or peppers) to an iSi siphon.",
@@ -227,7 +528,7 @@ export const kitchenItems = [
         title: "Thermal Taste Illusion",
         difficulty: "hard",
         heroClass: "hero-thermometer",
-        image: null,
+        image: "assets/Kitchen/thermal_illusion.webp",
         description: "A trick that plays with temperature layers to fool the palate and create a multi-course flavor experience in one glass.",
         instructionsTitle: "Preparation",
         instructions: [

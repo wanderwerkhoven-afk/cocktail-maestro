@@ -242,19 +242,26 @@
     color: #b3b3b3;
     font-size: 0.95rem;
     line-height: 1.5;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     line-clamp: 3;
     -webkit-box-orient: vertical;
+    vertical-align: middle;
     overflow: hidden;
     transition: all 0.3s ease;
+}
+
+/* Hide secondary paragraphs when card is closed */
+.kitchen-card:not(.open) .kitchen-desc ~ .kitchen-desc {
+    display: none;
 }
 
 .kitchen-card.open .kitchen-desc {
     -webkit-line-clamp: unset;
     line-clamp: unset;
     color: #ffffff;
+    margin-bottom: 1rem;
 }
 
 .kitchen-ingredients,
@@ -384,6 +391,72 @@
 
 .search-bar input::placeholder {
     color: #b3b3b3;
+}
+
+/* ============================================================
+   KITCHEN DROPDOWNS & DYNAMIC CONTENT
+   ============================================================ */
+
+.kitchen-dropdown-wrapper {
+    margin-bottom: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.kitchen-dropdown-wrapper label {
+    display: block;
+    color: #ffb347;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.8rem;
+}
+
+.kitchen-dropdown-wrapper .select-container {
+    position: relative;
+    width: 100%;
+}
+
+.kitchen-select {
+    width: 100%;
+    background: rgba(30, 30, 30, 0.8);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.kitchen-select:focus {
+    border-color: #ffb347;
+    box-shadow: 0 0 0 2px rgba(255, 179, 71, 0.2);
+}
+
+.select-chevron {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ffb347;
+    pointer-events: none;
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.kitchen-select:focus + .select-chevron {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.kitchen-dynamic-content {
+    transition: opacity 0.2s ease-in-out;
 }
 
 /* Indicators moved to vault-carousel.css for global use (Home, Vault, Kitchen) */

@@ -541,6 +541,38 @@
                 </div>
             </div>
 
+            <!-- Ingredient Category: Tea -->
+            <div class="fridge-category">
+                <button class="category-toggle" onclick="toggleCategory('cat-tea')">
+                    <div class="category-label">
+                        <i class="fa-solid fa-leaf category-icon" style="color: rgba(255,255,255,0.7); font-size: 1.2rem; margin-right: 18px; width: 32px; text-align: center;"></i>
+                        <span>Tea</span>
+                    </div>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div id="cat-tea" class="category-content">
+                    <div class="category-search-wrapper">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search tea..." class="category-search-input"
+                            onkeyup="filterCategoryList(this)">
+                    </div>
+
+                    <div class="ingredient-checkbox-list" id="list-tea">
+                        <!-- Dynamically filled by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Drink Mode Toggle -->
+            <div class="drink-mode-toggle" id="fridge-mode-toggle">
+                <button class="mode-pill active" id="fridge-pill-cocktail" onclick="setDrinkMode('cocktail', 'fridge')">
+                    <i class="fa-solid fa-martini-glass"></i> Cocktails
+                </button>
+                <button class="mode-pill" id="fridge-pill-mocktail" onclick="setDrinkMode('mocktail', 'fridge')">
+                    <i class="fa-solid fa-lemon"></i> Mocktails
+                </button>
+            </div>
+
             <!-- Find My Cocktails Button -->
             <button class="match-btn-large" onclick="checkMatches()">
                 <i class="fa-solid fa-shaker"></i> Find My Cocktails
@@ -588,6 +620,18 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <span>Use the search bar to find cocktails by name, spirit, or flavor profile. Tap a card to see the
                     full recipe.</span>
+            </div>
+        </section>
+
+        <!-- Drink Mode Toggle -->
+        <section class="drink-mode-section">
+            <div class="drink-mode-toggle" id="vault-mode-toggle">
+                <button class="mode-pill active" id="vault-pill-cocktail" onclick="setDrinkMode('cocktail', 'vault')">
+                    <i class="fa-solid fa-martini-glass"></i> Cocktails
+                </button>
+                <button class="mode-pill" id="vault-pill-mocktail" onclick="setDrinkMode('mocktail', 'vault')">
+                    <i class="fa-solid fa-lemon"></i> Mocktails
+                </button>
             </div>
         </section>
 
@@ -709,9 +753,23 @@
                         </div>
                     </div>
 
-                    <div class="input-group">
-                        <label>Categories (comma separated)</label>
-                        <input type="text" id="recipe-category" placeholder="bijv. Classic, Strong, Sweet">
+                    <div class="input-row-flex" style="display: flex; gap: 10px;">
+                        <div class="input-group" style="flex: 1;">
+                            <label>Drink Type</label>
+                            <div class="drink-mode-toggle vertical" id="recipe-type-switch">
+                                <button type="button" class="mode-pill active" id="recipe-pill-cocktail" onclick="setRecipeMode('cocktail')">
+                                    <i class="fa-solid fa-martini-glass"></i> Cocktail
+                                </button>
+                                <button type="button" class="mode-pill" id="recipe-pill-mocktail" onclick="setRecipeMode('mocktail')">
+                                    <i class="fa-solid fa-lemon"></i> Mocktail
+                                </button>
+                            </div>
+                            <input type="hidden" id="recipe-type" value="cocktail">
+                        </div>
+                        <div class="input-group" style="flex: 3;">
+                            <label>Categories (comma separated)</label>
+                            <input type="text" id="recipe-category" placeholder="bijv. Classic, Strong, Sweet">
+                        </div>
                     </div>
 
                     <div class="input-group">

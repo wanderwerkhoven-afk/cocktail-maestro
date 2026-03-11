@@ -9,6 +9,7 @@ export function openRecipeForm() {
     // 2. Maak alle tekstvelden leeg
     document.getElementById('recipe-name').value = "";
     document.getElementById('recipe-description').value = "";
+    setRecipeMode('cocktail');
     if (document.getElementById('recipe-category')) document.getElementById('recipe-category').value = "";
     if (document.getElementById('recipe-glassware')) document.getElementById('recipe-glassware').value = "";
     if (document.getElementById('recipe-ice')) document.getElementById('recipe-ice').value = "";
@@ -146,6 +147,7 @@ export function saveNewRecipe() {
     const newRecipe = {
         id: 'user-' + Date.now(),
         name: name,
+        type: document.getElementById('recipe-type')?.value || "cocktail",
         description: document.getElementById('recipe-description').value || "A custom masterpiece.",
         category: document.getElementById('recipe-category')?.value.split(',').map(c => c.trim()).filter(c => c !== "") || ["Custom"],
         glassware: document.getElementById('recipe-glassware')?.value || "Standard Glass",
@@ -179,6 +181,7 @@ export function updateRecipe(id) {
     myRecipes[index] = {
         id: id,
         name: name,
+        type: document.getElementById('recipe-type')?.value || "cocktail",
         description: document.getElementById('recipe-description').value,
         category: document.getElementById('recipe-category')?.value.split(',').map(c => c.trim()) || ["Custom"],
         glassware: document.getElementById('recipe-glassware')?.value || "Standard",
@@ -255,6 +258,7 @@ export function editRecipe(id) {
     if (!cocktail) return;
 
     document.getElementById('recipe-name').value = cocktail.name;
+    setRecipeMode(cocktail.type || "cocktail");
     document.getElementById('recipe-description').value = cocktail.description;
     if (document.getElementById('recipe-category')) document.getElementById('recipe-category').value = cocktail.category.join(', ');
     if (document.getElementById('recipe-glassware')) document.getElementById('recipe-glassware').value = cocktail.glassware || "";
@@ -299,5 +303,18 @@ export function checkRowTyping(inputElement) {
         if (row === container.lastElementChild) addIngredientRow();
     } else {
         row.classList.remove('is-typing');
+    }
+}
+
+export function setRecipeMode(mode) {
+    const input = document.getElementById('recipe-type');
+    if (input) input.value = mode;
+
+    const cocktailPill = document.getElementById('recipe-pill-cocktail');
+    const mocktailPill = document.getElementById('recipe-pill-mocktail');
+    
+    if (cocktailPill && mocktailPill) {
+        cocktailPill.classList.toggle('active', mode === 'cocktail');
+        mocktailPill.classList.toggle('active', mode === 'mocktail');
     }
 }

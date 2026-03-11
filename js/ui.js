@@ -2,11 +2,12 @@ import { navigateTo } from './core/navigation.js';
 import { toggleItemCheck, removeFromShoppingList, clearShoppingList, addToShoppingList, downloadShoppingList } from './modules/shopping.js';
 import { toggleFavorite } from './modules/favorites.js';
 import { renderVault, downloadRecipe, updateServings } from './pages/vault.js';
-import { openRecipeForm, closeRecipeForm, addIngredientRow, removeIngredientRow, previewImage, saveNewRecipe, updateRecipe, editRecipe, deleteRecipe, checkRowTyping, renderMyRecipes } from './pages/recipes.js';
+import { openRecipeForm, closeRecipeForm, addIngredientRow, removeIngredientRow, previewImage, saveNewRecipe, updateRecipe, editRecipe, deleteRecipe, checkRowTyping, renderMyRecipes, setRecipeMode } from './pages/recipes.js';
 import { toggleCategory, filterCategoryList, filterAllIngredients, updateFridge, syncCheckboxes, checkMatches, calculateBarProgress, renderFridgeCategories } from './modules/fridge.js';
 import { shakeForCocktail, closeShakeModal, toggleRandomizerFullscreen } from './modules/randomizer.js';
 import { handleCardClick, showToast, createCocktailCardHTML, updateCarouselDots } from './core/ui-utils.js';
 import { filterKitchen, initKitchenCarousels, toggleKitchenCard, openKitchenItem } from './pages/kitchen.js';
+import { setDrinkMode } from './modules/drink-mode.js';
 
 // Expose functions to global scope for HTML onclick handlers
 window.navigateTo = navigateTo;
@@ -30,6 +31,7 @@ window.editRecipe = editRecipe;
 window.deleteRecipe = deleteRecipe;
 window.checkRowTyping = checkRowTyping;
 window.renderMyRecipes = renderMyRecipes;
+window.setRecipeMode = setRecipeMode;
 window.toggleCategory = toggleCategory;
 window.filterCategoryList = filterCategoryList;
 window.filterAllIngredients = filterAllIngredients;
@@ -47,6 +49,7 @@ window.filterKitchen = filterKitchen;
 window.updateCarouselDots = updateCarouselDots;
 window.toggleKitchenCard = toggleKitchenCard;
 window.openKitchenItem = openKitchenItem;
+window.setDrinkMode = setDrinkMode;
 
 // Navigation bridge to specific kitchen items
 window.goToKitchenItem = (event, kitchenId) => {

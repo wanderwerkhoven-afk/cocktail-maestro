@@ -1,6 +1,8 @@
 import { classicCocktails } from '../modules/database.js';
+import { mocktailRecipes } from '../modules/mocktails.js';
 import { myFavorites } from '../core/state.js';
 import { createCocktailCardHTML } from '../core/ui-utils.js';
+import { drinkMode } from '../modules/drink-mode.js';
 
 export function renderVault(filter = "") {
     const vaultGrid = document.getElementById('vault-grid');
@@ -8,24 +10,45 @@ export function renderVault(filter = "") {
 
     const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
 
+    // Split user recipes by type
+    const myCocktails = myRecipes.filter(r => r.type !== 'mocktail');
+    const myCustomMocktails = myRecipes.filter(r => r.type === 'mocktail');
+
+    // Pick source array based on drink mode
+    const sourceList = drinkMode === 'mocktail'
+        ? [...mocktailRecipes, ...myCustomMocktails]
+        : [...classicCocktails, ...myCocktails];
+
     // Categorization logic
-    const categories = [
-        { id: 'favorites', name: 'Favorites', searchTerms: [] },
-        { id: 'gin', name: 'Gin', searchTerms: ['gin'] },
-        { id: 'vodka', name: 'Vodka', searchTerms: ['vodka'] },
-        { id: 'rum', name: 'Rum', searchTerms: ['rum', 'bacardi', 'becardi'] },
-        { id: 'tequila', name: 'Tequila & Mezcal', searchTerms: ['tequila', 'mezcal'] },
-        { id: 'whiskey', name: 'Whiskey & Cask', searchTerms: ['whiskey', 'bourbon', 'rye', 'scotch', 'cognac', 'pisco', 'brandy', 'jameson', 'vermouth', 'blended scotch', 'single malt'] },
-        { id: 'aperitif', name: 'Aperitifs & Spritz', searchTerms: ['aperitif', 'spritz', 'bitter', 'vermouth', 'bubbles', 'sparkling'] },
-        { id: 'others', name: 'Variety & Classics', searchTerms: [] },
-        { id: 'my-recipes', name: 'My Masterpieces', searchTerms: [] }
-    ];
+    let categories = [];
+    if (drinkMode === 'mocktail') {
+        categories = [
+            { id: 'favorites', name: 'Favorites', searchTerms: [] },
+            { id: 'zero-riffs', name: '0.0 Riffs', searchTerms: ['virgin', 'arnold palmer', 'shirley temple'] },
+            { id: 'fruity', name: 'Fruity & Tropical', searchTerms: ['tropical', 'fruity', 'sweet', 'mango', 'pineapple', 'watermelon'] },
+            { id: 'fresh', name: 'Fresh & Light', searchTerms: ['fresh', 'light', 'citrus', 'refreshing', 'mint', 'cucumber'] },
+            { id: 'others', name: 'Other Mocktails', searchTerms: [] },
+            { id: 'my-recipes', name: 'My Masterpieces', searchTerms: [] }
+        ];
+    } else {
+        categories = [
+            { id: 'favorites', name: 'Favorites', searchTerms: [] },
+            { id: 'gin', name: 'Gin', searchTerms: ['gin'] },
+            { id: 'vodka', name: 'Vodka', searchTerms: ['vodka'] },
+            { id: 'rum', name: 'Rum', searchTerms: ['rum', 'bacardi', 'becardi'] },
+            { id: 'tequila', name: 'Tequila & Mezcal', searchTerms: ['tequila', 'mezcal'] },
+            { id: 'whiskey', name: 'Whiskey & Cask', searchTerms: ['whiskey', 'bourbon', 'rye', 'scotch', 'cognac', 'pisco', 'brandy', 'jameson', 'vermouth', 'blended scotch', 'single malt'] },
+            { id: 'aperitif', name: 'Aperitifs & Spritz', searchTerms: ['aperitif', 'spritz', 'bitter', 'vermouth', 'bubbles', 'sparkling'] },
+            { id: 'others', name: 'Variety & Classics', searchTerms: [] },
+            { id: 'my-recipes', name: 'My Masterpieces', searchTerms: [] }
+        ];
+    }
 
     vaultGrid.innerHTML = "";
     const searchTerm = filter.toLowerCase();
 
     // 1. First, group ALL cocktails that match the search term
-    const allMatching = [...classicCocktails, ...myRecipes].filter(c => {
+    const allMatching = sourceList.filter(c => {
         if (!searchTerm) return true;
         const nameMatch = c.name.toLowerCase().includes(searchTerm);
         const ingredientMatch = c.ingredients.some(i => {

@@ -1,5 +1,7 @@
 import { myIngredients, myFavorites } from '../core/state.js';
 import { classicCocktails } from './database.js';
+import { mocktailRecipes } from './mocktails.js';
+import { drinkMode } from './drink-mode.js';
 import { createCocktailCardHTML } from '../core/ui-utils.js';
 
 export function toggleCategory(id) {
@@ -9,7 +11,8 @@ export function toggleCategory(id) {
     content.classList.toggle('active');
 
     const button = content.previousElementSibling;
-    const icon = button ? button.querySelector('i') : null;
+    // Specifically target the chevron icon since some categories might use <i> for their main icon
+    const icon = button ? button.querySelector('.fa-chevron-down, .fa-chevron-up') : null;
 
     if (icon) {
         if (content.classList.contains('active')) {
@@ -101,7 +104,10 @@ let categoryMap = {}; // Will be dynamically populated
 
 export function renderFridgeCategories() {
     const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
-    const allCocktails = [...classicCocktails, ...myRecipes];
+
+    // Fridge accordion lists ALL possible ingredients regardless of drinkMode
+    // so you can check everything in your house at once.
+    const allCocktails = [...classicCocktails, ...mocktailRecipes, ...myRecipes];
 
     // Group unique ingredients by their fridgeCategory
     const grouped = {
@@ -110,7 +116,8 @@ export function renderFridgeCategories() {
         bitters: new Map(),
         syrup: new Map(),
         juice: new Map(),
-        fresh: new Map()
+        fresh: new Map(),
+        tea: new Map()
     };
 
     allCocktails.forEach(cocktail => {
@@ -160,13 +167,14 @@ export function renderFridgeCategories() {
         `).join('');
     }
 
-    // Render all 6 categories matching the index.html IDs
+    // Render all 7 categories matching the index.html IDs
     renderList('spirit', 'list-spirits');
     renderList('liqueur', 'list-liqueurs');
     renderList('bitters', 'list-bitters');
     renderList('syrup', 'list-syrups');
     renderList('juice', 'list-juices');
     renderList('fresh', 'list-fresh');
+    renderList('tea', 'list-tea');
 
     // Make sure checkboxes match our actual localStorage after rendering
     syncCheckboxes();
@@ -186,7 +194,12 @@ export function checkMatches(silent = false) {
 
     setTimeout(() => {
         const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
-        const allCocktails = [...classicCocktails, ...myRecipes];
+        const myCocktails = myRecipes.filter(r => r.type !== 'mocktail');
+        const myCustomMocktails = myRecipes.filter(r => r.type === 'mocktail');
+
+        const allCocktails = drinkMode === 'mocktail'
+            ? [...mocktailRecipes, ...myCustomMocktails]
+            : [...classicCocktails, ...myCocktails];
 
         const matches = allCocktails.map(cocktail => {
             const missing = cocktail.ingredients.filter(ing => {
