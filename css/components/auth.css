@@ -1,0 +1,192 @@
+/* ==========================================================================
+   AUTH PAGE STYLES (Landing Page)
+   ========================================================================== */
+
+#auth-page {
+    background: #000;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.auth-page-container {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    animation: authFadeIn 1s ease-out;
+}
+
+@keyframes authFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Branding --- */
+.auth-branding {
+    text-align: center;
+}
+
+.auth-logo {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.auth-branding h1 {
+    font-size: 2.2rem;
+    color: #fff;
+    margin-bottom: 8px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.auth-branding p {
+    color: #888;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* --- Auth Card --- */
+.auth-card {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 35px;
+    padding: 35px;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+}
+
+.auth-tabs {
+    display: flex;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 18px;
+    padding: 6px;
+    margin-bottom: 30px;
+}
+
+.auth-tab {
+    flex: 1;
+    border: none;
+    background: none;
+    color: #888;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.auth-tab.active {
+    background: #ffb347;
+    color: #000;
+    box-shadow: 0 4px 15px rgba(255, 179, 71, 0.3);
+}
+
+/* --- Form Styles --- */
+.auth-form {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-form.active {
+    display: flex;
+}
+
+.auth-input-group {
+    width: 100%;
+}
+
+.auth-input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+    padding: 16px 20px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.auth-input:focus {
+    border-color: #ffb347;
+    background: rgba(255, 179, 71, 0.05);
+}
+
+.auth-submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #ffb347, #ff9f1a);
+    color: #000;
+    border: none;
+    padding: 18px;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.auth-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 179, 71, 0.4);
+}
+
+.auth-error {
+    color: #ff4757;
+    font-size: 0.85rem;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: 600;
+    min-height: 20px;
+}
+
+/* --- Divider --- */
+.auth-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 25px 0;
+    color: #444;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #222;
+}
+
+.auth-divider span {
+    padding: 0 15px;
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+
+/* --- Guest Button --- */
+.guest-btn {
+    width: 100%;
+    background: transparent;
+    border: 1px solid #333;
+    color: #aaa;
+    padding: 15px;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.guest-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    border-color: #555;
+}

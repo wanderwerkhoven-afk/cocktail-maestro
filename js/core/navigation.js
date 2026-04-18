@@ -9,6 +9,14 @@ export function navigateTo(pageId) {
     const activePage = document.getElementById(pageId + '-page');
     if (activePage) activePage.classList.add('active');
 
+    // Update bottom nav visibility
+    const bottomNav = document.querySelector('.bottom-nav');
+    if (pageId === 'auth') {
+        if (bottomNav) bottomNav.style.display = 'none';
+    } else {
+        if (bottomNav) bottomNav.style.display = 'flex';
+    }
+
     // Update bottom nav icons
     document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
     const activeNav = document.getElementById('nav-' + pageId);

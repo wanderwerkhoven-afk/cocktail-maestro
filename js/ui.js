@@ -8,6 +8,9 @@ import { shakeForCocktail, closeShakeModal, toggleRandomizerFullscreen } from '.
 import { handleCardClick, showToast, createCocktailCardHTML, updateCarouselDots } from './core/ui-utils.js';
 import { filterKitchen, initKitchenCarousels, toggleKitchenCard, openKitchenItem } from './pages/kitchen.js';
 import { setDrinkMode } from './modules/drink-mode.js';
+import { initSettings } from './pages/settings.js';
+import { fetchCloudData } from './core/auth.js';
+import { checkInitialAuthFlow } from './core/auth-flow.js';
 
 // Expose functions to global scope for HTML onclick handlers
 window.navigateTo = navigateTo;
@@ -65,7 +68,8 @@ window.goToKitchenItem = (event, kitchenId) => {
 document.addEventListener('DOMContentLoaded', () => {
     renderFridgeCategories();
     initKitchenCarousels();
-    navigateTo('home');
+    initSettings(); // Authenticate and sync cloud data
+    // Removed navigation here to let splash screen determine destination
 
     // Splash Screen Logic
     const splashScreen = document.getElementById('splash-screen');
@@ -98,6 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Clean up inline styles to let CSS transition take over
             splashScreen.style.opacity = '';
             splashScreen.style.visibility = '';
+            
+            // Integrated Auth Flow: Decide whether to go to Home or Login
+            checkInitialAuthFlow();
         }, 3200);
     };
 

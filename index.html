@@ -95,12 +95,71 @@
     </div>
 
     <!-- ============================================================
+     2.0  PAGE: AUTH (Landing)
+     ============================================================ -->
+    <main id="auth-page" class="page">
+        <div class="auth-page-container">
+            <div class="auth-branding">
+                <img src="assets/logo/logo_cocktailmaestro_transp.webp" alt="Logo" class="auth-logo">
+                <h1>Cocktail Maestro</h1>
+                <p>Elevate your mixology journey</p>
+            </div>
+
+            <div class="auth-card">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" onclick="switchAuthTab('login')">Login</button>
+                    <button class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="login-form" class="auth-form active" onsubmit="handleAuthSubmit(event, 'login')">
+                    <div class="auth-input-group">
+                        <input type="email" class="auth-input" id="login-email" placeholder="Email Address" required>
+                    </div>
+                    <div class="auth-input-group">
+                        <input type="password" class="auth-input" id="login-password" placeholder="Password" required>
+                    </div>
+                    <div class="auth-error" id="login-error"></div>
+                    <button type="submit" class="auth-submit-btn">Login</button>
+                </form>
+
+                <!-- Signup Form -->
+                <form id="signup-form" class="auth-form" onsubmit="handleAuthSubmit(event, 'signup')">
+                    <div class="auth-input-group">
+                        <input type="text" class="auth-input" id="signup-name" placeholder="Full Name" required>
+                    </div>
+                    <div class="auth-input-group">
+                        <input type="email" class="auth-input" id="signup-email" placeholder="Email Address" required>
+                    </div>
+                    <div class="auth-input-group">
+                        <input type="password" class="auth-input" id="signup-password" placeholder="Password (min. 6 chars)" required minlength="6">
+                    </div>
+                    <div class="auth-error" id="signup-error"></div>
+                    <button type="submit" class="auth-submit-btn">Create Account</button>
+                </form>
+
+                <div class="auth-divider">
+                    <span>OR</span>
+                </div>
+
+                <button class="guest-btn" onclick="navigateTo('home')">
+                    Continue as Guest
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- ============================================================
      2.1  PAGE: HOME
      ============================================================ -->
-    <main id="home-page" class="page active">
+    <main id="home-page" class="page">
 
-        <!-- Top Bar (empty on home) -->
-        <header class="top-bar"></header>
+        <!-- Top Bar (with settings button) -->
+        <header class="top-bar">
+            <button class="settings-home-btn" onclick="navigateTo('settings')" title="Settings">
+                <i class="fa-solid fa-gear"></i>
+            </button>
+        </header>
 
         <!-- Hero Section -->
         <section class="hero">
@@ -793,6 +852,75 @@
     <!-- ============================================================
      END PAGE: RECIPE BOOK
      ============================================================ -->
+
+    <!-- ============================================================
+     2.5  PAGE: SETTINGS
+     ============================================================ -->
+    <main id="settings-page" class="page">
+        <header class="top-bar">
+            <div class="header-flex">
+                <button class="back-btn" onclick="navigateTo('home')">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <h1>Settings</h1>
+            </div>
+        </header>
+
+        <section class="settings-container">
+            <!-- Account Section -->
+            <div class="account-profile-card" id="account-status-card">
+                <div class="profile-avatar-large">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <div class="profile-info" id="profile-info-content">
+                    <h2>Guest Account</h2>
+                    <p>Log in to sync your bar to the cloud</p>
+                    <button class="settings-auth-btn" onclick="openAuthModal()">Log In / Sign Up</button>
+                </div>
+            </div>
+
+            <!-- App Settings -->
+            <div class="settings-group">
+                <h3>App Preferences</h3>
+                <div class="settings-list">
+                    <div class="settings-item">
+                        <i class="fa-solid fa-vial"></i>
+                        <span>Measuring Units (ml)</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Legal & Support -->
+            <div class="settings-group">
+                <h3>Legal & Support</h3>
+                <div class="settings-list">
+                    <div class="settings-item" onclick="showTerms()">
+                        <i class="fa-solid fa-file-shield"></i>
+                        <span>Terms of Service</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="settings-item">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>Privacy Policy</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                    <div class="settings-item">
+                        <i class="fa-solid fa-star"></i>
+                        <span>Rate Cocktail Maestro</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="logout-btn-container" id="logout-section" style="display: none;">
+                <button class="logout-full-btn" onclick="handleLogout()">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </button>
+            </div>
+        </section>
+    </main>
+
 
 
 

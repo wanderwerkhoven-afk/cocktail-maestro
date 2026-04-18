@@ -12,6 +12,7 @@
 @import url('./components/cards.css');
 @import url('./components/notifications.css');
 @import url('./components/drink-mode.css');
+@import url('./components/auth.css');
 
 /* 4. Page Specific Styles */
 @import url('./pages/home.css');
@@ -21,6 +22,7 @@
 @import url('./pages/recipes.css');
 @import url('./pages/shopping.css');
 @import url('./pages/kitchen.css');
+@import url('./pages/settings.css');
 
 /* 5. Utilities & Animations */
 @import url('./utilities/animations.css');
