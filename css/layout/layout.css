@@ -4,6 +4,8 @@
 
 .page {
     display: none;
+    padding-top: 15px; /* Reduced since most pages have their own intro-padding or headers */
+    padding-bottom: 110px;
     animation: fadeIn 0.3s ease;
 }
 
@@ -16,7 +18,7 @@
    ========================================================================== */
 .top-bar {
     padding: 10px;
-    padding-top: 40px;
+    padding-top: 15px;
 }
 
 .top-bar h1 {
@@ -27,6 +29,7 @@
 .header-flex {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
     padding: 0 20px;
     margin-bottom: 20px;
@@ -35,13 +38,13 @@
 .header-flex h1 {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #ffffff;
+    color: var(--text-primary);
 }
 
 .back-btn {
     background: none;
     border: none;
-    color: #ffffff;
+    color: var(--text-primary);
     font-size: 1.2rem;
     cursor: pointer;
     display: flex;
@@ -56,7 +59,7 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #121212;
+    background-color: var(--bg-body);
     border-top: 1px solid #333;
     display: flex;
     justify-content: space-around;
@@ -126,7 +129,7 @@
 }
 
 .modal-content {
-    background: #1a1a1a;
+    background: var(--bg-card);
     width: 90%;
     max-width: 400px;
     max-height: 90vh;
@@ -148,8 +151,8 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--input-bg);
+    border: 1px solid var(--border-strong);
     color: white;
     font-size: 1.8rem;
     display: flex;
@@ -176,7 +179,7 @@
     border-radius: 20px;
     border: none;
     background: linear-gradient(135deg, #ffb347, #ff4757);
-    color: #121212;
+    color: var(--bg-body);
     font-size: 1.1rem;
     font-weight: 800;
     text-transform: uppercase;
@@ -202,4 +205,109 @@
 
 .modal-overlay.show .modal-content {
     transform: scale(1) translateY(0);
+}
+
+/* ==========================================================================
+   INTERACTIVE INTRO SECTIONS
+   ========================================================================== */
+
+/* Target common intro classes across different pages */
+.fridge-intro,
+.vault-intro,
+.recipes-intro,
+.shopping-intro,
+.kitchen-intro {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 1000px;
+}
+
+/* Compact 'Header Bar' style when collapsed */
+.is-collapsed {
+    max-height: 65px !important;
+    /* Sleek header bar height */
+    padding: 0.8rem 1.2rem !important;
+    text-align: left !important;
+    display: flex !important;
+    align-items: center;
+}
+
+/* Toggle Button Styling */
+.intro-collapse-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--glass-bg-light);
+    border: 1px solid var(--border-strong);
+    color: #ffb347;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.is-collapsed .intro-collapse-btn {
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    right: 15px !important;
+}
+
+.intro-collapse-btn:hover {
+    background: rgba(255, 179, 71, 0.15);
+    border-color: #ffb347;
+}
+
+/* Visual state changes when collapsed */
+.is-collapsed .fridge-intro-icon,
+.is-collapsed .vault-intro-icon,
+.is-collapsed .recipes-intro-icon,
+.is-collapsed .shopping-intro-icon,
+.is-collapsed .kitchen-intro-icon,
+.is-collapsed p,
+.is-collapsed .fridge-intro-note,
+.is-collapsed .vault-intro-note,
+.is-collapsed .recipes-intro-note,
+.is-collapsed .shopping-intro-note,
+.is-collapsed .kitchen-intro-note {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+}
+
+/* Collapse non-header elements completely */
+.is-collapsed p,
+.is-collapsed .fridge-intro-note,
+.is-collapsed div[class*="intro-icon"],
+.is-collapsed div[class*="intro-note"] {
+    position: absolute;
+    visibility: hidden;
+}
+
+.fridge-intro h2,
+.vault-intro h2,
+.recipes-intro h2,
+.shopping-intro h2,
+.kitchen-intro h2 {
+    transition: all 0.3s ease;
+}
+
+.is-collapsed h2 {
+    margin: 0 !important;
+    font-size: 1.5rem !important;
+    /* Optimized to sit on one line */
+    text-align: left !important;
+    padding-right: 40px !important;
+    white-space: nowrap !important;
+    /* Back to single row as requested */
+    overflow: visible !important;
+}
+
+.is-collapsed .intro-collapse-btn i {
+    transform: rotate(180deg);
 }

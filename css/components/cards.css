@@ -1,5 +1,5 @@
 .card {
-    background-color: #1E1E1E;
+    background-color: var(--bg-card);
     border-radius: 16px;
     padding: 20px;
     display: flex;
@@ -7,23 +7,23 @@
     gap: 20px;
     cursor: pointer;
     transition: transform 0.2s, background-color 0.2s;
-    border: 1px solid #333;
+    border: 1px solid var(--border-light);
 }
 
 .card:active {
     transform: scale(0.98);
-    background-color: #2a2a2a;
+    background-color: var(--input-bg);
 }
 
 .icon-box {
-    background-color: #2c2520;
+    background-color: var(--icon-bg);
     width: 64px;
     height: 64px;
     border-radius: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #5c4033;
+    border: 1px solid var(--border-strong);
     flex-shrink: 0;
 }
 
@@ -44,16 +44,16 @@
 }
 
 .card-text p {
-    color: #888;
+    color: var(--text-muted);
     font-size: 0.8rem;
     line-height: 1.2;
 }
 
 .cocktail-card {
-    background-color: #1E1E1E;
+    background-color: var(--bg-card);
     border-radius: 20px;
     overflow: hidden;
-    border: 1px solid #333;
+    border: 1px solid var(--border-light);
     display: flex;
     flex-direction: column;
     cursor: pointer;
@@ -73,7 +73,7 @@
     aspect-ratio: 1/1;
     overflow: hidden;
     position: relative;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: var(--glass-bg-light);
     /* Skeleton baseline */
 }
 
@@ -148,7 +148,7 @@
 
 .description {
     font-size: 0.95rem;
-    color: #bbb;
+    color: var(--text-secondary);
     line-height: 1.5;
     margin-bottom: 5px;
 }
@@ -172,7 +172,7 @@
 .method-section {
     margin-top: 10px;
     padding-top: 15px;
-    border-top: 1px solid #333;
+    border-top: 1px solid var(--border-light);
 }
 
 .ingredients-section strong,
@@ -191,15 +191,34 @@
 }
 
 .hardware-text {
-    color: #bbb;
+    color: var(--text-secondary);
     font-size: 0.95rem;
 }
 
 .method-text {
-    color: #efefef;
+    color: var(--text-primary);
     font-size: 1.0rem;
     line-height: 1.6;
     white-space: pre-line;
+}
+
+.method-step {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-light);
+    line-height: 1.5;
+}
+
+.method-step:last-child {
+    border-bottom: none;
+}
+
+.step-num {
+    color: #ffb347;
+    font-weight: 800;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    margin-right: 6px;
+    letter-spacing: 0.5px;
 }
 
 /* ---------- Ingredient List Items ---------- */
@@ -216,8 +235,8 @@
     position: relative;
     padding: 6px 0;
     font-size: 0.95rem;
-    color: #bbb;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-light);
 }
 
 .ingredients-list li span {
@@ -239,7 +258,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.15);
+    background: var(--glass-bg-subtle);
     border: 1px solid rgba(255, 179, 71, 0.35);
     color: #ffb347;
     width: 26px !important;
@@ -305,7 +324,7 @@
 
 .delete-recipe-btn {
     background: rgba(255, 71, 87, 0.9);
-    color: #fff;
+    color: var(--text-primary);
 }
 
 .delete-recipe-btn:hover {
@@ -317,8 +336,8 @@
     position: absolute;
     top: 12px;
     left: 12px;
-    background: rgba(0, 0, 0, 0.6);
-    color: #ccc;
+    background: var(--glass-bg-hover);
+    color: var(--text-secondary);
     width: 45px;
     height: 45px;
     font-size: 1.2rem;
@@ -326,12 +345,12 @@
 
 .fav-btn.active {
     color: #ffb347;
-    background: rgba(0, 0, 0, 0.8);
+    background: var(--glass-bg-active);
 }
 
 .download-btn {
-    background: rgba(0, 0, 0, 0.7);
-    color: white;
+    background: var(--glass-bg-hover);
+    color: var(--text-primary);
     width: 50px;
     height: 50px;
     font-size: 1.3rem;
@@ -349,7 +368,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #1a1a1a;
+    background: var(--bg-card);
     padding: 10px 15px;
     border-radius: 8px;
     margin-bottom: 15px;
@@ -362,9 +381,9 @@
 }
 
 .counter-box button {
-    background: #333;
-    color: white;
-    border: none;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-light);
     width: 28px;
     height: 28px;
     border-radius: 50%;

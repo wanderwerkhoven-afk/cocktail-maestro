@@ -1,4 +1,4 @@
-import { registerUser, loginUser, logoutUser, initAuthListener } from "../core/auth.js";
+import { registerUser, loginUser, logoutUser, initAuthListener, sendPasswordReset } from "../core/auth.js";
 import { navigateTo } from "../core/navigation.js";
 
 /**
@@ -11,9 +11,164 @@ export function initSettings() {
 }
 
 /**
+ * Modal Controls
+ */
+export function openSettingsModal() {
+    const modal = document.getElementById('settings-modal');
+    if (modal) {
+        modal.classList.add('show');
+        modal.style.display = 'flex';
+        initSettings(); // Refresh UI state
+    }
+}
+
+export function closeSettingsModal() {
+    const modal = document.getElementById('settings-modal');
+    if (modal) {
+        modal.classList.remove('show');
+        // Wait for transition before hiding display
+        setTimeout(() => {
+            if (!modal.classList.contains('show')) {
+                modal.style.display = 'none';
+            }
+        }, 400);
+    }
+}
+
+/**
+ * UI Specific Actions in Settings
+ */
+export function toggleLanguageList() {
+    const dropdown = document.getElementById('language-dropdown');
+    const trigger = dropdown.previousElementSibling;
+    
+    if (dropdown) {
+        dropdown.classList.toggle('open');
+        trigger.classList.toggle('open');
+    }
+}
+
+export function closeLanguageList() {
+    const dropdown = document.getElementById('language-dropdown');
+    const trigger = dropdown?.previousElementSibling;
+    if (dropdown) dropdown.classList.remove('open');
+    if (trigger) trigger.classList.remove('open');
+}
+
+export function toggleUnitList() {
+    const dropdown = document.getElementById('unit-dropdown');
+    const trigger = dropdown.previousElementSibling;
+    
+    if (dropdown) {
+        dropdown.classList.toggle('open');
+        trigger.classList.toggle('open');
+    }
+}
+
+export function closeUnitList() {
+    const dropdown = document.getElementById('unit-dropdown');
+    const trigger = dropdown?.previousElementSibling;
+    if (dropdown) dropdown.classList.remove('open');
+    if (trigger) trigger.classList.remove('open');
+}
+
+export function changeUnit(unit) {
+    localStorage.setItem('appUnit', unit);
+    applyUnitUI();
+    closeUnitList();
+}
+
+export function toggleThemeList() {
+    const dropdown = document.getElementById('theme-dropdown');
+    const trigger = dropdown.previousElementSibling;
+    
+    if (dropdown) {
+        dropdown.classList.toggle('open');
+        trigger.classList.toggle('open');
+    }
+}
+
+export function closeThemeList() {
+    const dropdown = document.getElementById('theme-dropdown');
+    const trigger = dropdown?.previousElementSibling;
+    if (dropdown) dropdown.classList.remove('open');
+    if (trigger) trigger.classList.remove('open');
+}
+
+export function changeTheme(theme) {
+    localStorage.setItem('appTheme', theme);
+    applyThemeUI();
+    closeThemeList();
+}
+
+export function applyThemeUI() {
+    const theme = localStorage.getItem('appTheme') || 'auto';
+
+    const items = document.querySelectorAll('.theme-item');
+    items.forEach(item => {
+        if (item.getAttribute('data-theme-val') === theme) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+
+    const display = document.getElementById('current-theme-display');
+    if (display) {
+        const themeNames = {
+            'dark': window.t ? window.t('theme-dark') : 'Dark',
+            'light': window.t ? window.t('theme-light') : 'Light',
+            'auto': window.t ? window.t('theme-auto') : 'Auto (System)',
+            'sapphire': 'Midnight Sapphire',
+            'emerald': 'Emerald Garden',
+            'velvet': 'Velvet Rosso',
+            'tropical': 'Tropical Sunset',
+            'espresso': 'Espresso Roast'
+        };
+        display.innerText = themeNames[theme] || theme;
+    }
+
+    // Apply the actual theme class to the body
+    if (theme === 'auto') {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            document.body.setAttribute('data-theme', 'light');
+        } else {
+            document.body.removeAttribute('data-theme');
+        }
+    } else if (theme === 'dark') {
+        document.body.removeAttribute('data-theme');
+    } else {
+        document.body.setAttribute('data-theme', theme);
+    }
+}
+
+export function applyUnitUI() {
+    const unit = localStorage.getItem('appUnit') || 'ml';
+
+    const items = document.querySelectorAll('.unit-item');
+    items.forEach(item => {
+        if (item.getAttribute('data-unit') === unit) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+
+    const display = document.getElementById('current-unit-display');
+    if (display) {
+        if (unit === 'ml') display.innerText = 'ml';
+        else if (unit === 'oz') display.innerText = 'oz';
+        else if (unit === 'parts') display.innerText = 'parts';
+    }
+}
+
+/**
  * Update the Settings page UI based on auth state
  */
 export function updateSettingsUI(user) {
+    applyUnitUI();
+    applyThemeUI();
+
     const profileContent = document.getElementById('profile-info-content');
     const avatar = document.querySelector('.profile-avatar-large');
     const logoutSection = document.getElementById('logout-section');
@@ -76,14 +231,22 @@ window.handleAuthSubmit = async (event, type) => {
     if (type === 'login') {
         const email = document.getElementById('login-email').value;
         const pass = document.getElementById('login-password').value;
+        const errorEl = document.getElementById('login-error');
         result = await loginUser(email, pass);
-        if (!result.success) document.getElementById('login-error').innerText = result.error;
+        if (!result.success) {
+            errorEl.style.color = "#ff4757"; // Ensure red
+            errorEl.innerText = getFriendlyErrorMessage(result.error);
+        }
     } else {
         const name = document.getElementById('signup-name').value;
         const email = document.getElementById('signup-email').value;
         const pass = document.getElementById('signup-password').value;
+        const errorEl = document.getElementById('signup-error');
         result = await registerUser(email, pass, name);
-        if (!result.success) document.getElementById('signup-error').innerText = result.error;
+        if (!result.success) {
+            errorEl.style.color = "#ff4757"; // Ensure red
+            errorEl.innerText = getFriendlyErrorMessage(result.error);
+        }
     }
 
     if (result.success) {
@@ -98,6 +261,29 @@ window.handleAuthSubmit = async (event, type) => {
 };
 
 /**
+ * Handle Forgot Password click
+ */
+window.handleForgotPassword = async () => {
+    const email = document.getElementById('login-email').value;
+    const errorEl = document.getElementById('login-error');
+    
+    if (!email) {
+        errorEl.style.color = "#ff4757";
+        errorEl.innerText = "Vul eerst je e-mailadres in.";
+        return;
+    }
+
+    const result = await sendPasswordReset(email);
+    if (result.success) {
+        errorEl.style.color = "#2ed573"; // Success green
+        errorEl.innerText = "E-mail voor wachtwoordreset verstuurd!";
+    } else {
+        errorEl.style.color = "#ff4757";
+        errorEl.innerText = getFriendlyErrorMessage(result.error);
+    }
+};
+
+/**
  * Handle Logout
  */
 window.handleLogout = async () => {
@@ -108,8 +294,87 @@ window.handleLogout = async () => {
 };
 
 /**
- * Show Terms (Simple Placeholder)
+ * Show Terms (Modal)
  */
-window.showTerms = () => {
-    alert("Gebruikersvoorwaarden:\n\n1. Cocktail Maestro is voor educatieve doeleinden.\n2. Wij zijn niet verantwoordelijk voor de kwaliteit van je drankjes (hoewel we hopen dat ze fantastisch zijn).\n3. Drink verantwoord!");
+export function openTermsModal() {
+    const modal = document.getElementById('terms-modal');
+    if (modal) {
+        modal.classList.add('show');
+        modal.style.display = 'flex';
+    }
+}
+
+export function closeTermsModal() {
+    const modal = document.getElementById('terms-modal');
+    if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            if (!modal.classList.contains('show')) {
+                modal.style.display = 'none';
+            }
+        }, 400);
+    }
+}
+/**
+ * Show Privacy Policy (Modal)
+ */
+export function openPrivacyModal() {
+    const modal = document.getElementById('privacy-modal');
+    if (modal) {
+        modal.classList.add('show');
+        modal.style.display = 'flex';
+    }
+}
+
+export function closePrivacyModal() {
+    const modal = document.getElementById('privacy-modal');
+    if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => {
+            if (!modal.classList.contains('show')) {
+                modal.style.display = 'none';
+            }
+        }, 400);
+    }
+}
+
+/**
+ * Toggle Password Visibility
+ */
+window.togglePasswordVisibility = (inputId, icon) => {
+    const input = document.getElementById(inputId);
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
 };
+
+/**
+ * Vertaling van technische Firebase foutcodes naar gebruiksvriendelijke berichten
+ */
+function getFriendlyErrorMessage(errorString) {
+    if (!errorString) return "Er is een onbekende fout opgetreden.";
+    
+    if (errorString.includes('email-already-in-use')) {
+        return "Dit e-mailadres is al in gebruik. Heb je al een account?";
+    }
+    if (errorString.includes('invalid-email')) {
+        return "Dit e-mailadres is niet geldig.";
+    }
+    if (errorString.includes('weak-password')) {
+        return "Het wachtwoord is te zwak. Gebruik minimaal 6 tekens.";
+    }
+    if (errorString.includes('user-not-found')) {
+        return "Er is geen account gevonden met dit e-mailadres.";
+    }
+    if (errorString.includes('wrong-password') || errorString.includes('invalid-credential')) {
+        return "Onjuist wachtwoord. Probeer het opnieuw.";
+    }
+    
+    return "Oeps! Er ging iets mis. Probeer het later opnieuw.";
+}

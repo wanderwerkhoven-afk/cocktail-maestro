@@ -2,18 +2,23 @@ import { navigateTo } from './core/navigation.js';
 import { toggleItemCheck, removeFromShoppingList, clearShoppingList, addToShoppingList, downloadShoppingList } from './modules/shopping.js';
 import { toggleFavorite } from './modules/favorites.js';
 import { renderVault, downloadRecipe, updateServings } from './pages/vault.js';
-import { openRecipeForm, closeRecipeForm, addIngredientRow, removeIngredientRow, previewImage, saveNewRecipe, updateRecipe, editRecipe, deleteRecipe, checkRowTyping, renderMyRecipes, setRecipeMode } from './pages/recipes.js';
+import { openRecipeForm, closeRecipeForm, addIngredientRow, removeIngredientRow, addInstructionRow, removeInstructionRow, previewImage, saveNewRecipe, updateRecipe, editRecipe, deleteRecipe, checkRowTyping, checkStepTyping, renderMyRecipes, setRecipeMode } from './pages/recipes.js';
 import { toggleCategory, filterCategoryList, filterAllIngredients, updateFridge, syncCheckboxes, checkMatches, calculateBarProgress, renderFridgeCategories } from './modules/fridge.js';
 import { shakeForCocktail, closeShakeModal, toggleRandomizerFullscreen } from './modules/randomizer.js';
 import { handleCardClick, showToast, createCocktailCardHTML, updateCarouselDots } from './core/ui-utils.js';
 import { filterKitchen, initKitchenCarousels, toggleKitchenCard, openKitchenItem } from './pages/kitchen.js';
 import { setDrinkMode } from './modules/drink-mode.js';
-import { initSettings } from './pages/settings.js';
+import { initSettings, openSettingsModal, closeSettingsModal, toggleLanguageList, closeLanguageList, toggleUnitList, closeUnitList, changeUnit, toggleThemeList, closeThemeList, changeTheme, openTermsModal, closeTermsModal, openPrivacyModal, closePrivacyModal } from './pages/settings.js';
 import { fetchCloudData } from './core/auth.js';
-import { checkInitialAuthFlow } from './core/auth-flow.js';
+import { getInitialDestination } from './core/auth-flow.js';
+import { applyLanguage, changeLanguage } from './core/i18n.js';
 
 // Expose functions to global scope for HTML onclick handlers
 window.navigateTo = navigateTo;
+window.changeLanguage = (lang) => {
+    changeLanguage(lang);
+    if (window.closeLanguageList) window.closeLanguageList();
+};
 window.toggleItemCheck = toggleItemCheck;
 window.removeFromShoppingList = removeFromShoppingList;
 window.clearShoppingList = clearShoppingList;
@@ -27,12 +32,15 @@ window.openRecipeForm = openRecipeForm;
 window.closeRecipeForm = closeRecipeForm;
 window.addIngredientRow = addIngredientRow;
 window.removeIngredientRow = removeIngredientRow;
+window.addInstructionRow = addInstructionRow;
+window.removeInstructionRow = removeInstructionRow;
 window.previewImage = previewImage;
 window.saveNewRecipe = saveNewRecipe;
 window.updateRecipe = updateRecipe;
 window.editRecipe = editRecipe;
 window.deleteRecipe = deleteRecipe;
 window.checkRowTyping = checkRowTyping;
+window.checkStepTyping = checkStepTyping;
 window.renderMyRecipes = renderMyRecipes;
 window.setRecipeMode = setRecipeMode;
 window.toggleCategory = toggleCategory;
@@ -53,6 +61,85 @@ window.updateCarouselDots = updateCarouselDots;
 window.toggleKitchenCard = toggleKitchenCard;
 window.openKitchenItem = openKitchenItem;
 window.setDrinkMode = setDrinkMode;
+window.openSettingsModal = openSettingsModal;
+window.closeSettingsModal = closeSettingsModal;
+window.toggleLanguageList = toggleLanguageList;
+window.closeLanguageList = closeLanguageList;
+window.toggleUnitList = toggleUnitList;
+window.closeUnitList = closeUnitList;
+window.changeUnit = changeUnit;
+window.toggleThemeList = toggleThemeList;
+window.closeThemeList = closeThemeList;
+window.changeTheme = changeTheme;
+window.openTermsModal = openTermsModal;
+window.closeTermsModal = closeTermsModal;
+window.openPrivacyModal = openPrivacyModal;
+window.closePrivacyModal = closePrivacyModal;
+
+/**
+ * Filter by category from the Home page — navigates to Vault with a filter term
+ */
+window.filterByCategory = (categoryKey) => {
+    // Map our home category keys to search terms the Vault understands
+    const termMap = {
+        'classic':  '',          // Show all classics (empty filter = all)
+        'sweet':    'sweet',
+        'sour':     'sour',
+        'strong':   'strong',
+        'mocktail': 'mocktail',
+        'creamy':   'creamy',
+    };
+
+    const term = termMap[categoryKey] ?? categoryKey;
+
+    navigateTo('vault');
+
+    // Give the vault page a tick to render, then apply the filter
+    setTimeout(() => {
+        const searchInput = document.getElementById('vault-search');
+        if (searchInput) {
+            searchInput.value = term;
+        }
+        // renderVault is imported and called via navigateTo already — re-render with filter
+        if (window.renderVaultFiltered) {
+            window.renderVaultFiltered(term);
+        } else {
+            // Fallback: trigger input event so existing listeners pick it up
+            const event = new Event('input', { bubbles: true });
+            if (searchInput) searchInput.dispatchEvent(event);
+        }
+    }, 50);
+};
+
+/**
+ * Toggle expanding/collapsing of intro cards
+ */
+window.toggleIntro = (btn) => {
+    const section = btn.closest('section');
+    const introClass = Array.from(section.classList).find(c => c.endsWith('-intro'));
+    const storageKey = `is_collapsed_${introClass}`;
+
+    const isCollapsed = section.classList.toggle('is-collapsed');
+    localStorage.setItem(storageKey, isCollapsed ? 'true' : 'false');
+};
+
+/**
+ * Apply saved collapse states to all intro sections
+ */
+window.applyIntroStates = () => {
+    const introSections = document.querySelectorAll('[class$="-intro"]');
+    introSections.forEach(section => {
+        const introClass = Array.from(section.classList).find(c => c.endsWith('-intro'));
+        const storageKey = `is_collapsed_${introClass}`;
+        const savedState = localStorage.getItem(storageKey);
+        
+        if (savedState === 'true') {
+            section.classList.add('is-collapsed');
+        } else {
+            section.classList.remove('is-collapsed');
+        }
+    });
+};
 
 // Navigation bridge to specific kitchen items
 window.goToKitchenItem = (event, kitchenId) => {
@@ -66,10 +153,14 @@ window.goToKitchenItem = (event, kitchenId) => {
 
 // Initialisatie
 document.addEventListener('DOMContentLoaded', () => {
+    applyLanguage(); // Apply saved language
     renderFridgeCategories();
     initKitchenCarousels();
     initSettings(); // Authenticate and sync cloud data
-    // Removed navigation here to let splash screen determine destination
+    window.applyIntroStates(); // Sync collapsible intros
+    
+    // Pre-calculate the destination for a smooth transition
+    const getDestPromise = getInitialDestination();
 
     // Splash Screen Logic
     const splashScreen = document.getElementById('splash-screen');
@@ -96,15 +187,32 @@ document.addEventListener('DOMContentLoaded', () => {
         const newContent = originalContent.cloneNode(true);
         splashScreen.appendChild(newContent);
 
-        // 3. Lifecycle: Fade out after duration (using user's 3.2s tweak)
-        setTimeout(() => {
-            splashScreen.classList.add('hide');
-            // Clean up inline styles to let CSS transition take over
-            splashScreen.style.opacity = '';
-            splashScreen.style.visibility = '';
+        // 3. Lifecycle: Coordinate exit based on destination
+        setTimeout(async () => {
+            const dest = await getDestPromise;
             
-            // Integrated Auth Flow: Decide whether to go to Home or Login
-            checkInitialAuthFlow();
+            if (dest === 'auth') {
+                // Trigger Logo Up / Text Down animation
+                splashScreen.classList.add('exit-to-auth');
+                
+                // Navigate to auth (CSS will handle the rest)
+                setTimeout(() => {
+                    navigateTo('auth');
+                    splashScreen.classList.add('hide');
+                    splashScreen.classList.remove('exit-to-auth');
+                }, 800); // Duration of the "Logo Up" movement
+            } else {
+                // Standard fade out for Home
+                splashScreen.classList.add('hide');
+                navigateTo('home');
+            }
+
+            // Cleanup inline styles and remove from layout after fade
+            setTimeout(() => {
+                splashScreen.style.opacity = '';
+                splashScreen.style.visibility = '';
+                splashScreen.style.display = 'none'; // Fully remove from layout
+            }, 1000);
         }, 3200);
     };
 

@@ -14,8 +14,8 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--input-bg);
+    border: 1px solid var(--border-light);
     border-radius: 50px;
     padding: 5px;
     width: fit-content;
@@ -31,7 +31,7 @@
     border: none;
     border-radius: 50px;
     background: transparent;
-    color: rgba(255, 255, 255, 0.45);
+    color: var(--text-muted);
     font-size: 0.875rem;
     font-weight: 600;
     font-family: inherit;
@@ -49,7 +49,7 @@
 /* Active state — cocktail uses warm amber, mocktail uses fresh green */
 .mode-pill.active {
     background: linear-gradient(135deg, #ff9f1a 0%, #ffb347 100%);
-    color: #1a1a1a;
+    color: var(--bg-card);
     box-shadow:
         0 4px 14px rgba(255, 159, 26, 0.45),
         0 2px 6px rgba(0, 0, 0, 0.25);
@@ -61,15 +61,15 @@
 #fridge-pill-mocktail.active,
 #recipe-pill-mocktail.active {
     background: linear-gradient(135deg, #5cb85c 0%, #80d066 100%);
-    color: #fff;
+    color: var(--text-primary);
     box-shadow:
         0 4px 14px rgba(92, 184, 92, 0.4),
         0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
 .mode-pill:hover:not(.active) {
-    background: rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.75);
+    background: var(--glass-bg-subtle);
+    color: var(--text-primary);
 }
 
 .mode-pill:active {

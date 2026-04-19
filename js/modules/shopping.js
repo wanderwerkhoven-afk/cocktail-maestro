@@ -82,7 +82,7 @@ export function renderSmartRecommendation() {
                             </div>
                             <div class="bottle-info">
                                 <span class="bottle-name">${rec.name}</span>
-                                <span class="unlock-count">Unlocks ${rec.count} new cocktails!</span>
+                                <span class="unlock-count">${rec.isFallback ? `Used in ${rec.count} recipes` : `Unlocks ${rec.count} new cocktails!`}</span>
                             </div>
                             <button class="add-recommendation-btn" onclick="addToShoppingList(event, '${rec.name}')">
                                 <i class="fa-solid fa-cart-plus"></i> Add
@@ -90,7 +90,7 @@ export function renderSmartRecommendation() {
                         </div>
 
                         <div class="unlocked-carousel-container">
-                            <h4>Unlocks:</h4>
+                            <h4>${rec.isFallback ? 'Popular in:' : 'Unlocks:'}</h4>
                             <div class="mini-cocktail-list">
                                 ${rec.cocktails.map(c => `
                                     <div class="mini-cocktail-card">
@@ -151,18 +151,17 @@ function calculateSmartRecommendations() {
     const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
     const allCocktails = [...classicCocktails, ...myRecipes];
 
-    const missingMap = {};
+    let missingMap = {};
 
+    // First Pass: Find ingredients that directly unlock a cocktail
     allCocktails.forEach(cocktail => {
         const missing = cocktail.ingredients.filter(ing => {
             const nameToSearch = (typeof ing === 'object' ? ing.name : ing).toLowerCase().trim();
-            
             const isFound = Object.keys(myIngredients).some(mine => {
                 if (!myIngredients[mine]) return false;
                 const cleanMine = mine.toLowerCase().trim();
                 return nameToSearch.includes(cleanMine) || cleanMine.includes(nameToSearch);
             });
-
             return !isFound;
         });
 
@@ -177,7 +176,8 @@ function calculateSmartRecommendations() {
                     name: ingName,
                     category: ingCategory,
                     count: 0,
-                    cocktails: []
+                    cocktails: [],
+                    isFallback: false
                 };
             }
             missingMap[ingKey].count++;
@@ -188,8 +188,51 @@ function calculateSmartRecommendations() {
         }
     });
 
-    const recommendations = Object.values(missingMap).sort((a, b) => b.count - a.count);
+    let recommendations = Object.values(missingMap).sort((a, b) => b.count - a.count);
 
+    if (recommendations.length > 0) {
+        return recommendations.slice(0, 5);
+    }
+
+    // Fallback: Recommend the most popular missing ingredients overall
+    missingMap = {};
+
+    allCocktails.forEach(cocktail => {
+        const missing = cocktail.ingredients.filter(ing => {
+            const nameToSearch = (typeof ing === 'object' ? ing.name : ing).toLowerCase().trim();
+            const isFound = Object.keys(myIngredients).some(mine => {
+                if (!myIngredients[mine]) return false;
+                const cleanMine = mine.toLowerCase().trim();
+                return nameToSearch.includes(cleanMine) || cleanMine.includes(nameToSearch);
+            });
+            return !isFound;
+        });
+
+        missing.forEach(missingIng => {
+            const ingName = (typeof missingIng === 'object' ? missingIng.name : missingIng).trim();
+            const ingKey = ingName.toLowerCase();
+            const ingCategory = (typeof missingIng === 'object' ? missingIng.fridgeCategory : 'fresh');
+
+            if (!missingMap[ingKey]) {
+                missingMap[ingKey] = {
+                    name: ingName,
+                    category: ingCategory,
+                    count: 0,
+                    cocktails: [],
+                    isFallback: true
+                };
+            }
+            missingMap[ingKey].count++;
+            if (missingMap[ingKey].cocktails.length < 5) {
+                missingMap[ingKey].cocktails.push({
+                    name: cocktail.name,
+                    image: cocktail.image
+                });
+            }
+        });
+    });
+
+    recommendations = Object.values(missingMap).sort((a, b) => b.count - a.count);
     return recommendations.slice(0, 5);
 }
 

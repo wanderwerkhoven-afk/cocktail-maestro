@@ -117,9 +117,15 @@
                         <input type="email" class="auth-input" id="login-email" placeholder="Email Address" required>
                     </div>
                     <div class="auth-input-group">
-                        <input type="password" class="auth-input" id="login-password" placeholder="Password" required>
+                        <div class="password-wrapper">
+                            <input type="password" class="auth-input" id="login-password" placeholder="Password" required>
+                            <i class="fa-solid fa-eye toggle-password" onclick="togglePasswordVisibility('login-password', this)"></i>
+                        </div>
                     </div>
                     <div class="auth-error" id="login-error"></div>
+                    <div class="auth-helper-row">
+                        <span class="auth-link" onclick="handleForgotPassword()">Wachtwoord vergeten?</span>
+                    </div>
                     <button type="submit" class="auth-submit-btn">Login</button>
                 </form>
 
@@ -132,7 +138,10 @@
                         <input type="email" class="auth-input" id="signup-email" placeholder="Email Address" required>
                     </div>
                     <div class="auth-input-group">
-                        <input type="password" class="auth-input" id="signup-password" placeholder="Password (min. 6 chars)" required minlength="6">
+                        <div class="password-wrapper">
+                            <input type="password" class="auth-input" id="signup-password" placeholder="Password (min. 6 chars)" required minlength="6">
+                            <i class="fa-solid fa-eye toggle-password" onclick="togglePasswordVisibility('signup-password', this)"></i>
+                        </div>
                     </div>
                     <div class="auth-error" id="signup-error"></div>
                     <button type="submit" class="auth-submit-btn">Create Account</button>
@@ -156,14 +165,14 @@
 
         <!-- Top Bar (with settings button) -->
         <header class="top-bar">
-            <button class="settings-home-btn" onclick="navigateTo('settings')" title="Settings">
+            <button class="settings-home-btn" onclick="window.openSettingsModal()" title="Settings">
                 <i class="fa-solid fa-gear"></i>
             </button>
         </header>
 
         <!-- Hero Section -->
         <section class="hero">
-            <h2 class="brand-title">Cocktail <br> Maestro</h2>
+            <h2 class="brand-title">Cocktail Maestro</h2>
             <p class="subtitle">Discover, create, and master the art of cocktails</p>
         </section>
 
@@ -180,8 +189,8 @@
                     </svg>
                 </div>
                 <div class="card-text">
-                    <h3>Fridge</h3>
-                    <p>Manage your ingredients & find cocktails</p>
+                    <h3 data-i18n="fridge-title">Vul je Koelkast</h3>
+                    <p data-i18n="fridge-intro-text">Vink aan wat je in huis hebt...</p>
                 </div>
             </div>
 
@@ -190,8 +199,8 @@
                     <i class="fa-solid fa-wine-glass"></i>
                 </div>
                 <div class="card-text">
-                    <h3>Cocktail Vault</h3>
-                    <p>Browse classic cocktail recipes</p>
+                    <h3 data-i18n="vault-card-title">Cocktail Vault</h3>
+                    <p data-i18n="vault-card-sub">Browse classic cocktail recipes</p>
                 </div>
             </div>
 
@@ -200,8 +209,8 @@
                     <i class="fa-solid fa-book-open"></i>
                 </div>
                 <div class="card-text">
-                    <h3>Recipe Book</h3>
-                    <p>Your personal cocktail collection</p>
+                    <h3 data-i18n="recipes-title">Mijn Recepten</h3>
+                    <p data-i18n="recipes-intro-text">Creëer je eigen meesterwerken...</p>
                 </div>
             </div>
 
@@ -210,8 +219,8 @@
                     <i class="fa-solid fa-fire-burner"></i>
                 </div>
                 <div class="card-text">
-                    <h3>Kitchen</h3>
-                    <p>Make syrups, infusions & garnishes</p>
+                    <h3 data-i18n="kitchen-card-title">Kitchen</h3>
+                    <p data-i18n="kitchen-card-sub">Make syrups, infusions & garnishes</p>
                 </div>
             </div>
         </section>
@@ -338,7 +347,7 @@
                                 </defs>
 
                                 <!-- Glass Background -->
-                                <use href="#bottle-path" fill="#121212" stroke="#333" stroke-width="1.5" />
+                                <use href="#bottle-path" fill="var(--bg-card)" stroke="var(--border-strong)" stroke-width="1.5" />
 
                                 <!-- Liquid Group -->
                                 <g mask="url(#bottle-mask)">
@@ -377,7 +386,7 @@
                                     <g class="label-group">
                                         <rect x="26" y="131" width="48" height="33" rx="4" fill="black"
                                             fill-opacity="0.4" />
-                                        <rect x="25" y="130" width="48" height="33" rx="4" fill="#1a1a1a"
+                                        <rect x="25" y="130" width="48" height="33" rx="4" fill="var(--input-bg)"
                                             stroke="url(#gold-gradient)" stroke-width="1.2" />
                                         <text x="49" y="147" text-anchor="middle" fill="url(#gold-gradient)"
                                             font-weight="900" font-size="7.5"
@@ -395,7 +404,7 @@
                                 </g>
 
                                 <!-- Bottle Cap -->
-                                <path d="M37,5 L63,5 L64,15 L36,15 Z" fill="#222" stroke="#444" stroke-width="1" />
+                                <path d="M37,5 L63,5 L64,15 L36,15 Z" fill="var(--input-bg)" stroke="var(--border-strong)" stroke-width="1" />
                             </svg>
                         </div>
 
@@ -410,9 +419,6 @@
                 </div>
             </section>
         </div>
-
-        <!-- Divider streepje -->
-        <div class="home-divider"></div>
 
 
 
@@ -433,16 +439,12 @@
      ============================================================ -->
     <main id="fridge-page" class="page">
 
-        <!-- Top Bar & Back Button -->
-        <header class="top-bar">
-            <div class="header-flex">
-                <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
-                <h1>My Fridge</h1>
-            </div>
-        </header>
 
         <!-- Fridge Intro Header -->
         <section class="fridge-intro">
+            <button class="intro-collapse-btn" onclick="toggleIntro(this)" aria-label="Toggle Intro">
+                <i class="fa-solid fa-chevron-up"></i>
+            </button>
             <div class="fridge-intro-icon">
                 <i class="fa-solid fa-snowflake"></i>
             </div>
@@ -659,16 +661,12 @@
      ============================================================ -->
     <main id="vault-page" class="page">
 
-        <!-- Top Bar & Back Button -->
-        <header class="top-bar">
-            <div class="header-flex">
-                <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
-                <h1>Cocktail Vault</h1>
-            </div>
-        </header>
 
         <!-- Cocktail Vault Intro Header -->
         <section class="vault-intro">
+            <button class="intro-collapse-btn" onclick="toggleIntro(this)" aria-label="Toggle Intro">
+                <i class="fa-solid fa-chevron-up"></i>
+            </button>
             <div class="vault-intro-icon">
                 <i class="fa-solid fa-wine-glass"></i>
             </div>
@@ -721,17 +719,12 @@
      2.4  PAGE: RECIPE BOOK
      ============================================================ -->
     <main id="recipes-page" class="page">
-        <header class="top-bar">
-            <div class="header-flex">
-                <button class="back-btn" onclick="navigateTo('home')">
-                    <i class="fa-solid fa-chevron-left"></i>
-                </button>
-                <h1>My Recipes</h1>
-            </div>
-        </header>
 
         <!-- Recipe Book Intro Header -->
         <section class="recipes-intro">
+            <button class="intro-collapse-btn" onclick="toggleIntro(this)" aria-label="Toggle Intro">
+                <i class="fa-solid fa-chevron-up"></i>
+            </button>
             <div class="recipes-intro-icon">
                 <i class="fa-solid fa-book-open"></i>
             </div>
@@ -756,7 +749,7 @@
         <div id="recipe-form-overlay" class="form-overlay" style="display: none;">
             <div class="form-container">
                 <header class="form-header">
-                    <h2>New Recipe</h2>
+                    <h2 data-i18n="vault-title">The Vault</h2>
                     <button class="close-btn" onclick="closeRecipeForm()">&times;</button>
                 </header>
 
@@ -837,9 +830,13 @@
                     </div>
 
                     <div class="input-group">
-                        <label>Instructions</label>
-                        <textarea id="recipe-desc" rows="3"
-                            placeholder="bijv. Shake alle ingrediënten krachtig met ijs en serveer in een koud glas."></textarea>
+                        <label>Instructions / Steps</label>
+                        <div id="instruction-steps-container">
+                            <!-- Dynamically filled Step rows -->
+                        </div>
+                        <button class="add-line-btn" type="button" onclick="window.addInstructionRow()">
+                            <i class="fa-solid fa-plus"></i> Add Step
+                        </button>
                     </div>
 
                     <button class="save-btn" onclick="saveNewRecipe()">
@@ -852,78 +849,221 @@
     <!-- ============================================================
      END PAGE: RECIPE BOOK
      ============================================================ -->
+    <!-- ============================================================
+     2.5  MODAL: SETTINGS
+     ============================================================ -->
+    <div id="settings-modal" class="modal-overlay">
+        <div class="modal-content card-centered-modal">
+            <button class="close-modal" onclick="window.closeSettingsModal()">&times;</button>
+            
+            <section class="settings-container-modal">
+                <h2 class="modal-title-alt">Settings</h2>
+                <!-- Account Section -->
+                <div class="account-profile-card" id="account-status-card">
+                    <div class="profile-avatar-large">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="profile-info" id="profile-info-content">
+                        <h2>Guest Account</h2>
+                        <p>Log in to sync your bar to the cloud</p>
+                        <button class="settings-auth-btn" onclick="navigateTo('auth')">Log In / Sign Up</button>
+                    </div>
+                </div>
+
+                <!-- App Settings -->
+                <div class="settings-group">
+                    <h3 data-i18n="settings-prefs">App Preferences</h3>
+                    <div class="settings-list">
+                        <!-- Language Selector (Accordion style) -->
+                        <div class="settings-item-trigger" onclick="window.toggleLanguageList()">
+                            <i class="fa-solid fa-language"></i>
+                            <span data-i18n="settings-lang">Language</span>
+                            <div class="current-selection-box">
+                                <span id="current-lang-display">🇳🇱 NL</span>
+                                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                            </div>
+                        </div>
+                        <div id="language-dropdown" class="settings-dropdown-content">
+                            <div class="lang-item" onclick="window.changeLanguage('nl')" data-lang="nl">
+                                <span class="flag">🇳🇱</span>
+                                <span class="lang-name">Nederlands</span>
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </div>
+                            <div class="lang-item" onclick="window.changeLanguage('en')" data-lang="en">
+                                <span class="flag">🇬🇧</span>
+                                <span class="lang-name">English</span>
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </div>
+                        </div>
+
+                        <!-- Measuring Unit Selector -->
+                        <div class="settings-item-trigger no-border-top" onclick="window.toggleUnitList()">
+                            <i class="fa-solid fa-vial"></i>
+                            <span data-i18n="settings-units">Measuring Units</span>
+                            <div class="current-selection-box">
+                                <span id="current-unit-display" style="color: #888; font-size: 0.95rem;">ml</span>
+                                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                            </div>
+                        </div>
+                        <div id="unit-dropdown" class="settings-dropdown-content">
+                            <div class="lang-item unit-item active" onclick="window.changeUnit('ml')" data-unit="ml">
+                                <span class="lang-name">Milliliters (ml)</span>
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </div>
+                            <div class="lang-item unit-item" onclick="window.changeUnit('oz')" data-unit="oz">
+                                <span class="lang-name">Ounces (oz)</span>
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </div>
+                            <div class="lang-item unit-item" onclick="window.changeUnit('parts')" data-unit="parts">
+                                <span class="lang-name">Parts</span>
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Theme Selector -->
+                        <div class="settings-item-trigger no-border-top" onclick="window.toggleThemeList()">
+                            <i class="fa-solid fa-palette"></i>
+                            <span data-i18n="settings-theme">Theme</span>
+                            <div class="current-selection-box">
+                                <span id="current-theme-display" style="color: #888; font-size: 0.95rem;">Dark</span>
+                                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                            </div>
+                        </div>
+                        <div id="theme-dropdown" class="settings-dropdown-content">
+                            <div class="lang-item theme-item active" onclick="window.changeTheme('dark')" data-theme-val="dark">
+                                <div class="theme-preview" style="background: #1e1e1e;"></div>
+                                <span class="lang-name" data-i18n="theme-dark">Dark</span>
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </div>
+                            <div class="lang-item theme-item" onclick="window.changeTheme('light')" data-theme-val="light">
+                                <div class="theme-preview" style="background: #ffffff;"></div>
+                                <span class="lang-name" data-i18n="theme-light">Light</span>
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </div>
+                            <div class="lang-item theme-item" onclick="window.changeTheme('auto')" data-theme-val="auto">
+                                <div class="theme-preview" style="background: linear-gradient(135deg, #1e1e1e 50%, #ffffff 50%);"></div>
+                                <span class="lang-name" data-i18n="theme-auto">Auto (System)</span>
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </div>
+                            <!-- Premium Themes -->
+                            <div class="lang-item theme-item" onclick="window.changeTheme('sapphire')" data-theme-val="sapphire">
+                                <div class="theme-preview" style="background: #00d2ff;"></div>
+                                <span class="lang-name">Midnight Sapphire</span>
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </div>
+                            <div class="lang-item theme-item" onclick="window.changeTheme('emerald')" data-theme-val="emerald">
+                                <div class="theme-preview" style="background: #2ecc71;"></div>
+                                <span class="lang-name">Emerald Garden</span>
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </div>
+                            <div class="lang-item theme-item" onclick="window.changeTheme('velvet')" data-theme-val="velvet">
+                                <div class="theme-preview" style="background: #ff4d4d;"></div>
+                                <span class="lang-name">Velvet Rosso</span>
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </div>
+                            <div class="lang-item theme-item" onclick="window.changeTheme('tropical')" data-theme-val="tropical">
+                                <div class="theme-preview" style="background: #ffd32a;"></div>
+                                <span class="lang-name">Tropical Sunset</span>
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </div>
+                            <div class="lang-item theme-item" onclick="window.changeTheme('espresso')" data-theme-val="espresso">
+                                <div class="theme-preview" style="background: #d2b48c;"></div>
+                                <span class="lang-name">Espresso Roast</span>
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Legal & Support -->
+                <div class="settings-group">
+                    <h3 data-i18n="settings-legal">Legal & Support</h3>
+                    <div class="settings-list">
+                        <div class="settings-item" onclick="window.openTermsModal()">
+                            <i class="fa-solid fa-file-shield"></i>
+                            <span data-i18n="settings-terms">Terms of Service</span>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                        <div class="settings-item" onclick="window.openPrivacyModal()">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span data-i18n="settings-privacy">Privacy Policy</span>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="logout-btn-container" id="logout-section" style="display: none;">
+                    <button class="logout-full-btn" onclick="handleLogout()">
+                        <i class="fa-solid fa-right-from-bracket"></i> Logout
+                    </button>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- ============================================================
+     END MODAL: SETTINGS
+     ============================================================ -->
 
     <!-- ============================================================
-     2.5  PAGE: SETTINGS
+     MODAL: TERMS OF SERVICE
      ============================================================ -->
-    <main id="settings-page" class="page">
-        <header class="top-bar">
-            <div class="header-flex">
-                <button class="back-btn" onclick="navigateTo('home')">
-                    <i class="fa-solid fa-chevron-left"></i>
-                </button>
-                <h1>Settings</h1>
-            </div>
-        </header>
-
-        <section class="settings-container">
-            <!-- Account Section -->
-            <div class="account-profile-card" id="account-status-card">
-                <div class="profile-avatar-large">
-                    <i class="fa-solid fa-user"></i>
+    <div id="terms-modal" class="modal-overlay">
+        <div class="modal-content card-centered-modal legal-document-modal">
+            <button class="close-modal" onclick="window.closeTermsModal()">&times;</button>
+            <section class="legal-content">
+                <i class="fa-solid fa-scale-balanced legal-icon"></i>
+                <h2 class="modal-title-alt" data-i18n="terms-title">Terms of Service</h2>
+                <div class="legal-text-body">
+                    <p data-i18n="terms-intro">Welcome to Cocktail Maestro...</p>
+                    
+                    <h3 data-i18n="terms-h1">1. Age Restriction</h3>
+                    <p data-i18n="terms-p1">...</p>
+                    
+                    <h3 data-i18n="terms-h2">2. Educational Purpose</h3>
+                    <p data-i18n="terms-p2">...</p>
+                    
+                    <h3 data-i18n="terms-h3">3. Health & Safety</h3>
+                    <p data-i18n="terms-p3">...</p>
+                    
+                    <h3 data-i18n="terms-h4">4. User Data</h3>
+                    <p data-i18n="terms-p4">...</p>
                 </div>
-                <div class="profile-info" id="profile-info-content">
-                    <h2>Guest Account</h2>
-                    <p>Log in to sync your bar to the cloud</p>
-                    <button class="settings-auth-btn" onclick="openAuthModal()">Log In / Sign Up</button>
+                <button class="settings-auth-btn" style="width: 100%; margin-top: 20px;" onclick="window.closeTermsModal()" data-i18n="terms-close-btn">I Understand</button>
+            </section>
+        </div>
+    </div>
+    <!-- ============================================================
+     END MODAL: TERMS
+     ============================================================ -->
+
+    <!-- ============================================================
+     MODAL: PRIVACY POLICY
+     ============================================================ -->
+    <div id="privacy-modal" class="modal-overlay">
+        <div class="modal-content card-centered-modal legal-document-modal">
+            <button class="close-modal" onclick="window.closePrivacyModal()">&times;</button>
+            <section class="legal-content">
+                <i class="fa-solid fa-cookie-bite legal-icon"></i>
+                <h2 class="modal-title-alt" data-i18n="privacy-title">Privacy Policy</h2>
+                <div class="legal-text-body">
+                    <p data-i18n="privacy-intro">We value your privacy...</p>
+                    
+                    <h3 data-i18n="privacy-h1">1. Data Collection</h3>
+                    <p data-i18n="privacy-p1">...</p>
+                    
+                    <h3 data-i18n="privacy-h2">2. Local Storage</h3>
+                    <p data-i18n="privacy-p2">...</p>
+                    
+                    <h3 data-i18n="privacy-h3">3. No Commercial Sale</h3>
+                    <p data-i18n="privacy-p3">...</p>
                 </div>
-            </div>
-
-            <!-- App Settings -->
-            <div class="settings-group">
-                <h3>App Preferences</h3>
-                <div class="settings-list">
-                    <div class="settings-item">
-                        <i class="fa-solid fa-vial"></i>
-                        <span>Measuring Units (ml)</span>
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Legal & Support -->
-            <div class="settings-group">
-                <h3>Legal & Support</h3>
-                <div class="settings-list">
-                    <div class="settings-item" onclick="showTerms()">
-                        <i class="fa-solid fa-file-shield"></i>
-                        <span>Terms of Service</span>
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </div>
-                    <div class="settings-item">
-                        <i class="fa-solid fa-circle-info"></i>
-                        <span>Privacy Policy</span>
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </div>
-                    <div class="settings-item">
-                        <i class="fa-solid fa-star"></i>
-                        <span>Rate Cocktail Maestro</span>
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="logout-btn-container" id="logout-section" style="display: none;">
-                <button class="logout-full-btn" onclick="handleLogout()">
-                    <i class="fa-solid fa-right-from-bracket"></i> Logout
-                </button>
-            </div>
-        </section>
-    </main>
-
-
-
-
+                <button class="settings-auth-btn" style="width: 100%; margin-top: 20px;" onclick="window.closePrivacyModal()" data-i18n="privacy-close-btn">Close</button>
+            </section>
+        </div>
+    </div>
+    <!-- ============================================================
+     END MODAL: PRIVACY POLICY
+     ============================================================ -->
 
 
 
@@ -934,18 +1074,14 @@
      ============================================================ -->
     <main id="shopping-page" class="page">
 
-        <!-- Top Bar, Back Button & Clear Button -->
-        <header class="top-bar">
-            <div class="header-flex">
-                <button class="back-btn" onclick="navigateTo('home')"><i class="fa-solid fa-chevron-left"></i></button>
-                <h1>Shopping List</h1>
-            </div>
-        </header>
 
         <div class="shopping-container">
 
             <!-- Shopping Intro Header -->
             <section class="shopping-intro">
+                <button class="intro-collapse-btn" onclick="toggleIntro(this)" aria-label="Toggle Intro">
+                    <i class="fa-solid fa-chevron-up"></i>
+                </button>
                 <div class="shopping-intro-icon">
                     <i class="fa-solid fa-cart-shopping"></i>
                 </div>
@@ -1009,18 +1145,12 @@
      2.7  PAGE: KITCHEN
      ============================================================ -->
     <main id="kitchen-page" class="page">
-        <!-- Top Bar & Back Button -->
-        <header class="top-bar">
-            <div class="header-flex">
-                <button class="back-btn" onclick="navigateTo('home')">
-                    <i class="fa-solid fa-chevron-left"></i>
-                </button>
-                <h1>Kitchen</h1>
-            </div>
-        </header>
 
         <!-- Kitchen Intro Header -->
         <section class="kitchen-intro">
+            <button class="intro-collapse-btn" onclick="toggleIntro(this)" aria-label="Toggle Intro">
+                <i class="fa-solid fa-chevron-up"></i>
+            </button>
             <div class="kitchen-intro-icon">
                 <i class="fa-solid fa-fire-burner"></i>
             </div>
@@ -1105,27 +1235,27 @@
     <nav class="bottom-nav">
         <div class="nav-item active" id="nav-home" onclick="navigateTo('home')">
             <i class="fa-solid fa-house"></i>
-            <span>Home</span>
+            <span data-i18n="nav-home">Home</span>
         </div>
         <div class="nav-item" id="nav-fridge" onclick="navigateTo('fridge')">
             <i class="fa-solid fa-box-archive"></i>
-            <span>Fridge</span>
+            <span data-i18n="nav-fridge">Koelkast</span>
         </div>
         <div class="nav-item" id="nav-vault" onclick="navigateTo('vault')">
             <i class="fa-solid fa-wine-glass-empty"></i>
-            <span>Vault</span>
+            <span data-i18n="nav-vault">The Vault</span>
         </div>
         <div class="nav-item" id="nav-recipes" onclick="navigateTo('recipes')">
             <i class="fa-solid fa-book"></i>
-            <span>Recipes</span>
+            <span data-i18n="nav-recipes">Recepten</span>
         </div>
         <div class="nav-item" id="nav-kitchen" onclick="navigateTo('kitchen')">
             <i class="fa-solid fa-utensils"></i>
-            <span>Kitchen</span>
+            <span data-i18n="nav-kitchen">Keuken</span>
         </div>
         <div class="nav-item" id="nav-shopping" onclick="navigateTo('shopping')">
             <i class="fa-solid fa-cart-shopping"></i>
-            <span>Shopping</span>
+            <span data-i18n="nav-shopping">Winkelen</span>
         </div>
     </nav>
     <!-- ============================================================

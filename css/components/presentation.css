@@ -5,7 +5,7 @@
 .cocktail-presentation {
     display: flex;
     flex-direction: column;
-    background: #1e1e1e;
+    background: var(--bg-card);
     border-radius: 25px;
     overflow: hidden;
     width: 100%;
@@ -54,7 +54,7 @@
 }
 
 .presentation-desc {
-    color: #a0a0a0;
+    color: var(--text-muted);
     font-size: 0.95rem;
     line-height: 1.5;
     margin: 15px 0 20px 0;
@@ -62,14 +62,14 @@
 
 .presentation-ingredients {
     text-align: left;
-    background: rgba(0,0,0,0.2);
+    background: var(--glass-bg-subtle);
     padding: 20px;
     border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid var(--border-light);
 }
 
 .presentation-ingredients h3 {
-    color: #fff;
+    color: var(--text-primary);
     font-size: 1.1rem;
     font-weight: 700;
     margin-bottom: 12px;
@@ -87,7 +87,7 @@
 }
 
 .presentation-list li {
-    color: #ccc;
+    color: var(--text-secondary);
     font-size: 0.85rem;
     display: flex;
     align-items: center;

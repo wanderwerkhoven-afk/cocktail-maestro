@@ -4,9 +4,10 @@
 
 /* ---------- Recipes Intro Tile ---------- */
 .recipes-intro {
-    background: linear-gradient(145deg, rgba(30, 30, 30, 0.7), rgba(18, 18, 18, 0.9));
+    background: var(--bg-card-gradient);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-light);
     border-radius: 12px;
     padding: 2rem 1.5rem;
     margin: 1.5rem 1rem 2rem 1rem;
@@ -38,7 +39,7 @@
 }
 
 .recipes-intro h2 {
-    color: #ffffff;
+    color: var(--text-primary);
     font-size: 1.8rem;
     margin-bottom: 1rem;
     position: relative;
@@ -47,7 +48,7 @@
 }
 
 .recipes-intro p {
-    color: #cccccc;
+    color: var(--text-secondary);
     font-size: 1.05rem;
     line-height: 1.6;
     margin-bottom: 1.5rem;
@@ -59,7 +60,7 @@
     display: inline-flex;
     align-items: flex-start;
     gap: 10px;
-    background: rgba(255, 179, 71, 0.1);
+    background: var(--icon-bg);
     padding: 1rem;
     border-radius: 8px;
     border-left: 3px solid #ffb347;
@@ -75,7 +76,7 @@
 }
 
 .recipes-intro-note span {
-    color: #e0e0e0;
+    color: var(--text-secondary);
     font-size: 0.95rem;
     line-height: 1.5;
 }
@@ -89,7 +90,7 @@
     height: 40px;
     border-radius: 50%;
     background: linear-gradient(135deg, #ffb347, #ff4757);
-    color: #121212;
+    color: var(--bg-body);
     border: none;
     font-size: 1.8rem;
     display: flex;
@@ -100,7 +101,6 @@
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
 }
-
 #my-recipes-grid {
     padding: 20px;
     display: grid;
@@ -135,7 +135,7 @@
 }
 
 .form-container {
-    background-color: #121212;
+    background-color: var(--bg-body);
     width: 100%;
     max-width: 500px;
     border-radius: 32px;
@@ -150,8 +150,8 @@
     /* Larger square */
     aspect-ratio: 4.4 / 4.4;
     /* Specific 4.4x4.4 ratio requested */
-    background-color: #1E1E1E;
-    border: 2px dashed #333;
+    background-color: var(--bg-card);
+    border: 2px dashed var(--border-strong);
     border-radius: 20px;
     display: flex;
     justify-content: center;
@@ -174,7 +174,7 @@
     align-items: center;
     justify-content: center;
     gap: 14px;
-    color: #999;
+    color: var(--text-muted);
     transition: color 0.2s ease;
     text-align: center;
 }
@@ -243,7 +243,7 @@
 
 .remove-ingredient-btn:hover {
     background: #ff4757;
-    color: #fff;
+    color: var(--text-primary);
 }
 
 .input-group {
@@ -266,11 +266,11 @@
 
 .input-group input {
     width: 100%;
-    background: #1a1a1a;
-    border: 1.5px solid #2a2a2a;
+    background: var(--bg-card);
+    border: 1.5px solid var(--border-strong);
     border-radius: 12px;
     padding: 12px 16px;
-    color: #fff;
+    color: var(--text-primary);
     font-size: 0.95rem;
     font-family: inherit;
     box-sizing: border-box;
@@ -290,7 +290,7 @@
 
 .save-btn {
     background: linear-gradient(135deg, #ffb347, #ff4757);
-    color: #121212;
+    color: var(--bg-body);
     border: none;
     padding: 18px;
     border-radius: 20px;
@@ -345,15 +345,15 @@
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    background: linear-gradient(to right, #ffffff, #fc9505);
+    background: var(--title-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
 .close-btn {
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    background: var(--glass-bg-hover);
+    color: var(--text-primary);
     border: none;
     width: 36px;
     height: 36px;
@@ -373,11 +373,11 @@
 
 .input-group textarea {
     width: 100%;
-    background: #1a1a1a;
-    border: 1.5px solid #2a2a2a;
+    background: var(--bg-card);
+    border: 1.5px solid var(--border-strong);
     border-radius: 12px;
     padding: 12px 16px;
-    color: #fff;
+    color: var(--text-primary);
     font-size: 0.95rem;
     font-family: inherit;
     box-sizing: border-box;
@@ -396,4 +396,51 @@
     outline: none;
     border-color: #ffb347;
     box-shadow: 0 0 0 4px rgba(255, 179, 71, 0.1);
+}
+
+/* Dynamic Instruction Steps */
+.instruction-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.step-label {
+    min-width: 65px;
+    padding-top: 10px;
+    color: #ffb347;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.instruction-row textarea {
+    flex: 1;
+    min-height: 45px !important; /* Smaller initial height for steps */
+    height: auto;
+    padding: 10px 12px !important;
+}
+
+.remove-step-btn {
+    background: rgba(255, 71, 87, 0.1);
+    color: #ff4757;
+    border: 1px solid rgba(255, 71, 87, 0.2);
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6px;
+    transition: all 0.2s ease;
+}
+
+.remove-step-btn:hover {
+    background: #ff4757;
+    color: var(--text-primary);
+    border-color: #ff4757;
 }

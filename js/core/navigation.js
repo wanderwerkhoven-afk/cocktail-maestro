@@ -39,4 +39,7 @@ export function navigateTo(pageId) {
     if (pageId === 'vault') renderVault();
     if (pageId === 'shopping') renderShoppingList();
     if (pageId === 'recipes') renderMyRecipes();
+
+    // Sync collapsible intro states
+    if (window.applyIntroStates) window.applyIntroStates();
 }

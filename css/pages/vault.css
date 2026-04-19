@@ -4,9 +4,10 @@
 
 /* ---------- Vault Intro Tile ---------- */
 .vault-intro {
-    background: linear-gradient(145deg, rgba(30, 30, 30, 0.7), rgba(18, 18, 18, 0.9));
+    background: var(--bg-card-gradient);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-light);
     border-radius: 12px;
     padding: 2rem 1.5rem;
     margin: 1.5rem 1rem 2rem 1rem;
@@ -38,7 +39,7 @@
 }
 
 .vault-intro h2 {
-    color: #ffffff;
+    color: var(--text-primary);
     font-size: 1.8rem;
     margin-bottom: 1rem;
     position: relative;
@@ -47,7 +48,7 @@
 }
 
 .vault-intro p {
-    color: #cccccc;
+    color: var(--text-secondary);
     font-size: 1.05rem;
     line-height: 1.6;
     margin-bottom: 1.5rem;
@@ -59,7 +60,7 @@
     display: inline-flex;
     align-items: flex-start;
     gap: 10px;
-    background: rgba(255, 179, 71, 0.1);
+    background: var(--icon-bg);
     padding: 1rem;
     border-radius: 8px;
     border-left: 3px solid #ffb347;
@@ -75,7 +76,7 @@
 }
 
 .vault-intro-note span {
-    color: #e0e0e0;
+    color: var(--text-secondary);
     font-size: 0.95rem;
     line-height: 1.5;
 }
@@ -86,19 +87,19 @@
 }
 
 .search-bar {
-    background-color: #1E1E1E;
+    background-color: var(--bg-card);
     border-radius: 12px;
     padding: 12px 15px;
     display: flex;
     align-items: center;
     gap: 12px;
-    border: 1px solid #333;
+    border: 1px solid var(--border-light);
 }
 
 .search-bar input {
     background: none;
     border: none;
-    color: white;
+    color: var(--text-primary);
     width: 100%;
     font-size: 1rem;
     outline: none;

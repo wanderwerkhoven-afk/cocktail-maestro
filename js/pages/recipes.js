@@ -14,7 +14,6 @@ export function openRecipeForm() {
     if (document.getElementById('recipe-glassware')) document.getElementById('recipe-glassware').value = "";
     if (document.getElementById('recipe-ice')) document.getElementById('recipe-ice').value = "";
     document.getElementById('recipe-method').value = "";
-    document.getElementById('recipe-desc').value = "";
 
     // 3. Reset de afbeelding preview
     const display = document.getElementById('image-preview-display');
@@ -29,7 +28,14 @@ export function openRecipeForm() {
     container.innerHTML = "";
     addIngredientRow();
 
-    // 5. Update suggesties en toon overlay
+    // 5. Reset de instructies naar 1 lege rij
+    const stepContainer = document.getElementById('instruction-steps-container');
+    if (stepContainer) {
+        stepContainer.innerHTML = "";
+        addInstructionRow();
+    }
+
+    // 6. Update suggesties en toon overlay
     window.updateIngredientSuggestions();
     document.getElementById('recipe-form-overlay').style.display = 'flex';
 }
@@ -63,7 +69,6 @@ export function addIngredientRow(amount = '', unit = '', name = '') {
 
 export function removeIngredientRow(btn) {
     const container = document.getElementById('ingredient-inputs-container');
-    // Voorkom dat de allerlaatste rij verwijderd wordt als er maar één is
     if (container.querySelectorAll('.ingredient-row').length > 1) {
         const row = btn.parentElement;
         row.style.opacity = '0';
@@ -71,10 +76,48 @@ export function removeIngredientRow(btn) {
         row.style.transition = 'all 0.3s ease';
         setTimeout(() => row.remove(), 300);
     } else {
-        // Als het de laatste rij is, maak hem alleen leeg
         const row = btn.parentElement;
         row.querySelectorAll('input').forEach(input => input.value = "");
     }
+}
+
+export function addInstructionRow(content = '') {
+    const container = document.getElementById('instruction-steps-container');
+    if (!container) return;
+
+    const row = document.createElement('div');
+    row.className = 'instruction-row';
+    
+    row.innerHTML = `
+        <div class="step-label">Step ${container.children.length + 1}</div>
+        <textarea placeholder="bijv. Shake alle ingrediënten..." oninput="window.checkStepTyping(this)">${content}</textarea>
+        <button type="button" class="remove-step-btn" onclick="window.removeInstructionRow(this)">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    `;
+    
+    container.appendChild(row);
+    updateInstructionNumbers();
+}
+
+export function removeInstructionRow(btn) {
+    const container = document.getElementById('instruction-steps-container');
+    if (container.querySelectorAll('.instruction-row').length > 1) {
+        const row = btn.parentElement;
+        row.remove();
+        updateInstructionNumbers();
+    } else {
+        const row = btn.parentElement;
+        row.querySelector('textarea').value = "";
+    }
+}
+
+function updateInstructionNumbers() {
+    const container = document.getElementById('instruction-steps-container');
+    const rows = container.querySelectorAll('.instruction-row');
+    rows.forEach((row, index) => {
+        row.querySelector('.step-label').innerText = `Step ${index + 1}`;
+    });
 }
 
 export function previewImage(event) {
@@ -154,7 +197,7 @@ export function saveNewRecipe() {
         ice: document.getElementById('recipe-ice')?.value || "None",
         ingredients: ingredients,
         method: document.getElementById('recipe-method').value || "Not specified",
-        methodDesc: document.getElementById('recipe-desc').value || "No description provided.",
+        methodDesc: getInstructionsFromForm(),
         image: currentImageBase64 || "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=400&h=400&auto=format&fit=crop"
     };
 
@@ -188,7 +231,7 @@ export function updateRecipe(id) {
         ice: document.getElementById('recipe-ice')?.value || "None",
         ingredients: ingredients,
         method: document.getElementById('recipe-method').value,
-        methodDesc: document.getElementById('recipe-desc').value,
+        methodDesc: getInstructionsFromForm(),
         image: currentImageBase64
     };
 
@@ -212,6 +255,17 @@ function getIngredientsFromForm() {
         }
     });
     return ingredients;
+}
+
+function getInstructionsFromForm() {
+    const container = document.getElementById('instruction-steps-container');
+    const steps = [];
+    container.querySelectorAll('textarea').forEach(tx => {
+        if (tx.value.trim() !== "") {
+            steps.push(tx.value.trim());
+        }
+    });
+    return steps;
 }
 
 function finalizeSubmit(message) {
@@ -264,7 +318,16 @@ export function editRecipe(id) {
     if (document.getElementById('recipe-glassware')) document.getElementById('recipe-glassware').value = cocktail.glassware || "";
     if (document.getElementById('recipe-ice')) document.getElementById('recipe-ice').value = cocktail.ice || "";
     document.getElementById('recipe-method').value = cocktail.method;
-    document.getElementById('recipe-desc').value = cocktail.methodDesc;
+    
+    // Populate instructions
+    const stepContainer = document.getElementById('instruction-steps-container');
+    stepContainer.innerHTML = '';
+    if (Array.isArray(cocktail.methodDesc)) {
+        cocktail.methodDesc.forEach(step => addInstructionRow(step));
+    } else {
+        // Fallback for legacy string format
+        addInstructionRow(cocktail.methodDesc || "");
+    }
 
     const display = document.getElementById('image-preview-display');
     const placeholder = document.getElementById('image-preview-placeholder');
@@ -303,6 +366,18 @@ export function checkRowTyping(inputElement) {
         if (row === container.lastElementChild) addIngredientRow();
     } else {
         row.classList.remove('is-typing');
+    }
+}
+
+export function checkStepTyping(textarea) {
+    const container = document.getElementById('instruction-steps-container');
+    const rows = container.querySelectorAll('.instruction-row');
+    const row = textarea.closest('.instruction-row');
+    
+    if (textarea.value.trim().length > 0) {
+        if (row === rows[rows.length - 1]) {
+            addInstructionRow();
+        }
     }
 }
 

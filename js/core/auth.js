@@ -3,7 +3,8 @@ import {
     createUserWithEmailAndPassword, 
     signOut, 
     onAuthStateChanged,
-    updateProfile
+    updateProfile,
+    sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-auth.js";
 import { 
     doc, 
@@ -62,6 +63,19 @@ export async function logoutUser() {
         return { success: true };
     } catch (error) {
         console.error("Logout error:", error);
+        return { success: false, error: error.message };
+    }
+}
+
+/**
+ * Send password reset email
+ */
+export async function sendPasswordReset(email) {
+    try {
+        await sendPasswordResetEmail(auth, email);
+        return { success: true };
+    } catch (error) {
+        console.error("Reset error:", error);
         return { success: false, error: error.message };
     }
 }

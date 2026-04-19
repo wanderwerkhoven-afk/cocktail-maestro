@@ -61,9 +61,19 @@ export function createCocktailCardHTML(cocktail, options = {}) {
 
     // Internal helper for amount display
     function amountPart(ing) {
-        if (typeof ing === 'object' && ing.amount !== undefined) {
+        if (typeof ing !== 'object') return '';
+
+        const hasAmount = ing.amount && !isNaN(ing.amount);
+        const hasUnit = ing.unit && ing.unit.trim() !== "";
+
+        if (hasAmount && hasUnit) {
             return `<b class="amount">${ing.amount}</b> <b class="unit">${ing.unit}</b>`;
+        } else if (hasAmount) {
+            return `<b class="amount">${ing.amount}</b>`;
+        } else if (hasUnit) {
+            return `<b class="unit">${ing.unit}</b>`;
         }
+
         return '';
     }
 
@@ -134,7 +144,15 @@ export function createCocktailCardHTML(cocktail, options = {}) {
 
                     <div class="method-section">
                         <strong>Method: ${cocktail.method}</strong>
-                        <p class="method-text">${cocktail.methodDesc}</p>
+                        <div class="method-text">
+                            ${Array.isArray(cocktail.methodDesc) 
+                                ? cocktail.methodDesc.map((step, i) => `
+                                    <div class="method-step">
+                                        <span class="step-num">Step ${i+1}:</span> ${step}
+                                    </div>`).join('')
+                                : cocktail.methodDesc || "No description provided."
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
