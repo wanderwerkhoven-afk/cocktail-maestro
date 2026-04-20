@@ -484,17 +484,57 @@
         grid-template-columns: 1fr;
     }
     .immersive-details-container {
-        padding: 40px 20px;
+        padding: 40px 25px;
     }
     .image-area {
         order: -1;
         justify-content: center;
     }
     .info-card {
-        padding: 30px;
+        padding: 35px;
     }
     .step-label {
         min-width: 70px;
+    }
+}
+
+@media (max-width: 600px) {
+    .immersive-recipe-container {
+        padding: 40px 10px;
+    }
+    .info-card {
+        padding: 25px;
+    }
+    .immersive-title {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+    .immersive-tags {
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+    .immersive-description {
+        font-size: 1.1rem;
+        margin-bottom: 25px;
+    }
+    .immersive-details-container {
+        padding: 30px 15px;
+    }
+    .details-split-grid {
+        gap: 35px;
+    }
+    .imm-ingredients-dark-box {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+    .immersive-ing-list li {
+        font-size: 1.1rem;
+    }
+    .immersive-step p {
+        font-size: 1.1rem;
+    }
+    .imm-section-title {
+        margin-bottom: 20px;
     }
 }
 
