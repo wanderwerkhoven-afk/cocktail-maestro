@@ -447,3 +447,40 @@ export function updateImmersiveServings(e, id, change) {
         return `<li><span class="ing-amt">${amountHTML}</span> <span class="ing-name">${name}</span></li>`;
     }).join('');
 }
+
+export function updateSearchClearButton(input) {
+    const wrapper = input.closest('.universal-search-wrapper, .category-search-wrapper, .search-bar');
+    if (!wrapper) return;
+    
+    const clearBtn = wrapper.querySelector('.clear-search-btn');
+    
+    if (input.value.trim() !== '') {
+        if (clearBtn) clearBtn.style.display = 'block';
+    } else {
+        if (clearBtn) clearBtn.style.display = 'none';
+    }
+}
+
+export function clearSearch(btn) {
+    const wrapper = btn.closest('.universal-search-wrapper, .category-search-wrapper, .search-bar');
+    if (!wrapper) return;
+    
+    const input = wrapper.querySelector('input');
+    if (!input) return;
+    
+    input.value = '';
+    
+    // Trigger the filtering logic based on the input id or class
+    if (input.id === 'vaultSearch') {
+        window.renderVault('');
+    } else if (input.id === 'universal-fridge-search') {
+        window.filterAllIngredients('');
+    } else if (input.classList.contains('category-search-input')) {
+        window.filterCategoryList(input);
+    } else if (input.id === 'kitchenSearch') {
+        window.filterKitchen('');
+    }
+    
+    updateSearchClearButton(input);
+    input.focus();
+}

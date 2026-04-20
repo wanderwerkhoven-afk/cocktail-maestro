@@ -5,7 +5,7 @@ import { renderVault, downloadRecipe, updateServings } from './pages/vault.js';
 import { openRecipeForm, closeRecipeForm, addIngredientRow, removeIngredientRow, addInstructionRow, removeInstructionRow, previewImage, saveNewRecipe, updateRecipe, editRecipe, deleteRecipe, checkRowTyping, checkStepTyping, renderMyRecipes, setRecipeMode } from './pages/recipes.js';
 import { toggleCategory, filterCategoryList, filterAllIngredients, updateFridge, syncCheckboxes, checkMatches, calculateBarProgress, renderFridgeCategories } from './modules/fridge.js';
 import { shakeForCocktail, closeShakeModal, toggleRandomizerFullscreen } from './modules/randomizer.js';
-import { handleCardClick, showToast, createCocktailCardHTML, updateCarouselDots, enlargeRecipe, closeImmersiveRecipe, updateImmersiveServings } from './core/ui-utils.js';
+import { handleCardClick, showToast, createCocktailCardHTML, updateCarouselDots, enlargeRecipe, closeImmersiveRecipe, updateImmersiveServings, updateSearchClearButton, clearSearch } from './core/ui-utils.js';
 import { filterKitchen, initKitchenCarousels, toggleKitchenCard, openKitchenItem } from './pages/kitchen.js';
 import { setDrinkMode } from './modules/drink-mode.js';
 import { initSettings, openSettingsModal, closeSettingsModal, toggleLanguageList, closeLanguageList, toggleUnitList, closeUnitList, changeUnit, toggleThemeList, closeThemeList, changeTheme, openTermsModal, closeTermsModal, openPrivacyModal, closePrivacyModal } from './pages/settings.js';
@@ -80,6 +80,8 @@ window.openTermsModal = openTermsModal;
 window.closeTermsModal = closeTermsModal;
 window.openPrivacyModal = openPrivacyModal;
 window.closePrivacyModal = closePrivacyModal;
+window.updateSearchClearButton = updateSearchClearButton;
+window.clearSearch = clearSearch;
 window.classicCocktails = classicCocktails;
 window.mocktailRecipes = mocktailRecipes;
 

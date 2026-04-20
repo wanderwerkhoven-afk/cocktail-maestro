@@ -72,6 +72,7 @@
  *      - New York Sour
  *      - Old Cuban
  *      - Old Fashioned
+ *      - Orchard & Oak Old Fashioned
  *      - Painkiller
  *      - Paloma
  *      - Paper Plane
@@ -1845,6 +1846,32 @@ export const classicCocktails = [
             Step 4: Express orange zest over the glass and garnish.
         `.trim(),
         image: "./assets/Cocktails/oldfashion.webp"
+    },
+    {
+        id: 'orchard-oak-old-fashioned',
+        name: "Orchard & Oak Old Fashioned",
+        category: ["Spirit-forward", "Smoky", "Fruity", "Modern"],
+        description: "A smoky Islay-driven twist on the Old Fashioned, softened by ripe peach sweetness and deepened with rich walnut bitters.",
+        ingredients: [
+            { amount: 50, unit: "ml", name: "Islay Single Malt", fridgeCategory: "spirit" },
+            { amount: 10, unit: "ml", name: "Peachtree", fridgeCategory: "liqueur" },
+            { amount: 3, unit: "dashes", name: "Black walnut bitters", fridgeCategory: "bitters" },
+            { amount: 15, unit: "ml", name: "Sugar syrup", fridgeCategory: "syrup" },
+            { amount: 15, unit: "ml", name: "Water", fridgeCategory: "other" }
+        ],
+        glassware: "Tumbler glass",
+        ice: "Large ice cube",
+        method: "Stirred",
+        methodDesc: `
+            Step 1: Add all ingredients to a mixing glass filled with ice.
+
+            Step 2: Stir well until properly chilled and slightly diluted.
+
+            Step 3: Strain into a tumbler glass over a large clear ice cube.
+
+            Step 4: Optionally garnish with a small peach slice or walnut (dipped in chocolate).
+        `.trim(),
+        image: "./assets/Cocktails/orchard-oak-old-fashioned.webp"
     },
     {
         id: 'painkiller',

@@ -110,6 +110,42 @@
 }
 
 /* ============================================================
+   SEARCH BAR ENHANCEMENTS
+   ============================================================ */
+.clear-search-btn {
+    color: #ffb347;
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: none; /* Hidden by default */
+    transition: transform 0.2s ease, color 0.2s ease;
+    padding: 0 5px;
+    z-index: 5;
+}
+
+.clear-search-btn:hover {
+    transform: scale(1.2);
+    color: var(--text-primary);
+}
+
+/* Base wrapper styles to support both icons */
+.universal-search-wrapper,
+.category-search-wrapper,
+.search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.universal-search-wrapper input,
+.category-search-wrapper input,
+.search-bar input {
+    flex: 1;
+    width: auto !important; /* Override fixed width if any */
+}
+
+/* ============================================================
    SHAKE IT UP MODAL OVERLAY
    ============================================================ */
 .modal-overlay {

@@ -487,7 +487,8 @@
             <div class="universal-search-wrapper">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" id="universal-fridge-search" data-i18n="fridge-search-placeholder"
-                    placeholder="Search all ingredients..." onkeyup="window.filterAllIngredients(this.value)">
+                    placeholder="Search all ingredients..." oninput="window.filterAllIngredients(this.value); window.updateSearchClearButton(this)">
+                <i class="fa-solid fa-xmark clear-search-btn" onclick="window.clearSearch(this)"></i>
             </div>
 
 
@@ -503,8 +504,9 @@
                 <div id="cat-spirits" class="category-content">
                     <div class="category-search-wrapper">
                         <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" placeholder="Search spirits..." class="category-search-input"
-                            onkeyup="filterCategoryList(this)">
+                        <input type="text" placeholder="Search..." class="category-search-input"
+                            oninput="filterCategoryList(this); window.updateSearchClearButton(this)">
+                        <i class="fa-solid fa-xmark clear-search-btn" onclick="window.clearSearch(this)"></i>
                     </div>
 
                     <div class="ingredient-checkbox-list" id="list-spirits">
@@ -527,7 +529,8 @@
                     <div class="category-search-wrapper">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <input type="text" placeholder="Search liqueurs..." class="category-search-input"
-                            onkeyup="filterCategoryList(this)">
+                            oninput="filterCategoryList(this); window.updateSearchClearButton(this)">
+                        <i class="fa-solid fa-xmark clear-search-btn" onclick="window.clearSearch(this)"></i>
                     </div>
 
                     <div class="ingredient-checkbox-list" id="list-liqueurs">
@@ -549,7 +552,8 @@
                     <div class="category-search-wrapper">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <input type="text" placeholder="Search bitters..." class="category-search-input"
-                            onkeyup="filterCategoryList(this)">
+                            oninput="filterCategoryList(this); window.updateSearchClearButton(this)">
+                        <i class="fa-solid fa-xmark clear-search-btn" onclick="window.clearSearch(this)"></i>
                     </div>
 
                     <div class="ingredient-checkbox-list" id="list-bitters">
@@ -571,7 +575,8 @@
                     <div class="category-search-wrapper">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <input type="text" placeholder="Search syrups..." class="category-search-input"
-                            onkeyup="filterCategoryList(this)">
+                            oninput="filterCategoryList(this); window.updateSearchClearButton(this)">
+                        <i class="fa-solid fa-xmark clear-search-btn" onclick="window.clearSearch(this)"></i>
                     </div>
 
                     <div class="ingredient-checkbox-list" id="list-syrups">
@@ -593,7 +598,8 @@
                     <div class="category-search-wrapper">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <input type="text" placeholder="Search mixers..." class="category-search-input"
-                            onkeyup="filterCategoryList(this)">
+                            oninput="filterCategoryList(this); window.updateSearchClearButton(this)">
+                        <i class="fa-solid fa-xmark clear-search-btn" onclick="window.clearSearch(this)"></i>
                     </div>
 
                     <div class="ingredient-checkbox-list" id="list-juices">
@@ -615,7 +621,8 @@
                     <div class="category-search-wrapper">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <input type="text" placeholder="Search pantry..." class="category-search-input"
-                            onkeyup="filterCategoryList(this)">
+                            oninput="filterCategoryList(this); window.updateSearchClearButton(this)">
+                        <i class="fa-solid fa-xmark clear-search-btn" onclick="window.clearSearch(this)"></i>
                     </div>
 
                     <div class="ingredient-checkbox-list" id="list-fresh">
@@ -638,7 +645,8 @@
                     <div class="category-search-wrapper">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <input type="text" placeholder="Search tea..." class="category-search-input"
-                            onkeyup="filterCategoryList(this)">
+                            oninput="filterCategoryList(this); window.updateSearchClearButton(this)">
+                        <i class="fa-solid fa-xmark clear-search-btn" onclick="window.clearSearch(this)"></i>
                     </div>
 
                     <div class="ingredient-checkbox-list" id="list-tea">
@@ -722,7 +730,8 @@
             <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" id="vaultSearch" data-i18n="vault-search-placeholder"
-                    placeholder="Search cocktails..." oninput="renderVault(this.value)">
+                    placeholder="Search cocktails..." oninput="renderVault(this.value); window.updateSearchClearButton(this)">
+                <i class="fa-solid fa-xmark clear-search-btn" onclick="window.clearSearch(this)"></i>
             </div>
         </section>
 
@@ -1181,7 +1190,8 @@
             <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" id="kitchenSearch" placeholder="Search recipes or techniques..."
-                    oninput="filterKitchen(this.value)">
+                    oninput="filterKitchen(this.value); window.updateSearchClearButton(this)">
+                <i class="fa-solid fa-xmark clear-search-btn" onclick="window.clearSearch(this)"></i>
             </div>
         </section>
 
