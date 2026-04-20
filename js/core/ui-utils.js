@@ -160,6 +160,11 @@ export function createCocktailCardHTML(cocktail, options = {}) {
                     </div>
                 </div>
             </div>
+
+            <div class="immersive-footer">
+                <i class="fa-solid fa-martini-glass-citrus"></i>
+                <span>This recipe is powered by Cocktail Maestro</span>
+            </div>
         </div>
     `;
 }
@@ -343,8 +348,7 @@ export function enlargeRecipe(e, id) {
         : `<p>${t('card-no-desc')}</p>`;
 
     content.innerHTML = `
-        <div class="immersive-recipe-container">
-            <!-- HERO SECTION (Row 1) -->
+        <!-- HERO SECTION (Row 1) -->
             <div class="immersive-hero-grid">
                 <!-- Col 1: Info Card -->
                 <div class="info-card">
@@ -400,6 +404,11 @@ export function enlargeRecipe(e, id) {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="immersive-footer">
+                <img src="assets/logo/logo_CocktailMaestro.svg" alt="Cocktail Maestro Logo" class="footer-logo">
+                <span>This recipe is powered by Cocktail Maestro</span>
             </div>
         </div>
     `;

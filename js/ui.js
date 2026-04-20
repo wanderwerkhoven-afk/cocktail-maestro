@@ -82,6 +82,57 @@ window.openPrivacyModal = openPrivacyModal;
 window.closePrivacyModal = closePrivacyModal;
 window.updateSearchClearButton = updateSearchClearButton;
 window.clearSearch = clearSearch;
+window.printRecipe = async () => {
+    const content = document.getElementById('immersive-recipe-content');
+    const closeBtn = document.querySelector('.immersive-close-btn');
+    const printBtn = document.querySelector('.immersive-print-btn');
+    const servings = document.querySelector('.immersive-servings-box');
+
+    // Hide UI elements temporarily
+    if (closeBtn) closeBtn.style.display = 'none';
+    if (printBtn) printBtn.style.display = 'none';
+    if (servings) servings.style.display = 'none';
+
+    // Apply white mode for printing
+    content.classList.add('printing-white-mode');
+
+    try {
+        const canvas = await html2canvas(content, {
+            backgroundColor: '#ffffff',
+            scale: 2, // High resolution
+            useCORS: true,
+            logging: false
+        });
+
+        const imgData = canvas.toDataURL('image/png');
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(`
+            <html>
+                <head>
+                    <title>Cocktail Recipe - ${document.querySelector('.immersive-title').innerText}</title>
+                    <style>
+                        body { margin: 0; display: flex; justify-content: center; background: #ffffff; }
+                        img { max-width: 100%; height: auto; }
+                        @page { margin: 0; size: auto; }
+                    </style>
+                </head>
+                <body>
+                    <img src="${imgData}" onload="window.print(); window.close();">
+                </body>
+            </html>
+        `);
+        printWindow.document.close();
+    } catch (err) {
+        console.error('Print failed:', err);
+        window.print(); // Fallback to standard print
+    } finally {
+        // Restore UI elements and theme
+        content.classList.remove('printing-white-mode');
+        if (closeBtn) closeBtn.style.display = 'flex';
+        if (printBtn) printBtn.style.display = 'flex';
+        if (servings) servings.style.display = 'flex';
+    }
+};
 window.classicCocktails = classicCocktails;
 window.mocktailRecipes = mocktailRecipes;
 

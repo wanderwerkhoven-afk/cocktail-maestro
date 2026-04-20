@@ -282,6 +282,32 @@
     transition: all 0.3s ease;
 }
 
+.immersive-print-btn {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--glass-bg-light);
+    border: 1px solid var(--border-light);
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10010;
+    transition: all 0.3s ease;
+}
+
+.immersive-close-btn:hover,
+.immersive-print-btn:hover {
+    background: var(--imm-accent);
+    color: white;
+    transform: scale(1.1);
+}
+
 .immersive-recipe-container {
     width: 100%;
     max-width: 1100px;
@@ -574,6 +600,200 @@
     }
 }
 
+/* ============================================================
+   WHITE PRINT OVERRIDE (for html2canvas)
+   ============================================================ */
+.printing-white-mode,
+.printing-white-mode .immersive-details-container,
+.printing-white-mode .immersive-recipe-container {
+    background: white !important;
+    color: black !important;
+}
+
+.printing-white-mode .info-card,
+.printing-white-mode .imm-ingredients-dark-box,
+.printing-white-mode .immersive-section,
+.printing-white-mode .hw-item {
+    background: #f8f8f8 !important;
+    border: 1px solid #eee !important;
+    color: black !important;
+    box-shadow: none !important;
+    padding: 30px !important; /* Added more padding for professional look */
+    border-radius: 8px !important;
+    margin-bottom: 20px !important;
+}
+
+.printing-white-mode .immersive-hero-grid {
+    gap: 40px !important;
+}
+
+.printing-white-mode .immersive-title {
+    font-size: 4rem !important;
+    margin-bottom: 30px !important;
+}
+
+.printing-white-mode .immersive-description {
+    font-size: 1.4rem !important;
+    line-height: 1.6 !important;
+}
+
+.printing-white-mode .imm-section-title {
+    font-size: 1.6rem !important;
+    letter-spacing: 2px !important;
+    margin-bottom: 25px !important;
+}
+
+.printing-white-mode .ing-name,
+.printing-white-mode .ing-amt {
+    font-size: 1.4rem !important;
+}
+
+.printing-white-mode .unit {
+    font-size: 1.1rem !important;
+}
+
+.printing-white-mode .immersive-step p {
+    font-size: 1.35rem !important;
+    line-height: 1.7 !important;
+}
+
+.printing-white-mode .step-label {
+    font-size: 1.1rem !important;
+}
+
+.printing-white-mode .hw-value {
+    font-size: 1.4rem !important;
+}
+
+.printing-white-mode .immersive-title,
+.printing-white-mode .immersive-description,
+.printing-white-mode .hw-value,
+.printing-white-mode .immersive-step p,
+.printing-white-mode .ing-name,
+.printing-white-mode .ing-amt,
+.printing-white-mode .unit,
+.printing-white-mode .servings-label,
+.printing-white-mode .imm-section-title {
+    color: black !important;
+}
+
+.printing-white-mode .category-tag {
+    background: #eee !important;
+    color: #444 !important;
+    border: 1px solid #ddd !important;
+}
+
+.printing-white-mode .step-label {
+    color: #d35400 !important; /* Keep a bit of accent color but darker */
+}
+
+.immersive-footer {
+    display: none; /* Hidden on screen */
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.5);
+    font-size: 0.9rem;
+    font-style: italic;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.printing-white-mode .immersive-footer {
+    display: flex !important;
+    color: #555 !important;
+    border-top: 1px solid #ddd !important;
+    margin-top: 60px !important;
+}
+
+.printing-white-mode .immersive-footer span {
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    color: black !important;
+}
+
+.footer-logo {
+    height: 35px;
+    width: auto;
+    opacity: 0.6;
+}
+
+.printing-white-mode .footer-logo {
+    filter: brightness(0); /* Turn white SVG to black */
+    opacity: 0.9 !important;
+}
+
+/* ============================================================
+   PRINT STYLES
+   ============================================================ */
+@media print {
+    /* Hide the rest of the app completely */
+    body > *:not(#recipe-immersive-view),
+    .bottom-nav,
+    .immersive-close-btn,
+    .immersive-print-btn,
+    .immersive-servings-box {
+        display: none !important;
+    }
+    
+    #recipe-immersive-view {
+        display: block !important;
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        background: var(--imm-bg-modal) !important;
+        color: var(--text-primary) !important;
+        overflow: visible !important;
+    }
+    
+    .immersive-recipe-container {
+        padding: 40px 20px !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+
+    /* Keep the 2x2 grid exactly the same */
+    .immersive-hero-grid, 
+    .details-split-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 30px !important;
+    }
+
+    .info-card, 
+    .imm-ingredients-dark-box {
+        background: var(--imm-bg-card) !important;
+        border-radius: 4px !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .immersive-title {
+        color: var(--text-primary) !important;
+    }
+
+    .step-label {
+        color: var(--imm-accent) !important;
+    }
+
+    /* Ensure images show up */
+    .immersive-img {
+        display: block !important;
+        max-width: 100% !important;
+        height: auto !important;
+        border-radius: 8px !important;
+    }
+
+    /* Force the browser to print backgrounds */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+}
+
 /* ==========================================================================
    INTERACTIVE INTRO SECTIONS
    ========================================================================== */
@@ -677,4 +897,87 @@
 
 .is-collapsed .intro-collapse-btn i {
     transform: rotate(180deg);
+}
+
+/* ============================================================
+   PRINT STYLES
+   ============================================================ */
+@media print {
+    /* Hide everything by default */
+    body * {
+        visibility: hidden;
+    }
+    
+    /* Show only the immersive view content */
+    #recipe-immersive-view, 
+    #recipe-immersive-view * {
+        visibility: visible;
+    }
+    
+    #recipe-immersive-view {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        background: white !important;
+        color: black !important;
+        display: block !important;
+        overflow: visible !important;
+        z-index: 99999 !important;
+    }
+    
+    .immersive-recipe-container {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    /* Hide UI buttons */
+    .immersive-close-btn, 
+    .immersive-print-btn, 
+    .bottom-nav,
+    .immersive-servings-box {
+        display: none !important;
+    }
+    
+    /* Force high-contrast colors for print */
+    .info-card, 
+    .imm-ingredients-dark-box {
+        background: #f5f5f5 !important;
+        border: 1px solid #ddd !important;
+        color: black !important;
+        box-shadow: none !important;
+    }
+    
+    .immersive-title, 
+    .immersive-description, 
+    .hw-value, 
+    .immersive-step p {
+        color: black !important;
+    }
+    
+    .step-label, 
+    .imm-section-title {
+        color: #d35400 !important; /* Dark orange for print accents */
+    }
+
+    .category-tag {
+        border: 1px solid #ddd !important;
+        color: #555 !important;
+        background: transparent !important;
+    }
+
+    .immersive-img {
+        border-radius: 8px !important;
+        max-height: 400px !important;
+        object-fit: cover !important;
+    }
+    
+    /* Grid layout adjustments for paper */
+    .immersive-hero-grid, .details-split-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 20px !important;
+    }
 }
