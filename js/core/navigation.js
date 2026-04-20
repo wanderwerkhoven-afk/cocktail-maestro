@@ -4,6 +4,12 @@ import { renderMyRecipes } from '../pages/recipes.js';
 import { syncCheckboxes, calculateBarProgress } from '../modules/fridge.js';
 
 export function navigateTo(pageId) {
+    // Save scroll position of currently active page before switching
+    const currentActivePage = document.querySelector('.page.active');
+    if (currentActivePage) {
+        localStorage.setItem('scrollPos_' + currentActivePage.id, window.scrollY);
+    }
+
     // Switch active page
     document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
     const activePage = document.getElementById(pageId + '-page');
@@ -42,4 +48,15 @@ export function navigateTo(pageId) {
 
     // Sync collapsible intro states
     if (window.applyIntroStates) window.applyIntroStates();
+
+    // Restore scroll position for the new page
+    setTimeout(() => {
+        if (activePage) {
+            const savedPos = localStorage.getItem('scrollPos_' + activePage.id);
+            window.scrollTo({
+                top: savedPos ? parseInt(savedPos, 10) : 0,
+                behavior: 'instant' // Use instant to prevent jarring scroll animations on load
+            });
+        }
+    }, 50); // Small delay to ensure content has rendered
 }
