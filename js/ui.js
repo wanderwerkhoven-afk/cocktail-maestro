@@ -88,6 +88,12 @@ window.printRecipe = async () => {
     const printBtn = document.querySelector('.immersive-print-btn');
     const servings = document.querySelector('.immersive-servings-box');
 
+    // Open window synchronously to bypass Safari/iOS popup blockers
+    const printWindow = window.open('', '_blank');
+    if (printWindow) {
+        printWindow.document.write('<html lang="en"><body style="background:#f4f4f4; display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; margin:0;"><h2 style="color:#333;">Generating your Cocktail Maestro PDF...</h2></body></html>');
+    }
+
     // Hide UI elements temporarily
     if (closeBtn) closeBtn.style.display = 'none';
     if (printBtn) printBtn.style.display = 'none';
@@ -105,25 +111,32 @@ window.printRecipe = async () => {
         });
 
         const imgData = canvas.toDataURL('image/png');
-        const printWindow = window.open('', '_blank');
-        printWindow.document.write(`
-            <html>
-                <head>
-                    <title>Cocktail Recipe - ${document.querySelector('.immersive-title').innerText}</title>
-                    <style>
-                        body { margin: 0; display: flex; justify-content: center; background: #ffffff; }
-                        img { max-width: 100%; height: auto; }
-                        @page { margin: 0; size: auto; }
-                    </style>
-                </head>
-                <body>
-                    <img src="${imgData}" onload="window.print(); window.close();">
-                </body>
-            </html>
-        `);
-        printWindow.document.close();
+        
+        if (printWindow) {
+            printWindow.document.open();
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Cocktail Recipe - ${document.querySelector('.immersive-title').innerText}</title>
+                        <style>
+                            body { margin: 0; display: flex; justify-content: center; background: #ffffff; }
+                            img { max-width: 100%; height: auto; }
+                            @page { margin: 0; size: auto; }
+                        </style>
+                    </head>
+                    <body>
+                        <img src="${imgData}" onload="window.print(); window.close();">
+                    </body>
+                </html>
+            `);
+            printWindow.document.close();
+        } else {
+            // If popup was somehow still blocked, fallback to standard print
+            window.print();
+        }
     } catch (err) {
         console.error('Print failed:', err);
+        if (printWindow) printWindow.close();
         window.print(); // Fallback to standard print
     } finally {
         // Restore UI elements and theme
