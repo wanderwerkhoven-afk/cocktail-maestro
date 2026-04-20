@@ -101,57 +101,67 @@
         <div class="auth-page-container">
             <div class="auth-branding">
                 <img src="assets/logo/logo_cocktailmaestro_transp.webp" alt="Logo" class="auth-logo">
-                <h1>Cocktail Maestro</h1>
-                <p>Elevate your mixology journey</p>
+                <h1 data-i18n="nav-home">Cocktail Maestro</h1>
+                <p data-i18n="auth-tagline">Elevate your mixology journey</p>
             </div>
 
             <div class="auth-card">
                 <div class="auth-tabs">
-                    <button class="auth-tab active" onclick="switchAuthTab('login')">Login</button>
-                    <button class="auth-tab" onclick="switchAuthTab('signup')">Sign Up</button>
+                    <button class="auth-tab active" onclick="switchAuthTab('login')"
+                        data-i18n="auth-tab-login">Login</button>
+                    <button class="auth-tab" onclick="switchAuthTab('signup')" data-i18n="auth-tab-signup">Sign
+                        Up</button>
                 </div>
 
                 <!-- Login Form -->
                 <form id="login-form" class="auth-form active" onsubmit="handleAuthSubmit(event, 'login')">
                     <div class="auth-input-group">
-                        <input type="email" class="auth-input" id="login-email" placeholder="Email Address" required>
+                        <input type="email" class="auth-input" id="login-email" data-i18n="auth-email-placeholder"
+                            placeholder="Email Address" required>
                     </div>
                     <div class="auth-input-group">
                         <div class="password-wrapper">
-                            <input type="password" class="auth-input" id="login-password" placeholder="Password" required>
-                            <i class="fa-solid fa-eye toggle-password" onclick="togglePasswordVisibility('login-password', this)"></i>
+                            <input type="password" class="auth-input" id="login-password"
+                                data-i18n="auth-password-placeholder" placeholder="Password" required>
+                            <i class="fa-solid fa-eye toggle-password"
+                                onclick="togglePasswordVisibility('login-password', this)"></i>
                         </div>
                     </div>
                     <div class="auth-error" id="login-error"></div>
                     <div class="auth-helper-row">
-                        <span class="auth-link" onclick="handleForgotPassword()">Wachtwoord vergeten?</span>
+                        <span class="auth-link" onclick="handleForgotPassword()"
+                            data-i18n="auth-forgot-password">Wachtwoord vergeten?</span>
                     </div>
-                    <button type="submit" class="auth-submit-btn">Login</button>
+                    <button type="submit" class="auth-submit-btn" data-i18n="auth-submit-login">Login</button>
                 </form>
 
                 <!-- Signup Form -->
                 <form id="signup-form" class="auth-form" onsubmit="handleAuthSubmit(event, 'signup')">
                     <div class="auth-input-group">
-                        <input type="text" class="auth-input" id="signup-name" placeholder="Full Name" required>
+                        <input type="text" class="auth-input" id="signup-name" data-i18n="auth-name-placeholder"
+                            placeholder="Full Name" required>
                     </div>
                     <div class="auth-input-group">
-                        <input type="email" class="auth-input" id="signup-email" placeholder="Email Address" required>
+                        <input type="email" class="auth-input" id="signup-email" data-i18n="auth-email-placeholder"
+                            placeholder="Email Address" required>
                     </div>
                     <div class="auth-input-group">
                         <div class="password-wrapper">
-                            <input type="password" class="auth-input" id="signup-password" placeholder="Password (min. 6 chars)" required minlength="6">
-                            <i class="fa-solid fa-eye toggle-password" onclick="togglePasswordVisibility('signup-password', this)"></i>
+                            <input type="password" class="auth-input" id="signup-password" data-i18n="auth-password-min"
+                                placeholder="Password (min. 6 chars)" required minlength="6">
+                            <i class="fa-solid fa-eye toggle-password"
+                                onclick="togglePasswordVisibility('signup-password', this)"></i>
                         </div>
                     </div>
                     <div class="auth-error" id="signup-error"></div>
-                    <button type="submit" class="auth-submit-btn">Create Account</button>
+                    <button type="submit" class="auth-submit-btn" data-i18n="auth-submit-signup">Create Account</button>
                 </form>
 
                 <div class="auth-divider">
-                    <span>OR</span>
+                    <span data-i18n="auth-or">OR</span>
                 </div>
 
-                <button class="guest-btn" onclick="navigateTo('home')">
+                <button class="guest-btn" onclick="navigateTo('home')" data-i18n="auth-guest-btn">
                     Continue as Guest
                 </button>
             </div>
@@ -172,8 +182,8 @@
 
         <!-- Hero Section -->
         <section class="hero">
-            <h2 class="brand-title">Cocktail Maestro</h2>
-            <p class="subtitle">Discover, create, and master the art of cocktails</p>
+            <h2 class="brand-title">COCKTAIL MAESTRO</h2>
+            <p class="subtitle" data-i18n="home-subtitle">Discover, create, and master the art of cocktails</p>
         </section>
 
         <!-- Menu Cards -->
@@ -227,7 +237,11 @@
 
         <!-- Info Block -->
         <div class="info-block">
-            <p>Master the art of mixology with <strong>Cocktail Maestro</strong>. Explore our extensive collection of classic and modern recipes in the <strong>Vault</strong>, manage your home inventory in the <strong>Fridge</strong> to discover exactly what you can create right now, and elevate your skills in the <strong>Kitchen</strong> with professional guides for syrups, infusions, and garnishes. Whether you're a curious beginner or a seasoned pro, your perfect pour starts here.</p>
+            <p data-i18n="home-info-text">Master the art of mixology with <strong>Cocktail Maestro</strong>. Explore our extensive collection of
+                classic and modern recipes in the <strong>Vault</strong>, manage your home inventory in the
+                <strong>Fridge</strong> to discover exactly what you can create right now, and elevate your skills in
+                the <strong>Kitchen</strong> with professional guides for syrups, infusions, and garnishes. Whether
+                you're a curious beginner or a seasoned pro, your perfect pour starts here.</p>
         </div>
 
         <!-- Divider streepje -->
@@ -239,11 +253,13 @@
             <section class="home-action-section">
                 <div class="shake-card-super" id="main-shaker-card" onclick="shakeForCocktail()">
                     <!-- Fullscreen & Menu controls -->
-                    <button class="super-tile-menu-btn" onclick="toggleRandomizerFullscreen(event)" title="Immersive Mode">
+                    <button class="super-tile-menu-btn" onclick="toggleRandomizerFullscreen(event)"
+                        title="Immersive Mode">
                         <i class="fa-solid fa-ellipsis"></i>
                     </button>
-                    
-                    <button class="fullscreen-close-btn" onclick="toggleRandomizerFullscreen(event)" title="Exit Fullscreen">
+
+                    <button class="fullscreen-close-btn" onclick="toggleRandomizerFullscreen(event)"
+                        title="Exit Fullscreen">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
 
@@ -255,14 +271,15 @@
 
                     <!-- 1. Title + Subtext -->
                     <div class="content-text-super">
-                        <h3>Shake it up!</h3>
-                        <p>Can't decide? Let fate pour your next masterwork.</p>
+                        <h3 data-i18n="home-shake-title">Shake it up!</h3>
+                        <p data-i18n="home-shake-sub">Can't decide? Let fate pour your next masterwork.</p>
                     </div>
 
                     <!-- 2. Shaker Visual -->
                     <div class="shaker-visual-area">
                         <div class="shaker-icon-wrapper">
-                            <img src="./assets/shaker_laadscherm.webp" alt="Shaker" class="shaker-img-anim" loading="lazy">
+                            <img src="./assets/shaker_laadscherm.webp" alt="Shaker" class="shaker-img-anim"
+                                loading="lazy">
                         </div>
                     </div>
 
@@ -271,7 +288,7 @@
                         <div class="pulse-ring"></div>
                         <button class="shake-btn-inner">
                             <i class="fa-solid fa-shaker"></i>
-                            <span>SHAKE</span>
+                            <span data-i18n="home-shake-btn">SHAKE</span>
                         </button>
                     </div>
                 </div>
@@ -280,31 +297,32 @@
             <!-- Bar stock stats -->
             <section class="bar-status-card">
                 <div class="bar-status-top">
-                    <h2>YOUR BAR STATUS</h2>
-                    <p class="subtitle">Your current cocktail potential</p>
+                    <h2 data-i18n="home-bar-status-title">YOUR BAR STATUS</h2>
+                    <p class="subtitle" data-i18n="home-bar-status-sub">Your current cocktail potential</p>
                     <hr class="divider">
                 </div>
 
                 <div class="bar-status-main">
                     <div class="container-left">
                         <div class="stats-content-wrapper">
-                            <h3 class="accent-title">BAR STATS:</h3>
+                            <h3 class="accent-title" data-i18n="home-bar-stats-label">BAR STATS:</h3>
 
                             <div class="inventory-summary-box">
                                 <span class="big-number" id="bottle-count">0</span>
-                                <span class="box-label">Ingredients in stock</span>
+                                <span class="box-label" data-i18n="home-stats-ingredients">Ingredients in stock</span>
                             </div>
 
                             <div class="inventory-summary-box">
                                 <div class="stat-unit">
                                     <span class="big-number" id="match-count">0</span>
-                                    <span class="box-label">Cocktails possible to make</span>
+                                    <span class="box-label" data-i18n="home-stats-cocktails">Cocktails possible to
+                                        make</span>
                                 </div>
                             </div>
 
                             <a href="javascript:void(0)" onclick="navigateTo('fridge')" class="manage-ingredients-btn">
                                 <i class="fa-solid fa-list-ul"></i>
-                                <span>Manage Fridge</span>
+                                <span data-i18n="home-manage-fridge">Manage Fridge</span>
                             </a>
                         </div>
                     </div>
@@ -312,9 +330,7 @@
                     <div class="container-right">
                         <div class="status-header">
                             <div class="status-label-group">
-                                <span>YOUR</span>
-                                <span>BAR</span>
-                                <span>STATUS</span>
+                                <span data-i18n="home-bar-status-title">YOUR BAR STATUS</span>
                             </div>
                             <span id="bar-pct-text">78%</span>
                         </div>
@@ -347,7 +363,8 @@
                                 </defs>
 
                                 <!-- Glass Background -->
-                                <use href="#bottle-path" fill="var(--bg-card)" stroke="var(--border-strong)" stroke-width="1.5" />
+                                <use href="#bottle-path" fill="var(--bg-card)" stroke="var(--border-strong)"
+                                    stroke-width="1.5" />
 
                                 <!-- Liquid Group -->
                                 <g mask="url(#bottle-mask)">
@@ -358,10 +375,13 @@
 
                                         <!-- Bubbles (Legendary Physics) -->
                                         <circle class="bubble b1" cx="35" cy="80" r="2.5" fill="rgba(255,180,71,0.6)" />
-                                        <circle class="bubble b2" cx="55" cy="120" r="4.2" fill="rgba(255,180,71,0.4)" />
-                                        <circle class="bubble b3" cx="45" cy="160" r="2.2" fill="rgba(255,180,71,0.7)" />
+                                        <circle class="bubble b2" cx="55" cy="120" r="4.2"
+                                            fill="rgba(255,180,71,0.4)" />
+                                        <circle class="bubble b3" cx="45" cy="160" r="2.2"
+                                            fill="rgba(255,180,71,0.7)" />
                                         <circle class="bubble b4" cx="65" cy="60" r="4.0" fill="rgba(255,180,71,0.3)" />
-                                        <circle class="bubble b5" cx="30" cy="140" r="1.8" fill="rgba(255,180,71,0.6)" />
+                                        <circle class="bubble b5" cx="30" cy="140" r="1.8"
+                                            fill="rgba(255,180,71,0.6)" />
 
                                         <!-- Triple-Layer Dynamic Waves -->
                                         <path class="wave wave-back"
@@ -379,8 +399,8 @@
                                 <!-- Glass Reflections & Label -->
                                 <g pointer-events="none">
                                     <!-- Inner Gloss -->
-                                    <path class="shimmer-glass" d="M25,120 L27,140 Q28,150 28,160 L28,210" stroke="white"
-                                        stroke-width="2" stroke-opacity="0.15" fill="none" />
+                                    <path class="shimmer-glass" d="M25,120 L27,140 Q28,150 28,160 L28,210"
+                                        stroke="white" stroke-width="2" stroke-opacity="0.15" fill="none" />
 
                                     <!-- Central Label (3D Embossed) -->
                                     <g class="label-group">
@@ -404,15 +424,15 @@
                                 </g>
 
                                 <!-- Bottle Cap -->
-                                <path d="M37,5 L63,5 L64,15 L36,15 Z" fill="var(--input-bg)" stroke="var(--border-strong)" stroke-width="1" />
+                                <path d="M37,5 L63,5 L64,15 L36,15 Z" fill="var(--input-bg)"
+                                    stroke="var(--border-strong)" stroke-width="1" />
                             </svg>
                         </div>
 
                         <button class="progress-btn" onclick="calculateBarProgress()">
                             <i class="fa-solid fa-arrows-rotate"></i>
                             <div class="btn-text">
-                                <span>UPDATE</span>
-                                <span>STATUS</span>
+                                <span data-i18n="home-update-status">UPDATE STATUS</span>
                             </div>
                         </button>
                     </div>
@@ -448,24 +468,26 @@
             <div class="fridge-intro-icon">
                 <i class="fa-solid fa-snowflake"></i>
             </div>
-            <h2>Your Virtual Bar</h2>
-            <p>Welcome to your personal inventory. Tell us what bottles, juices, and extras you have at home, and the
+            <h2 data-i18n="fridge-intro-title">Your Virtual Bar</h2>
+            <p data-i18n="fridge-intro-text">Welcome to your personal inventory. Tell us what bottles, juices, and
+                extras you have at home, and the
                 Maestro will figure out exactly which cocktails you can make!</p>
             <div class="fridge-intro-note">
                 <i class="fa-solid fa-lightbulb"></i>
-                <span>Tip: Be as specific as possible to get the best matches. Your ingredients are saved
+                <span data-i18n="fridge-intro-tip">Tip: Be as specific as possible to get the best matches. Your
+                    ingredients are saved
                     automatically.</span>
             </div>
         </section>
 
         <section class="fridge-container">
-            <h2>What do we have available?</h2>
+            <h2 data-i18n="fridge-available-title">What do we have available?</h2>
 
             <!-- Universal Search -->
             <div class="universal-search-wrapper">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="universal-fridge-search" placeholder="Search all ingredients..."
-                    onkeyup="window.filterAllIngredients(this.value)">
+                <input type="text" id="universal-fridge-search" data-i18n="fridge-search-placeholder"
+                    placeholder="Search all ingredients..." onkeyup="window.filterAllIngredients(this.value)">
             </div>
 
 
@@ -474,7 +496,7 @@
                 <button class="category-toggle" onclick="toggleCategory('cat-spirits')">
                     <div class="category-label">
                         <img src="assets/Fridge/spirits.webp" alt="Spirits" class="category-icon">
-                        <span>Spirits</span>
+                        <span data-i18n="cat-spirits">Spirits</span>
                     </div>
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
@@ -496,7 +518,7 @@
                 <button class="category-toggle" onclick="toggleCategory('cat-liqueurs')">
                     <div class="category-label">
                         <img src="assets/Fridge/liqueurs.webp" alt="Liqueurs & Vermouths" class="category-icon">
-                        <span>Liqueurs & Vermouths</span>
+                        <span data-i18n="cat-liqueurs">Liqueurs & Vermouths</span>
                     </div>
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
@@ -519,7 +541,7 @@
                 <button class="category-toggle" onclick="toggleCategory('cat-bitters')">
                     <div class="category-label">
                         <img src="assets/Fridge/bitters.webp" alt="Bitters & Tinctures" class="category-icon">
-                        <span>Bitters & Tinctures</span>
+                        <span data-i18n="cat-bitters">Bitters & Tinctures</span>
                     </div>
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
@@ -541,7 +563,7 @@
                 <button class="category-toggle" onclick="toggleCategory('cat-syrups')">
                     <div class="category-label">
                         <img src="assets/Fridge/syrups.webp" alt="Syrups & Purees" class="category-icon">
-                        <span>Syrups & Purees</span>
+                        <span data-i18n="cat-syrups">Syrups & Purees</span>
                     </div>
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
@@ -563,7 +585,7 @@
                 <button class="category-toggle" onclick="toggleCategory('cat-juices')">
                     <div class="category-label">
                         <img src="assets/Fridge/juices.webp" alt="Juices & Mixers" class="category-icon">
-                        <span>Juices & Mixers</span>
+                        <span data-i18n="cat-juices">Juices & Mixers</span>
                     </div>
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
@@ -585,7 +607,7 @@
                 <button class="category-toggle" onclick="toggleCategory('cat-fresh')">
                     <div class="category-label">
                         <img src="assets/Fridge/fresh.webp" alt="Fresh & Pantry" class="category-icon">
-                        <span>Fresh & Pantry</span>
+                        <span data-i18n="cat-fresh">Fresh & Pantry</span>
                     </div>
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
@@ -606,8 +628,9 @@
             <div class="fridge-category">
                 <button class="category-toggle" onclick="toggleCategory('cat-tea')">
                     <div class="category-label">
-                        <i class="fa-solid fa-leaf category-icon" style="color: rgba(255,255,255,0.7); font-size: 1.2rem; margin-right: 18px; width: 32px; text-align: center;"></i>
-                        <span>Tea</span>
+                        <i class="fa-solid fa-leaf category-icon"
+                            style="color: rgba(255,255,255,0.7); font-size: 1.2rem; margin-right: 18px; width: 32px; text-align: center;"></i>
+                        <span data-i18n="cat-tea">Tea</span>
                     </div>
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
@@ -627,16 +650,16 @@
             <!-- Drink Mode Toggle -->
             <div class="drink-mode-toggle" id="fridge-mode-toggle">
                 <button class="mode-pill active" id="fridge-pill-cocktail" onclick="setDrinkMode('cocktail', 'fridge')">
-                    <i class="fa-solid fa-martini-glass"></i> Cocktails
+                    <i class="fa-solid fa-martini-glass"></i> <span data-i18n="cat-mocktails">Cocktails</span>
                 </button>
                 <button class="mode-pill" id="fridge-pill-mocktail" onclick="setDrinkMode('mocktail', 'fridge')">
-                    <i class="fa-solid fa-lemon"></i> Mocktails
+                    <i class="fa-solid fa-lemon"></i> <span data-i18n="cat-mocktails">Mocktails</span>
                 </button>
             </div>
 
             <!-- Find My Cocktails Button -->
             <button class="match-btn-large" onclick="checkMatches()">
-                <i class="fa-solid fa-shaker"></i> Find My Cocktails
+                <i class="fa-solid fa-shaker"></i> <span data-i18n="fridge-calculate-btn">Find My Cocktails</span>
             </button>
         </section>
 
@@ -670,12 +693,14 @@
             <div class="vault-intro-icon">
                 <i class="fa-solid fa-wine-glass"></i>
             </div>
-            <h2>The Cocktail Vault</h2>
-            <p>Explore our curated collection of classic and modern cocktails. From timeless sours to complex tiki
+            <h2 data-i18n="vault-intro-title">The Cocktail Vault</h2>
+            <p data-i18n="vault-intro-text">Explore our curated collection of classic and modern cocktails. From
+                timeless sours to complex tiki
                 drinks, every recipe is a masterpiece waiting to be discovered.</p>
             <div class="vault-intro-note">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <span>Use the search bar to find cocktails by name, spirit, or flavor profile. Tap a card to see the
+                <span data-i18n="vault-intro-tip">Use the search bar to find cocktails by name, spirit, or flavor
+                    profile. Tap a card to see the
                     full recipe.</span>
             </div>
         </section>
@@ -684,10 +709,10 @@
         <section class="drink-mode-section">
             <div class="drink-mode-toggle" id="vault-mode-toggle">
                 <button class="mode-pill active" id="vault-pill-cocktail" onclick="setDrinkMode('cocktail', 'vault')">
-                    <i class="fa-solid fa-martini-glass"></i> Cocktails
+                    <i class="fa-solid fa-martini-glass"></i> <span data-i18n="cat-mocktails">Cocktails</span>
                 </button>
                 <button class="mode-pill" id="vault-pill-mocktail" onclick="setDrinkMode('mocktail', 'vault')">
-                    <i class="fa-solid fa-lemon"></i> Mocktails
+                    <i class="fa-solid fa-lemon"></i> <span data-i18n="cat-mocktails">Mocktails</span>
                 </button>
             </div>
         </section>
@@ -696,7 +721,8 @@
         <section class="search-section">
             <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="vaultSearch" placeholder="Search cocktails..." oninput="renderVault(this.value)">
+                <input type="text" id="vaultSearch" data-i18n="vault-search-placeholder"
+                    placeholder="Search cocktails..." oninput="renderVault(this.value)">
             </div>
         </section>
 
@@ -728,12 +754,14 @@
             <div class="recipes-intro-icon">
                 <i class="fa-solid fa-book-open"></i>
             </div>
-            <h2>Your Recipe Book</h2>
-            <p>Your personal collection of custom creations and variations. Save your own unique recipes here, complete
+            <h2 data-i18n="recipes-intro-title">Your Recipe Book</h2>
+            <p data-i18n="recipes-intro-text">Your personal collection of custom creations and variations. Save your own
+                unique recipes here, complete
                 with photos, history, and detailed instructions.</p>
             <div class="recipes-intro-note">
                 <i class="fa-solid fa-plus"></i>
-                <span>Tap the plus button below to create a new recipe. All your recipes are saved locally on your
+                <span data-i18n="recipes-intro-tip">Tap the plus button below to create a new recipe. All your recipes
+                    are saved locally on your
                     device.</span>
             </div>
         </section>
@@ -759,29 +787,31 @@
                             onchange="previewImage(event)">
                         <div id="image-preview-placeholder">
                             <i class="fa-solid fa-camera"></i>
-                            <span>Upload Cocktail Photo</span>
+                            <span data-i18n="recipe-upload-photo">Upload Cocktail Photo</span>
                         </div>
                         <img id="image-preview-display" src="" alt="Preview" style="display: none;">
                     </div>
 
                     <div class="input-group">
-                        <label>Cocktail Name</label>
-                        <input type="text" id="recipe-name" placeholder="bijv. Espresso Martini">
+                        <label data-i18n="recipe-name-label">Cocktail Name</label>
+                        <input type="text" id="recipe-name" data-i18n="recipe-name-ph"
+                            placeholder="bijv. Espresso Martini">
                     </div>
 
                     <div class="input-group">
-                        <label>Short Description</label>
-                        <input type="text" id="recipe-description"
+                        <label data-i18n="recipe-desc-label">Short Description</label>
+                        <input type="text" id="recipe-description" data-i18n="recipe-desc-ph"
                             placeholder="bijv. Een frisse klassieker met een twist.">
                     </div>
 
                     <div class="input-group">
-                        <label>Ingredients (Amount | Unit | Name)</label>
+                        <label data-i18n="recipe-ing-label">Ingredients (Amount | Unit | Name)</label>
                         <div id="ingredient-inputs-container">
                             <div class="ingredient-row">
-                                <input type="number" class="ing-amount" placeholder="50">
-                                <input type="text" class="ing-unit" placeholder="ml">
-                                <input type="text" class="ing-name" placeholder="Vodka" list="ingredients-suggestions">
+                                <input type="number" class="ing-amount" data-i18n="recipe-amount-ph" placeholder="50">
+                                <input type="text" class="ing-unit" data-i18n="recipe-unit-ph" placeholder="ml">
+                                <input type="text" class="ing-name" data-i18n="recipe-ing-ph" placeholder="Vodka"
+                                    list="ingredients-suggestions">
 
                                 <button type="button" class="remove-ingredient-btn"
                                     onclick="this.parentElement.remove()">
@@ -790,56 +820,61 @@
                             </div>
                         </div>
                         <button class="add-line-btn" onclick="addIngredientRow()">
-                            <i class="fa-solid fa-plus"></i> Add Ingredient
+                            <i class="fa-solid fa-plus"></i> <span data-i18n="recipe-add-ing">Add Ingredient</span>
                         </button>
                     </div>
 
                     <div class="input-row-flex" style="display: flex; gap: 10px;">
                         <div class="input-group" style="flex: 1;">
-                            <label>Glassware</label>
-                            <input type="text" id="recipe-glassware" placeholder="bijv. Coupe">
+                            <label data-i18n="recipe-glass-label">Glassware</label>
+                            <input type="text" id="recipe-glassware" data-i18n="recipe-glass-ph"
+                                placeholder="bijv. Coupe">
                         </div>
                         <div class="input-group" style="flex: 1;">
-                            <label>Ice</label>
-                            <input type="text" id="recipe-ice" placeholder="bijv. Cubed">
+                            <label data-i18n="recipe-ice-label">Ice</label>
+                            <input type="text" id="recipe-ice" data-i18n="recipe-ice-ph" placeholder="bijv. Cubed">
                         </div>
                     </div>
 
                     <div class="input-row-flex" style="display: flex; gap: 10px;">
                         <div class="input-group" style="flex: 1;">
-                            <label>Drink Type</label>
+                            <label data-i18n="recipe-type-label">Drink Type</label>
                             <div class="drink-mode-toggle vertical" id="recipe-type-switch">
-                                <button type="button" class="mode-pill active" id="recipe-pill-cocktail" onclick="setRecipeMode('cocktail')">
-                                    <i class="fa-solid fa-martini-glass"></i> Cocktail
+                                <button type="button" class="mode-pill active" id="recipe-pill-cocktail"
+                                    onclick="setRecipeMode('cocktail')">
+                                    <i class="fa-solid fa-martini-glass"></i> <span
+                                        data-i18n="recipe-cocktail">Cocktail</span>
                                 </button>
-                                <button type="button" class="mode-pill" id="recipe-pill-mocktail" onclick="setRecipeMode('mocktail')">
-                                    <i class="fa-solid fa-lemon"></i> Mocktail
+                                <button type="button" class="mode-pill" id="recipe-pill-mocktail"
+                                    onclick="setRecipeMode('mocktail')">
+                                    <i class="fa-solid fa-lemon"></i> <span data-i18n="recipe-mocktail">Mocktail</span>
                                 </button>
                             </div>
                             <input type="hidden" id="recipe-type" value="cocktail">
                         </div>
                         <div class="input-group" style="flex: 3;">
-                            <label>Categories (comma separated)</label>
-                            <input type="text" id="recipe-category" placeholder="bijv. Classic, Strong, Sweet">
+                            <label data-i18n="recipe-cat-label">Categories (comma separated)</label>
+                            <input type="text" id="recipe-category" data-i18n="recipe-desc-ph"
+                                placeholder="bijv. Classic, Strong, Sweet">
                         </div>
                     </div>
 
                     <div class="input-group">
-                        <label>Method</label>
-                        <input type="text" id="recipe-method" placeholder="bijv. Shaken">
+                        <label data-i18n="recipe-method-label">Method</label>
+                        <input type="text" id="recipe-method" data-i18n="recipe-method-ph" placeholder="bijv. Shaken">
                     </div>
 
                     <div class="input-group">
-                        <label>Instructions / Steps</label>
+                        <label data-i18n="recipe-instr-label">Instructions / Steps</label>
                         <div id="instruction-steps-container">
                             <!-- Dynamically filled Step rows -->
                         </div>
                         <button class="add-line-btn" type="button" onclick="window.addInstructionRow()">
-                            <i class="fa-solid fa-plus"></i> Add Step
+                            <i class="fa-solid fa-plus"></i> <span data-i18n="recipe-add-step">Add Step</span>
                         </button>
                     </div>
 
-                    <button class="save-btn" onclick="saveNewRecipe()">
+                    <button class="save-btn" onclick="saveNewRecipe()" data-i18n="recipe-save">
                         <i class="fa-solid fa-check"></i> Save Recipe
                     </button>
                 </section>
@@ -855,7 +890,7 @@
     <div id="settings-modal" class="modal-overlay">
         <div class="modal-content card-centered-modal">
             <button class="close-modal" onclick="window.closeSettingsModal()">&times;</button>
-            
+
             <section class="settings-container-modal">
                 <h2 class="modal-title-alt">Settings</h2>
                 <!-- Account Section -->
@@ -919,7 +954,7 @@
                                 <i class="fa-solid fa-check check-icon"></i>
                             </div>
                         </div>
-                        
+
                         <!-- Theme Selector -->
                         <div class="settings-item-trigger no-border-top" onclick="window.toggleThemeList()">
                             <i class="fa-solid fa-palette"></i>
@@ -930,15 +965,18 @@
                             </div>
                         </div>
                         <div id="theme-dropdown" class="settings-dropdown-content">
-                            <div class="lang-item theme-item active" onclick="window.changeTheme('dark')" data-theme-val="dark">
+                            <div class="lang-item theme-item active" onclick="window.changeTheme('dark')"
+                                data-theme-val="dark">
                                 <span class="lang-name" data-i18n="theme-dark">Dark</span>
                                 <i class="fa-solid fa-check check-icon"></i>
                             </div>
-                            <div class="lang-item theme-item" onclick="window.changeTheme('light')" data-theme-val="light">
+                            <div class="lang-item theme-item" onclick="window.changeTheme('light')"
+                                data-theme-val="light">
                                 <span class="lang-name" data-i18n="theme-light">Light</span>
                                 <i class="fa-solid fa-check check-icon"></i>
                             </div>
-                            <div class="lang-item theme-item" onclick="window.changeTheme('auto')" data-theme-val="auto">
+                            <div class="lang-item theme-item" onclick="window.changeTheme('auto')"
+                                data-theme-val="auto">
                                 <span class="lang-name" data-i18n="theme-auto">Auto (System)</span>
                                 <i class="fa-solid fa-check check-icon"></i>
                             </div>
@@ -986,20 +1024,21 @@
                 <h2 class="modal-title-alt" data-i18n="terms-title">Terms of Service</h2>
                 <div class="legal-text-body">
                     <p data-i18n="terms-intro">Welcome to Cocktail Maestro...</p>
-                    
+
                     <h3 data-i18n="terms-h1">1. Age Restriction</h3>
                     <p data-i18n="terms-p1">...</p>
-                    
+
                     <h3 data-i18n="terms-h2">2. Educational Purpose</h3>
                     <p data-i18n="terms-p2">...</p>
-                    
+
                     <h3 data-i18n="terms-h3">3. Health & Safety</h3>
                     <p data-i18n="terms-p3">...</p>
-                    
+
                     <h3 data-i18n="terms-h4">4. User Data</h3>
                     <p data-i18n="terms-p4">...</p>
                 </div>
-                <button class="settings-auth-btn" style="width: 100%; margin-top: 20px;" onclick="window.closeTermsModal()" data-i18n="terms-close-btn">I Understand</button>
+                <button class="settings-auth-btn" style="width: 100%; margin-top: 20px;"
+                    onclick="window.closeTermsModal()" data-i18n="terms-close-btn">I Understand</button>
             </section>
         </div>
     </div>
@@ -1018,17 +1057,18 @@
                 <h2 class="modal-title-alt" data-i18n="privacy-title">Privacy Policy</h2>
                 <div class="legal-text-body">
                     <p data-i18n="privacy-intro">We value your privacy...</p>
-                    
+
                     <h3 data-i18n="privacy-h1">1. Data Collection</h3>
                     <p data-i18n="privacy-p1">...</p>
-                    
+
                     <h3 data-i18n="privacy-h2">2. Local Storage</h3>
                     <p data-i18n="privacy-p2">...</p>
-                    
+
                     <h3 data-i18n="privacy-h3">3. No Commercial Sale</h3>
                     <p data-i18n="privacy-p3">...</p>
                 </div>
-                <button class="settings-auth-btn" style="width: 100%; margin-top: 20px;" onclick="window.closePrivacyModal()" data-i18n="privacy-close-btn">Close</button>
+                <button class="settings-auth-btn" style="width: 100%; margin-top: 20px;"
+                    onclick="window.closePrivacyModal()" data-i18n="privacy-close-btn">Close</button>
             </section>
         </div>
     </div>
@@ -1232,6 +1272,16 @@
     <!-- ============================================================
      END BOTTOM NAVIGATION BAR
      ============================================================ -->
+
+    <!-- Immersive Recipe View (Enlarged) -->
+    <div id="recipe-immersive-view" class="immersive-modal">
+        <button class="immersive-close-btn" onclick="window.closeImmersiveRecipe()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="immersive-recipe-container" id="immersive-recipe-content">
+            <!-- Content filled by JS -->
+        </div>
+    </div>
 
 
 

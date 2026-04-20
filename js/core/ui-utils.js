@@ -1,4 +1,5 @@
 import { myFavorites } from './state.js';
+import { t } from './i18n.js';
 
 export function createCocktailCardHTML(cocktail, options = {}) {
     const isFav = myFavorites.includes(cocktail.id);
@@ -85,12 +86,12 @@ export function createCocktailCardHTML(cocktail, options = {}) {
                 <button class="fav-btn ${isFav ? 'active' : ''}" onclick="window.toggleFavorite(event, '${cocktail.id}')">
                     <i class="${isFav ? 'fa-solid' : 'fa-regular'} fa-star"></i>
                 </button>` : ''}
-                ${!isPerfect ? `<span class="missing-tag missing-${missingCount}">Missing ${missingCount}</span>` : ''}
+                ${!isPerfect ? `<span class="missing-tag missing-${missingCount}">${t('card-missing', [missingCount])}</span>` : ''}
                 <img src="${cocktail.image}" 
                      alt="${cocktail.name}" 
                      loading="lazy" 
                      onload="this.classList.add('loaded'); this.parentElement.classList.add('image-loaded')">
-                ${isCustom && !showEditBtn ? `<span class="custom-badge">MINE</span>` : ''}
+                ${isCustom && !showEditBtn ? `<span class="custom-badge">${t('card-mine')}</span>` : ''}
                 
                 <div class="card-actions">
                     ${showEditBtn ? `
@@ -102,6 +103,9 @@ export function createCocktailCardHTML(cocktail, options = {}) {
                         <i class="fa-solid fa-trash"></i>
                     </button>` : ''}
                     ${!showEditBtn && !forceOpen ? `
+                    <button class="enlarge-btn" onclick="window.enlargeRecipe(event, '${cocktail.id}')">
+                        <i class="fa-solid fa-expand"></i>
+                    </button>
                     <button class="download-btn" onclick="window.downloadRecipe('${cocktail.id}')">
                         <i class="fa-solid fa-download"></i>
                     </button>` : ''}
@@ -112,11 +116,11 @@ export function createCocktailCardHTML(cocktail, options = {}) {
                 <div class="category-container">
                     ${categoriesHTML}
                 </div>
-                <p class="description">${cocktail.description || "A premium masterwork."}</p>
+                <p class="description">${cocktail.description || t('card-premium-work')}</p>
                 
                 <div class="collapsible-content">
                     <div class="servings-control">
-                        <span>Servings:</span>
+                        <span>${t('card-servings')}</span>
                         <div class="counter-box">
                             <button class="counter-btn" onclick="window.updateServings(event, '${cocktail.id}', -1)">-</button>
                             <span id="servings-${cocktail.id}">1</span>
@@ -125,7 +129,7 @@ export function createCocktailCardHTML(cocktail, options = {}) {
                     </div>
 
                     <div class="ingredients-section">
-                        <strong>Ingredients:</strong> 
+                        <strong>${t('card-ingredients')}</strong> 
                         <ul class="ingredients-list" id="ingredients-${cocktail.id}">
                             ${ingredientsHTML}
                         </ul>
@@ -133,24 +137,24 @@ export function createCocktailCardHTML(cocktail, options = {}) {
 
                     <div class="hardware-section">
                         <div class="hardware-column">
-                            <strong>Glassware:</strong>
-                            <p class="hardware-text">${cocktail.glassware || 'Standard'}</p>
+                            <strong>${t('card-glassware')}</strong>
+                            <p class="hardware-text">${cocktail.glassware || t('card-standard')}</p>
                         </div>
                         <div class="hardware-column">
-                            <strong>Ice:</strong>
-                            <p class="hardware-text">${cocktail.ice || 'None'}</p>
+                            <strong>${t('card-ice')}</strong>
+                            <p class="hardware-text">${cocktail.ice || t('card-none')}</p>
                         </div>
                     </div>
 
                     <div class="method-section">
-                        <strong>Method: ${cocktail.method}</strong>
+                        <strong>${t('card-method', [cocktail.method])}</strong>
                         <div class="method-text">
                             ${Array.isArray(cocktail.methodDesc) 
                                 ? cocktail.methodDesc.map((step, i) => `
                                     <div class="method-step">
-                                        <span class="step-num">Step ${i+1}:</span> ${step}
+                                        <span class="step-num">${t('card-step', [i + 1])}</span> ${step}
                                     </div>`).join('')
-                                : cocktail.methodDesc || "No description provided."
+                                : cocktail.methodDesc || t('card-no-desc')
                             }
                         </div>
                     </div>
@@ -165,6 +169,7 @@ export function handleCardClick(e, cocktailId) {
         !e.target.closest('.fav-btn') &&
         !e.target.closest('.counter-btn') &&
         !e.target.closest('.add-to-cart-btn') &&
+        !e.target.closest('.enlarge-btn') &&
         !e.target.closest('.edit-recipe-btn') &&
         !e.target.closest('.delete-recipe-btn')) {
         const card = e.currentTarget;
@@ -222,10 +227,10 @@ export function createPresentationHTML(cocktail) {
                 <div class="category-container">
                     ${categoriesHTML}
                 </div>
-                <p class="presentation-desc">${cocktail.description || "A masterwork of mixology."}</p>
+                <p class="presentation-desc">${cocktail.description || t('card-premium-work')}</p>
                 
                 <div class="presentation-ingredients">
-                    <h3>Ingredients</h3>
+                    <h3>${t('card-ingredients')}</h3>
                     <ul class="presentation-list">
                         ${ingredientsHTML}
                     </ul>
@@ -277,4 +282,168 @@ export function updateCarouselDots(carouselId) {
             dot.classList.remove('active');
         }
     });
+}
+/**
+ * Immersive Recipe View Logic
+ */
+export function enlargeRecipe(e, id) {
+    if (e) e.stopPropagation();
+
+    const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
+    // We need access to the databases here, but to avoid circular imports or complex lookups,
+    // we'll try to find it in the global/imported databases if we can, 
+    // or just pass the object from the card if we refactor.
+    // For now, we'll use a search approach.
+    
+    // We'll import these at the top of the file in the next step or assume they are available.
+    // Actually, it's better to find the cocktail from the DOM or state.
+    
+    // For simplicity, let's assume we can find it in classicCocktails, mocktailRecipes or myRecipes.
+    // I will add the imports at the top of the file.
+    
+    const cocktail = [...window.classicCocktails || [], ...window.mocktailRecipes || [], ...myRecipes].find(c => c.id == id);
+    if (!cocktail) return;
+
+    const modal = document.getElementById('recipe-immersive-view');
+    const content = document.getElementById('immersive-recipe-content');
+    if (!modal || !content) return;
+
+    const categoriesHTML = Array.isArray(cocktail.category)
+        ? cocktail.category.map(cat => `<span class="category-tag">${cat}</span>`).join('')
+        : `<span class="category-tag">${cocktail.category}</span>`;
+
+    const ingredientsHTML = cocktail.ingredients.map(ing => {
+        const name = typeof ing === 'object' ? ing.name : ing;
+        let amountHTML = "";
+        if (typeof ing === 'object' && ing.amount) {
+            amountHTML = `${ing.amount} <span class="unit">${ing.unit || ''}</span>`;
+        }
+        return `<li><span class="ing-amt">${amountHTML}</span> <span class="ing-name">${name}</span></li>`;
+    }).join('');
+
+    let stepsArray = [];
+    if (Array.isArray(cocktail.methodDesc)) {
+        stepsArray = cocktail.methodDesc;
+    } else if (typeof cocktail.methodDesc === 'string') {
+        // Split by double newlines or single newlines and filter empty
+        stepsArray = cocktail.methodDesc
+            .split(/\n+/)
+            .map(s => s.trim())
+            .filter(s => s.length > 0)
+            // Remove "Step X:" if it's already there to avoid duplicates
+            .map(s => s.replace(/^Step \d+:?\s*/i, '').replace(/^Stap \d+:?\s*/i, ''));
+    }
+
+    const stepsHTML = stepsArray.length > 0
+        ? stepsArray.map((step, i) => `
+            <div class="immersive-step">
+                <span class="step-label">${t('card-step', [i + 1])}</span>
+                <p>${step}</p>
+            </div>`).join('')
+        : `<p>${t('card-no-desc')}</p>`;
+
+    content.innerHTML = `
+        <div class="immersive-recipe-container">
+            <!-- HERO SECTION (Row 1) -->
+            <div class="immersive-hero-grid">
+                <!-- Col 1: Info Card -->
+                <div class="info-card">
+                    <h1 class="immersive-title">${cocktail.name}</h1>
+                    <div class="immersive-tags">${categoriesHTML}</div>
+                    <p class="immersive-description">${cocktail.description || ''}</p>
+                    
+                    <div class="immersive-servings-box">
+                        <span class="servings-label">${t('card-servings')}</span>
+                        <div class="immersive-counter">
+                            <button class="imm-counter-btn" onclick="window.updateImmersiveServings(event, '${cocktail.id}', -1)">-</button>
+                            <span id="imm-servings-count">1</span>
+                            <button class="imm-counter-btn" onclick="window.updateImmersiveServings(event, '${cocktail.id}', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Col 2: Image -->
+                <div class="image-area">
+                    <img src="${cocktail.image}" alt="${cocktail.name}" class="immersive-img">
+                </div>
+            </div>
+
+            <!-- DETAILS SECTION (Row 2) -->
+            <div class="immersive-details-container">
+                <div class="details-split-grid">
+                    <!-- Col 1: Ingredients -->
+                    <div class="bottom-col ingredients-col">
+                        <div class="immersive-section">
+                            <h3 class="imm-section-title">INGREDIENTS:</h3>
+                            <div class="imm-ingredients-dark-box">
+                                <ul class="immersive-ing-list">${ingredientsHTML}</ul>
+                            </div>
+                        </div>
+                        
+                        <div class="imm-hardware-box">
+                            <div class="hw-item">
+                                <h3 class="imm-section-title">GLASSWARE:</h3>
+                                <p class="hw-value">${cocktail.glassware || t('card-standard')}</p>
+                            </div>
+                            <div class="hw-item">
+                                <h3 class="imm-section-title">ICE:</h3>
+                                <p class="hw-value">${cocktail.ice || t('card-none')}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Col 2: Method -->
+                    <div class="bottom-col method-col">
+                        <div class="immersive-section">
+                            <h3 class="imm-section-title">METHOD: ${cocktail.method ? cocktail.method.toUpperCase() : 'STANDARD'}</h3>
+                            <div class="immersive-steps-container">${stepsHTML}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden'; // Prevent background scroll
+}
+
+export function closeImmersiveRecipe() {
+    const modal = document.getElementById('recipe-immersive-view');
+    if (modal) {
+        modal.classList.remove('show');
+    }
+    document.body.style.overflow = '';
+}
+
+export function updateImmersiveServings(e, id, change) {
+    if (e) e.stopPropagation();
+    const countEl = document.getElementById('imm-servings-count');
+    if (!countEl) return;
+
+    let current = parseInt(countEl.innerText) || 1;
+    let next = current + change;
+    if (next < 1) next = 1;
+    if (next > 20) next = 20;
+
+    countEl.innerText = next;
+
+    // Also update the ingredients list in the immersive view
+    const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
+    const cocktail = [...window.classicCocktails || [], ...window.mocktailRecipes || [], ...myRecipes].find(c => c.id == id);
+    if (!cocktail) return;
+
+    const ingList = document.querySelector('.immersive-ing-list');
+    if (!ingList) return;
+
+    ingList.innerHTML = cocktail.ingredients.map(ing => {
+        const name = typeof ing === 'object' ? ing.name : ing;
+        let amountHTML = "";
+        if (typeof ing === 'object' && ing.amount) {
+            const baseAmount = parseFloat(ing.amount);
+            const scaled = (baseAmount * next).toFixed(1).replace(/\.0$/, '');
+            amountHTML = `${scaled} <span class="unit">${ing.unit || ''}</span>`;
+        }
+        return `<li><span class="ing-amt">${amountHTML}</span> <span class="ing-name">${name}</span></li>`;
+    }).join('');
 }

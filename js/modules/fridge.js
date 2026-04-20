@@ -4,6 +4,7 @@ import { classicCocktails } from './database.js';
 import { mocktailRecipes } from './mocktails.js';
 import { drinkMode } from './drink-mode.js';
 import { createCocktailCardHTML } from '../core/ui-utils.js';
+import { t } from '../core/i18n.js';
 
 export function toggleCategory(id) {
     const content = document.getElementById(id);
@@ -192,7 +193,7 @@ export function checkMatches(silent = false) {
     if (!resultsContainer || !btn) return;
 
     if (!silent) {
-        btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Searching...`;
+        btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> ${t('fridge-searching')}`;
         btn.style.pointerEvents = "none";
     }
 
@@ -239,14 +240,14 @@ export function checkMatches(silent = false) {
             resultsContainer.innerHTML = `
                 <div class="placeholder-text" style="text-align:center; padding: 40px 20px;">
                     <i class="fa-solid fa-ice-cream" style="font-size: 3rem; opacity: 0.2; margin-bottom: 10px;"></i>
-                    <p>No close matches found.<br><small>Try selecting more spirits!</small></p>
+                    <p>${t('fridge-no-matches')}<br><small>${t('fridge-try-more')}</small></p>
                 </div>`;
         } else {
             // Group matches by missing count
             const groups = {
-                0: { title: "Perfect Matches", items: [] },
-                1: { title: "Missing 1 Ingredient", items: [] },
-                2: { title: "Missing 2 Ingredients", items: [] }
+                0: { title: t('group-perfect'), items: [] },
+                1: { title: t('group-missing-1'), items: [] },
+                2: { title: t('group-missing-2'), items: [] }
             };
 
             matches.forEach(cocktail => {
@@ -311,7 +312,7 @@ export function checkMatches(silent = false) {
             });
         }
 
-        btn.innerHTML = `<i class="fa-solid fa-glass-citrus"></i> Find Cocktails`;
+        btn.innerHTML = `<i class="fa-solid fa-glass-citrus"></i> ${t('fridge-calculate-btn')}`;
         btn.style.pointerEvents = "auto";
         if (!silent) resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, silent ? 0 : 600);

@@ -3,6 +3,7 @@ import { mocktailRecipes } from '../modules/mocktails.js';
 import { myFavorites } from '../core/state.js';
 import { createCocktailCardHTML } from '../core/ui-utils.js';
 import { drinkMode } from '../modules/drink-mode.js';
+import { t } from '../core/i18n.js';
 
 export function renderVault(filter = "") {
     const vaultGrid = document.getElementById('vault-grid');
@@ -23,24 +24,24 @@ export function renderVault(filter = "") {
     let categories = [];
     if (drinkMode === 'mocktail') {
         categories = [
-            { id: 'favorites', name: 'Favorites', searchTerms: [] },
+            { id: 'favorites', name: t('cat-favorites'), searchTerms: [] },
             { id: 'zero-riffs', name: '0.0 Riffs', searchTerms: ['virgin', 'arnold palmer', 'shirley temple'] },
-            { id: 'fruity', name: 'Fruity & Tropical', searchTerms: ['tropical', 'fruity', 'sweet', 'mango', 'pineapple', 'watermelon'] },
-            { id: 'fresh', name: 'Fresh & Light', searchTerms: ['fresh', 'light', 'citrus', 'refreshing', 'mint', 'cucumber'] },
-            { id: 'others', name: 'Other Mocktails', searchTerms: [] },
-            { id: 'my-recipes', name: 'My Masterpieces', searchTerms: [] }
+            { id: 'fruity', name: t('cat-sweet'), searchTerms: ['tropical', 'fruity', 'sweet', 'mango', 'pineapple', 'watermelon'] },
+            { id: 'fresh', name: t('cat-sour'), searchTerms: ['fresh', 'light', 'citrus', 'refreshing', 'mint', 'cucumber'] },
+            { id: 'others', name: t('cat-mocktails'), searchTerms: [] },
+            { id: 'my-recipes', name: t('cat-my-recipes'), searchTerms: [] }
         ];
     } else {
         categories = [
-            { id: 'favorites', name: 'Favorites', searchTerms: [] },
-            { id: 'gin', name: 'Gin', searchTerms: ['gin'] },
-            { id: 'vodka', name: 'Vodka', searchTerms: ['vodka'] },
-            { id: 'rum', name: 'Rum', searchTerms: ['rum', 'bacardi', 'becardi'] },
-            { id: 'tequila', name: 'Tequila & Mezcal', searchTerms: ['tequila', 'mezcal'] },
-            { id: 'whiskey', name: 'Whiskey & Cask', searchTerms: ['whiskey', 'bourbon', 'rye', 'scotch', 'cognac', 'pisco', 'brandy', 'jameson', 'vermouth', 'blended scotch', 'single malt'] },
-            { id: 'aperitif', name: 'Aperitifs & Spritz', searchTerms: ['aperitif', 'spritz', 'bitter', 'vermouth', 'bubbles', 'sparkling'] },
-            { id: 'others', name: 'Variety & Classics', searchTerms: [] },
-            { id: 'my-recipes', name: 'My Masterpieces', searchTerms: [] }
+            { id: 'favorites', name: t('cat-favorites'), searchTerms: [] },
+            { id: 'gin', name: t('cat-gin'), searchTerms: ['gin'] },
+            { id: 'vodka', name: t('cat-vodka'), searchTerms: ['vodka'] },
+            { id: 'rum', name: t('cat-rum'), searchTerms: ['rum', 'bacardi', 'becardi'] },
+            { id: 'tequila', name: t('cat-tequila'), searchTerms: ['tequila', 'mezcal'] },
+            { id: 'whiskey', name: t('cat-whiskey'), searchTerms: ['whiskey', 'bourbon', 'rye', 'scotch', 'cognac', 'pisco', 'brandy', 'jameson', 'vermouth', 'blended scotch', 'single malt'] },
+            { id: 'aperitif', name: t('cat-aperitif'), searchTerms: ['aperitif', 'spritz', 'bitter', 'vermouth', 'bubbles', 'sparkling'] },
+            { id: 'others', name: t('cat-others'), searchTerms: [] },
+            { id: 'my-recipes', name: t('cat-my-recipes'), searchTerms: [] }
         ];
     }
 

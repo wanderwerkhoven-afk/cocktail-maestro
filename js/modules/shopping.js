@@ -1,6 +1,7 @@
 import { shoppingList, myIngredients } from '../core/state.js';
 import { showToast } from '../core/ui-utils.js';
 import { classicCocktails } from './database.js';
+import { t } from '../core/i18n.js';
 
 export function renderShoppingList() {
     const listContainer = document.getElementById('shopping-list-items');
@@ -68,7 +69,7 @@ export function renderSmartRecommendation() {
             <div class="recommendation-icon">
                 <i class="fa-solid fa-wand-magic-sparkles"></i>
             </div>
-            <h2>Smart Buy Recommendations</h2>
+            <h2 data-i18n="shopping-smart-title">${t('shopping-smart-title')}</h2>
         </div>
         <div class="recommendation-carousel" id="shopping-recommendations-carousel" onscroll="window.updateCarouselDots('shopping-recommendations-carousel')">
             ${recommendations.map((rec, index) => {
@@ -82,15 +83,15 @@ export function renderSmartRecommendation() {
                             </div>
                             <div class="bottle-info">
                                 <span class="bottle-name">${rec.name}</span>
-                                <span class="unlock-count">${rec.isFallback ? `Used in ${rec.count} recipes` : `Unlocks ${rec.count} new cocktails!`}</span>
+                                <span class="unlock-count">${rec.isFallback ? t('shopping-used-in', [rec.count]) : t('shopping-unlocks', [rec.count])}</span>
                             </div>
                             <button class="add-recommendation-btn" onclick="addToShoppingList(event, '${rec.name}')">
-                                <i class="fa-solid fa-cart-plus"></i> Add
+                                <i class="fa-solid fa-cart-plus"></i> ${t('shopping-add-btn')}
                             </button>
                         </div>
 
                         <div class="unlocked-carousel-container">
-                            <h4>${rec.isFallback ? 'Popular in:' : 'Unlocks:'}</h4>
+                            <h4>${rec.isFallback ? t('shopping-popular-label') : t('shopping-unlocks-label')}</h4>
                             <div class="mini-cocktail-list">
                                 ${rec.cocktails.map(c => `
                                     <div class="mini-cocktail-card">

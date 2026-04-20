@@ -7,13 +7,29 @@ const translations = {
         // Navigation
         "nav-home": "Home",
         "nav-fridge": "Koelkast",
-        "nav-vault": "The Vault",
-        "nav-recipes": "Recepten",
-        "nav-kitchen": "Keuken",
+        "nav-vault": "De Kluis",
+        "nav-recipes": "Mijn Recepten",
+        "nav-kitchen": "De Keuken",
         "nav-shopping": "Winkelen",
+
+        // Auth Page
+        "auth-tagline": "Verhoog je mixologie reis",
+        "auth-tab-login": "Inloggen",
+        "auth-tab-signup": "Registreren",
+        "auth-email-placeholder": "E-mailadres",
+        "auth-password-placeholder": "Wachtwoord",
+        "auth-name-placeholder": "Volledige Naam",
+        "auth-password-min": "Wachtwoord (min. 6 tekens)",
+        "auth-forgot-password": "Wachtwoord vergeten?",
+        "auth-submit-login": "Inloggen",
+        "auth-submit-signup": "Account aanmaken",
+        "auth-or": "OF",
+        "auth-guest-btn": "Doorgaan als gast",
 
         // Home Page
         "home-search-placeholder": "Zoek klassiekers...",
+        "home-subtitle": "Ontdek, creëer en beheers de kunst van cocktails",
+        "home-info-text": "Beheers de kunst van mixologie met <strong>Cocktail Maestro</strong>. Ontdek onze uitgebreide collectie klassieke en moderne recepten in de <strong>Kluis</strong>, beheer je thuisvoorraad in de <strong>Koelkast</strong> om precies te ontdekken wat je nu kunt maken, en verbeter je vaardigheden in de <strong>Keuken</strong> met professionele gidsen voor siropen, infusies en garnituren. Of je nu een nieuwsgierige beginner bent of een doorgewinterde pro, je perfecte drankje begint hier.",
         "home-categories-title": "Categorieën",
         "cat-classics": "Klassiekers",
         "cat-sweet": "Zoet",
@@ -25,21 +41,76 @@ const translations = {
         "vault-card-sub": "Blader door klassieke cocktailrecepten",
         "kitchen-card-title": "Keuken",
         "kitchen-card-sub": "Maak siropen, infusies & garnitures",
+        "home-shake-title": "Shake it up!",
+        "home-shake-sub": "Kun je niet kiezen? Laat het lot je volgende meesterwerk inschenken.",
+        "home-shake-btn": "SHAKE",
+        "home-bar-status-title": "JE BAR STATUS",
+        "home-bar-status-sub": "Je huidige cocktail potentieel",
+        "home-bar-stats-label": "BAR STATS:",
+        "home-stats-ingredients": "Ingrediënten op voorraad",
+        "home-stats-cocktails": "Cocktails die je kunt maken",
+        "home-manage-fridge": "Beheer Koelkast",
+        "home-update-status": "UPDATE STATUS",
 
         // Fridge Page
         "fridge-title": "Vul je Koelkast",
-        "fridge-intro-text": "Vink aan wat je in huis hebt. Wij laten je zien welke cocktails je direct kunt maken of welke ingrediënten je nog mist.",
-        "fridge-calculate-btn": "Bereken Match",
+        "fridge-intro-title": "Je Virtuele Bar",
+        "fridge-intro-text": "Welkom bij je persoonlijke inventaris. Vertel ons welke flessen, sappen en extra's je in huis hebt, en de Maestro zal precies uitrekenen welke cocktails je kunt maken!",
+        "fridge-intro-tip": "Tip: Wees zo specifiek mogelijk om de beste resultaten te krijgen. Je ingrediënten worden automatisch opgeslagen.",
+        "fridge-available-title": "Wat hebben we beschikbaar?",
+        "fridge-search-placeholder": "Zoek alle ingrediënten...",
+        "fridge-calculate-btn": "Vind Mijn Cocktails",
+        "fridge-searching": "Zoeken...",
+        "fridge-no-matches": "Geen directe matches gevonden.",
+        "fridge-try-more": "Probeer meer ingrediënten te selecteren!",
+        "group-perfect": "Perfecte Matches",
+        "group-missing-1": "Mis 1 ingrediënt",
+        "group-missing-2": "Mis 2 ingrediënten",
 
         // Vault Page
         "vault-title": "The Vault",
+        "vault-intro-title": "The Cocktail Vault",
+        "vault-intro-text": "Ontdek onze samengestelde collectie van klassieke en moderne cocktails. Van tijdloze sours tot complexe tiki-drankjes, elk recept is een meesterwerk dat wacht om ontdekt te worden.",
+        "vault-intro-tip": "Gebruik de zoekbalk om cocktails te vinden op naam, drank of smaakprofiel. Tik op een kaart om het volledige recept te zien.",
         "vault-search-placeholder": "Zoek in The Vault...",
         "vault-missing-filter": "Alleen Perfecte Matches",
 
         // Recipe Book
         "recipes-title": "Mijn Recepten",
-        "recipes-intro-text": "Creëer je eigen meesterwerken. Sla ze hier op om ze altijd bij de hand te hebben.",
+        "recipes-intro-title": "Mijn Receptenboek",
+        "recipes-intro-text": "Je persoonlijke collectie van eigen creaties en variaties. Sla hier je eigen unieke recepten op, compleet met foto's en gedetailleerde instructies.",
+        "recipes-intro-tip": "Tik op de plusknop hieronder om een nieuw recept te maken. Al je recepten worden veilig opgeslagen.",
         "recipes-add-btn": "Nieuw Recept",
+        "recipe-save": "Recept Opslaan",
+        "recipe-update": "Recept Bijwerken",
+        "recipe-delete-confirm": "Dit recept verwijderen?",
+        "recipe-alert-empty": "Voer een naam en ten minste één ingrediënt in!",
+        "recipe-alert-req": "Naam en ingrediënten zijn verplicht!",
+        "recipe-alert-added": "Recept toegevoegd!",
+        "recipe-alert-updated": "Recept bijgewerkt!",
+        "recipe-empty-state": "Je receptenboek is leeg.<br>Begin met het toevoegen van je eerste creatie!",
+        "recipe-name-ph": "bijv. Espresso Martini",
+        "recipe-desc-ph": "bijv. Een frisse klassieker met een twist.",
+        "recipe-amount-ph": "50",
+        "recipe-unit-ph": "ml",
+        "recipe-ing-ph": "Vodka",
+        "recipe-glass-ph": "bijv. Coupe",
+        "recipe-ice-ph": "bijv. Groot ijsblok",
+        "recipe-ice-label": "IJs",
+        "recipe-type-label": "Type Drank",
+        "recipe-cocktail": "Cocktail",
+        "recipe-mocktail": "Mocktail",
+        "recipe-cat-label": "Categorieën (komma gescheiden)",
+        "recipe-method-label": "Bereidingswijze",
+        "recipe-method-ph": "bijv. Shaken",
+        "recipe-instr-label": "Instructies / Stappen",
+        "recipe-add-step": "Stap Toevoegen",
+        "recipe-upload-photo": "Upload Cocktail Foto",
+        "recipe-name-label": "Cocktail Naam",
+        "recipe-desc-label": "Korte Beschrijving",
+        "recipe-ing-label": "Ingrediënten (Aantal | Eenheid | Naam)",
+        "recipe-add-ing": "Ingrediënt Toevoegen",
+        "recipe-glass-label": "Glaswerk",
 
         // Kitchen Page
         "kitchen-title": "De Keuken",
@@ -48,6 +119,37 @@ const translations = {
         // Shopping List
         "shopping-title": "Boodschappenlijst",
         "shopping-empty": "Je lijst is leeg. Voeg ingrediënten toe!",
+        "shopping-smart-title": "Slimme Kooptips",
+        "shopping-unlocks": "Ontgrendelt {0} nieuwe cocktails!",
+        "shopping-used-in": "Gebruikt in {0} recepten",
+        "shopping-add-btn": "Toevoegen",
+        "shopping-unlocks-label": "Ontgrendelt:",
+        "shopping-popular-label": "Populair in:",
+
+        // Cocktail Card & UI
+        "card-missing": "Mis {0}",
+        "card-mine": "EIGEN",
+        "card-premium-work": "Een premium meesterwerk.",
+        "card-servings": "Porties:",
+        "card-ingredients": "Ingrediënten:",
+        "card-glassware": "Glaswerk:",
+        "card-standard": "Standaard",
+        "card-ice": "IJs:",
+        "card-none": "Geen",
+        "card-method": "Methode: {0}",
+        "card-step": "Stap {0}:",
+        "card-no-desc": "Geen beschrijving gegeven.",
+
+        // Categories
+        "cat-gin": "Gin",
+        "cat-vodka": "Vodka",
+        "cat-rum": "Rum",
+        "cat-tequila": "Tequila & Mezcal",
+        "cat-whiskey": "Whiskey & Cask",
+        "cat-aperitif": "Aperitief & Spritz",
+        "cat-favorites": "Favorieten",
+        "cat-others": "Variatie & Klassiekers",
+        "cat-my-recipes": "Mijn Meesterwerken",
 
         // Settings Modal
         "settings-title": "Instellingen",
@@ -101,8 +203,24 @@ const translations = {
         "nav-kitchen": "Kitchen",
         "nav-shopping": "Shopping",
 
+        // Auth Page
+        "auth-tagline": "Elevate your mixology journey",
+        "auth-tab-login": "Login",
+        "auth-tab-signup": "Sign Up",
+        "auth-email-placeholder": "Email Address",
+        "auth-password-placeholder": "Password",
+        "auth-name-placeholder": "Full Name",
+        "auth-password-min": "Password (min. 6 chars)",
+        "auth-forgot-password": "Forgot password?",
+        "auth-submit-login": "Login",
+        "auth-submit-signup": "Create Account",
+        "auth-or": "OR",
+        "auth-guest-btn": "Continue as Guest",
+
         // Home Page
         "home-search-placeholder": "Search classics...",
+        "home-subtitle": "Discover, create, and master the art of cocktails",
+        "home-info-text": "Master the art of mixology with <strong>Cocktail Maestro</strong>. Explore our extensive collection of classic and modern recipes in the <strong>Vault</strong>, manage your home inventory in the <strong>Fridge</strong> to discover exactly what you can create right now, and elevate your skills in the <strong>Kitchen</strong> with professional guides for syrups, infusions, and garnishes. Whether you're a curious beginner or a seasoned pro, your perfect pour starts here.",
         "home-categories-title": "Categories",
         "cat-classics": "Classics",
         "cat-sweet": "Sweet",
@@ -114,21 +232,76 @@ const translations = {
         "vault-card-sub": "Browse classic cocktail recipes",
         "kitchen-card-title": "Kitchen",
         "kitchen-card-sub": "Make syrups, infusions & garnishes",
+        "home-shake-title": "Shake it up!",
+        "home-shake-sub": "Can't decide? Let fate pour your next masterwork.",
+        "home-shake-btn": "SHAKE",
+        "home-bar-status-title": "YOUR BAR STATUS",
+        "home-bar-status-sub": "Your current cocktail potential",
+        "home-bar-stats-label": "BAR STATS:",
+        "home-stats-ingredients": "Ingredients in stock",
+        "home-stats-cocktails": "Cocktails possible to make",
+        "home-manage-fridge": "Manage Fridge",
+        "home-update-status": "UPDATE STATUS",
 
         // Fridge Page
         "fridge-title": "Stock your Fridge",
-        "fridge-intro-text": "Check what you have in stock. We'll show you which cocktails you can make immediately or what you're missing.",
+        "fridge-intro-title": "Your Virtual Bar",
+        "fridge-intro-text": "Welcome to your personal inventory. Tell us what bottles, juices, and extras you have at home, and the Maestro will figure out exactly which cocktails you can make!",
+        "fridge-intro-tip": "Tip: Be as specific as possible to get the best matches. Your ingredients are saved automatically.",
+        "fridge-available-title": "What do we have available?",
+        "fridge-search-placeholder": "Search all ingredients...",
         "fridge-calculate-btn": "Calculate Match",
+        "fridge-searching": "Searching...",
+        "fridge-no-matches": "No close matches found.",
+        "fridge-try-more": "Try selecting more ingredients!",
+        "group-perfect": "Perfect Matches",
+        "group-missing-1": "Missing 1 Ingredient",
+        "group-missing-2": "Missing 2 Ingredients",
 
         // Vault Page
         "vault-title": "The Vault",
+        "vault-intro-title": "The Cocktail Vault",
+        "vault-intro-text": "Explore our curated collection of classic and modern cocktails. From timeless sours to complex tiki drinks, every recipe is a masterpiece waiting to be discovered.",
+        "vault-intro-tip": "Use the search bar to find cocktails by name, spirit, or flavor profile. Tap a card to see the full recipe.",
         "vault-search-placeholder": "Search The Vault...",
         "vault-missing-filter": "Perfect Matches Only",
 
         // Recipe Book
         "recipes-title": "My Recipes",
-        "recipes-intro-text": "Create your own masterpieces. Save them here to always have them at hand.",
+        "recipes-intro-title": "Your Recipe Book",
+        "recipes-intro-text": "Your personal collection of custom creations and variations. Save your own unique recipes here, complete with photos and detailed instructions.",
+        "recipes-intro-tip": "Tap the plus button below to create a new recipe. All your recipes are saved securely.",
         "recipes-add-btn": "New Recipe",
+        "recipe-save": "Save Recipe",
+        "recipe-update": "Update Recipe",
+        "recipe-delete-confirm": "Delete this recipe?",
+        "recipe-alert-empty": "Please enter a name and at least one ingredient!",
+        "recipe-alert-req": "Name and ingredients are required!",
+        "recipe-alert-added": "Recipe added!",
+        "recipe-alert-updated": "Recipe updated!",
+        "recipe-empty-state": "Your recipe book is empty.<br>Start adding your first creation!",
+        "recipe-name-ph": "e.g. Espresso Martini",
+        "recipe-desc-ph": "e.g. A fresh classic with a twist.",
+        "recipe-amount-ph": "50",
+        "recipe-unit-ph": "ml",
+        "recipe-ing-ph": "Vodka",
+        "recipe-glass-ph": "e.g. Coupe",
+        "recipe-ice-ph": "e.g. Large ice cube",
+        "recipe-ice-label": "Ice",
+        "recipe-type-label": "Drink Type",
+        "recipe-cocktail": "Cocktail",
+        "recipe-mocktail": "Mocktail",
+        "recipe-cat-label": "Categories (comma separated)",
+        "recipe-method-label": "Method",
+        "recipe-method-ph": "e.g. Shaken",
+        "recipe-instr-label": "Instructions / Steps",
+        "recipe-add-step": "Add Step",
+        "recipe-upload-photo": "Upload Cocktail Photo",
+        "recipe-name-label": "Cocktail Name",
+        "recipe-desc-label": "Short Description",
+        "recipe-ing-label": "Ingredients (Amount | Unit | Name)",
+        "recipe-add-ing": "Add Ingredient",
+        "recipe-glass-label": "Glassware",
 
         // Kitchen Page
         "kitchen-title": "The Kitchen",
@@ -137,6 +310,37 @@ const translations = {
         // Shopping List
         "shopping-title": "Shopping List",
         "shopping-empty": "Your list is empty. Start adding ingredients!",
+        "shopping-smart-title": "Smart Buy Recommendations",
+        "shopping-unlocks": "Unlocks {0} new cocktails!",
+        "shopping-used-in": "Used in {0} recipes",
+        "shopping-add-btn": "Add",
+        "shopping-unlocks-label": "Unlocks:",
+        "shopping-popular-label": "Popular in:",
+
+        // Cocktail Card & UI
+        "card-missing": "Missing {0}",
+        "card-mine": "MINE",
+        "card-premium-work": "A premium masterwork.",
+        "card-servings": "Servings:",
+        "card-ingredients": "Ingredients:",
+        "card-glassware": "Glassware:",
+        "card-standard": "Standard",
+        "card-ice": "Ice:",
+        "card-none": "None",
+        "card-method": "Method: {0}",
+        "card-step": "Step {0}:",
+        "card-no-desc": "No description provided.",
+
+        // Categories
+        "cat-gin": "Gin",
+        "cat-vodka": "Vodka",
+        "cat-rum": "Rum",
+        "cat-tequila": "Tequila & Mezcal",
+        "cat-whiskey": "Whiskey & Cask",
+        "cat-aperitif": "Aperitifs & Spritz",
+        "cat-favorites": "Favorites",
+        "cat-others": "Variety & Classics",
+        "cat-my-recipes": "My Masterpieces",
 
         // Settings Modal
         "settings-title": "Settings",
@@ -209,7 +413,7 @@ export function applyLanguage() {
             if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                 el.placeholder = translation;
             } else {
-                el.innerText = translation;
+                el.innerHTML = translation;
             }
         }
     });
@@ -232,10 +436,18 @@ export function applyLanguage() {
 }
 
 /**
- * Utility to get a single translation string
+ * Utility to get a single translation string with optional parameter replacement
+ * @param {string} key - The translation key
+ * @param {Array} params - Optional array of values to replace {0}, {1}, etc.
  */
-export function t(key) {
-    return translations[currentLang][key] || key;
+export function t(key, params = []) {
+    let text = translations[currentLang][key] || key;
+    if (params && params.length > 0) {
+        params.forEach((p, i) => {
+            text = text.replace(`{${i}}`, p);
+        });
+    }
+    return text;
 }
 
 export function getCurrentLang() {

@@ -207,6 +207,297 @@
     transform: scale(1) translateY(0);
 }
 
+/* ============================================================
+   IMMERSIVE RECIPE VIEW (PREMIUM EDITORIAL LAYOUT)
+   ============================================================ */
+.immersive-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--imm-bg-modal);
+    z-index: 10000;
+    display: none;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.immersive-modal.show {
+    display: flex;
+}
+
+.immersive-close-btn {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--glass-bg-light);
+    border: 1px solid var(--border-light);
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10010;
+    transition: all 0.3s ease;
+}
+
+.immersive-recipe-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 20px;
+}
+
+/* HERO SECTION (Row 1) */
+.immersive-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: stretch;
+    margin-bottom: 30px;
+}
+
+.info-card {
+    background: var(--imm-bg-card);
+    padding: 50px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.immersive-title {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 25px;
+    color: var(--text-primary);
+}
+
+.immersive-tags {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 35px;
+}
+
+.immersive-tags .category-tag {
+    background: var(--imm-tag-bg);
+    color: var(--imm-accent);
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    text-transform: capitalize;
+}
+
+.immersive-description {
+    font-size: 1.2rem;
+    color: var(--imm-text-dim);
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+.immersive-servings-box {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-top: auto;
+}
+
+.servings-label {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.immersive-counter {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.imm-counter-btn {
+    background: var(--glass-bg-hover);
+    border: none;
+    color: var(--text-primary);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.imm-counter-btn:hover {
+    background: var(--glass-bg-active);
+}
+
+#imm-servings-count {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    min-width: 20px;
+    text-align: center;
+}
+
+/* Image area */
+.image-area {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.immersive-img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 4px;
+    max-width: 500px;
+    box-shadow: 0 10px 30px var(--shadow-strong);
+}
+
+/* DETAILS SECTION (Row 2) */
+.immersive-details-container {
+    background: var(--imm-bg-card);
+    padding: 70px 50px;
+    border-radius: 4px;
+}
+
+.details-split-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+}
+
+.imm-section-title {
+    color: var(--imm-accent);
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    margin-bottom: 30px;
+}
+
+.imm-ingredients-dark-box {
+    background: var(--imm-bg-inset);
+    padding: 30px;
+    border-radius: 4px;
+    margin-bottom: 40px;
+}
+
+.immersive-ing-list {
+    list-style: none;
+    padding: 0;
+}
+
+.immersive-ing-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--imm-border);
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.immersive-ing-list li:last-child {
+    border-bottom: none;
+}
+
+.ing-amt {
+    font-weight: 800;
+    color: var(--text-primary);
+    min-width: 70px;
+    display: flex;
+    gap: 5px;
+}
+
+.ing-amt .unit {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.ing-name {
+    color: var(--imm-text-muted);
+    margin-left: 5px;
+}
+
+.hw-item {
+    margin-bottom: 35px;
+}
+
+.hw-value {
+    font-size: 1.2rem;
+    color: var(--imm-text-dim);
+    margin-top: -10px;
+}
+
+/* Method Column */
+.immersive-steps-container {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.immersive-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.step-label {
+    white-space: nowrap;
+    font-weight: 800;
+    color: var(--imm-accent);
+    min-width: 85px;
+}
+
+.immersive-step p {
+    font-size: 1.25rem;
+    line-height: 1.65;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+@media (max-width: 1100px) {
+    .immersive-recipe-container {
+        padding: 40px 15px;
+    }
+    .info-card {
+        padding: 35px;
+    }
+    .immersive-title {
+        font-size: 2.2rem;
+    }
+    .bottom-split-grid {
+        gap: 40px;
+    }
+}
+
+@media (max-width: 800px) {
+    .immersive-hero-grid,
+    .details-split-grid {
+        grid-template-columns: 1fr;
+    }
+    .immersive-details-container {
+        padding: 40px 20px;
+    }
+    .image-area {
+        order: -1;
+        justify-content: center;
+    }
+    .info-card {
+        padding: 30px;
+    }
+    .step-label {
+        min-width: 70px;
+    }
+}
+
 /* ==========================================================================
    INTERACTIVE INTRO SECTIONS
    ========================================================================== */

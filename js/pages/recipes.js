@@ -1,10 +1,11 @@
 import { currentImageBase64, setCurrentImageBase64 } from '../core/state.js';
 import { syncData } from '../core/auth.js';
+import { t } from '../core/i18n.js';
 
 export function openRecipeForm() {
     // 1. Reset de Save-knop naar de originele staat (Nieuw recept)
     const saveBtn = document.querySelector('.save-btn');
-    saveBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Recipe';
+    saveBtn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> ${t('recipe-save')}`;
     saveBtn.onclick = saveNewRecipe;
 
     // 2. Maak alle tekstvelden leeg
@@ -90,7 +91,7 @@ export function addInstructionRow(content = '') {
     row.className = 'instruction-row';
     
     row.innerHTML = `
-        <div class="step-label">Step ${container.children.length + 1}</div>
+        <div class="step-label">${t('card-step', [container.children.length + 1])}</div>
         <textarea placeholder="bijv. Shake alle ingrediënten..." oninput="window.checkStepTyping(this)">${content}</textarea>
         <button type="button" class="remove-step-btn" onclick="window.removeInstructionRow(this)">
             <i class="fa-solid fa-xmark"></i>
@@ -117,7 +118,7 @@ function updateInstructionNumbers() {
     const container = document.getElementById('instruction-steps-container');
     const rows = container.querySelectorAll('.instruction-row');
     rows.forEach((row, index) => {
-        row.querySelector('.step-label').innerText = `Step ${index + 1}`;
+        row.querySelector('.step-label').innerText = t('card-step', [index + 1]);
     });
 }
 
@@ -180,11 +181,10 @@ export function previewImage(event) {
 }
 
 export function saveNewRecipe() {
-    const name = document.getElementById('recipe-name').value;
     const ingredients = getIngredientsFromForm();
 
     if (!name || ingredients.length === 0) {
-        alert("Please enter a name and at least one ingredient!");
+        alert(t('recipe-alert-empty'));
         return;
     }
 
@@ -209,7 +209,7 @@ export function saveNewRecipe() {
     // Sync to cloud if logged in
     syncData('recipes', myRecipes);
 
-    finalizeSubmit("Recipe added!");
+    finalizeSubmit(t('recipe-alert-added'));
 }
 
 export function updateRecipe(id) {
@@ -217,11 +217,10 @@ export function updateRecipe(id) {
     const index = myRecipes.findIndex(r => r.id === id);
     if (index === -1) return;
 
-    const name = document.getElementById('recipe-name').value;
     const ingredients = getIngredientsFromForm();
 
     if (!name || ingredients.length === 0) {
-        alert("Name and ingredients are required!");
+        alert(t('recipe-alert-req'));
         return;
     }
 
@@ -243,7 +242,7 @@ export function updateRecipe(id) {
 
     // Sync to cloud if logged in
     syncData('recipes', myRecipes);
-    finalizeSubmit("Recipe updated!");
+    finalizeSubmit(t('recipe-alert-updated'));
 }
 
 function getIngredientsFromForm() {
@@ -292,7 +291,7 @@ export function renderMyRecipes() {
         grid.innerHTML = `
             <div class="placeholder-text" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; margin-top: 50px; text-align: center; color: #666;">
                 <i class="fa-solid fa-book-open" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
-                <p>Your recipe book is empty.<br>Start adding your first creation!</p>
+                <p>${t('recipe-empty-state')}</p>
             </div>`;
         return;
     }
@@ -348,14 +347,14 @@ export function editRecipe(id) {
     cocktail.ingredients.forEach(ing => addIngredientRow(ing.amount, ing.unit, ing.name));
 
     const saveBtn = document.querySelector('.save-btn');
-    saveBtn.innerHTML = '<i class="fa-solid fa-check"></i> Update Recipe';
+    saveBtn.innerHTML = `<i class="fa-solid fa-check"></i> ${t('recipe-update')}`;
     saveBtn.onclick = () => updateRecipe(id);
 
     document.getElementById('recipe-form-overlay').style.display = 'flex';
 }
 
 export function deleteRecipe(id) {
-    if (confirm("Delete this recipe?")) {
+    if (confirm(t('recipe-delete-confirm'))) {
         let myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
         myRecipes = myRecipes.filter(r => r.id !== id);
         localStorage.setItem('myRecipes', JSON.stringify(myRecipes));

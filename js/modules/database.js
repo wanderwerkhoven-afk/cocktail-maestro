@@ -20,6 +20,7 @@
  *      - Bramble
  *      - Brown Derby
  *      - Caipirinha
+ *      - Chai Moscow Mule
  *      - Chartreuse Swizzle
  *      - Clover Club
  *      - Corpse Reviver #2
@@ -552,6 +553,35 @@ export const classicCocktails = [
             Step 4: Stir well to combine and garnish with a fresh lime wedge.
         `.trim(),
         image: "./assets/Cocktails/caipirinha.webp"
+    },
+    {
+        id: 'chai-moscow-mule',
+        name: "Chai Moscow Mule",
+        category: ["Spiced", "Fresh", "Modern"],
+        description: "A warm and aromatic twist on the classic Mule, combining chai spices with zesty lime and spicy ginger beer.",
+        ingredients: [
+            { amount: 50, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
+            { amount: 15, unit: "ml", name: "Chai syrup", fridgeCategory: "syrup" },
+            { amount: 15, unit: "ml", name: "Fresh lime juice", fridgeCategory: "juice" },
+            { amount: 100, unit: "ml", name: "Ginger beer", fridgeCategory: "soda" }
+        ],
+        glassware: "Copper mug",
+        ice: "Ice cubes",
+        method: "Built",
+        methodDesc: `
+            Step 1: Fill a copper mug with ice cubes.
+
+            Step 2: Add vodka, chai syrup, and fresh lime juice.
+
+            Step 3: Stir briefly to combine and dissolve the syrup.
+
+            Step 4: Top with ginger beer.
+
+            Step 5: Give a gentle stir to integrate while keeping carbonation.
+
+            Step 6: Garnish with a star anise and place a round butter cookie on the rim.
+        `.trim(),
+        image: "./assets/Cocktails/chaimoscowmule.webp"
     },
     {
         id: 'chartreuse-swizzle',

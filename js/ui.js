@@ -5,13 +5,15 @@ import { renderVault, downloadRecipe, updateServings } from './pages/vault.js';
 import { openRecipeForm, closeRecipeForm, addIngredientRow, removeIngredientRow, addInstructionRow, removeInstructionRow, previewImage, saveNewRecipe, updateRecipe, editRecipe, deleteRecipe, checkRowTyping, checkStepTyping, renderMyRecipes, setRecipeMode } from './pages/recipes.js';
 import { toggleCategory, filterCategoryList, filterAllIngredients, updateFridge, syncCheckboxes, checkMatches, calculateBarProgress, renderFridgeCategories } from './modules/fridge.js';
 import { shakeForCocktail, closeShakeModal, toggleRandomizerFullscreen } from './modules/randomizer.js';
-import { handleCardClick, showToast, createCocktailCardHTML, updateCarouselDots } from './core/ui-utils.js';
+import { handleCardClick, showToast, createCocktailCardHTML, updateCarouselDots, enlargeRecipe, closeImmersiveRecipe, updateImmersiveServings } from './core/ui-utils.js';
 import { filterKitchen, initKitchenCarousels, toggleKitchenCard, openKitchenItem } from './pages/kitchen.js';
 import { setDrinkMode } from './modules/drink-mode.js';
 import { initSettings, openSettingsModal, closeSettingsModal, toggleLanguageList, closeLanguageList, toggleUnitList, closeUnitList, changeUnit, toggleThemeList, closeThemeList, changeTheme, openTermsModal, closeTermsModal, openPrivacyModal, closePrivacyModal } from './pages/settings.js';
 import { fetchCloudData } from './core/auth.js';
 import { getInitialDestination } from './core/auth-flow.js';
 import { applyLanguage, changeLanguage } from './core/i18n.js';
+import { classicCocktails } from './modules/database.js';
+import { mocktailRecipes } from './modules/mocktails.js';
 
 // Expose functions to global scope for HTML onclick handlers
 window.navigateTo = navigateTo;
@@ -56,6 +58,9 @@ window.toggleRandomizerFullscreen = toggleRandomizerFullscreen;
 window.handleCardClick = handleCardClick;
 window.showToast = showToast;
 window.createCocktailCardHTML = createCocktailCardHTML;
+window.enlargeRecipe = enlargeRecipe;
+window.closeImmersiveRecipe = closeImmersiveRecipe;
+window.updateImmersiveServings = updateImmersiveServings;
 window.filterKitchen = filterKitchen;
 window.updateCarouselDots = updateCarouselDots;
 window.toggleKitchenCard = toggleKitchenCard;
@@ -75,6 +80,8 @@ window.openTermsModal = openTermsModal;
 window.closeTermsModal = closeTermsModal;
 window.openPrivacyModal = openPrivacyModal;
 window.closePrivacyModal = closePrivacyModal;
+window.classicCocktails = classicCocktails;
+window.mocktailRecipes = mocktailRecipes;
 
 /**
  * Filter by category from the Home page — navigates to Vault with a filter term
