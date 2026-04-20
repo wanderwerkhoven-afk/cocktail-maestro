@@ -420,5 +420,31 @@ export const mocktailRecipes = [
             Step 4: Garnish with a wedge of watermelon and a few mint leaves.
         `.trim(),
         image: './assets/Mocktails/watermelon-cooler.webp'
+    },
+    {
+        id: 'virgin-moscow-mule',
+        name: 'Virgin Moscow Mule',
+        dutchName: 'Virgin Moskou Mule',
+        category: ['Spicy', 'Refreshing', 'Ginger'],
+        description: 'All the spicy kick and bright lime of a classic Mule, perfectly balanced without the alcohol.',
+        ingredients: [
+            { amount: 150, unit: 'ml', name: 'Ginger beer', fridgeCategory: 'juice' },
+            { amount: 25, unit: 'ml', name: 'Lime juice', fridgeCategory: 'juice' },
+            { amount: 15, unit: 'ml', name: 'Simple syrup', fridgeCategory: 'syrup', kitchenId: 'syrups:simple' },
+            { amount: 4, unit: 'leaves', name: 'Fresh mint', fridgeCategory: 'fresh' }
+        ],
+        glassware: 'Copper mug or Highball',
+        ice: 'Crushed ice',
+        method: 'Built',
+        methodDesc: `
+            Step 1: Fill a copper mug or highball glass with crushed ice.
+
+            Step 2: Add fresh lime juice and simple syrup.
+
+            Step 3: Top with chilled ginger beer and stir gently.
+
+            Step 4: Garnish with a lime wheel and a sprig of fresh mint.
+        `.trim(),
+        image: './assets/Mocktails/ginger-lemonade.webp'
     }
 ];

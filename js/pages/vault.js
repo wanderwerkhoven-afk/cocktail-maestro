@@ -50,7 +50,7 @@ export function renderVault(filter = "") {
     // 1. First, group ALL cocktails that match the search term
     const allMatching = sourceList.filter(c => {
         if (!searchTerm) return true;
-        const nameMatch = c.name.toLowerCase().includes(searchTerm);
+        const nameMatch = c.name.toLowerCase().includes(searchTerm) || (c.dutchName && c.dutchName.toLowerCase().includes(searchTerm));
         const ingredientMatch = c.ingredients.some(i => {
             const ingName = typeof i === 'object' ? i.name : i;
             return ingName.toLowerCase().includes(searchTerm);

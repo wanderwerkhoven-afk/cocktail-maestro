@@ -1,4 +1,5 @@
 import { myIngredients, myFavorites } from '../core/state.js';
+import { syncData } from '../core/auth.js';
 import { classicCocktails } from './database.js';
 import { mocktailRecipes } from './mocktails.js';
 import { drinkMode } from './drink-mode.js';
@@ -77,6 +78,9 @@ export function updateFridge(checkbox) {
 
     // Save to localStorage immediately
     localStorage.setItem('myIngredients', JSON.stringify(myIngredients));
+
+    // Sync to cloud if logged in
+    syncData('ingredients', myIngredients);
 
     // Update UI elements that depend on ingredients
     calculateBarProgress();

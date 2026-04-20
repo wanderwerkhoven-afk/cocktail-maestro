@@ -13,6 +13,14 @@
     padding: 10px;
     padding-bottom: 0 !important; /* No nav space needed */
     z-index: 1000;
+
+    /* Force dark theme variables because this page is always black */
+    --text-primary: #ffffff;
+    --text-secondary: #bbbbbb;
+    --text-muted: #888888;
+    --glass-bg-subtle: rgba(255, 255, 255, 0.03);
+    --glass-bg-light: rgba(255, 255, 255, 0.05);
+    --border-strong: rgba(255, 255, 255, 0.1);
 }
 
 #auth-page.active {
@@ -131,6 +139,10 @@
     transition: all 0.3s ease;
 }
 
+.auth-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
 .password-wrapper {
     position: relative;
     width: 100%;
@@ -212,14 +224,14 @@
     align-items: center;
     text-align: center;
     margin: 15px 0; /* Reduced from 25px */
-    color: #444;
+    color: #666;
 }
 
 .auth-divider::before,
 .auth-divider::after {
     content: '';
     flex: 1;
-    border-bottom: 1px solid #222;
+    border-bottom: 1px solid var(--border-strong);
 }
 
 .auth-divider span {

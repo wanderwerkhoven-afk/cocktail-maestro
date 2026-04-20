@@ -265,7 +265,7 @@
 }
 
 .settings-dropdown-content.open {
-    max-height: 500px;
+    max-height: 200px;
     border-bottom: 1px solid var(--border-light);
 }
 
@@ -281,17 +281,9 @@
     background: var(--glass-bg-subtle);
 }
 
-.lang-item .flag, .lang-item .theme-preview {
+.lang-item .flag {
     font-size: 1.2rem;
     margin-right: 12px;
-}
-
-.lang-item .theme-preview {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    border: 1px solid var(--border-strong);
-    flex-shrink: 0;
 }
 
 .lang-item .lang-name {

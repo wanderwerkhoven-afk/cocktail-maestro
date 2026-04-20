@@ -1,4 +1,5 @@
 import { myFavorites } from '../core/state.js';
+import { syncData } from '../core/auth.js';
 import { renderVault } from '../pages/vault.js';
 import { checkMatches } from './fridge.js';
 
@@ -13,6 +14,9 @@ export function toggleFavorite(e, cocktailId) {
     }
 
     localStorage.setItem('myFavorites', JSON.stringify(myFavorites));
+
+    // Sync to cloud if logged in
+    syncData('favorites', myFavorites);
 
     // Re-render the active page to reflect the change
     if (document.getElementById('vault-page').classList.contains('active')) {

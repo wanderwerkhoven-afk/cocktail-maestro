@@ -115,30 +115,23 @@ export function applyThemeUI() {
 
     const display = document.getElementById('current-theme-display');
     if (display) {
-        const themeNames = {
-            'dark': window.t ? window.t('theme-dark') : 'Dark',
-            'light': window.t ? window.t('theme-light') : 'Light',
-            'auto': window.t ? window.t('theme-auto') : 'Auto (System)',
-            'sapphire': 'Midnight Sapphire',
-            'emerald': 'Emerald Garden',
-            'velvet': 'Velvet Rosso',
-            'tropical': 'Tropical Sunset',
-            'espresso': 'Espresso Roast'
-        };
-        display.innerText = themeNames[theme] || theme;
+        if (theme === 'dark') display.innerText = window.t ? window.t('theme-dark') : 'Dark';
+        else if (theme === 'light') display.innerText = window.t ? window.t('theme-light') : 'Light';
+        else if (theme === 'auto') display.innerText = window.t ? window.t('theme-auto') : 'Auto (System)';
     }
 
     // Apply the actual theme class to the body
-    if (theme === 'auto') {
+    if (theme === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+    } else if (theme === 'dark') {
+        document.body.removeAttribute('data-theme');
+    } else {
+        // Auto mode
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
             document.body.setAttribute('data-theme', 'light');
         } else {
             document.body.removeAttribute('data-theme');
         }
-    } else if (theme === 'dark') {
-        document.body.removeAttribute('data-theme');
-    } else {
-        document.body.setAttribute('data-theme', theme);
     }
 }
 

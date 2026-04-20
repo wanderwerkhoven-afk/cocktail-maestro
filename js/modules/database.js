@@ -1642,6 +1642,7 @@ export const classicCocktails = [
     {
         id: 'moscow-mule',
         name: "Moscow Mule",
+        dutchName: "Moskou Mule",
         category: ["Spicy", "Vodka"],
         description: "Crisp and refreshing with bright lime, chilled vodka and a spicy ginger beer kick.",
         ingredients: [

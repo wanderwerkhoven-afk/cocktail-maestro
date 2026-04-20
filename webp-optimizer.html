@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebP Image Optimizer | Cocktail Maestro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff9f1a;
+            --primary-hover: #ffb347;
+            --bg: #0a0a0a;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+            --text: #ffffff;
+            --text-muted: #888888;
+            --success: #2ed573;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(255, 159, 26, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(255, 159, 26, 0.05) 0%, transparent 40%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* --- Drop Zone --- */
+        .drop-zone {
+            background: var(--card-bg);
+            border: 2px dashed var(--border);
+            border-radius: 24px;
+            padding: 60px 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .drop-zone:hover, .drop-zone.drag-over {
+            border-color: var(--primary);
+            background: rgba(255, 159, 26, 0.03);
+            transform: translateY(-2px);
+        }
+
+        .drop-zone i {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .drop-zone:hover i {
+            transform: translateY(-5px);
+        }
+
+        .drop-zone h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .drop-zone p {
+            color: var(--text-muted);
+        }
+
+        /* --- Controls --- */
+        .controls {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .control-group {
+            flex: 1;
+        }
+
+        .control-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .control-label span:last-child {
+            color: var(--primary);
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            appearance: none;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 159, 26, 0.5);
+            transition: transform 0.2s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        /* --- Results List --- */
+        .results-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .result-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-preview {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            object-fit: cover;
+            background: #000;
+        }
+
+        .result-info {
+            flex: 1;
+        }
+
+        .result-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 300px;
+        }
+
+        .result-stats {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 15px;
+        }
+
+        .saving-badge {
+            color: var(--success);
+            font-weight: 800;
+            background: rgba(46, 213, 115, 0.1);
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+
+        .download-btn {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .download-btn:hover {
+            background: var(--primary-hover);
+            transform: scale(1.05);
+        }
+
+        .download-btn i {
+            font-size: 1rem;
+        }
+
+        /* --- Footer --- */
+        footer {
+            margin-top: auto;
+            padding-top: 60px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>WebP Image Optimizer</h1>
+            <p>Snel, lokaal en van hoge kwaliteit. Geen uploads nodig.</p>
+        </header>
+
+        <div class="drop-zone" id="drop-zone">
+            <input type="file" id="file-input" multiple accept="image/png, image/jpeg, image/jpg" hidden>
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <h2>Sleep afbeeldingen hierheen</h2>
+            <p>Alleen PNG en JPG worden omgezet (WebP wordt strikt overgeslagen)</p>
+            <div style="margin-top: 15px;">
+                <button class="download-btn" onclick="document.getElementById('file-input').click()" style="display: inline-flex; margin: 0 auto;">
+                    <i class="fa-solid fa-file-import"></i> Bestanden Kiezen
+                </button>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <div class="control-label">
+                    <span>WebP Kwaliteit</span>
+                    <span id="quality-val">85%</span>
+                </div>
+                <input type="range" id="quality-range" min="10" max="100" value="85">
+            </div>
+            
+            <div class="control-group" style="flex: 0; min-width: 280px;">
+                <div class="control-label">
+                    <span>Auto-Save naar Map</span>
+                </div>
+                <button class="download-btn" id="select-dir-btn" style="background: rgba(255,255,255,0.05); color: white; border: 1px solid var(--border); width: 100%;">
+                    <i class="fa-solid fa-folder-open"></i> <span id="dir-name">Selecteer Output Map</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="results-list" id="results-list">
+            <!-- Results will appear here -->
+        </div>
+
+        <footer style="text-align: center;">
+            <p>&copy; 2024 Cocktail Maestro - Tool voor asset optimalisatie</p>
+        </footer>
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const resultsList = document.getElementById('results-list');
+        const qualityRange = document.getElementById('quality-range');
+        const qualityVal = document.getElementById('quality-val');
+        const selectDirBtn = document.getElementById('select-dir-btn');
+        const dirNameEl = document.getElementById('dir-name');
+
+        let optimizedFiles = [];
+        let directoryHandle = null;
+
+        // Handle Quality Change
+        qualityRange.addEventListener('input', (e) => {
+            qualityVal.textContent = `${e.target.value}%`;
+        });
+
+        // Directory Picker
+        selectDirBtn.addEventListener('click', async () => {
+            try {
+                directoryHandle = await window.showDirectoryPicker();
+                dirNameEl.textContent = `Opslaan in: ${directoryHandle.name}`;
+                selectDirBtn.style.borderColor = 'var(--success)';
+                selectDirBtn.style.color = 'var(--success)';
+                selectDirBtn.style.background = 'rgba(46, 213, 115, 0.1)';
+            } catch (err) {
+                console.error("Directory selection cancelled or failed:", err);
+            }
+        });
+
+        // Drag & Drop Handlers
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.add('drag-over'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.remove('drag-over'), false);
+        });
+
+        dropZone.addEventListener('drop', handleDrop, false);
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files), false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        }
+
+        async function handleFiles(files) {
+            const fileArray = Array.from(files);
+            for (const file of fileArray) {
+                const name = file.name.toLowerCase();
+                const type = file.type.toLowerCase();
+                
+                // EXTRA STRENGE CHECK: Skip WebP
+                if (name.endsWith('.webp') || type.includes('webp')) {
+                    console.log(`❌ Overslaan WebP: ${file.name}`);
+                    continue;
+                }
+
+                // Alleen PNG en JPEG/JPG
+                const isPngOrJpg = name.endsWith('.png') || name.endsWith('.jpg') || name.endsWith('.jpeg');
+                const isSupportedType = type === 'image/png' || type === 'image/jpeg';
+
+                if (isPngOrJpg || isSupportedType) {
+                    await processImage(file);
+                } else {
+                    console.log(`⚠️ Overslaan niet-ondersteund: ${file.name} (${type})`);
+                }
+            }
+        }
+
+        async function processImage(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (event) => {
+                    const img = new Image();
+                    img.src = event.target.result;
+                    img.onload = async () => {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0);
+
+                        const quality = qualityRange.value / 100;
+                        const webpDataUrl = canvas.toDataURL('image/webp', quality);
+                        
+                        // Bereken groottes
+                        const originalSize = file.size;
+                        const optimizedSize = Math.round((webpDataUrl.length - 'data:image/webp;base64,'.length) * 3 / 4);
+                        const saving = Math.round(((originalSize - optimizedSize) / originalSize) * 100);
+
+                        const newName = file.name.replace(/\.[^/.]+$/, "") + ".webp";
+                        
+                        // Automatisch opslaan als map is geselecteerd
+                        let wasAutoSaved = false;
+                        if (directoryHandle) {
+                            wasAutoSaved = await saveToDirectory(directoryHandle, newName, webpDataUrl);
+                        }
+
+                        displayResult(file.name, newName, webpDataUrl, originalSize, optimizedSize, saving, wasAutoSaved);
+                        resolve();
+                    };
+                };
+            });
+        }
+
+        async function saveToDirectory(handle, fileName, dataUrl) {
+            try {
+                const fileHandle = await handle.getFileHandle(fileName, { create: true });
+                const writable = await fileHandle.createWritable();
+                
+                // Base64 naar Blob
+                const response = await fetch(dataUrl);
+                const blob = await response.blob();
+                
+                await writable.write(blob);
+                await writable.close();
+                console.log(`💾 Auto-saved: ${fileName}`);
+                return true;
+            } catch (err) {
+                console.error(`Failed to auto-save ${fileName}:`, err);
+                return false;
+            }
+        }
+
+        function displayResult(originalName, newName, dataUrl, oldSize, newSize, saving, wasAutoSaved) {
+            const item = document.createElement('div');
+            item.className = 'result-item';
+            
+            const savedBadge = wasAutoSaved ? '<span class="saving-badge" style="background: rgba(46, 213, 115, 0.2); margin-left: 10px; color: #2ed573;"><i class="fa-solid fa-check"></i> Opgeslagen</span>' : '';
+
+            item.innerHTML = `
+                <img src="${dataUrl}" class="result-preview">
+                <div class="result-info">
+                    <div class="result-name">${newName} ${savedBadge}</div>
+                    <div class="result-stats">
+                        <span>${formatSize(oldSize)} → ${formatSize(newSize)}</span>
+                        ${saving > 0 ? `<span class="saving-badge">-${saving}%</span>` : ''}
+                    </div>
+                </div>
+                <button class="download-btn" onclick="downloadFile('${dataUrl}', '${newName}')">
+                    <i class="fa-solid fa-download"></i>
+                </button>
+            `;
+            
+            resultsList.prepend(item);
+            optimizedFiles.push({ dataUrl, name: newName });
+        }
+
+        function formatSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        window.downloadFile = function(dataUrl, name) {
+            const link = document.createElement('a');
+            link.href = dataUrl;
+            link.download = name;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+    </script>
+</body>
+</html>

@@ -1,4 +1,5 @@
 import { currentImageBase64, setCurrentImageBase64 } from '../core/state.js';
+import { syncData } from '../core/auth.js';
 
 export function openRecipeForm() {
     // 1. Reset de Save-knop naar de originele staat (Nieuw recept)
@@ -205,6 +206,9 @@ export function saveNewRecipe() {
     myRecipes.push(newRecipe);
     localStorage.setItem('myRecipes', JSON.stringify(myRecipes));
 
+    // Sync to cloud if logged in
+    syncData('recipes', myRecipes);
+
     finalizeSubmit("Recipe added!");
 }
 
@@ -236,6 +240,9 @@ export function updateRecipe(id) {
     };
 
     localStorage.setItem('myRecipes', JSON.stringify(myRecipes));
+
+    // Sync to cloud if logged in
+    syncData('recipes', myRecipes);
     finalizeSubmit("Recipe updated!");
 }
 
@@ -352,6 +359,9 @@ export function deleteRecipe(id) {
         let myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
         myRecipes = myRecipes.filter(r => r.id !== id);
         localStorage.setItem('myRecipes', JSON.stringify(myRecipes));
+
+        // Sync to cloud if logged in
+        syncData('recipes', myRecipes);
         renderMyRecipes();
     }
 }

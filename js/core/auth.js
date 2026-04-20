@@ -111,6 +111,23 @@ export async function fetchCloudData(uid) {
 }
 
 /**
+ * Sync a specific data type to Firestore if user is logged in
+ */
+export async function syncData(type, data) {
+    const user = auth.currentUser;
+    if (!user) return; // Only sync if logged in
+
+    try {
+        const payload = {};
+        payload[type] = data;
+        await setDoc(doc(db, "users", user.uid), payload, { merge: true });
+        console.log(`Synced ${type} to cloud.`);
+    } catch (error) {
+        console.error(`Error syncing ${type}:`, error);
+    }
+}
+
+/**
  * Listener for auth changes
  */
 export function initAuthListener(callback) {
