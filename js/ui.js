@@ -84,97 +84,90 @@ window.updateSearchClearButton = updateSearchClearButton;
 window.clearSearch = clearSearch;
 window.printRecipe = async () => {
     const content = document.getElementById('immersive-recipe-content');
-    const closeBtn = document.querySelector('.immersive-close-btn');
-    const printBtn = document.querySelector('.immersive-print-btn');
-    const servings = document.querySelector('.immersive-servings-box');
     const recipeName = document.querySelector('.immersive-title')?.innerText || 'Cocktail-Recipe';
 
-    // 1. Prepare UI for capturing
-    if (closeBtn) closeBtn.style.display = 'none';
-    if (printBtn) printBtn.style.display = 'none';
-    if (servings) servings.style.display = 'none';
+    // 1. Show Generating State
+    const printBtn = document.querySelector('.immersive-print-btn');
+    if (printBtn) {
+        printBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+        printBtn.disabled = true;
+    }
+
+    // Prepare content for capture
     content.classList.add('printing-white-mode');
+    // Temporarily hide elements that shouldn't be in the scan
+    const closeBtn = document.querySelector('.immersive-close-btn');
+    const servings = document.querySelector('.immersive-servings-box');
+    if (closeBtn) closeBtn.style.opacity = '0';
+    if (servings) servings.style.opacity = '0';
 
     try {
-        // 2. Capture content as high-res image
+        // 2. Capture high-res image
         const canvas = await html2canvas(content, {
             backgroundColor: '#ffffff',
-            scale: 2, 
+            scale: 2,
             useCORS: true,
             logging: false,
-            windowWidth: 1200 // Ensure desktop-like layout for the capture
+            windowWidth: 1200
         });
 
         const imgData = canvas.toDataURL('image/png');
 
-        // 3. Handle Mobile (iOS/Android) with Native Share if possible
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-        
-        if (isMobile && navigator.share) {
-            try {
-                const response = await fetch(imgData);
-                const blob = await response.blob();
-                const file = new File([blob], `${recipeName.replace(/\s+/g, '-').toLowerCase()}.png`, { type: 'image/png' });
+        // 3. Create and Show Preview Overlay (to avoid being "stuck")
+        const previewOverlay = document.createElement('div');
+        previewOverlay.className = 'print-preview-overlay';
+        previewOverlay.innerHTML = `
+            <div class="preview-header">
+                <button class="preview-close-btn" id="close-preview"><i class="fa-solid fa-arrow-left"></i> Terug</button>
+                <button class="preview-share-btn" id="share-preview"><i class="fa-solid fa-share-nodes"></i> Delen / Opslaan</button>
+            </div>
+            <div class="preview-body">
+                <p class="preview-hint">Druk op "Delen" om te printen of op te slaan als PDF</p>
+                <img src="${imgData}" alt="Recipe Preview">
+            </div>
+        `;
+        document.body.appendChild(previewOverlay);
 
-                if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                    await navigator.share({
-                        files: [file],
-                        title: `Cocktail Recipe: ${recipeName}`,
-                        text: `Check out this ${recipeName} recipe from Cocktail Maestro!`
-                    });
-                    return; // Stop here if shared successfully
-                }
-            } catch (shareErr) {
-                console.log('Native share failed or cancelled, falling back to iframe print.', shareErr);
+        // Handle buttons
+        document.getElementById('close-preview').onclick = () => {
+            document.body.removeChild(previewOverlay);
+        };
+
+        document.getElementById('share-preview').onclick = async () => {
+            const response = await fetch(imgData);
+            const blob = await response.blob();
+            const file = new File([blob], `${recipeName.replace(/\s+/g, '-').toLowerCase()}.png`, { type: 'image/png' });
+
+            if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                    files: [file],
+                    title: `Cocktail Recipe: ${recipeName}`,
+                    text: `Check out this ${recipeName} recipe from Cocktail Maestro!`
+                });
+            } else {
+                // Fallback for desktop or non-share browsers
+                const link = document.createElement('a');
+                link.download = `${recipeName.replace(/\s+/g, '-').toLowerCase()}.png`;
+                link.href = imgData;
+                link.click();
             }
-        }
-
-        // 4. Reliable Iframe Print (Desktop & Mobile Fallback)
-        // This avoids window.open which is blocked by iOS pop-up blockers
-        const iframe = document.createElement('iframe');
-        iframe.style.position = 'fixed';
-        iframe.style.right = '0';
-        iframe.style.bottom = '0';
-        iframe.style.width = '0';
-        iframe.style.height = '0';
-        iframe.style.border = '0';
-        document.body.appendChild(iframe);
-
-        const iframeDoc = iframe.contentWindow.document;
-        iframeDoc.open();
-        iframeDoc.write(`
-            <html>
-                <head>
-                    <title>Cocktail Recipe - ${recipeName}</title>
-                    <style>
-                        body { margin: 0; display: flex; justify-content: center; align-items: flex-start; background: #ffffff; }
-                        img { max-width: 100%; height: auto; }
-                        @page { margin: 10mm; size: auto; }
-                    </style>
-                </head>
-                <body>
-                    <img src="${imgData}" onload="window.print();">
-                </body>
-            </html>
-        `);
-        iframeDoc.close();
-
-        // Cleanup iframe after some time
-        setTimeout(() => {
-            if (document.body.contains(iframe)) document.body.removeChild(iframe);
-        }, 2000);
+        };
 
     } catch (err) {
         console.error('PDF Generation failed:', err);
-        alert('Could not generate PDF. Please try again.');
+        alert('Could not generate preview. Please try again.');
     } finally {
-        // 5. Restore UI
+        // 4. Restore UI
         content.classList.remove('printing-white-mode');
-        if (closeBtn) closeBtn.style.display = 'flex';
-        if (printBtn) printBtn.style.display = 'flex';
-        if (servings) servings.style.display = 'flex';
+        if (closeBtn) closeBtn.style.opacity = '1';
+        if (servings) servings.style.opacity = '1';
+        if (printBtn) {
+            printBtn.innerHTML = '<i class="fa-solid fa-file-pdf"></i>';
+            printBtn.disabled = false;
+        }
     }
 };
+
 
 window.classicCocktails = classicCocktails;
 window.mocktailRecipes = mocktailRecipes;
