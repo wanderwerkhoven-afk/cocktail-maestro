@@ -84,90 +84,83 @@ window.updateSearchClearButton = updateSearchClearButton;
 window.clearSearch = clearSearch;
 window.printRecipe = async () => {
     const content = document.getElementById('immersive-recipe-content');
-    const recipeName = document.querySelector('.immersive-title')?.innerText || 'Cocktail-Recipe';
-
-    // 1. Show Generating State
-    const printBtn = document.querySelector('.immersive-print-btn');
-    if (printBtn) {
-        printBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
-        printBtn.disabled = true;
-    }
-
-    // Prepare content for capture
-    content.classList.add('printing-white-mode');
-    // Temporarily hide elements that shouldn't be in the scan
     const closeBtn = document.querySelector('.immersive-close-btn');
+    const printBtn = document.querySelector('.immersive-print-btn');
     const servings = document.querySelector('.immersive-servings-box');
-    if (closeBtn) closeBtn.style.opacity = '0';
-    if (servings) servings.style.opacity = '0';
+    const title = document.querySelector('.immersive-title')?.innerText || "Cocktail Recipe";
+
+    // Hide UI elements temporarily
+    if (closeBtn) closeBtn.style.display = 'none';
+    if (printBtn) printBtn.style.display = 'none';
+    if (servings) servings.style.display = 'none';
+
+    // Apply white mode for capture
+    content.classList.add('printing-white-mode');
 
     try {
-        // 2. Capture high-res image
         const canvas = await html2canvas(content, {
             backgroundColor: '#ffffff',
-            scale: 2,
+            scale: 2, // High resolution
             useCORS: true,
-            logging: false,
-            windowWidth: 1200
+            logging: false
         });
 
-        const imgData = canvas.toDataURL('image/png');
+        // Restore UI elements immediately after capture
+        if (closeBtn) closeBtn.style.display = 'flex';
+        if (printBtn) printBtn.style.display = 'flex';
+        if (servings) servings.style.display = 'flex';
+        content.classList.remove('printing-white-mode');
 
-        // 3. Create and Show Preview Overlay (to avoid being "stuck")
-        const previewOverlay = document.createElement('div');
-        previewOverlay.className = 'print-preview-overlay';
-        previewOverlay.innerHTML = `
-            <div class="preview-header">
-                <button class="preview-close-btn" id="close-preview"><i class="fa-solid fa-arrow-left"></i> Terug</button>
-                <button class="preview-share-btn" id="share-preview"><i class="fa-solid fa-share-nodes"></i> Delen / Opslaan</button>
-            </div>
-            <div class="preview-body">
-                <p class="preview-hint">Druk op "Delen" om te printen of op te slaan als PDF</p>
-                <img src="${imgData}" alt="Recipe Preview">
-            </div>
-        `;
-        document.body.appendChild(previewOverlay);
+        // Check for Web Share API support (iOS/Android)
+        if (navigator.share && navigator.canShare) {
+            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+            const file = new File([blob], `${title.replace(/\s+/g, '_')}.png`, { type: 'image/png' });
 
-        // Handle buttons
-        document.getElementById('close-preview').onclick = () => {
-            document.body.removeChild(previewOverlay);
-        };
-
-        document.getElementById('share-preview').onclick = async () => {
-            const response = await fetch(imgData);
-            const blob = await response.blob();
-            const file = new File([blob], `${recipeName.replace(/\s+/g, '-').toLowerCase()}.png`, { type: 'image/png' });
-
-            if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+            if (navigator.canShare({ files: [file] })) {
                 await navigator.share({
                     files: [file],
-                    title: `Cocktail Recipe: ${recipeName}`,
-                    text: `Check out this ${recipeName} recipe from Cocktail Maestro!`
+                    title: title,
+                    text: `Check out this recipe for ${title} from Cocktail Maestro!`
                 });
-            } else {
-                // Fallback for desktop or non-share browsers
-                const link = document.createElement('a');
-                link.download = `${recipeName.replace(/\s+/g, '-').toLowerCase()}.png`;
-                link.href = imgData;
-                link.click();
+                return; // Success
             }
-        };
-
-    } catch (err) {
-        console.error('PDF Generation failed:', err);
-        alert('Could not generate preview. Please try again.');
-    } finally {
-        // 4. Restore UI
-        content.classList.remove('printing-white-mode');
-        if (closeBtn) closeBtn.style.opacity = '1';
-        if (servings) servings.style.opacity = '1';
-        if (printBtn) {
-            printBtn.innerHTML = '<i class="fa-solid fa-file-pdf"></i>';
-            printBtn.disabled = false;
         }
+
+        // Fallback for Desktop or browsers without Share API
+        const imgData = canvas.toDataURL('image/png');
+        const printWindow = window.open('', '_blank');
+        
+        if (printWindow) {
+            printWindow.document.open();
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Cocktail Recipe - ${title}</title>
+                        <style>
+                            body { margin: 0; display: flex; justify-content: center; background: #ffffff; padding: 20px; }
+                            img { max-width: 100%; height: auto; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+                            @page { margin: 0; size: auto; }
+                        </style>
+                    </head>
+                    <body>
+                        <img src="${imgData}" onload="window.print(); window.close();">
+                    </body>
+                </html>
+            `);
+            printWindow.document.close();
+        } else {
+            window.print();
+        }
+    } catch (err) {
+        console.error('Share/Print failed:', err);
+        // Clean up classes if error occurred before removal
+        content.classList.remove('printing-white-mode');
+        if (closeBtn) closeBtn.style.display = 'flex';
+        if (printBtn) printBtn.style.display = 'flex';
+        if (servings) servings.style.display = 'flex';
+        window.print(); // Final fallback
     }
 };
-
 
 window.classicCocktails = classicCocktails;
 window.mocktailRecipes = mocktailRecipes;
