@@ -15,6 +15,14 @@ import { applyLanguage, changeLanguage } from './core/i18n.js';
 import { classicCocktails } from './modules/database.js';
 import { mocktailRecipes } from './modules/mocktails.js';
 
+/**
+ * Device detection helper for iOS specific behavior
+ */
+window.isIOS = () => {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+           (navigator.userAgent.includes("Mac") && "ontouchend" in document);
+};
+
 // Expose functions to global scope for HTML onclick handlers
 window.navigateTo = navigateTo;
 window.changeLanguage = (lang) => {
@@ -87,78 +95,260 @@ window.printRecipe = async () => {
     const closeBtn = document.querySelector('.immersive-close-btn');
     const printBtn = document.querySelector('.immersive-print-btn');
     const servings = document.querySelector('.immersive-servings-box');
-    const title = document.querySelector('.immersive-title')?.innerText || "Cocktail Recipe";
+    const title = document.querySelector('.immersive-title')?.innerText || 'Cocktail Recipe';
+
+    if (!content) {
+        console.error('Print failed: immersive recipe content not found');
+        return;
+    }
+
+    const isIOS = window.isIOS
+        ? window.isIOS()
+        : /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+          (navigator.userAgent.includes('Mac') && 'ontouchend' in document);
+
+    // Open synchronously from user gesture to avoid popup blocking
+    const printWindow = window.open('', '_blank');
+
+    if (!printWindow) {
+        if (typeof showToast === 'function') {
+            showToast('Popup blocked. Please allow popups to print this recipe.');
+        }
+        return;
+    }
+
+    // Loading screen immediately, so Safari keeps the tab alive
+    printWindow.document.write(`
+        <html lang="en">
+            <head>
+                <title>Preparing PDF...</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <style>
+                    html, body {
+                        margin: 0;
+                        padding: 0;
+                        background: #ffffff;
+                        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+                    }
+                    .loading {
+                        min-height: 100vh;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: #333;
+                        font-size: 18px;
+                        padding: 24px;
+                        text-align: center;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="loading">Generating your Cocktail Maestro PDF...</div>
+            </body>
+        </html>
+    `);
+    printWindow.document.close();
 
     // Hide UI elements temporarily
     if (closeBtn) closeBtn.style.display = 'none';
     if (printBtn) printBtn.style.display = 'none';
     if (servings) servings.style.display = 'none';
 
-    // Apply white mode for capture
     content.classList.add('printing-white-mode');
 
     try {
+        if (document.fonts?.ready) {
+            await document.fonts.ready;
+        }
+
         const canvas = await html2canvas(content, {
             backgroundColor: '#ffffff',
-            scale: 2, // High resolution
+            scale: window.devicePixelRatio > 1 ? 2 : 1.5,
             useCORS: true,
             logging: false
         });
 
-        // Restore UI elements immediately after capture
-        if (closeBtn) closeBtn.style.display = 'flex';
-        if (printBtn) printBtn.style.display = 'flex';
-        if (servings) servings.style.display = 'flex';
-        content.classList.remove('printing-white-mode');
-
-        // Check for Web Share API support (iOS/Android)
-        if (navigator.share && navigator.canShare) {
-            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-            const file = new File([blob], `${title.replace(/\s+/g, '_')}.png`, { type: 'image/png' });
-
-            if (navigator.canShare({ files: [file] })) {
-                await navigator.share({
-                    files: [file],
-                    title: title,
-                    text: `Check out this recipe for ${title} from Cocktail Maestro!`
-                });
-                return; // Success
-            }
-        }
-
-        // Fallback for Desktop or browsers without Share API
         const imgData = canvas.toDataURL('image/png');
-        const printWindow = window.open('', '_blank');
-        
-        if (printWindow) {
+
+        printWindow.document.open();
+        printWindow.document.write(`
+            <html lang="en">
+                <head>
+                    <title>${title}</title>
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <style>
+                        * {
+                            margin: 0;
+                            padding: 0;
+                            box-sizing: border-box;
+                        }
+
+                        @page {
+                            size: auto;
+                            margin: 0;
+                        }
+
+                        html, body {
+                            background: #ffffff;
+                            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+                            width: 100%;
+                            height: 100vh; /* Force single page height */
+                            overflow: hidden;
+                        }
+
+                        body {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                        }
+
+                        .print-wrap {
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            background: #fff;
+                            padding: ${isIOS ? '0' : '15mm'};
+                            font-size: 0; /* Remove any ghost whitespace */
+                        }
+
+                        img {
+                            max-width: ${isIOS ? '100%' : '850px'};
+                            max-height: ${isIOS ? '100%' : '94vh'}; /* Crucial: stay slightly below page height */
+                            width: auto;
+                            height: auto;
+                            object-fit: contain;
+                            display: block;
+                        }
+
+
+
+
+                        .ios-help {
+                            padding: 16px 20px 32px;
+                            font-size: 14px;
+                            line-height: 1.5;
+                            color: #333;
+                            text-align: center;
+                        }
+
+                        .ios-help button {
+                            margin-top: 12px;
+                            padding: 12px 18px;
+                            border-radius: 12px;
+                            border: none;
+                            background: #111;
+                            color: #fff;
+                            font-size: 15px;
+                            cursor: pointer;
+                        }
+
+                        @media print {
+                            .ios-help {
+                                display: none !important;
+                            }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="print-wrap">
+                        <img id="recipe-image" src="${imgData}" alt="Cocktail recipe" />
+                    </div>
+
+                    ${
+                        isIOS
+                            ? `
+                            <div class="ios-help">
+                                If the print dialog does not open automatically, tap the button below.<br>
+                                On iPhone/iPad you can also use Share → Print to save as PDF.
+                                <br>
+                                <button onclick="window.print()">Open Print</button>
+                            </div>
+                            `
+                            : ''
+                    }
+
+                    <script>
+                        const img = document.getElementById('recipe-image');
+
+                        function triggerPrint() {
+                            setTimeout(() => {
+                                try {
+                                    window.focus();
+                                    window.print();
+                                } catch (e) {
+                                    console.error('Print trigger failed:', e);
+                                }
+                            }, ${isIOS ? 900 : 300});
+                        }
+
+                        if (img.complete) {
+                            triggerPrint();
+                        } else {
+                            img.onload = triggerPrint;
+                        }
+                    </script>
+                </body>
+            </html>
+        `);
+        printWindow.document.close();
+
+        // Only auto-close on non-iOS
+        if (!isIOS) {
+            setTimeout(() => {
+                try {
+                    printWindow.close();
+                } catch (e) {
+                    console.warn('Could not close print window:', e);
+                }
+            }, 1500);
+        }
+    } catch (err) {
+        console.error('Print failed:', err);
+
+        try {
             printWindow.document.open();
             printWindow.document.write(`
-                <html>
+                <html lang="en">
                     <head>
-                        <title>Cocktail Recipe - ${title}</title>
+                        <title>Print failed</title>
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <style>
-                            body { margin: 0; display: flex; justify-content: center; background: #ffffff; padding: 20px; }
-                            img { max-width: 100%; height: auto; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
-                            @page { margin: 0; size: auto; }
+                            body {
+                                font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+                                padding: 24px;
+                                color: #222;
+                                background: #fff;
+                            }
+                            button {
+                                margin-top: 16px;
+                                padding: 12px 18px;
+                                border-radius: 12px;
+                                border: none;
+                                background: #111;
+                                color: #fff;
+                                font-size: 15px;
+                            }
                         </style>
                     </head>
                     <body>
-                        <img src="${imgData}" onload="window.print(); window.close();">
+                        <h2>Could not generate the printable recipe</h2>
+                        <p>Please try again. If you are on iPhone or iPad, use Share → Print to save as PDF.</p>
+                        <button onclick="window.close()">Close</button>
                     </body>
                 </html>
             `);
             printWindow.document.close();
-        } else {
-            window.print();
+        } catch (_) {
+            printWindow.close();
         }
-    } catch (err) {
-        console.error('Share/Print failed:', err);
-        // Clean up classes if error occurred before removal
+    } finally {
         content.classList.remove('printing-white-mode');
         if (closeBtn) closeBtn.style.display = 'flex';
         if (printBtn) printBtn.style.display = 'flex';
         if (servings) servings.style.display = 'flex';
-        window.print(); // Final fallback
     }
 };
 
