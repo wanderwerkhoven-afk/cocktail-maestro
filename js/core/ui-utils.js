@@ -415,7 +415,20 @@ export function enlargeRecipe(e, id) {
 
     modal.classList.add('show');
     document.body.style.overflow = 'hidden'; // Prevent background scroll
+
+    // Device-specific UI adjustments
+    const printBtn = document.getElementById('immersive-print-btn');
+    const shareBtn = document.getElementById('immersive-share-btn');
+    
+    if (window.isIOS && window.isIOS()) {
+        if (printBtn) printBtn.style.display = 'none';
+        if (shareBtn) shareBtn.style.display = 'flex';
+    } else {
+        if (printBtn) printBtn.style.display = 'flex';
+        if (shareBtn) shareBtn.style.display = 'none';
+    }
 }
+
 
 export function closeImmersiveRecipe() {
     const modal = document.getElementById('recipe-immersive-view');

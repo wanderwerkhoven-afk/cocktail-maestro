@@ -1285,12 +1285,16 @@
 
     <!-- Immersive Recipe View (Enlarged) -->
     <div id="recipe-immersive-view" class="immersive-modal">
-        <button class="immersive-print-btn" onclick="window.printRecipe()" title="Save as PDF">
+        <button class="immersive-print-btn" id="immersive-print-btn" onclick="window.printRecipe()" title="Save as PDF">
             <i class="fa-solid fa-file-pdf"></i>
+        </button>
+        <button class="immersive-share-btn" id="immersive-share-btn" onclick="window.shareRecipe()" title="Share Recipe" style="display: none;">
+            <i class="fa-solid fa-share-nodes"></i>
         </button>
         <button class="immersive-close-btn" onclick="window.closeImmersiveRecipe()">
             <i class="fa-solid fa-xmark"></i>
         </button>
+
         <div class="immersive-recipe-container" id="immersive-recipe-content">
             <!-- Content filled by JS -->
         </div>

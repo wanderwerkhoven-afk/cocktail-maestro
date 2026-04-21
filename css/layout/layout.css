@@ -325,6 +325,32 @@
     transition: all 0.3s ease;
 }
 
+.immersive-share-btn {
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--glass-bg-light);
+    border: 1px solid var(--border-light);
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    display: none; /* Controlled by JS */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10010;
+    transition: all 0.3s ease;
+}
+
+.immersive-share-btn:hover {
+    background: var(--imm-accent);
+    color: white;
+    transform: scale(1.1);
+}
+
+
 .immersive-close-btn:hover,
 .immersive-print-btn:hover {
     background: var(--imm-accent);

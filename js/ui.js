@@ -19,8 +19,8 @@ import { mocktailRecipes } from './modules/mocktails.js';
  * Device detection helper for iOS specific behavior
  */
 window.isIOS = () => {
-    return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-           (navigator.userAgent.includes("Mac") && "ontouchend" in document);
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.userAgent.includes("Mac") && "ontouchend" in document);
 };
 
 // Expose functions to global scope for HTML onclick handlers
@@ -90,268 +90,97 @@ window.openPrivacyModal = openPrivacyModal;
 window.closePrivacyModal = closePrivacyModal;
 window.updateSearchClearButton = updateSearchClearButton;
 window.clearSearch = clearSearch;
+window.shareRecipe = async () => {
+    const title = document.querySelector('.immersive-title')?.innerText || 'Cocktail Recipe';
+    const description = document.querySelector('.immersive-description')?.innerText || '';
+    const ingredients = Array.from(document.querySelectorAll('.immersive-ing-list li'))
+        .map(li => li.innerText.replace(/\s+/g, ' ').trim())
+        .join('\n');
+    
+    const shareData = {
+        title: `Cocktail Maestro: ${title}`,
+        text: `${title}\n\n${description}\n\nIngredients:\n${ingredients}\n\nShared via Cocktail Maestro`,
+        url: window.location.href
+    };
+
+    try {
+        if (navigator.share) {
+            await navigator.share(shareData);
+        } else {
+            // Fallback for browsers that don't support Web Share API
+            const text = encodeURIComponent(shareData.text);
+            window.open(`mailto:?subject=${encodeURIComponent(shareData.title)}&body=${text}`);
+        }
+    } catch (err) {
+        console.error('Error sharing:', err);
+    }
+};
+
 window.printRecipe = async () => {
+
     const content = document.getElementById('immersive-recipe-content');
     const closeBtn = document.querySelector('.immersive-close-btn');
     const printBtn = document.querySelector('.immersive-print-btn');
     const servings = document.querySelector('.immersive-servings-box');
-    const title = document.querySelector('.immersive-title')?.innerText || 'Cocktail Recipe';
 
-    if (!content) {
-        console.error('Print failed: immersive recipe content not found');
-        return;
-    }
-
-    const isIOS = window.isIOS
-        ? window.isIOS()
-        : /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-          (navigator.userAgent.includes('Mac') && 'ontouchend' in document);
-
-    // Open synchronously from user gesture to avoid popup blocking
+    // Open window synchronously to bypass Safari/iOS popup blockers
     const printWindow = window.open('', '_blank');
-
-    if (!printWindow) {
-        if (typeof showToast === 'function') {
-            showToast('Popup blocked. Please allow popups to print this recipe.');
-        }
-        return;
+    if (printWindow) {
+        printWindow.document.write('<html lang="en"><body style="background:#f4f4f4; display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; margin:0;"><h2 style="color:#333;">Generating your Cocktail Maestro PDF...</h2></body></html>');
     }
-
-    // Loading screen immediately, so Safari keeps the tab alive
-    printWindow.document.write(`
-        <html lang="en">
-            <head>
-                <title>Preparing PDF...</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <style>
-                    html, body {
-                        margin: 0;
-                        padding: 0;
-                        background: #ffffff;
-                        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-                    }
-                    .loading {
-                        min-height: 100vh;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        color: #333;
-                        font-size: 18px;
-                        padding: 24px;
-                        text-align: center;
-                    }
-                </style>
-            </head>
-            <body>
-                <div class="loading">Generating your Cocktail Maestro PDF...</div>
-            </body>
-        </html>
-    `);
-    printWindow.document.close();
 
     // Hide UI elements temporarily
     if (closeBtn) closeBtn.style.display = 'none';
     if (printBtn) printBtn.style.display = 'none';
     if (servings) servings.style.display = 'none';
 
+    // Apply white mode for printing
     content.classList.add('printing-white-mode');
 
     try {
-        if (document.fonts?.ready) {
-            await document.fonts.ready;
-        }
-
         const canvas = await html2canvas(content, {
             backgroundColor: '#ffffff',
-            scale: window.devicePixelRatio > 1 ? 2 : 1.5,
+            scale: 2, // High resolution
             useCORS: true,
             logging: false
         });
 
         const imgData = canvas.toDataURL('image/png');
 
-        printWindow.document.open();
-        printWindow.document.write(`
-            <html lang="en">
-                <head>
-                    <title>${title}</title>
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <style>
-                        * {
-                            margin: 0;
-                            padding: 0;
-                            box-sizing: border-box;
-                        }
-
-                        @page {
-                            size: auto;
-                            margin: 0;
-                        }
-
-                        html, body {
-                            background: #ffffff;
-                            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-                            width: 100%;
-                            height: 100vh; /* Force single page height */
-                            overflow: hidden;
-                        }
-
-                        body {
-                            display: flex;
-                            flex-direction: column;
-                            justify-content: center;
-                            align-items: center;
-                        }
-
-                        .print-wrap {
-                            width: 100%;
-                            height: 100%;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                            background: #fff;
-                            padding: ${isIOS ? '0' : '15mm'};
-                            font-size: 0; /* Remove any ghost whitespace */
-                        }
-
-                        img {
-                            max-width: ${isIOS ? '100%' : '850px'};
-                            max-height: ${isIOS ? '100%' : '94vh'}; /* Crucial: stay slightly below page height */
-                            width: auto;
-                            height: auto;
-                            object-fit: contain;
-                            display: block;
-                        }
-
-
-
-
-                        .ios-help {
-                            padding: 16px 20px 32px;
-                            font-size: 14px;
-                            line-height: 1.5;
-                            color: #333;
-                            text-align: center;
-                        }
-
-                        .ios-help button {
-                            margin-top: 12px;
-                            padding: 12px 18px;
-                            border-radius: 12px;
-                            border: none;
-                            background: #111;
-                            color: #fff;
-                            font-size: 15px;
-                            cursor: pointer;
-                        }
-
-                        @media print {
-                            .ios-help {
-                                display: none !important;
-                            }
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="print-wrap">
-                        <img id="recipe-image" src="${imgData}" alt="Cocktail recipe" />
-                    </div>
-
-                    ${
-                        isIOS
-                            ? `
-                            <div class="ios-help">
-                                If the print dialog does not open automatically, tap the button below.<br>
-                                On iPhone/iPad you can also use Share → Print to save as PDF.
-                                <br>
-                                <button onclick="window.print()">Open Print</button>
-                            </div>
-                            `
-                            : ''
-                    }
-
-                    <script>
-                        const img = document.getElementById('recipe-image');
-
-                        function triggerPrint() {
-                            setTimeout(() => {
-                                try {
-                                    window.focus();
-                                    window.print();
-                                } catch (e) {
-                                    console.error('Print trigger failed:', e);
-                                }
-                            }, ${isIOS ? 900 : 300});
-                        }
-
-                        if (img.complete) {
-                            triggerPrint();
-                        } else {
-                            img.onload = triggerPrint;
-                        }
-                    </script>
-                </body>
-            </html>
-        `);
-        printWindow.document.close();
-
-        // Only auto-close on non-iOS
-        if (!isIOS) {
-            setTimeout(() => {
-                try {
-                    printWindow.close();
-                } catch (e) {
-                    console.warn('Could not close print window:', e);
-                }
-            }, 1500);
-        }
-    } catch (err) {
-        console.error('Print failed:', err);
-
-        try {
+        if (printWindow) {
             printWindow.document.open();
             printWindow.document.write(`
-                <html lang="en">
+                <html>
                     <head>
-                        <title>Print failed</title>
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Cocktail Recipe - ${document.querySelector('.immersive-title').innerText}</title>
                         <style>
-                            body {
-                                font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-                                padding: 24px;
-                                color: #222;
-                                background: #fff;
-                            }
-                            button {
-                                margin-top: 16px;
-                                padding: 12px 18px;
-                                border-radius: 12px;
-                                border: none;
-                                background: #111;
-                                color: #fff;
-                                font-size: 15px;
-                            }
+                            body { margin: 0; display: flex; justify-content: center; background: #ffffff; }
+                            img { max-width: 100%; height: auto; }
+                            @page { margin: 0; size: auto; }
                         </style>
                     </head>
                     <body>
-                        <h2>Could not generate the printable recipe</h2>
-                        <p>Please try again. If you are on iPhone or iPad, use Share → Print to save as PDF.</p>
-                        <button onclick="window.close()">Close</button>
+                        <img src="${imgData}" onload="window.print(); window.close();">
                     </body>
                 </html>
             `);
             printWindow.document.close();
-        } catch (_) {
-            printWindow.close();
+        } else {
+            // If popup was somehow still blocked, fallback to standard print
+            window.print();
         }
+    } catch (err) {
+        console.error('Print failed:', err);
+        if (printWindow) printWindow.close();
+        window.print(); // Fallback to standard print
     } finally {
+        // Restore UI elements and theme
         content.classList.remove('printing-white-mode');
         if (closeBtn) closeBtn.style.display = 'flex';
         if (printBtn) printBtn.style.display = 'flex';
         if (servings) servings.style.display = 'flex';
     }
 };
-
 window.classicCocktails = classicCocktails;
 window.mocktailRecipes = mocktailRecipes;
 
@@ -361,12 +190,12 @@ window.mocktailRecipes = mocktailRecipes;
 window.filterByCategory = (categoryKey) => {
     // Map our home category keys to search terms the Vault understands
     const termMap = {
-        'classic':  '',          // Show all classics (empty filter = all)
-        'sweet':    'sweet',
-        'sour':     'sour',
-        'strong':   'strong',
+        'classic': '',          // Show all classics (empty filter = all)
+        'sweet': 'sweet',
+        'sour': 'sour',
+        'strong': 'strong',
         'mocktail': 'mocktail',
-        'creamy':   'creamy',
+        'creamy': 'creamy',
     };
 
     const term = termMap[categoryKey] ?? categoryKey;
@@ -411,7 +240,7 @@ window.applyIntroStates = () => {
         const introClass = Array.from(section.classList).find(c => c.endsWith('-intro'));
         const storageKey = `is_collapsed_${introClass}`;
         const savedState = localStorage.getItem(storageKey);
-        
+
         if (savedState === 'true') {
             section.classList.add('is-collapsed');
         } else {
@@ -437,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initKitchenCarousels();
     initSettings(); // Authenticate and sync cloud data
     window.applyIntroStates(); // Sync collapsible intros
-    
+
     // Pre-calculate the destination for a smooth transition
     const getDestPromise = getInitialDestination();
 
@@ -469,11 +298,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // 3. Lifecycle: Coordinate exit based on destination
         setTimeout(async () => {
             const dest = await getDestPromise;
-            
+
             if (dest === 'auth') {
                 // Trigger Logo Up / Text Down animation
                 splashScreen.classList.add('exit-to-auth');
-                
+
                 // Navigate to auth (CSS will handle the rest)
                 setTimeout(() => {
                     navigateTo('auth');
