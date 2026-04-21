@@ -1,6 +1,17 @@
 .hero {
-    padding: 0 20px 20px 20px;
+    padding: 40px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
+
+@media (min-width: 768px) {
+    .hero {
+        padding: 60px 0 40px 0; /* Remove horizontal padding on desktop */
+    }
+}
+
 
 .brand-title {
     font-size: clamp(3.2rem, 8vw, 5rem);
@@ -12,14 +23,57 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    max-width: 300px; /* Forces wrap on mobile naturally */
     transition: all 0.3s ease;
 }
 
 .subtitle {
-    color: var(--text-muted);
-    font-size: 0.9rem;
+    color: #ffb347; /* Brand gold */
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-weight: 700;
+    margin-bottom: 50px;
+    opacity: 0.8;
+    position: relative;
+    display: inline-block;
 }
+
+/* Decorative lines on the sides */
+.subtitle::before, .subtitle::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #ffb347);
+    opacity: 0.4;
+}
+
+.subtitle::before {
+    right: 100%;
+    margin-right: 20px;
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.subtitle::after {
+    left: 100%;
+    margin-left: 20px;
+    transform: translateY(-50%);
+}
+
+@media (max-width: 600px) {
+    .subtitle::before, .subtitle::after {
+        display: none;
+    }
+    .subtitle {
+        letter-spacing: 2px;
+        font-size: 0.9rem;
+    }
+}
+
+
+
+
 
 .menu-cards {
     display: flex;
@@ -28,9 +82,36 @@
     padding: 0 20px;
 }
 
+@media (min-width: 768px) {
+    .menu-cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        width: 100%;
+        max-width: 1100px; /* Container width */
+        margin: 0 auto;
+        padding: 0 20px; /* Cards start 20px in, so card-to-card width is 1060px */
+        box-sizing: border-box;
+    }
+    
+    .menu-cards .card {
+        height: 100%;
+    }
+}
+
+
+
+
+
+
+
+
 .info-block {
-    margin: 20px;
+    margin: 20px auto;
     padding: 30px;
+    width: calc(100% - 40px);
+    max-width: 1060px; /* Match the effective width of the cards (1100 - 40) */
+    box-sizing: border-box;
     background: var(--bg-card-gradient);
     border-radius: 24px;
     border: 1px solid var(--border-light);
@@ -38,14 +119,18 @@
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
+
+
+
 .info-block p {
     color: var(--text-muted);
     font-size: 1rem;
     line-height: 1.6;
     margin: 0;
-    max-width: 800px;
+    max-width: 900px; /* Slightly wider for better balance in a larger box */
     margin: 0 auto;
 }
+
 
 .info-block strong {
     color: #ffb347;
@@ -63,8 +148,9 @@
     padding: 20px;
     width: 100%;
     margin: 0 auto;
-    max-width: 1000px; /* Width for side-by-side on desktop */
+    max-width: 1100px; /* Synchronized with menu-cards */
 }
+
 
 @media (min-width: 768px) {
     .brand-title {
@@ -75,11 +161,19 @@
     .home-tiles-grid {
         flex-direction: row;
         justify-content: center;
-        align-items: stretch; /* Ensures equal height for children */
+        align-items: stretch;
         flex-wrap: nowrap;
         gap: 20px;
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+        box-sizing: border-box;
     }
 }
+
+
+
 
 .home-action-section {
     display: flex;

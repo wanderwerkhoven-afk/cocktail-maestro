@@ -87,65 +87,95 @@ window.printRecipe = async () => {
     const closeBtn = document.querySelector('.immersive-close-btn');
     const printBtn = document.querySelector('.immersive-print-btn');
     const servings = document.querySelector('.immersive-servings-box');
+    const recipeName = document.querySelector('.immersive-title')?.innerText || 'Cocktail-Recipe';
 
-    // Open window synchronously to bypass Safari/iOS popup blockers
-    const printWindow = window.open('', '_blank');
-    if (printWindow) {
-        printWindow.document.write('<html lang="en"><body style="background:#f4f4f4; display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif; margin:0;"><h2 style="color:#333;">Generating your Cocktail Maestro PDF...</h2></body></html>');
-    }
-
-    // Hide UI elements temporarily
+    // 1. Prepare UI for capturing
     if (closeBtn) closeBtn.style.display = 'none';
     if (printBtn) printBtn.style.display = 'none';
     if (servings) servings.style.display = 'none';
-
-    // Apply white mode for printing
     content.classList.add('printing-white-mode');
 
     try {
+        // 2. Capture content as high-res image
         const canvas = await html2canvas(content, {
             backgroundColor: '#ffffff',
-            scale: 2, // High resolution
+            scale: 2, 
             useCORS: true,
-            logging: false
+            logging: false,
+            windowWidth: 1200 // Ensure desktop-like layout for the capture
         });
 
         const imgData = canvas.toDataURL('image/png');
+
+        // 3. Handle Mobile (iOS/Android) with Native Share if possible
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
         
-        if (printWindow) {
-            printWindow.document.open();
-            printWindow.document.write(`
-                <html>
-                    <head>
-                        <title>Cocktail Recipe - ${document.querySelector('.immersive-title').innerText}</title>
-                        <style>
-                            body { margin: 0; display: flex; justify-content: center; background: #ffffff; }
-                            img { max-width: 100%; height: auto; }
-                            @page { margin: 0; size: auto; }
-                        </style>
-                    </head>
-                    <body>
-                        <img src="${imgData}" onload="window.print(); window.close();">
-                    </body>
-                </html>
-            `);
-            printWindow.document.close();
-        } else {
-            // If popup was somehow still blocked, fallback to standard print
-            window.print();
+        if (isMobile && navigator.share) {
+            try {
+                const response = await fetch(imgData);
+                const blob = await response.blob();
+                const file = new File([blob], `${recipeName.replace(/\s+/g, '-').toLowerCase()}.png`, { type: 'image/png' });
+
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    await navigator.share({
+                        files: [file],
+                        title: `Cocktail Recipe: ${recipeName}`,
+                        text: `Check out this ${recipeName} recipe from Cocktail Maestro!`
+                    });
+                    return; // Stop here if shared successfully
+                }
+            } catch (shareErr) {
+                console.log('Native share failed or cancelled, falling back to iframe print.', shareErr);
+            }
         }
+
+        // 4. Reliable Iframe Print (Desktop & Mobile Fallback)
+        // This avoids window.open which is blocked by iOS pop-up blockers
+        const iframe = document.createElement('iframe');
+        iframe.style.position = 'fixed';
+        iframe.style.right = '0';
+        iframe.style.bottom = '0';
+        iframe.style.width = '0';
+        iframe.style.height = '0';
+        iframe.style.border = '0';
+        document.body.appendChild(iframe);
+
+        const iframeDoc = iframe.contentWindow.document;
+        iframeDoc.open();
+        iframeDoc.write(`
+            <html>
+                <head>
+                    <title>Cocktail Recipe - ${recipeName}</title>
+                    <style>
+                        body { margin: 0; display: flex; justify-content: center; align-items: flex-start; background: #ffffff; }
+                        img { max-width: 100%; height: auto; }
+                        @page { margin: 10mm; size: auto; }
+                    </style>
+                </head>
+                <body>
+                    <img src="${imgData}" onload="window.print();">
+                </body>
+            </html>
+        `);
+        iframeDoc.close();
+
+        // Cleanup iframe after some time
+        setTimeout(() => {
+            if (document.body.contains(iframe)) document.body.removeChild(iframe);
+        }, 2000);
+
     } catch (err) {
-        console.error('Print failed:', err);
-        if (printWindow) printWindow.close();
-        window.print(); // Fallback to standard print
+        console.error('PDF Generation failed:', err);
+        alert('Could not generate PDF. Please try again.');
     } finally {
-        // Restore UI elements and theme
+        // 5. Restore UI
         content.classList.remove('printing-white-mode');
         if (closeBtn) closeBtn.style.display = 'flex';
         if (printBtn) printBtn.style.display = 'flex';
         if (servings) servings.style.display = 'flex';
     }
 };
+
 window.classicCocktails = classicCocktails;
 window.mocktailRecipes = mocktailRecipes;
 

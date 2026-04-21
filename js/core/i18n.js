@@ -28,7 +28,8 @@ const translations = {
 
         // Home Page
         "home-search-placeholder": "Zoek klassiekers...",
-        "home-subtitle": "Ontdek, creëer en beheers de kunst van cocktails",
+        "home-subtitle": "Creëer momenten, glas voor glas.",
+
         "home-info-text": "Beheers de kunst van mixologie met <strong>Cocktail Maestro</strong>. Ontdek onze uitgebreide collectie klassieke en moderne recepten in de <strong>Kluis</strong>, beheer je thuisvoorraad in de <strong>Koelkast</strong> om precies te ontdekken wat je nu kunt maken, en verbeter je vaardigheden in de <strong>Keuken</strong> met professionele gidsen voor siropen, infusies en garnituren. Of je nu een nieuwsgierige beginner bent of een doorgewinterde pro, je perfecte drankje begint hier.",
         "home-categories-title": "Categorieën",
         "cat-classics": "Klassiekers",
@@ -219,7 +220,8 @@ const translations = {
 
         // Home Page
         "home-search-placeholder": "Search classics...",
-        "home-subtitle": "Discover, create, and master the art of cocktails",
+        "home-subtitle": "Crafting moments, one glass at a time.",
+
         "home-info-text": "Master the art of mixology with <strong>Cocktail Maestro</strong>. Explore our extensive collection of classic and modern recipes in the <strong>Vault</strong>, manage your home inventory in the <strong>Fridge</strong> to discover exactly what you can create right now, and elevate your skills in the <strong>Kitchen</strong> with professional guides for syrups, infusions, and garnishes. Whether you're a curious beginner or a seasoned pro, your perfect pour starts here.",
         "home-categories-title": "Categories",
         "cat-classics": "Classics",

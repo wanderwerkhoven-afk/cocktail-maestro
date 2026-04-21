@@ -90,38 +90,28 @@
     touch-action: manipulation;
 }
 
+html {
+    scrollbar-gutter: stable; /* Prevents layout shift when scrollbars are hidden */
+}
+
 body {
     background-color: var(--bg-body);
     color: var(--text-primary);
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    width: 100%;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* --- ORANGE SCROLLBAR STYLING --- */
-/* Firefox */
+
+/* --- HIDE SCROLLBARS GLOBALLY --- */
 * {
-    scrollbar-width: thin;
-    scrollbar-color: #ffb347 transparent;
+    scrollbar-width: none;     /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
 }
 
-/* Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    display: none;             /* Chrome, Safari and Opera */
 }
 
-*::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-*::-webkit-scrollbar-thumb {
-    background-color: #ffb347;
-    border-radius: 20px;
-    border: none;
-}
-
-*::-webkit-scrollbar-thumb:hover {
-    background-color: #fc9505;
-}

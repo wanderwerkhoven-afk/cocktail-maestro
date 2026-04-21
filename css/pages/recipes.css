@@ -116,6 +116,11 @@
     }
 }
 
+.placeholder-text {
+    grid-column: 1 / -1; /* Spans across all grid columns to center itself */
+}
+
+
 /* Card actions relocated to components/cards.css */
 
 .form-overlay {
