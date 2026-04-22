@@ -13,7 +13,8 @@ import {
     onSnapshot 
 } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 import { auth, db } from "./firebase.js";
-import { updateState } from "./state.js";
+export { auth, db };
+import { refreshState } from "./state.js";
 
 /**
  * Handle user registration
@@ -108,9 +109,9 @@ export async function fetchCloudData(uid) {
         if (data.recipes) localStorage.setItem('myRecipes', JSON.stringify(data.recipes));
         if (data.shoppingList) localStorage.setItem('shoppingList', JSON.stringify(data.shoppingList));
         
-        // Update in-memory state
-        updateState(data);
-
+        // Refresh in-memory state
+        refreshState();
+        
         // Refresh the app UI (handled by caller or listener)
         return data;
     }
@@ -135,54 +136,51 @@ export async function syncData(type, data) {
 }
 
 /**
- * Real-time listener for user data
+ * Listener for auth changes and real-time data sync
  */
-let unsubscribeDataListener = null;
+let dataUnsubscribe = null;
 
-export function initDataListener(uid, callback) {
-    if (unsubscribeDataListener) unsubscribeDataListener();
-    
-    unsubscribeDataListener = onSnapshot(doc(db, "users", uid), (doc) => {
-        if (doc.exists()) {
-            const data = doc.data();
-            console.log("Cloud data updated, syncing to local state...");
-            
-            // Update LocalStorage
-            if (data.ingredients) localStorage.setItem('myIngredients', JSON.stringify(data.ingredients));
-            if (data.favorites) localStorage.setItem('myFavorites', JSON.stringify(data.favorites));
-            if (data.recipes) localStorage.setItem('myRecipes', JSON.stringify(data.recipes));
-            if (data.shoppingList) localStorage.setItem('shoppingList', JSON.stringify(data.shoppingList));
-            
-            // Update in-memory state
-            updateState(data);
-
-            // Notify UI to refresh (if callback provided)
-            if (callback) callback(data);
-        }
-    }, (error) => {
-        console.error("Error listening to data changes:", error);
-    });
-}
-
-/**
- * Listener for auth changes
- */
 export function initAuthListener(callback) {
     onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            // User is signed in, start data listener
-            initDataListener(user.uid, (data) => {
-                // When data changes in cloud, we might want to refresh the current page
-                // This callback is handled in ui.js which calls navigateTo(currentPage) or similar
-                if (callback) callback(user, data);
-            });
-            await fetchCloudData(user.uid);
-        } else {
-            if (unsubscribeDataListener) {
-                unsubscribeDataListener();
-                unsubscribeDataListener = null;
-            }
+        if (dataUnsubscribe) {
+            dataUnsubscribe();
+            dataUnsubscribe = null;
         }
-        if (callback && !user) callback(null);
+
+        if (user) {
+            // First do an initial fetch
+            await fetchCloudData(user.uid);
+
+            // Then subscribe to real-time updates for multi-device sync
+            dataUnsubscribe = onSnapshot(doc(db, "users", user.uid), (snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.data();
+                    let hasChanges = false;
+
+                    const syncField = (field, storageKey) => {
+                        const newVal = JSON.stringify(data[field]);
+                        if (data[field] !== undefined && newVal !== localStorage.getItem(storageKey)) {
+                            localStorage.setItem(storageKey, newVal);
+                            hasChanges = true;
+                        }
+                    };
+
+                    syncField('ingredients', 'myIngredients');
+                    syncField('favorites', 'myFavorites');
+                    syncField('recipes', 'myRecipes');
+                    syncField('shoppingList', 'shoppingList');
+
+                    if (hasChanges) {
+                        console.log("Cloud data updated, refreshing state...");
+                        refreshState();
+                        
+                        // Notify UI that data has changed (optional, but navigation already handles it)
+                        // For real real-time, we could dispatch an event here
+                        window.dispatchEvent(new CustomEvent('cloudDataChanged'));
+                    }
+                }
+            });
+        }
+        if (callback) callback(user);
     });
 }

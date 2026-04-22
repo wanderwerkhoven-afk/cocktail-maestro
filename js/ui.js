@@ -339,4 +339,15 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.updateIngredientSuggestions();
+
+    // Listen for cloud data changes (from other devices) and refresh the current view
+    window.addEventListener('cloudDataChanged', () => {
+        console.log("Cloud data change detected, refreshing current view...");
+        const activePage = document.querySelector('.page.active');
+        if (activePage) {
+            const pageId = activePage.id.replace('-page', '');
+            // Re-run the navigation logic to refresh the UI with new data
+            navigateTo(pageId);
+        }
+    });
 });

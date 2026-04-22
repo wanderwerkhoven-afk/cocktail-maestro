@@ -2,9 +2,9 @@ import { renderVault } from '../pages/vault.js';
 import { renderShoppingList } from '../modules/shopping.js';
 import { renderMyRecipes } from '../pages/recipes.js';
 import { syncCheckboxes, calculateBarProgress } from '../modules/fridge.js';
-import { fetchCloudData, auth } from './auth.js';
+import { auth, fetchCloudData } from './auth.js';
 
-export function navigateTo(pageId) {
+export async function navigateTo(pageId) {
     // Save scroll position of currently active page before switching
     const currentActivePage = document.querySelector('.page.active');
     if (currentActivePage) {
@@ -29,16 +29,14 @@ export function navigateTo(pageId) {
     const activeNav = document.getElementById('nav-' + pageId);
     if (activeNav) activeNav.classList.add('active');
 
-    // Fetch latest cloud data if logged in to ensure page is always up to date
-    if (auth && auth.currentUser) {
-        fetchCloudData(auth.currentUser.uid).then(() => {
-            // Re-render specific components if they are on the current page
-            if (pageId === 'fridge') { syncCheckboxes(); calculateBarProgress(); }
-            if (pageId === 'home') calculateBarProgress();
-            if (pageId === 'vault') renderVault();
-            if (pageId === 'shopping') renderShoppingList();
-            if (pageId === 'recipes') renderMyRecipes();
-        });
+    // Fetch latest data from cloud if logged in
+    const user = auth.currentUser;
+    if (user && ['fridge', 'home', 'vault', 'shopping', 'recipes'].includes(pageId)) {
+        try {
+            await fetchCloudData(user.uid);
+        } catch (error) {
+            console.error("Error refreshing data during navigation:", error);
+        }
     }
 
     // --- Page-specific actions ---
