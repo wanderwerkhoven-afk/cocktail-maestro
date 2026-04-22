@@ -2540,34 +2540,36 @@ export const classicCocktails = [
         image: "./assets/Cocktails/whiskeysour.webp"
     },
     {
-        id: 'white-Cosmo',
-        name: "White Lady",
-        category: ["Classic", "Sour", "Gin"],
-        description: "A crisp and elegant gin sour with bright citrus, orange warmth and a clean, refined finish.",
+        id: 'white-cosmo',
+        name: "White Cosmo",
+        category: ["Citrus", "Floral", "Modern Classic", "Vodka"],
+        description: "A fresh and aromatic twist on the Cosmopolitan, combining vodka, elderflower and citrus with subtle grape notes for a light, elegant finish.",
         ingredients: [
-            { amount: 4, unit: "pieces", name: "Grapes", fridgeCategory: "fresh" },
-            { amount: 15, unit: "ml", name: "Elderflower liqueur", fridgeCategory: "liqueur" },
+            { amount: 4, unit: "pcs", name: "White grapes", fridgeCategory: "fresh" },
             { amount: 25, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
             { amount: 15, unit: "ml", name: "Cointreau", fridgeCategory: "liqueur" },
+            { amount: 15, unit: "ml", name: "Elderflower liqueur", fridgeCategory: "liqueur" },
+            { amount: 15, unit: "ml", name: "Fresh lemon juice", fridgeCategory: "juice" },
+            { amount: 7.5, unit: "ml", name: "Fresh lime juice", fridgeCategory: "juice" },
             { amount: 5, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
-            { amount: 15, unit: "ml", name: "Water", fridgeCategory: "fresh" },
-            { amount: 7.5, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "lemon juice", fridgeCategory: "juice" },
-            { amount: 2, unit: "dashes", name: "lemon bitters", fridgeCategory: "bitters" }
+            { amount: 15, unit: "ml", name: "Water", fridgeCategory: "other" },
+            { amount: 2, unit: "dashes", name: "Lemon bitters", fridgeCategory: "bitters" }
         ],
         glassware: "Martini glass",
         ice: "Cubed ice",
         method: "Shaken",
         methodDesc: `
-            Step 1: Add all ingredients to a shaker filled with cubed ice.
+            Step 1: Add the grapes to a shaker and gently muddle to release their juice.
 
-            Step 2: Shake hard until well chilled and properly diluted.
+            Step 2: Add vodka, Cointreau, elderflower liqueur, lemon juice, lime juice, simple syrup, water and bitters.
 
-            Step 3: Double strain into a chilled martini glass for a clean, silky texture.
+            Step 3: Fill the shaker with cubed ice and shake hard for about 10–12 seconds.
 
-            Step 4: Garnish with an expressed lemon twist.
+            Step 4: Double strain into a chilled martini glass.
+
+            Step 5: Garnish with a grape or a lemon twist.
         `.trim(),
-        image: "./assets/Cocktails/whitelady.webp"
+        image: "./assets/Cocktails/whitecosmo.webp"
     },
     {
         id: 'white-lady',
