@@ -12,3 +12,21 @@ export let currentImageBase64 = "";
 export function setCurrentImageBase64(val) {
     currentImageBase64 = val;
 }
+
+/**
+ * Update the in-memory state objects/arrays so UI modules see changes immediately
+ */
+export function updateState(newData) {
+    if (newData.ingredients) {
+        Object.keys(myIngredients).forEach(key => delete myIngredients[key]);
+        Object.assign(myIngredients, newData.ingredients);
+    }
+    if (newData.favorites) {
+        myFavorites.length = 0;
+        myFavorites.push(...newData.favorites);
+    }
+    if (newData.shoppingList) {
+        shoppingList.length = 0;
+        shoppingList.push(...newData.shoppingList);
+    }
+}

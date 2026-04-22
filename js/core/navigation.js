@@ -2,6 +2,7 @@ import { renderVault } from '../pages/vault.js';
 import { renderShoppingList } from '../modules/shopping.js';
 import { renderMyRecipes } from '../pages/recipes.js';
 import { syncCheckboxes, calculateBarProgress } from '../modules/fridge.js';
+import { fetchCloudData, auth } from './auth.js';
 
 export function navigateTo(pageId) {
     // Save scroll position of currently active page before switching
@@ -27,6 +28,18 @@ export function navigateTo(pageId) {
     document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
     const activeNav = document.getElementById('nav-' + pageId);
     if (activeNav) activeNav.classList.add('active');
+
+    // Fetch latest cloud data if logged in to ensure page is always up to date
+    if (auth && auth.currentUser) {
+        fetchCloudData(auth.currentUser.uid).then(() => {
+            // Re-render specific components if they are on the current page
+            if (pageId === 'fridge') { syncCheckboxes(); calculateBarProgress(); }
+            if (pageId === 'home') calculateBarProgress();
+            if (pageId === 'vault') renderVault();
+            if (pageId === 'shopping') renderShoppingList();
+            if (pageId === 'recipes') renderMyRecipes();
+        });
+    }
 
     // --- Page-specific actions ---
 

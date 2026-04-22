@@ -1,4 +1,5 @@
 import { shoppingList, myIngredients } from '../core/state.js';
+import { syncData } from '../core/auth.js';
 import { showToast } from '../core/ui-utils.js';
 import { classicCocktails } from './database.js';
 import { t } from '../core/i18n.js';
@@ -240,12 +241,14 @@ function calculateSmartRecommendations() {
 export function toggleItemCheck(index) {
     shoppingList[index].checked = !shoppingList[index].checked;
     localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+    syncData('shoppingList', shoppingList);
     renderShoppingList();
 }
 
 export function removeFromShoppingList(index) {
     shoppingList.splice(index, 1);
     localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+    syncData('shoppingList', shoppingList);
     renderShoppingList();
 }
 
@@ -254,6 +257,7 @@ export function clearShoppingList() {
     if (confirm("Wil je de hele lijst leegmaken?")) {
         shoppingList.length = 0;
         localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+        syncData('shoppingList', shoppingList);
         renderShoppingList();
     }
 }
@@ -266,6 +270,7 @@ export function addToShoppingList(e, ingredient) {
     if (!exists) {
         shoppingList.push({ name: ingredient, checked: false });
         localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
+        syncData('shoppingList', shoppingList);
         renderShoppingList(); // Add this line to update the UI immediately
         showToast(`${ingredient} added to list!`);
     } else {

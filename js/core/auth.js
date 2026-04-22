@@ -9,9 +9,11 @@ import {
 import { 
     doc, 
     getDoc, 
-    setDoc 
+    setDoc,
+    onSnapshot 
 } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 import { auth, db } from "./firebase.js";
+import { updateState } from "./state.js";
 
 /**
  * Handle user registration
@@ -87,7 +89,8 @@ async function syncLocalDataToCloud(uid) {
     const data = {
         ingredients: JSON.parse(localStorage.getItem('myIngredients')) || {},
         favorites: JSON.parse(localStorage.getItem('myFavorites')) || [],
-        recipes: JSON.parse(localStorage.getItem('myRecipes')) || []
+        recipes: JSON.parse(localStorage.getItem('myRecipes')) || [],
+        shoppingList: JSON.parse(localStorage.getItem('shoppingList')) || []
     };
     
     await setDoc(doc(db, "users", uid), data, { merge: true });
@@ -103,7 +106,11 @@ export async function fetchCloudData(uid) {
         if (data.ingredients) localStorage.setItem('myIngredients', JSON.stringify(data.ingredients));
         if (data.favorites) localStorage.setItem('myFavorites', JSON.stringify(data.favorites));
         if (data.recipes) localStorage.setItem('myRecipes', JSON.stringify(data.recipes));
+        if (data.shoppingList) localStorage.setItem('shoppingList', JSON.stringify(data.shoppingList));
         
+        // Update in-memory state
+        updateState(data);
+
         // Refresh the app UI (handled by caller or listener)
         return data;
     }
@@ -128,14 +135,54 @@ export async function syncData(type, data) {
 }
 
 /**
+ * Real-time listener for user data
+ */
+let unsubscribeDataListener = null;
+
+export function initDataListener(uid, callback) {
+    if (unsubscribeDataListener) unsubscribeDataListener();
+    
+    unsubscribeDataListener = onSnapshot(doc(db, "users", uid), (doc) => {
+        if (doc.exists()) {
+            const data = doc.data();
+            console.log("Cloud data updated, syncing to local state...");
+            
+            // Update LocalStorage
+            if (data.ingredients) localStorage.setItem('myIngredients', JSON.stringify(data.ingredients));
+            if (data.favorites) localStorage.setItem('myFavorites', JSON.stringify(data.favorites));
+            if (data.recipes) localStorage.setItem('myRecipes', JSON.stringify(data.recipes));
+            if (data.shoppingList) localStorage.setItem('shoppingList', JSON.stringify(data.shoppingList));
+            
+            // Update in-memory state
+            updateState(data);
+
+            // Notify UI to refresh (if callback provided)
+            if (callback) callback(data);
+        }
+    }, (error) => {
+        console.error("Error listening to data changes:", error);
+    });
+}
+
+/**
  * Listener for auth changes
  */
 export function initAuthListener(callback) {
     onAuthStateChanged(auth, async (user) => {
         if (user) {
-            // User is signed in, sync data
+            // User is signed in, start data listener
+            initDataListener(user.uid, (data) => {
+                // When data changes in cloud, we might want to refresh the current page
+                // This callback is handled in ui.js which calls navigateTo(currentPage) or similar
+                if (callback) callback(user, data);
+            });
             await fetchCloudData(user.uid);
+        } else {
+            if (unsubscribeDataListener) {
+                unsubscribeDataListener();
+                unsubscribeDataListener = null;
+            }
         }
-        if (callback) callback(user);
+        if (callback && !user) callback(null);
     });
 }
