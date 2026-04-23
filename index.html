@@ -237,15 +237,14 @@
 
         <!-- Info Block -->
         <div class="info-block">
-            <p data-i18n="home-info-text">Master the art of mixology with <strong>Cocktail Maestro</strong>. Explore our extensive collection of
+            <p data-i18n="home-info-text">Master the art of mixology with <strong>Cocktail Maestro</strong>. Explore our
+                extensive collection of
                 classic and modern recipes in the <strong>Vault</strong>, manage your home inventory in the
                 <strong>Fridge</strong> to discover exactly what you can create right now, and elevate your skills in
                 the <strong>Kitchen</strong> with professional guides for syrups, infusions, and garnishes. Whether
-                you're a curious beginner or a seasoned pro, your perfect pour starts here.</p>
+                you're a curious beginner or a seasoned pro, your perfect pour starts here.
+            </p>
         </div>
-
-        <!-- Divider streepje -->
-        <div class="home-divider"></div>
 
         <!-- Home Tiles Grid (Randomizer + Bar Status) -->
         <div class="home-tiles-grid">
@@ -297,7 +296,7 @@
             <!-- Bar stock stats -->
             <section class="bar-status-card">
                 <div class="bar-status-top">
-                    <h2 data-i18n="home-bar-status-title">YOUR BAR STATUS</h2>
+                    <h2 data-i18n="home-bar-status-title">LIQUID ASSETS</h2>
                     <p class="subtitle" data-i18n="home-bar-status-sub">Your current cocktail potential</p>
                     <hr class="divider">
                 </div>
@@ -330,7 +329,7 @@
                     <div class="container-right">
                         <div class="status-header">
                             <div class="status-label-group">
-                                <span data-i18n="home-bar-status-title">YOUR BAR STATUS</span>
+                                <span data-i18n="home-bar-status-label">YOUR BAR STATUS</span>
                             </div>
                             <span id="bar-pct-text">78%</span>
                         </div>
@@ -429,12 +428,7 @@
                             </svg>
                         </div>
 
-                        <button class="progress-btn" onclick="calculateBarProgress()">
-                            <i class="fa-solid fa-arrows-rotate"></i>
-                            <div class="btn-text">
-                                <span data-i18n="home-update-status">UPDATE STATUS</span>
-                            </div>
-                        </button>
+
                     </div>
                 </div>
             </section>
@@ -487,7 +481,8 @@
             <div class="universal-search-wrapper">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" id="universal-fridge-search" data-i18n="fridge-search-placeholder"
-                    placeholder="Search all ingredients..." oninput="window.filterAllIngredients(this.value); window.updateSearchClearButton(this)">
+                    placeholder="Search all ingredients..."
+                    oninput="window.filterAllIngredients(this.value); window.updateSearchClearButton(this)">
                 <i class="fa-solid fa-xmark clear-search-btn" onclick="window.clearSearch(this)"></i>
             </div>
 
@@ -730,7 +725,8 @@
             <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" id="vaultSearch" data-i18n="vault-search-placeholder"
-                    placeholder="Search cocktails..." oninput="renderVault(this.value); window.updateSearchClearButton(this)">
+                    placeholder="Search cocktails..."
+                    oninput="renderVault(this.value); window.updateSearchClearButton(this)">
                 <i class="fa-solid fa-xmark clear-search-btn" onclick="window.clearSearch(this)"></i>
             </div>
         </section>
@@ -1288,7 +1284,8 @@
         <button class="immersive-print-btn" id="immersive-print-btn" onclick="window.printRecipe()" title="Save as PDF">
             <i class="fa-solid fa-file-pdf"></i>
         </button>
-        <button class="immersive-share-btn" id="immersive-share-btn" onclick="window.shareRecipe()" title="Share Recipe" style="display: none;">
+        <button class="immersive-share-btn" id="immersive-share-btn" onclick="window.shareRecipe()" title="Share Recipe"
+            style="display: none;">
             <i class="fa-solid fa-share-nodes"></i>
         </button>
         <button class="immersive-close-btn" onclick="window.closeImmersiveRecipe()">

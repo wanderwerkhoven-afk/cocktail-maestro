@@ -403,13 +403,93 @@ export const kitchenItems = [
         title: "Double Strain",
         difficulty: "medium",
         heroClass: "hero-strain",
-        image: "assets/Kitchen/dubble_strain.webp",
+        image: "assets/Kitchen/double_strain.webp",
         description: "Also known as fine straining. Pouring a cocktail through both a primary strainer (like a Hawthorne) and a secondary fine-mesh strainer.",
         instructionsTitle: "Why do it?",
         instructions: [
             "Removes tiny ice shards from shaking.",
             "Catches small fruit pulp or mint leaves.",
             "Results in a smoother, silkier texture."
+        ]
+    },
+    {
+        id: "dry-shake",
+        category: "techniques",
+        title: "Dry Shake",
+        difficulty: "medium",
+        heroClass: "hero-shaker",
+        image: "assets/Kitchen/dryshake.webp",
+        description: "Shaking ingredients (especially those with egg white or aquafaba) without ice first to build a thick, stable foam.",
+        instructionsTitle: "The Secret",
+        instructions: [
+            "Combine all ingredients in the shaker without ice.",
+            "Shake vigorously for 15-20 seconds to emulsify the proteins.",
+            "Add ice and shake again to chill and dilute.",
+            "Results in a meringue-like foam on top of your cocktail."
+        ]
+    },
+    {
+        id: "reverse-dry-shake",
+        category: "techniques",
+        title: "Reverse Dry Shake",
+        difficulty: "hard",
+        heroClass: "hero-shaker",
+        image: "assets/Kitchen/reversedryshake.webp",
+        description: "The pro-variant of the dry shake. You shake with ice first, strain the ice out, and then shake again without ice.",
+        instructionsTitle: "Why it's better",
+        instructions: [
+            "Shake ingredients with ice first to chill and dilute.",
+            "Strain the cocktail back into the shaker, removing all ice.",
+            "Shake a second time without ice to build maximum foam volume.",
+            "Creates a denser, more uniform foam than a standard dry shake."
+        ]
+    },
+    {
+        id: "stirring",
+        category: "techniques",
+        title: "Stirring",
+        difficulty: "medium",
+        heroClass: "hero-spoon",
+        image: "assets/Kitchen/stirring.webp",
+        description: "A technique used for spirit-forward cocktails to chill and dilute the drink without adding air bubbles or cloudiness.",
+        instructionsTitle: "The Method",
+        instructions: [
+            "Fill a mixing glass with plenty of ice.",
+            "Add your ingredients and stir for 30-45 seconds.",
+            "Keep the back of the bar spoon against the wall of the glass for a smooth rotation.",
+            "Stir until the outside of the glass feels ice-cold."
+        ]
+    },
+    {
+        id: "throwing",
+        category: "techniques",
+        title: "Throwing",
+        difficulty: "hard",
+        heroClass: "hero-throw",
+        image: "assets/Kitchen/throwing.webp",
+        description: "An elegant technique where you pour the cocktail from a height from one tin into another to aerate and chill without over-diluting.",
+        instructionsTitle: "How to master it",
+        instructions: [
+            "Use a strainer to keep ice in the top tin.",
+            "Pour the liquid from as high as possible into the bottom tin.",
+            "Repeat 5-7 times until the drink is chilled and aerated.",
+            "Perfect for wine-based cocktails like Vermouth or Sherry drinks."
+        ]
+    },
+    {
+        id: "muddling",
+        category: "techniques",
+        title: "Muddling",
+        difficulty: "easy",
+        heroClass: "hero-muddle",
+        image: "assets/Kitchen/muddling.webp",
+        description: "Crushing fruits, herbs, or spices in the bottom of a glass to release their essential oils and juices.",
+        instructionsTitle: "The Gentle Touch",
+        instructions: [
+            "For herbs (like mint), use a gentle press-and-twist motion. Don't shred them!",
+            "For fruits (like lime or berries), press firmly to extract all the juice.",
+            "Always muddle before adding ice or carbonated mixers.",
+            "Releases the aromatic oils that provide the backbone of many classics."
         ]
     },
     {
