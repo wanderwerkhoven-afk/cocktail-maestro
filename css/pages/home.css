@@ -247,18 +247,18 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     max-width: none;
     z-index: 9999;
     border-radius: 0;
-    padding: 8vh 20px;
+    padding: 5dvh 20px;
     /* Dynamic vertical padding */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     /* Space Title, Shaker, and Button evenly */
-    background: linear-gradient(135deg, var(--bg-card), var(--shadow-color));
+    background: linear-gradient(135deg, var(--bg-card), var(--bg-body));
     cursor: default;
 }
 
