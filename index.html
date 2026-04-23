@@ -79,7 +79,7 @@
 
     <!-- Theme blocking script to prevent white flash -->
     <script>
-        (function() {
+        (function () {
             const theme = localStorage.getItem('appTheme') || 'dark';
             if (theme === 'auto') {
                 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
@@ -266,7 +266,8 @@
             <section class="home-action-section">
                 <div class="shake-card-super" id="main-shaker-card">
                     <!-- Fullscreen & Menu controls -->
-                    <button class="super-tile-options-btn" onclick="event.stopPropagation(); window.openRandomizerFilters()" title="Options">
+                    <button class="super-tile-options-btn"
+                        onclick="event.stopPropagation(); window.openRandomizerFilters()" title="Options">
                         <i class="fa-solid fa-bars-staggered"></i>
                     </button>
 
@@ -993,26 +994,22 @@
                                 <span class="lang-name" data-i18n="theme-dark">Dark</span>
                                 <i class="fa-solid fa-check check-icon"></i>
                             </div>
-                            <div class="lang-item theme-item" onclick="window.changeTheme('light')"
+                            <!--<div class="lang-item theme-item" onclick="window.changeTheme('light')"
                                 data-theme-val="light">
                                 <span class="lang-name" data-i18n="theme-light">Light</span>
                                 <i class="fa-solid fa-check check-icon"></i>
-                            </div>
-                            <div class="lang-item theme-item" onclick="window.changeTheme('auto')"
-                                data-theme-val="auto">
-                                <span class="lang-name" data-i18n="theme-auto">Auto (System)</span>
-                                <i class="fa-solid fa-check check-icon"></i>
-                            </div>
+                            </div>-->
+
                             <div class="lang-item theme-item" onclick="window.changeTheme('sunset-lounge')"
                                 data-theme-val="sunset-lounge">
                                 <span class="lang-name" data-i18n="theme-sunset">Sunset Lounge</span>
                                 <i class="fa-solid fa-check check-icon"></i>
                             </div>
-                            <div class="lang-item theme-item" onclick="window.changeTheme('olive-citrus')"
+                            <!--<div class="lang-item theme-item" onclick="window.changeTheme('olive-citrus')"
                                 data-theme-val="olive-citrus">
                                 <span class="lang-name" data-i18n="theme-olive">Olive Citrus</span>
                                 <i class="fa-solid fa-check check-icon"></i>
-                            </div>
+                            </div>-->
                             <div class="lang-item theme-item" onclick="window.changeTheme('midnight-plum')"
                                 data-theme-val="midnight-plum">
                                 <span class="lang-name" data-i18n="theme-plum">Midnight Plum</span>
@@ -1021,6 +1018,11 @@
                             <div class="lang-item theme-item" onclick="window.changeTheme('jungle-tiki')"
                                 data-theme-val="jungle-tiki">
                                 <span class="lang-name" data-i18n="theme-tiki">Jungle Tiki</span>
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </div>
+                            <div class="lang-item theme-item" onclick="window.changeTheme('brown-cafe')"
+                                data-theme-val="brown-cafe">
+                                <span class="lang-name" data-i18n="theme-brown-cafe">Brown Café</span>
                                 <i class="fa-solid fa-check check-icon"></i>
                             </div>
                         </div>
@@ -1374,8 +1376,10 @@
                 <div class="filter-group">
                     <h3 data-i18n="filter-availability-label">Availability</h3>
                     <div class="filter-pills" id="filter-availability">
-                        <button class="filter-pill active" data-value="fridge" data-i18n="filter-in-fridge">In Fridge Only</button>
-                        <button class="filter-pill" data-value="all" data-i18n="filter-all-cocktails">Every Cocktail</button>
+                        <button class="filter-pill active" data-value="fridge" data-i18n="filter-in-fridge">In Fridge
+                            Only</button>
+                        <button class="filter-pill" data-value="all" data-i18n="filter-all-cocktails">Every
+                            Cocktail</button>
                     </div>
                 </div>
 
@@ -1408,7 +1412,8 @@
                             <span>Brandy</span>
                         </label>
                     </div>
-                    <button class="filter-select-all" onclick="toggleAllFilterSpirits(true)" data-i18n="filter-select-all">Select All</button>
+                    <button class="filter-select-all" onclick="toggleAllFilterSpirits(true)"
+                        data-i18n="filter-select-all">Select All</button>
                 </div>
 
                 <!-- 4. Flavor Profiles -->
@@ -1435,7 +1440,8 @@
             </div>
 
             <footer class="modal-footer">
-                <button class="modal-action-btn" onclick="applyRandomizerFilters()" data-i18n="filter-apply">Save & Close</button>
+                <button class="modal-action-btn" onclick="applyRandomizerFilters()" data-i18n="filter-apply">Save &
+                    Close</button>
             </footer>
         </div>
     </div>

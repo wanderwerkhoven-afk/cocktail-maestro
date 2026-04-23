@@ -117,21 +117,15 @@ export function applyThemeUI() {
     if (display) {
         if (theme === 'dark') display.innerText = window.t ? window.t('theme-dark') : 'Dark';
         else if (theme === 'light') display.innerText = window.t ? window.t('theme-light') : 'Light';
-        else if (theme === 'auto') display.innerText = window.t ? window.t('theme-auto') : 'Auto (System)';
+
         else if (theme === 'sunset-lounge') display.innerText = window.t ? window.t('theme-sunset') : 'Sunset Lounge';
         else if (theme === 'olive-citrus') display.innerText = window.t ? window.t('theme-olive') : 'Olive Citrus';
         else if (theme === 'midnight-plum') display.innerText = window.t ? window.t('theme-plum') : 'Midnight Plum';
         else if (theme === 'jungle-tiki') display.innerText = window.t ? window.t('theme-tiki') : 'Jungle Tiki';
+        else if (theme === 'brown-cafe') display.innerText = window.t ? window.t('theme-brown-cafe') : 'Brown Café';
     }
 
-    // Apply the actual theme class to the document root
-    if (theme === 'auto') {
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-            document.documentElement.setAttribute('data-theme', 'light');
-        } else {
-            document.documentElement.removeAttribute('data-theme');
-        }
-    } else if (theme === 'dark') {
+    if (theme === 'dark') {
         document.documentElement.removeAttribute('data-theme');
     } else {
         document.documentElement.setAttribute('data-theme', theme);

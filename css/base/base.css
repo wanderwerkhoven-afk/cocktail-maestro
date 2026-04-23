@@ -134,6 +134,89 @@
     --imm-border: rgba(255, 255, 255, 0.05);
 }
 
+[data-theme="jungle-tiki"] body::before {
+    content: "";
+    position: fixed;
+    bottom: -20px;
+    right: -20px;
+    width: 45vw;
+    max-width: 400px;
+    height: 45vw;
+    max-height: 400px;
+    background-image: url('../../assets/extra elementen/tiki-totem.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    opacity: 0.10;
+    pointer-events: none;
+    z-index: -1;
+    /* Echt helemaal achteraan */
+}
+
+[data-theme="jungle-tiki"] body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+        url('../../assets/extra elementen/tiki-blad-2.png'),
+        url('../../assets/extra elementen/tiki-blad-4.png'),
+        url('../../assets/extra elementen/tiki-blad-5.png');
+    background-position:
+        top -10px right -20px,
+        top 30% right -30px,
+        bottom -20px left 30%;
+    background-size:
+        clamp(100px, 20vw, 200px),
+        clamp(130px, 18vw, 180px),
+        clamp(440px, 60vw, 600px);
+    /* 3x groter */
+    background-repeat: no-repeat;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: -1;
+    /* Echt helemaal achteraan */
+}
+
+/* Blad 1 krijgt zijn eigen pseudo-element op de html tag */
+[data-theme="jungle-tiki"]::before {
+    content: "";
+    position: fixed;
+    top: -20px;
+    left: -20px;
+    width: clamp(120px, 25vw, 250px);
+    height: clamp(120px, 25vw, 250px);
+    background-image: url('../../assets/extra elementen/tiki-blad-1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: -1;
+    /* Echt helemaal achteraan */
+    transform: rotate(30deg);
+    /* Kantel 30 graden naar rechts */
+}
+
+/* Blad 3 krijgt zijn eigen pseudo-element zodat we deze kunnen roteren */
+[data-theme="jungle-tiki"]::after {
+    content: "";
+    position: fixed;
+    bottom: 30%;
+    left: -20px;
+    width: clamp(150px, 22vw, 220px);
+    height: clamp(150px, 22vw, 220px);
+    background-image: url('../../assets/extra elementen/tiki-blad-3.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: -1;
+    /* Echt helemaal achteraan */
+    transform: rotate(60deg) scale(1.2);
+    /* Extra kanteling en beetje groter voor de zekerheid */
+}
+
 [data-theme="sunset-lounge"] {
     /* BACKGROUNDS */
     --bg-body: #f7f2eb;
@@ -278,6 +361,64 @@
     --imm-border: rgba(255, 255, 255, 0.05);
 }
 
+[data-theme="brown-cafe"] {
+    /* BACKGROUNDS */
+    --bg-body: #1a120d;
+    --bg-card: #241710;
+    --bg-card-gradient: linear-gradient(145deg, #2a1b14, #1a120d);
+
+    /* TEXT */
+    --text-primary: #f5e9dc;
+    --text-secondary: #cbb8a6;
+    --text-muted: #8a7a6b;
+
+    /* BRANDING */
+    --title-gradient: linear-gradient(to right, #ffb347, #c58b4e);
+    --icon-bg: rgba(255, 179, 71, 0.12);
+
+    /* GLASS / OVERLAYS */
+    --glass-bg-subtle: rgba(255, 255, 255, 0.02);
+    --glass-bg-light: rgba(255, 255, 255, 0.04);
+    --glass-bg-hover: rgba(255, 255, 255, 0.08);
+    --glass-bg-active: rgba(255, 255, 255, 0.12);
+
+    /* BORDERS */
+    --border-light: rgba(255, 255, 255, 0.04);
+    --border-strong: rgba(255, 255, 255, 0.08);
+
+    /* SHADOWS (warm amber glow) */
+    --shadow-color: rgba(255, 179, 71, 0.2);
+    --shadow-strong: rgba(197, 139, 78, 0.25);
+
+    /* INPUTS */
+    --input-bg: rgba(255, 255, 255, 0.06);
+
+    /* IMMERSIVE VIEW */
+    --imm-bg-modal: #120c08;
+    --imm-bg-card: #241710;
+    --imm-bg-inset: #1b120d;
+    --imm-accent: #ffb347;
+    --imm-tag-bg: #3a2418;
+    --imm-text-dim: #9a8878;
+    --imm-text-muted: #7e6f61;
+    --imm-border: rgba(255, 255, 255, 0.05);
+
+    /* EXTRA ACCENTS (aanrader) */
+    --accent-primary: #ffb347;
+    --accent-secondary: #ffb347;
+    /* User requested softer icon color instead of red */
+    --accent-glow: rgba(255, 179, 71, 0.25);
+    --accent-soft: rgba(255, 179, 71, 0.25);
+}
+
+[data-theme="brown-cafe"] body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 60%, rgba(0, 0, 0, 0.4));
+    pointer-events: none;
+    z-index: 9999;
+}
 
 * {
     margin: 0;
@@ -290,17 +431,19 @@
 
 html {
     scrollbar-gutter: stable;
-    /* Prevents layout shift when scrollbars are hidden */
+    background-color: var(--bg-body);
+    transition: background-color 0.3s ease;
+    isolation: isolate;
 }
 
 body {
-    background-color: var(--bg-body);
+    background-color: transparent;
     color: var(--text-primary);
     margin: 0;
     padding: 0;
     overflow-x: hidden;
     width: 100%;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: color 0.3s ease;
 }
 
 
