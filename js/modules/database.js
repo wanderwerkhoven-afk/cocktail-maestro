@@ -120,7 +120,7 @@ export const classicCocktails = [
     {
         id: 'amaretto-sour',
         name: "Amaretto Sour",
-        category: ["Sweet", "Sour", "Classic", "Almond"],
+        category: ["Sweet", "Sour", "Classic", "Nutty"],
         description: "A perfectly balanced classic with deep almond warmth, fresh lemon bite and a luxuriously silky foam.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Amaretto", fridgeCategory: "liqueur" },
@@ -145,7 +145,7 @@ export const classicCocktails = [
     {
         id: 'americano',
         name: "Americano",
-        category: ["Low Alcohol", "Bitter", "Classic"],
+        category: ["Low-ABV", "Bitter", "Classic", "Fresh"],
         description: "A light and refreshing aperitivo with bittersweet depth and gentle effervescence.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Campari", fridgeCategory: "spirit" },
@@ -169,7 +169,7 @@ export const classicCocktails = [
     {
         id: 'aperol-betty',
         name: "Aperol Betty",
-        category: ["Sparkling", "Fruit", "Low-ABV"],
+        category: ["Sparkling", "Fruity", "Low-ABV", "Fresh"],
         description: "A bright citrus spritz with Aperol, juicy orange-grapefruit and a fresh sparkling lift.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Aperol", fridgeCategory: "liqueur" },
@@ -243,7 +243,7 @@ export const classicCocktails = [
     {
         id: 'army&navy',
         name: "Army & Navy",
-        category: ["Classic", "Gin", "Nutty"],
+        category: ["Classic", "Gin", "Nutty", "Sour"],
         description: "A vintage gin sour with bright lemon snap, almond richness and a silky, balanced finish.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -268,7 +268,7 @@ export const classicCocktails = [
     {
         id: 'aviation',
         name: "Aviation",
-        category: ["Floral", "Classic", "Purple"],
+        category: ["Floral", "Classic", "Gin", "Fresh"],
         description: "An elegant classic with delicate floral notes, bright citrus and a subtle cherry sweetness.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -293,7 +293,7 @@ export const classicCocktails = [
     {
         id: 'bees-knees',
         name: "Bee's Knees",
-        category: ["Classic", "Honey", "Sweet", "Sour"],
+        category: ["Classic", "Honey", "Sweet", "Sour", "Floral"],
         description: "A smooth Prohibition-era classic with bright citrus, floral honey sweetness and a clean gin backbone.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -339,7 +339,7 @@ export const classicCocktails = [
     {
         id: 'bijou',
         name: "Bijou",
-        category: ["Strong", "Herbal", "Classic"],
+        category: ["Strong", "Herbal", "Classic", "Spirit-Forward"],
         description: "A jewel-box classic with herbal intensity, vermouth richness and a crisp, elegant finish.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -364,7 +364,7 @@ export const classicCocktails = [
     {
         id: 'black-russian',
         name: "Black Russian",
-        category: ["Strong", "Coffee", "Vodka"],
+        category: ["Strong", "Coffee", "Vodka", "Sweet"],
         description: "A bold two-ingredient classic with clean vodka strength and deep coffee sweetness.",
         ingredients: [
             { amount: 50, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
@@ -387,7 +387,7 @@ export const classicCocktails = [
     {
         id: 'bloody-mary',
         name: "Bloody Mary",
-        category: ["Savory", "Vodka"],
+        category: ["Savory", "Vodka", "Spicy"],
         description: "A bold and savory classic with rich tomato depth, gentle heat and a perfectly seasoned finish.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
@@ -412,7 +412,7 @@ export const classicCocktails = [
     {
         id: 'blue-lagoon',
         name: "Blue Lagoon",
-        category: ["Blue", "Refreshing", "Vodka"],
+        category: ["Refreshing", "Vodka", "Fruity", "Sweet"],
         description: "A vibrant blue refresher with zesty citrus, crisp vodka and an easy summer sparkle.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
@@ -437,7 +437,7 @@ export const classicCocktails = [
     {
         id: 'blueberry-mule',
         name: "Blueberry Mule",
-        category: ["Blue", "Ginger", "Spicy"],
+        category: ["Ginger", "Spicy", "Fruity", "Vodka"],
         description: "A vibrant mule with bright berry notes, zesty lime and a spicy ginger kick.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
@@ -463,7 +463,7 @@ export const classicCocktails = [
     {
         id: 'boulevardier',
         name: "Boulevardier",
-        category: ["Strong", "Bitter", "Whiskey"],
+        category: ["Strong", "Bitter", "Whiskey", "Spirit-Forward"],
         description: "A bold and refined classic, blending rich bourbon warmth with bittersweet depth and elegance.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Bourbon", fridgeCategory: "spirit" },
@@ -534,7 +534,7 @@ export const classicCocktails = [
     {
         id: 'caipirinha',
         name: "Caipirinha",
-        category: ["Strong", "Sour", "Fresh"],
+        category: ["Strong", "Sour", "Fresh", "Tropical"],
         description: "A bold and refreshing classic with bright lime, rustic sweetness and the raw character of cachaça.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Cachaça", fridgeCategory: "spirit" },
@@ -558,7 +558,7 @@ export const classicCocktails = [
     {
         id: 'chai-moscow-mule',
         name: "Chai Moscow Mule",
-        category: ["Spiced", "Fresh", "Modern"],
+        category: ["Spicy", "Fresh", "Modern", "Vodka"],
         description: "A warm and aromatic twist on the classic Mule, combining chai spices with zesty lime and spicy ginger beer.",
         ingredients: [
             { amount: 50, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
@@ -587,7 +587,7 @@ export const classicCocktails = [
     {
         id: 'chartreuse-swizzle',
         name: "Chartreuse Swizzle",
-        category: ["Herbal", "Tiki", "Complex"],
+        category: ["Herbal", "Tiki", "Complex", "Tropical"],
         description: "Intensely herbal, citrusy and exotic with a cooling crushed-ice texture.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Green Chartreuse", fridgeCategory: "liqueur" },
@@ -610,7 +610,7 @@ export const classicCocktails = [
     {
         id: 'clover-club',
         name: "Clover Club",
-        category: ["Sour", "Elegant", "Raspberry", "Pink"],
+        category: ["Sour", "Elegant", "Fruity", "Floral"],
         description: "An elegant, silky-smooth classic with bright citrus, soft raspberry sweetness and a velvety foam.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -635,7 +635,7 @@ export const classicCocktails = [
     {
         id: 'corpse-reviver-2',
         name: "Corpse Reviver #2",
-        category: ["Classic", "Strong", "Orange", "Lemon"],
+        category: ["Classic", "Strong", "Fresh", "Spirit-Forward"],
         description: "A sharp and elegant classic with bright citrus, herbal depth and a revitalizing bite.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -661,7 +661,7 @@ export const classicCocktails = [
     {
         id: 'cosmopolitan',
         name: "Cosmopolitan",
-        category: ["Fruit", "Vodka", "Pink"],
+        category: ["Fruity", "Vodka", "Sour", "Fresh"],
         description: "A modern classic with bright citrus, tart cranberry and sleek elegance.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Vodka Citron", fridgeCategory: "spirit" },
@@ -686,7 +686,7 @@ export const classicCocktails = [
     {
         id: 'cuba-libre',
         name: "Cuba Libre",
-        category: ["Highball", "Rum", "Classic"],
+        category: ["Highball", "Rum", "Classic", "Sweet"],
         description: "Effortlessly refreshing with cola sweetness, lime brightness and rum warmth.",
         ingredients: [
             { amount: 50, unit: "ml", name: "White rum", fridgeCategory: "spirit" },
@@ -708,7 +708,7 @@ export const classicCocktails = [
     {
         id: 'cucumber-gimlet',
         name: "Cucumber Gimlet",
-        category: ["Fresh", "Gin", "Botanical"],
+        category: ["Fresh", "Gin", "Herbal", "Botanical"],
         description: "A crisp gimlet riff with cooling cucumber, bright lime snap and clean botanical gin notes.",
         ingredients: [
             { amount: 50, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -733,7 +733,7 @@ export const classicCocktails = [
     {
         id: 'daiquiri',
         name: "Daiquiri",
-        category: ["Sour", "Rum"],
+        category: ["Sour", "Rum", "Fresh"],
         description: "A pure and timeless classic with bright lime, subtle sweetness and clean rum character.",
         ingredients: [
             { amount: 45, unit: "ml", name: "White Rum", fridgeCategory: "spirit" },
@@ -757,7 +757,7 @@ export const classicCocktails = [
     {
         id: 'dark-n-stormy',
         name: "Dark 'n Stormy",
-        category: ["Spicy", "Rum"],
+        category: ["Spicy", "Rum", "Sweet", "Highball"],
         description: "A bold and moody highball with spicy ginger and rich, dark rum depth.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Dark Rum", fridgeCategory: "spirit" },
@@ -781,7 +781,7 @@ export const classicCocktails = [
     {
         id: 'dry-martini',
         name: "Dry Martini",
-        category: ["Strong", "Gin"],
+        category: ["Strong", "Gin", "Spirit-Forward", "Herbal"],
         description: "A timeless icon of precision, purity and ice-cold elegance.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -805,7 +805,7 @@ export const classicCocktails = [
     {
         id: 'el-diablo',
         name: "El Diablo",
-        category: ["Tequila", "Spicy", "Longdrink"],
+        category: ["Tequila", "Spicy", "Fruity", "Highball"],
         description: "A crisp tequila highball with ginger spice, bright lime and a dark berry finish.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Tequila Reposado", fridgeCategory: "spirit" },
@@ -830,7 +830,7 @@ export const classicCocktails = [
     {
         id: 'enzoni',
         name: "Enzoni",
-        category: ["Gin", "Bitter", "Fruity", "Modern"],
+        category: ["Gin", "Bitter", "Fruity", "Modern", "Sour"],
         description: "A modern bitter-sour mashup with muddled grapes, bright citrus and Negroni-like depth.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -856,7 +856,7 @@ export const classicCocktails = [
     {
         id: 'espresso-martiki',
         name: "Espresso Martiki",
-        category: ["Fusion", "Coffee", "Rum"],
+        category: ["Coffee", "Rum", "Tropical", "Creamy"],
         description: "A bold coffee-tiki fusion with spiced rum, tropical pineapple and a silky espresso foam.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Spiced Rum", fridgeCategory: "spirit" },
@@ -882,7 +882,7 @@ export const classicCocktails = [
     {
         id: 'espresso-martini',
         name: "Espresso Martini",
-        category: ["Coffee", "Vodka"],
+        category: ["Coffee", "Vodka", "Sweet", "Creamy"],
         description: "A rich and energizing classic with bold coffee flavors and a silky crema.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
@@ -907,7 +907,7 @@ export const classicCocktails = [
     {
         id: 'espresso-martini-bueno',
         name: "Espresso Martini Bueno",
-        category: ["Energy", "Coffee", "Sweet", "Bitter"],
+        category: ["Coffee", "Sweet", "Nutty", "Creamy"],
         description: "A rich and indulgent espresso martini with roasted coffee depth and smooth hazelnut warmth.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
@@ -932,7 +932,7 @@ export const classicCocktails = [
     {
         id: 'french-75',
         name: "French 75",
-        category: ["Champagne", "Gin", "Lemon"],
+        category: ["Sparkling", "Gin", "Sour", "Fresh"],
         description: "A bright and celebratory classic with crisp citrus and elegant bubbles.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -957,7 +957,7 @@ export const classicCocktails = [
     {
         id: 'french-martini',
         name: "French Martini",
-        category: ["Sweet", "Fruity", "Vodka"],
+        category: ["Sweet", "Fruity", "Vodka", "Creamy"],
         description: "A silky modern classic with lush raspberry notes and a soft pineapple foam.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
@@ -981,7 +981,7 @@ export const classicCocktails = [
     {
         id: 'garden-cocktail',
         name: "Garden Cocktail",
-        category: ["Fresh", "Floral", "Cucumber"],
+        category: ["Fresh", "Floral", "Herbal", "Gin"],
         description: "A refreshing garden-inspired cocktail with floral notes and crisp cucumber freshness.",
         ingredients: [
             { amount: 20, unit: "ml", name: "Elderflower liqueur", fridgeCategory: "liqueur" },
@@ -1007,7 +1007,7 @@ export const classicCocktails = [
     {
         id: 'garibaldi',
         name: "Garibaldi",
-        category: ["Aperitivo", "Simple", "Orange"],
+        category: ["Aperitivo", "Bitter", "Fresh", "Fruity"],
         description: "A simple aperitivo made magical with fluffy, aerated orange juice and bittersweet Campari.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Campari", fridgeCategory: "spirit" },
@@ -1030,7 +1030,7 @@ export const classicCocktails = [
     {
         id: 'giant-sucker',
         name: "Giant Sucker",
-        category: ["Herbal", "Unique", "Bubbly"],
+        category: ["Herbal", "Bitter", "Sweet", "Floral"],
         description: "A bold herbal mix where Jägermeister meets honey sweetness and floral bubbles.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Honey", fridgeCategory: "syrup" },
@@ -1055,7 +1055,7 @@ export const classicCocktails = [
     {
         id: 'gimlet',
         name: "Gimlet",
-        category: ["Classic", "Sour", "Gin"],
+        category: ["Classic", "Sour", "Gin", "Fresh"],
         description: "A crisp botanical classic with bright lime, clean acidity and a sharp, refreshing finish.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -1103,7 +1103,7 @@ export const classicCocktails = [
     {
         id: 'gin-fizz',
         name: "Gin Fizz",
-        category: ["Sparkling", "Refreshing"],
+        category: ["Sparkling", "Refreshing", "Sour", "Fresh"],
         description: "A light and refreshing classic with bright citrus and lively effervescence.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -1128,7 +1128,7 @@ export const classicCocktails = [
     {
         id: 'gold-rush',
         name: "Gold Rush",
-        category: ["Strong", "Honey", "Whiskey"],
+        category: ["Strong", "Honey", "Whiskey", "Sour", "Sweet"],
         description: "A whiskey sour-style classic with honeyed warmth, bright lemon and a smooth finish.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Bourbon", fridgeCategory: "spirit" },
@@ -1152,7 +1152,7 @@ export const classicCocktails = [
     {
         id: 'gordons-cup',
         name: "Gordon's Cup",
-        category: ["New Wave", "Fresh", "Gin"],
+        category: ["Fresh", "Gin", "Savory", "Sour"],
         description: "A crisp cucumber-lime muddle with bright gin, gentle sweetness and a subtle saline snap.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -1178,7 +1178,7 @@ export const classicCocktails = [
     {
         id: 'groen-plansoen',
         name: "Groen Plansoen",
-        category: ["Fresh", "Floral", "Cucumber"],
+        category: ["Fresh", "Floral", "Herbal", "Gin"],
         description: "A delicate botanical cocktail with floral elderflower, cucumber freshness and soft tea notes.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -1205,7 +1205,7 @@ export const classicCocktails = [
     {
         id: 'hemingway-daiquiri',
         name: "Hemingway Daiquiri",
-        category: ["Sour", "Rum", "Classic"],
+        category: ["Sour", "Rum", "Classic", "Bittersweet", "Bitter"],
         description: "Dry, sharp and elegant with grapefruit bitterness and clean rum character.",
         ingredients: [
             { amount: 60, unit: "ml", name: "White rum", fridgeCategory: "spirit" },
@@ -1226,7 +1226,7 @@ export const classicCocktails = [
     {
         id: 'holypeach',
         name: "Holy Peach",
-        category: ["Sweet", "Fruity", "Peach"],
+        category: ["Sweet", "Fruity", "Fresh"],
         description: "A smooth and juicy peach highball with warm vanilla notes and a bright, refreshing lift.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Peachtree", fridgeCategory: "liqueur" },
@@ -1251,7 +1251,7 @@ export const classicCocktails = [
     {
         id: 'hot-toddy',
         name: "Hot Toddy",
-        category: ["Hot", "Winter", "Whiskey"],
+        category: ["Hot", "Winter", "Whiskey", "Sweet", "Spicy"],
         description: "A soothing winter warmer with honeyed comfort, bright lemon and gentle whiskey heat.",
         ingredients: [
             { amount: 50, unit: "ml", name: "Bourbon or Scotch", fridgeCategory: "spirit" },
@@ -1277,7 +1277,7 @@ export const classicCocktails = [
     {
         id: 'hugo-spritz',
         name: "Hugo Spritz",
-        category: ["Sparkling", "Floral", "Summer"],
+        category: ["Sparkling", "Floral", "Fresh", "Herbal"],
         description: "A light and floral spritz with elderflower charm, crisp bubbles and fresh mint brightness.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Elderflower liqueur", fridgeCategory: "liqueur" },
@@ -1302,7 +1302,7 @@ export const classicCocktails = [
     {
         id: 'jungle-bird',
         name: "Jungle Bird",
-        category: ["Tiki", "Bitter", "Tropical"],
+        category: ["Tiki", "Bitter", "Tropical", "Rum"],
         description: "A bold tiki classic balancing tropical pineapple sweetness with bittersweet Campari depth.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Dark Rum", fridgeCategory: "spirit" },
@@ -1328,7 +1328,7 @@ export const classicCocktails = [
     {
         id: 'kir-royale',
         name: "Kir Royale",
-        category: ["Sparkling", "Elegant", "Classic"],
+        category: ["Sparkling", "Elegant", "Fruity", "Sweet"],
         description: "A luxurious aperitif with dark berry sweetness and crisp champagne.",
         ingredients: [
             { amount: 15, unit: "ml", name: "Crème de cassis", fridgeCategory: "liqueur" },
@@ -1372,7 +1372,7 @@ export const classicCocktails = [
     {
         id: 'last-word',
         name: "Last Word",
-        category: ["Strong", "Herbal", "Classic"],
+        category: ["Strong", "Herbal", "Classic", "Sour", "Gin"],
         description: "A perfectly balanced classic with herbal intensity, bright lime snap and a clean, sharp finish.",
         ingredients: [
             { amount: 25, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -1397,7 +1397,7 @@ export const classicCocktails = [
     {
         id: 'long-island-ice-tea',
         name: "Long Island Ice Tea",
-        category: ["Very-Strong", "Classic"],
+        category: ["Strong", "Classic", "Sweet", "Sour"],
         description: "A legendary powerhouse with crisp citrus bite, subtle sweetness and a cola finish.",
         ingredients: [
             { amount: 20, unit: "ml", name: "White Rum", fridgeCategory: "spirit" },
@@ -1426,7 +1426,7 @@ export const classicCocktails = [
     {
         id: 'lychacha',
         name: "Lychacha",
-        category: ["Exotic", "Floral", "Lychee", "Sweet", "Sour"],
+        category: ["Exotic", "Floral", "Fruity", "Sweet", "Sour"],
         description: "A silky exotic sour with floral lychee sweetness, bright citrus and a soft Aperol glow.",
         ingredients: [
             { amount: 20, unit: "ml", name: "Elderflower syrup", fridgeCategory: "syrup" },
@@ -1452,7 +1452,7 @@ export const classicCocktails = [
     {
         id: 'mai-tai',
         name: "Mai Tai",
-        category: ["Tiki", "Rum", "Classic"],
+        category: ["Tiki", "Rum", "Classic", "Tropical", "Nutty"],
         description: "Bold tropical richness with layered rums, citrus and almond depth.",
         ingredients: [
             { amount: 40, unit: "ml", name: "Aged rum", fridgeCategory: "spirit" },
@@ -1476,7 +1476,7 @@ export const classicCocktails = [
     {
         id: 'mango-mustache',
         name: "Mango Mustache",
-        category: ["Fruity", "Sour", "Sweet", "Mango"],
+        category: ["Fruity", "Sour", "Sweet", "Creamy"],
         description: "A tropical silky sour with bright mango fruit, fresh citrus snap and a smooth gin backbone.",
         ingredients: [
             { amount: 20, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "syrups:simple" },
@@ -1502,7 +1502,7 @@ export const classicCocktails = [
     {
         id: 'manhattan',
         name: "Manhattan",
-        category: ["Strong", "Spirit-Forward"],
+        category: ["Strong", "Spirit-Forward", "Bitter"],
         description: "A rich and moody whiskey classic with silky vermouth depth and a bittersweet finish.",
         ingredients: [
             { amount: 50, unit: "ml", name: "Rye Whiskey", fridgeCategory: "spirit" },
@@ -1526,7 +1526,7 @@ export const classicCocktails = [
     {
         id: 'margarita',
         name: "Margarita",
-        category: ["Sour", "Tequila"],
+        category: ["Sour", "Tequila", "Fresh", "Savory"],
         description: "A crisp tequila classic with bright lime bite, orange warmth and a clean salty edge.",
         ingredients: [
             { amount: 50, unit: "ml", name: "Tequila", fridgeCategory: "spirit" },
@@ -1576,7 +1576,7 @@ export const classicCocktails = [
     {
         id: 'mezcal-margarita',
         name: "Mezcal Margarita",
-        category: ["Smoky", "Tequila", "Sour"],
+        category: ["Smoky", "Tequila", "Sour", "Spicy"],
         description: "A smoky twist with mezcal depth, bright lime snap and a bold, spicy edge.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Mezcal", fridgeCategory: "spirit" },
@@ -1601,7 +1601,7 @@ export const classicCocktails = [
     {
         id: 'mint-julep',
         name: "Mint Julep",
-        category: ["Whiskey", "Herbal", "Classic"],
+        category: ["Whiskey", "Herbal", "Classic", "Spirit-Forward", "Fresh"],
         description: "Cooling mint and subtle sweetness wrapped around bold bourbon.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Bourbon", fridgeCategory: "spirit" },
@@ -1623,7 +1623,7 @@ export const classicCocktails = [
     {
         id: 'mojito',
         name: "Mojito",
-        category: ["Refreshing", "Rum"],
+        category: ["Refreshing", "Rum", "Fresh", "Sour", "Tropical"],
         description: "A bright Cuban classic with fresh mint, zesty lime and a crisp, refreshing finish.",
         ingredients: [
             { amount: 50, unit: "ml", name: "White Rum", fridgeCategory: "spirit" },
@@ -1649,7 +1649,7 @@ export const classicCocktails = [
     {
         id: 'monte-carlo',
         name: "Monte Carlo",
-        category: ["Whiskey", "Strong", "Classic"],
+        category: ["Whiskey", "Strong", "Classic", "Spirit-Forward", "Herbal"],
         description: "A richer, spiced twist on the Old Fashioned with herbal depth from Benedictine.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Rye whiskey", fridgeCategory: "spirit" },
@@ -1674,7 +1674,7 @@ export const classicCocktails = [
         id: 'moscow-mule',
         name: "Moscow Mule",
         dutchName: "Moskou Mule",
-        category: ["Spicy", "Vodka"],
+        category: ["Spicy", "Vodka", "Fresh", "Sour"],
         description: "Crisp and refreshing with bright lime, chilled vodka and a spicy ginger beer kick.",
         ingredients: [
             { amount: 50, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
@@ -1698,7 +1698,7 @@ export const classicCocktails = [
     {
         id: 'muddy-mudslide',
         name: "Muddy Mudslide",
-        category: ["Creamy", "Coffee", "Caramel"],
+        category: ["Creamy", "Coffee", "Sweet", "Dessert"],
         description: "A rich and indulgent coffee cocktail with creamy Baileys, caramel warmth and espresso depth.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Baileys", fridgeCategory: "liqueur" },
@@ -1723,7 +1723,7 @@ export const classicCocktails = [
     {
         id: 'naked-and-famous',
         name: "Naked & Famous",
-        category: ["Modern", "Smoky", "Bitter", "Mezcal"],
+        category: ["Modern", "Smoky", "Bitter", "Mezcal", "Sour", "Herbal"],
         description: "A sharp modern classic with smoky mezcal, bittersweet Aperol and bright lime tension.",
         ingredients: [
             { amount: 25, unit: "ml", name: "Mezcal", fridgeCategory: "spirit" },
@@ -1748,7 +1748,7 @@ export const classicCocktails = [
     {
         id: 'negroni',
         name: "Negroni",
-        category: ["Bitter", "Gin"],
+        category: ["Bitter", "Gin", "Strong", "Spirit-Forward"],
         description: "A bold bartender's classic with bittersweet depth, herbal balance and ruby-red elegance.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -1772,7 +1772,7 @@ export const classicCocktails = [
     {
         id: 'new-york-sour',
         name: "New York Sour",
-        category: ["Classic", "Wine twist", "Sour"],
+        category: ["Classic", "Sour", "Fruity", "Spirit-Forward"],
         description: "A refined whiskey sour crowned with a dramatic red wine float.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Jameson", fridgeCategory: "spirit" },
@@ -1798,7 +1798,7 @@ export const classicCocktails = [
     {
         id: 'old-cuban',
         name: "Old Cuban",
-        category: ["Sparkling", "Rum", "Elegant"],
+        category: ["Sparkling", "Rum", "Elegant", "Fresh", "Herbal"],
         description: "An elegant modern classic with aged rum, fresh mint and a Champagne-bright finish.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Aged Rum", fridgeCategory: "spirit" },
@@ -1825,7 +1825,7 @@ export const classicCocktails = [
     {
         id: 'old-fashioned',
         name: "Old Fashioned",
-        category: ["Strong", "Classic", "Spirit-Forward"],
+        category: ["Strong", "Classic", "Spirit-Forward", "Sweet", "Bitter"],
         description: "A timeless whiskey icon with subtle sweetness, bitters and elegant citrus oils.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Bourbon", fridgeCategory: "spirit" },
@@ -1850,7 +1850,7 @@ export const classicCocktails = [
     {
         id: 'orchard-oak-old-fashioned',
         name: "Orchard & Oak Old Fashioned",
-        category: ["Spirit-forward", "Smoky", "Fruity", "Modern"],
+        category: ["Spirit-Forward", "Smoky", "Fruity", "Modern", "Whiskey"],
         description: "A smoky Islay-driven twist on the Old Fashioned, softened by ripe peach sweetness and deepened with rich walnut bitters.",
         ingredients: [
             { amount: 50, unit: "ml", name: "Islay Single Malt", fridgeCategory: "spirit" },
@@ -1876,7 +1876,7 @@ export const classicCocktails = [
     {
         id: 'painkiller',
         name: "Painkiller",
-        category: ["Tiki", "Tropical", "Creamy"],
+        category: ["Tiki", "Tropical", "Creamy", "Fruity", "Rum"],
         description: "A rich tropical comfort drink with bold rum, creamy coconut and a signature nutmeg finish.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Navy Strength Rum", fridgeCategory: "spirit" },
@@ -1901,7 +1901,7 @@ export const classicCocktails = [
     {
         id: 'paloma',
         name: "Paloma",
-        category: ["Fresh", "Tequila"],
+        category: ["Fresh", "Tequila", "Sour", "Bitter"],
         description: "A crisp and refreshing tequila highball with bright grapefruit and zesty lime.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Tequila", fridgeCategory: "spirit" },
@@ -1925,7 +1925,7 @@ export const classicCocktails = [
     {
         id: 'paper-plane',
         name: "Paper Plane",
-        category: ["Modern", "Bitter", "Bourbon"],
+        category: ["Modern", "Bitter", "Bourbon", "Sour", "Herbal"],
         description: "A modern equal-parts classic with bittersweet balance and bright citrus lift.",
         ingredients: [
             { amount: 25, unit: "ml", name: "Bourbon", fridgeCategory: "spirit" },
@@ -1950,7 +1950,7 @@ export const classicCocktails = [
     {
         id: 'penicillin',
         name: "Penicillin",
-        category: ["Whiskey", "Spicy", "Smoky"],
+        category: ["Whiskey", "Spicy", "Smoky", "Sour", "Honey"],
         description: "A modern masterpiece with honeyed warmth, ginger spice and a smoky Scotch finish.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Blended Scotch", fridgeCategory: "spirit" },
@@ -1975,7 +1975,7 @@ export const classicCocktails = [
     {
         id: 'pina-colada',
         name: "Pina Colada",
-        category: ["Tropical", "Sweet"],
+        category: ["Tropical", "Sweet", "Creamy", "Rum"],
         description: "A tropical escape with creamy coconut, ripe pineapple and smooth rum.",
         ingredients: [
             { amount: 45, unit: "ml", name: "White Rum", fridgeCategory: "spirit" },
@@ -1999,7 +1999,7 @@ export const classicCocktails = [
     {
         id: 'pisco-punch',
         name: "Pisco Punch",
-        category: ["Fruity", "Strong", "Historic"],
+        category: ["Fruity", "Strong", "Sour", "Tropical"],
         description: "A historic punch with bright pineapple sweetness, citrus snap and bold pisco character.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Pisco", fridgeCategory: "spirit" },
@@ -2024,7 +2024,7 @@ export const classicCocktails = [
     {
         id: 'pisco-sour',
         name: "Pisco Sour",
-        category: ["Sour", "Strong", "Classic"],
+        category: ["Sour", "Strong", "Classic", "Creamy"],
         description: "A creamy and vibrant classic with floral pisco, bright lime and silky foam.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Pisco", fridgeCategory: "spirit" },
@@ -2050,7 +2050,7 @@ export const classicCocktails = [
     {
         id: 'planters-punch',
         name: "Planter's Punch",
-        category: ["Tiki", "Rum", "Fruity"],
+        category: ["Tiki", "Rum", "Fruity", "Tropical", "Spicy"],
         description: "A bold Caribbean classic bursting with rum, citrus and tropical sweetness.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Dark rum", fridgeCategory: "spirit" },
@@ -2074,7 +2074,7 @@ export const classicCocktails = [
     {
         id: 'pornstar-martini',
         name: "Pornstar Martini",
-        category: ["Modern", "Sweet", "Passionfruit", "Vodka"],
+        category: ["Modern", "Sweet", "Fruity", "Tropical", "Sparkling", "Vodka"],
         description: "An iconic modern classic with exotic passionfruit, vanilla warmth and a bubbly sidekick.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Vanilla Vodka", fridgeCategory: "spirit" },
@@ -2100,7 +2100,7 @@ export const classicCocktails = [
     {
         id: 'ramos-gin-fizz',
         name: "Ramos Gin Fizz",
-        category: ["Creamy", "Gin", "Advanced"],
+        category: ["Creamy", "Gin", "Floral", "Sour", "Sparkling"],
         description: "A legendary showstopper with bright citrus, silky cream and a cloud-like foam finish.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -2129,7 +2129,7 @@ export const classicCocktails = [
     {
         id: 'red-flamingo',
         name: "Red Flamingo",
-        category: ["Fruity", "Sparkling", "Fresh"],
+        category: ["Fruity", "Sparkling", "Fresh", "Sweet"],
         description: "A vibrant pink refresher with bright berries, citrus lift and a sparkling finish.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Bramble gin", fridgeCategory: "spirit" },
@@ -2155,7 +2155,7 @@ export const classicCocktails = [
     {
         id: 'rosemary-peach-sour',
         name: 'Rosemary & Peach Sour',
-        category: ['Vodka', 'Herbal', 'Velvet'],
+        category: ["Vodka", "Herbal", "Fruity", "Sour"],
         description: 'A refined peach sour with bright citrus, silky texture and a subtle rosemary lift.',
         ingredients: [
             { amount: 45, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
@@ -2181,7 +2181,7 @@ export const classicCocktails = [
     {
         id: 'sazerac',
         name: "Sazerac",
-        category: ["Strong", "Whiskey", "Classic"],
+        category: ["Strong", "Whiskey", "Classic", "Spirit-Forward", "Herbal", "Bitter"],
         description: "Powerful and aromatic with rye spice, subtle sweetness and an anise finish.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Rye whiskey", fridgeCategory: "spirit" },
@@ -2206,7 +2206,7 @@ export const classicCocktails = [
     {
         id: 'screwdriver',
         name: "Screwdriver",
-        category: ["Highball", "Simple", "Classic"],
+        category: ["Highball", "Simple", "Classic", "Fruity", "Fresh"],
         description: "Clean and refreshing with smooth vodka and bright orange juice.",
         ingredients: [
             { amount: 50, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
@@ -2227,7 +2227,7 @@ export const classicCocktails = [
     {
         id: 'sea-breeze',
         name: "Sea Breeze",
-        category: ["Fruity", "Refreshing", "Classic"],
+        category: ["Fruity", "Refreshing", "Classic", "Sour", "Bitter"],
         description: "Light and tart with cranberry sharpness and fresh grapefruit notes.",
         ingredients: [
             { amount: 40, unit: "ml", name: "Vodka", fridgeCategory: "spirit" },
@@ -2249,7 +2249,7 @@ export const classicCocktails = [
     {
         id: 'sidecar',
         name: 'Sidecar',
-        category: ['Classic', 'Sour', 'Cognac', "1920's"],
+        category: ["Classic", "Sour", "Cognac", "Spirit-Forward", "Fresh"],
         description: 'A legendary cognac sour with bright citrus, warm orange notes and a crisp sugar rim.',
         ingredients: [
             { amount: 45, unit: "ml", name: "Cognac", fridgeCategory: "spirit" },
@@ -2274,7 +2274,7 @@ export const classicCocktails = [
     {
         id: 'singapore-sling',
         name: "Singapore Sling",
-        category: ["Fruity", "Complex", "Longdrink"],
+        category: ["Fruity", "Complex", "Tropical", "Herbal", "Gin"],
         description: "A legendary long drink with cherry richness, tropical fruit and a complex herbal backbone.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -2302,7 +2302,7 @@ export const classicCocktails = [
     {
         id: 'south-side',
         name: 'South Side',
-        category: ['Classic', 'Refreshing', 'Minty', "1920's"],
+        category: ["Classic", "Refreshing", "Herbal", "Fresh", "Sour", "Gin"],
         description: 'A crisp gin classic with bright citrus, cooling mint and a clean, elegant finish.',
         ingredients: [
             { amount: 45, unit: "ml", name: "Gin", fridgeCategory: "spirit" },
@@ -2327,7 +2327,7 @@ export const classicCocktails = [
     {
         id: 'spicy-margarita',
         name: "Spicy Margarita",
-        category: ["Spicy", "Tequila", "Modern"],
+        category: ["Spicy", "Tequila", "Modern", "Sour", "Savory"],
         description: "A fiery twist on the classic with chili heat and fresh citrus brightness.",
         ingredients: [
             { amount: 50, unit: "ml", name: "Tequila blanco", fridgeCategory: "spirit" },
@@ -2351,7 +2351,7 @@ export const classicCocktails = [
     {
         id: 'spritz-veneziano',
         name: "Spritz Veneziano",
-        category: ["Spritz", "Aperitivo", "Classic"],
+        category: ["Sparkling", "Bitter", "Fresh", "Low-ABV"],
         description: "Bright, bittersweet and bubbly with vibrant orange aromatics.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Aperol", fridgeCategory: "liqueur" },
@@ -2373,7 +2373,7 @@ export const classicCocktails = [
     {
         id: 'tequila-sunrise',
         name: "Tequila Sunrise",
-        category: ["Sweet", "Visual", "Tequila"],
+        category: ["Sweet", "Fruity", "Tequila", "Tropical"],
         description: "A sunny classic with juicy orange, smooth tequila and a stunning crimson sunrise fade.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Tequila", fridgeCategory: "spirit" },

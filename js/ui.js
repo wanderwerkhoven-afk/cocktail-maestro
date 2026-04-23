@@ -4,7 +4,7 @@ import { toggleFavorite } from './modules/favorites.js';
 import { renderVault, downloadRecipe, updateServings } from './pages/vault.js';
 import { openRecipeForm, closeRecipeForm, addIngredientRow, removeIngredientRow, addInstructionRow, removeInstructionRow, previewImage, saveNewRecipe, updateRecipe, editRecipe, deleteRecipe, checkRowTyping, checkStepTyping, renderMyRecipes, setRecipeMode } from './pages/recipes.js';
 import { toggleCategory, filterCategoryList, filterAllIngredients, updateFridge, syncCheckboxes, checkMatches, calculateBarProgress, renderFridgeCategories } from './modules/fridge.js';
-import { shakeForCocktail, closeShakeModal, toggleRandomizerFullscreen } from './modules/randomizer.js';
+import { shakeForCocktail, closeShakeModal, toggleRandomizerFullscreen, openRandomizerFilters, closeRandomizerFilters, applyRandomizerFilters } from './modules/randomizer.js';
 import { handleCardClick, showToast, createCocktailCardHTML, updateCarouselDots, enlargeRecipe, closeImmersiveRecipe, updateImmersiveServings, updateSearchClearButton, clearSearch } from './core/ui-utils.js';
 import { filterKitchen, initKitchenCarousels, toggleKitchenCard, openKitchenItem } from './pages/kitchen.js';
 import { setDrinkMode } from './modules/drink-mode.js';
@@ -63,6 +63,9 @@ window.calculateBarProgress = calculateBarProgress;
 window.shakeForCocktail = shakeForCocktail;
 window.closeShakeModal = closeShakeModal;
 window.toggleRandomizerFullscreen = toggleRandomizerFullscreen;
+window.openRandomizerFilters = openRandomizerFilters;
+window.closeRandomizerFilters = closeRandomizerFilters;
+window.applyRandomizerFilters = applyRandomizerFilters;
 window.handleCardClick = handleCardClick;
 window.showToast = showToast;
 window.createCocktailCardHTML = createCocktailCardHTML;
@@ -226,8 +229,18 @@ window.toggleIntro = (btn) => {
     const section = btn.closest('section');
     const introClass = Array.from(section.classList).find(c => c.endsWith('-intro'));
     const storageKey = `is_collapsed_${introClass}`;
+    const icon = btn.querySelector('i');
 
     const isCollapsed = section.classList.toggle('is-collapsed');
+    
+    if (icon) {
+        if (isCollapsed) {
+            icon.className = 'fa-solid fa-info';
+        } else {
+            icon.className = 'fa-solid fa-chevron-up';
+        }
+    }
+
     localStorage.setItem(storageKey, isCollapsed ? 'true' : 'false');
 };
 
@@ -240,11 +253,15 @@ window.applyIntroStates = () => {
         const introClass = Array.from(section.classList).find(c => c.endsWith('-intro'));
         const storageKey = `is_collapsed_${introClass}`;
         const savedState = localStorage.getItem(storageKey);
+        const btn = section.querySelector('.intro-collapse-btn');
+        const icon = btn ? btn.querySelector('i') : null;
 
         if (savedState === 'true') {
             section.classList.add('is-collapsed');
+            if (icon) icon.className = 'fa-solid fa-info';
         } else {
             section.classList.remove('is-collapsed');
+            if (icon) icon.className = 'fa-solid fa-chevron-up';
         }
     });
 };

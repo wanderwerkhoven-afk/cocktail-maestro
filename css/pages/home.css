@@ -229,6 +229,7 @@
     /* Distribute Title, Shaker, Button */
     gap: 15px;
     cursor: pointer;
+    user-select: none;
     overflow: hidden;
     box-shadow:
         0 20px 40px rgba(0, 0, 0, 0.6),
@@ -258,12 +259,13 @@
     justify-content: space-around;
     /* Space Title, Shaker, and Button evenly */
     background: linear-gradient(135deg, var(--bg-card), #0a0a0a);
+    cursor: default;
 }
 
-.super-tile-menu-btn {
+.super-tile-menu-btn,
+.super-tile-options-btn {
     position: absolute;
     top: 20px;
-    right: 20px;
     background: var(--glass-bg-light);
     border: 1px solid var(--border-strong);
     color: var(--text-primary);
@@ -279,10 +281,18 @@
     backdrop-filter: blur(5px);
 }
 
+.super-tile-menu-btn {
+    right: 20px;
+}
+
+.super-tile-options-btn {
+    left: 20px;
+}
+
 .fullscreen-close-btn {
     position: absolute;
     top: 20px;
-    left: 20px;
+    right: 20px;
     background: none;
     border: none;
     color: var(--text-primary);
@@ -299,7 +309,8 @@
     /* Muted by default */
 }
 
-.super-tile-menu-btn:hover {
+.super-tile-menu-btn:hover,
+.super-tile-options-btn:hover {
     background: rgba(255, 255, 255, 0.15);
     transform: scale(1.1);
     border-color: #ffb347;
@@ -315,9 +326,161 @@
     display: flex;
 }
 
-.is-fullscreen .super-tile-menu-btn {
+.is-fullscreen .super-tile-menu-btn,
+.is-fullscreen .super-tile-options-btn {
     display: none;
 }
+
+/* Randomizer Filter Modal Specifics */
+.filter-modal {
+    max-width: 500px !important;
+    max-height: 85vh;
+    overflow-y: auto;
+    text-align: center; /* Center text by default */
+    padding: 40px 30px !important;
+}
+
+.filter-modal .modal-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.filter-modal .close-btn {
+    position: absolute;
+    top: -20px;
+    right: -10px;
+    font-size: 2rem;
+    background: var(--glass-bg-light);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    color: var(--text-muted);
+    transition: all 0.3s ease;
+}
+
+.filter-modal .close-btn:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+.filter-modal-body {
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center groups */
+}
+
+.filter-group h3 {
+    font-size: 0.9rem;
+    color: #ffb347;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+
+.filter-pills, .filter-pills-wrap {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center; /* Center pills */
+}
+
+.filter-pill, .filter-pill-sm {
+    background: var(--glass-bg-light);
+    border: 1px solid var(--border-light);
+    color: var(--text-primary);
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-pill-sm {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+}
+
+.filter-pill.active, .filter-pill-sm.active {
+    background: #ffb347;
+    color: var(--bg-body);
+    border-color: #ffb347;
+    box-shadow: 0 4px 15px rgba(255, 179, 71, 0.4);
+    transform: translateY(-2px);
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto 15px auto;
+}
+
+.filter-check {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    background: var(--glass-bg-light);
+    padding: 12px 18px;
+    border-radius: 15px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.filter-check:has(input:checked) {
+    background: rgba(255, 179, 71, 0.15);
+    border-color: rgba(255, 179, 71, 0.4);
+}
+
+.filter-check span {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.filter-check input {
+    accent-color: #ffb347;
+    width: 20px;
+    height: 20px;
+}
+
+.filter-select-all {
+    background: none;
+    border: none;
+    color: #ffb347;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 5px 15px;
+    text-decoration: none;
+    border-bottom: 2px solid rgba(255, 179, 71, 0.3);
+    transition: all 0.2s ease;
+}
+
+.filter-select-all:hover {
+    color: white;
+    border-bottom-color: white;
+}
+
 
 /* Scale up elements in fullscreen */
 .is-fullscreen .content-text-super h3 {
@@ -326,14 +489,26 @@
 }
 
 .is-fullscreen .shaker-visual-area {
-    height: min(45vh, 450px);
-    /* Dynamic height based on viewport */
-    width: 100%;
+    height: 380px;
+    width: 380px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: radial-gradient(circle, rgba(255, 179, 71, 0.05) 0%, transparent 70%);
+}
+
+.is-fullscreen .shaker-visual-area:hover {
+    transform: scale(1.05);
+    background: radial-gradient(circle, rgba(255, 179, 71, 0.1) 0%, transparent 70%);
 }
 
 .is-fullscreen .shaker-icon-wrapper {
     width: 100%;
     height: 100%;
+    border-radius: 50%;
 }
 
 .shake-card-super:hover {
@@ -346,6 +521,14 @@
 
 .shake-card-super:active {
     transform: translateY(-2px) scale(0.98);
+}
+
+/* Disable zoom effect for fullscreen container */
+.shake-card-super.is-fullscreen:hover,
+.shake-card-super.is-fullscreen:active {
+    transform: none;
+    border-color: transparent;
+    box-shadow: none;
 }
 
 /* Energy Rings Background */

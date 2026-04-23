@@ -23,7 +23,8 @@ export const mocktailRecipes = [
     {
         id: 'arnold-palmer',
         name: 'Arnold Palmer',
-        category: ['Classic', 'Refreshing', 'Tea'],
+        isMocktail: true,
+        category: ['Classic', 'Refreshing', 'Fresh', 'Sour'],
         description: 'The legendary half-and-half: smooth iced tea meets bright lemonade for the ultimate thirst quencher.',
         ingredients: [
             { amount: 120, unit: 'ml', name: 'Iced tea', fridgeCategory: 'juice' },
@@ -47,7 +48,8 @@ export const mocktailRecipes = [
     {
         id: 'cinderella',
         name: 'Cinderella',
-        category: ['Tropical', 'Fruity', 'Sparkling'],
+        isMocktail: true,
+        category: ['Tropical', 'Fruity', 'Sparkling', 'Fresh'],
         description: 'A magical tropical blend of pineapple, orange and lemon with a sparkling soda finish.',
         ingredients: [
             { amount: 60, unit: 'ml', name: 'Pineapple juice', fridgeCategory: 'juice' },
@@ -72,7 +74,8 @@ export const mocktailRecipes = [
     {
         id: 'clay-pot-punch',
         name: 'Clay Pot Punch',
-        category: ['Citrus', 'Tea', 'Sparkling'],
+        isMocktail: true,
+        category: ['Citrus', 'Fruity', 'Sparkling', 'Fresh'],
         description: 'A refreshing citrus punch built on brewed peach tea, bright grapefruit and tangerine, balanced with lemon oleo-saccharum and topped with lively soda.',
         ingredients: [
             { amount: 120, unit: 'ml', name: 'Brewed peach tea', fridgeCategory: 'tea', kitchenId: 'brewed-teas:peach' },
@@ -99,7 +102,8 @@ export const mocktailRecipes = [
     {
         id: 'cucumber-cooler',
         name: 'Cucumber Cooler',
-        category: ['Fresh', 'Botanical', 'Light'],
+        isMocktail: true,
+        category: ['Fresh', 'Herbal', 'Sour'],
         description: 'Cool cucumber meets zesty lime and mint for a clean, spa-inspired refresher.',
         ingredients: [
             { amount: 4, unit: 'slices', name: 'Fresh cucumber', fridgeCategory: 'fresh' },
@@ -125,7 +129,8 @@ export const mocktailRecipes = [
     {
         id: 'ginger-lemonade',
         name: 'Ginger Lemonade',
-        category: ['Spicy', 'Citrus', 'Refreshing'],
+        isMocktail: true,
+        category: ['Spicy', 'Citrus', 'Refreshing', 'Sour'],
         description: 'A fiery kick of fresh ginger balances bright lemon for an invigorating, warming refresher.',
         ingredients: [
             { amount: 30, unit: 'ml', name: 'Lemon juice', fridgeCategory: 'juice' },
@@ -150,7 +155,8 @@ export const mocktailRecipes = [
     {
         id: 'mango-lassi-mocktail',
         name: 'Mango Lassi',
-        category: ['Creamy', 'Tropical', 'Sweet'],
+        isMocktail: true,
+        category: ['Creamy', 'Tropical', 'Sweet', 'Fruity'],
         description: 'Rich, velvety mango blended with yoghurt and a hint of cardamom — a luscious Indian classic.',
         ingredients: [
             { amount: 120, unit: 'ml', name: 'Mango purée', fridgeCategory: 'juice' },
@@ -175,7 +181,8 @@ export const mocktailRecipes = [
     {
         id: 'mint-lemonade',
         name: 'Mint Lemonade',
-        category: ['Fresh', 'Citrus', 'Classic'],
+        isMocktail: true,
+        category: ['Fresh', 'Citrus', 'Classic', 'Herbal', 'Sour'],
         description: 'Bright lemon and cool fresh mint — the ultimate summer classic, endlessly refreshing.',
         ingredients: [
             { amount: 30, unit: 'ml', name: 'Lemon juice', fridgeCategory: 'juice' },
@@ -200,7 +207,8 @@ export const mocktailRecipes = [
     {
         id: 'raspberry-sparkler',
         name: 'Raspberry Sparkler',
-        category: ['Fruity', 'Sparkling', 'Pink'],
+        isMocktail: true,
+        category: ['Fruity', 'Sparkling', 'Fresh', 'Sweet'],
         description: 'Vibrant fresh raspberry sweetness with a bright lemon lift and lively bubbles.',
         ingredients: [
             { amount: 30, unit: 'ml', name: 'Raspberry syrup', fridgeCategory: 'syrup', kitchenId: 'syrups:raspberry' },
@@ -225,7 +233,8 @@ export const mocktailRecipes = [
     {
         id: 'shirley-temple',
         name: 'Shirley Temple',
-        category: ['Sweet', 'Classic', 'Pink'],
+        isMocktail: true,
+        category: ['Sweet', 'Classic', 'Fruity', 'Spicy'],
         description: 'The timeless rosy classic — bright ginger ale with grenadine and a pop of orange juice.',
         ingredients: [
             { amount: 15, unit: 'ml', name: 'Grenadine syrup', fridgeCategory: 'syrup', kitchenId: 'syrups:grenadine' },
@@ -249,7 +258,8 @@ export const mocktailRecipes = [
     {
         id: 'shrub-a-dub-dub',
         name: 'Shrub a Dub Dub',
-        category: ['Berry', 'Tea', 'Fresh'],
+        isMocktail: true,
+        category: ['Fruity', 'Fresh', 'Sour'],
         description: 'A delicate berry mocktail combining fragrant chamomile tea with bright strawberry shrub and fresh berries, balanced by gentle sweetness.',
         ingredients: [
             { amount: 45, unit: 'ml', name: 'Chamomile tea', fridgeCategory: 'tea', kitchenId: 'brewed-teas:chamomile' },
@@ -274,7 +284,8 @@ export const mocktailRecipes = [
     {
         id: 'tangerine-twist',
         name: 'Tangerine Twist',
-        category: ['Citrus', 'Tea', 'Spiced'],
+        isMocktail: true,
+        category: ['Citrus', 'Fresh', 'Nutty', 'Fruity'],
         description: 'A bright citrus mocktail where bold licorice tea meets fresh tangerine and lemon, balanced by silky orgeat and finished with warm nutmeg.',
         ingredients: [
             { amount: 60, unit: 'ml', name: 'Licorice tea', fridgeCategory: 'tea', kitchenId: 'brewed-teas:licorice' },
@@ -299,7 +310,8 @@ export const mocktailRecipes = [
     {
         id: 'tropical-punch',
         name: 'Tropical Punch',
-        category: ['Tropical', 'Fruity', 'Party'],
+        isMocktail: true,
+        category: ['Tropical', 'Fruity', 'Sweet'],
         description: 'A bold tropical blend of pineapple, mango and passion fruit — served big and bright.',
         ingredients: [
             { amount: 60, unit: 'ml', name: 'Pineapple juice', fridgeCategory: 'juice' },
@@ -325,6 +337,7 @@ export const mocktailRecipes = [
     {
         id: 'virgin-mary',
         name: 'Virgin Mary',
+        isMocktail: true,
         category: ['Savory', 'Spicy', 'Classic'],
         description: 'All the bold savory punch of a Bloody Mary — rich tomato, gentle heat and zero regret.',
         ingredients: [
@@ -350,7 +363,8 @@ export const mocktailRecipes = [
     {
         id: 'virgin-mojito',
         name: 'Virgin Mojito',
-        category: ['Fresh', 'Classic', 'Mint'],
+        isMocktail: true,
+        category: ['Fresh', 'Classic', 'Herbal', 'Sour', 'Tropical'],
         description: 'All the cooling mint magic and bright lime of a Mojito — fresh, sparkling and totally irresistible.',
         ingredients: [
             { amount: 10, unit: 'leaves', name: 'Fresh mint', fridgeCategory: 'fresh' },
@@ -375,7 +389,8 @@ export const mocktailRecipes = [
     {
         id: 'pino-colada',
         name: 'PiNo Colada',
-        category: ['Tropical', 'Creamy', 'Sweet'],
+        isMocktail: true,
+        category: ['Tropical', 'Creamy', 'Sweet', 'Fruity'],
         description: 'All the creamy tropical bliss of a Piña Colada — coconut richness, pineapple sunshine, zero alcohol.',
         ingredients: [
             { amount: 120, unit: 'ml', name: 'Pineapple juice', fridgeCategory: 'juice' },
@@ -399,7 +414,8 @@ export const mocktailRecipes = [
     {
         id: 'watermelon-cooler',
         name: 'Watermelon Cooler',
-        category: ['Fruity', 'Summer', 'Fresh'],
+        isMocktail: true,
+        category: ['Fruity', 'Summer', 'Fresh', 'Sweet'],
         description: 'Fresh-pressed watermelon juice lifted by bright lime and cooling mint for the perfect summer sip.',
         ingredients: [
             { amount: 150, unit: 'ml', name: 'Watermelon juice', fridgeCategory: 'juice' },
@@ -425,7 +441,8 @@ export const mocktailRecipes = [
         id: 'virgin-moscow-mule',
         name: 'Virgin Moscow Mule',
         dutchName: 'Virgin Moskou Mule',
-        category: ['Spicy', 'Refreshing', 'Ginger'],
+        isMocktail: true,
+        category: ['Spicy', 'Refreshing', 'Fresh', 'Sour'],
         description: 'All the spicy kick and bright lime of a classic Mule, perfectly balanced without the alcohol.',
         ingredients: [
             { amount: 150, unit: 'ml', name: 'Ginger beer', fridgeCategory: 'juice' },

@@ -897,6 +897,12 @@
     top: 50% !important;
     transform: translateY(-50%) !important;
     right: 15px !important;
+    background: #ffb347 !important; /* Solid accent color */
+    color: white !important; /* High contrast */
+    border-radius: 50% !important; /* Circular like an info badge */
+    border: none !important;
+    box-shadow: 0 4px 10px rgba(255, 179, 71, 0.4);
+    font-size: 1.1rem; /* Make the 'i' slightly larger */
 }
 
 .intro-collapse-btn:hover {
@@ -950,7 +956,7 @@
 }
 
 .is-collapsed .intro-collapse-btn i {
-    transform: rotate(180deg);
+    /* Rotation removed, JS handles icon change */
 }
 
 /* ============================================================

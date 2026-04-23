@@ -250,11 +250,15 @@
         <div class="home-tiles-grid">
             <!-- Shake it Randomizer -->
             <section class="home-action-section">
-                <div class="shake-card-super" id="main-shaker-card" onclick="shakeForCocktail()">
+                <div class="shake-card-super" id="main-shaker-card">
                     <!-- Fullscreen & Menu controls -->
+                    <button class="super-tile-options-btn" onclick="event.stopPropagation(); window.openRandomizerFilters()" title="Options">
+                        <i class="fa-solid fa-bars-staggered"></i>
+                    </button>
+
                     <button class="super-tile-menu-btn" onclick="toggleRandomizerFullscreen(event)"
                         title="Immersive Mode">
-                        <i class="fa-solid fa-ellipsis"></i>
+                        <i class="fa-solid fa-expand"></i>
                     </button>
 
                     <button class="fullscreen-close-btn" onclick="toggleRandomizerFullscreen(event)"
@@ -275,7 +279,7 @@
                     </div>
 
                     <!-- 2. Shaker Visual -->
-                    <div class="shaker-visual-area">
+                    <div class="shaker-visual-area" onclick="shakeForCocktail()">
                         <div class="shaker-icon-wrapper">
                             <img src="./assets/shaker_laadscherm.webp" alt="Shaker" class="shaker-img-anim"
                                 loading="lazy">
@@ -283,7 +287,7 @@
                     </div>
 
                     <!-- 3. Shake Button -->
-                    <div class="shake-action-indicator">
+                    <div class="shake-action-indicator" onclick="shakeForCocktail()">
                         <div class="pulse-ring"></div>
                         <button class="shake-btn-inner">
                             <i class="fa-solid fa-shaker"></i>
@@ -1312,6 +1316,95 @@
 
 
 
+
+    <!-- MODAL: Randomizer Filters -->
+    <div id="randomizer-filter-modal" class="modal-overlay">
+        <div class="modal-content filter-modal">
+            <header class="modal-header">
+                <h2 data-i18n="randomizer-filter-title">Randomizer Settings</h2>
+                <button class="close-btn" onclick="closeRandomizerFilters()">&times;</button>
+            </header>
+
+            <div class="filter-modal-body">
+                <!-- 1. Drink Type -->
+                <div class="filter-group">
+                    <h3 data-i18n="filter-type-label">Drink Type</h3>
+                    <div class="filter-pills" id="filter-drink-type">
+                        <button class="filter-pill active" data-value="both" data-i18n="filter-both">Both</button>
+                        <button class="filter-pill" data-value="cocktail" data-i18n="filter-cocktail">Cocktail</button>
+                        <button class="filter-pill" data-value="mocktail" data-i18n="filter-mocktail">Mocktail</button>
+                    </div>
+                </div>
+
+                <!-- 2. Availability -->
+                <div class="filter-group">
+                    <h3 data-i18n="filter-availability-label">Availability</h3>
+                    <div class="filter-pills" id="filter-availability">
+                        <button class="filter-pill active" data-value="fridge" data-i18n="filter-in-fridge">In Fridge Only</button>
+                        <button class="filter-pill" data-value="all" data-i18n="filter-all-cocktails">Every Cocktail</button>
+                    </div>
+                </div>
+
+                <!-- 3. Base Spirits -->
+                <div class="filter-group">
+                    <h3 data-i18n="filter-spirits-label">Base Spirits</h3>
+                    <div class="filter-grid" id="filter-spirits">
+                        <label class="filter-check">
+                            <input type="checkbox" value="vodka" checked>
+                            <span>Vodka</span>
+                        </label>
+                        <label class="filter-check">
+                            <input type="checkbox" value="rum" checked>
+                            <span>Rum</span>
+                        </label>
+                        <label class="filter-check">
+                            <input type="checkbox" value="tequila" checked>
+                            <span>Tequila</span>
+                        </label>
+                        <label class="filter-check">
+                            <input type="checkbox" value="gin" checked>
+                            <span>Gin</span>
+                        </label>
+                        <label class="filter-check">
+                            <input type="checkbox" value="whiskey" checked>
+                            <span>Whiskey</span>
+                        </label>
+                        <label class="filter-check">
+                            <input type="checkbox" value="brandy" checked>
+                            <span>Brandy</span>
+                        </label>
+                    </div>
+                    <button class="filter-select-all" onclick="toggleAllFilterSpirits(true)" data-i18n="filter-select-all">Select All</button>
+                </div>
+
+                <!-- 4. Flavor Profiles -->
+                <div class="filter-group">
+                    <h3 data-i18n="filter-flavor-label">Flavor Profile</h3>
+                    <div class="filter-pills-wrap" id="filter-flavors">
+                        <button class="filter-pill-sm" data-value="spirit-forward">Spirit Forward</button>
+                        <button class="filter-pill-sm" data-value="fruity">Fruity</button>
+                        <button class="filter-pill-sm" data-value="floral">Floral</button>
+                        <button class="filter-pill-sm" data-value="fresh">Fresh</button>
+                        <button class="filter-pill-sm" data-value="sour">Sour</button>
+                        <button class="filter-pill-sm" data-value="sweet">Sweet</button>
+                        <button class="filter-pill-sm" data-value="creamy">Creamy</button>
+                        <button class="filter-pill-sm" data-value="smoky">Smoky</button>
+                        <button class="filter-pill-sm" data-value="spicy">Spicy</button>
+                        <button class="filter-pill-sm" data-value="bitter">Bitter</button>
+                        <button class="filter-pill-sm" data-value="tropical">Tropical</button>
+                        <button class="filter-pill-sm" data-value="herbal">Herbal</button>
+                        <button class="filter-pill-sm" data-value="nutty">Nutty</button>
+                        <button class="filter-pill-sm" data-value="savory">Savory</button>
+                        <button class="filter-pill-sm" data-value="coffee">Coffee</button>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="modal-footer">
+                <button class="modal-action-btn" onclick="applyRandomizerFilters()" data-i18n="filter-apply">Save & Close</button>
+            </footer>
+        </div>
+    </div>
 
     <!-- ============================================================
      4.1  EXTERNAL LIBRARIES
