@@ -463,7 +463,7 @@ export const classicCocktails = [
     {
         id: 'boulevardier',
         name: "Boulevardier",
-        category: ["Strong", "Bitter", "Whiskey", "Spirit-Forward"],
+        category: ["Strong", "Bitter", "Spirit-Forward"],
         description: "A bold and refined classic, blending rich bourbon warmth with bittersweet depth and elegance.",
         ingredients: [
             { amount: 30, unit: "ml", name: "Bourbon", fridgeCategory: "spirit" },
@@ -512,7 +512,7 @@ export const classicCocktails = [
     {
         id: 'brown-derby',
         name: "Brown Derby",
-        category: ["Whiskey", "Citrus", "Classic"],
+        category: ["Citrus", "Classic"],
         description: "Smooth bourbon balanced by bright grapefruit and honeyed sweetness.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Bourbon", fridgeCategory: "spirit" },
@@ -1128,7 +1128,7 @@ export const classicCocktails = [
     {
         id: 'gold-rush',
         name: "Gold Rush",
-        category: ["Strong", "Honey", "Whiskey", "Sour", "Sweet"],
+        category: ["Strong", "Honey", "Sour", "Sweet"],
         description: "A whiskey sour-style classic with honeyed warmth, bright lemon and a smooth finish.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Bourbon", fridgeCategory: "spirit" },
@@ -1251,7 +1251,7 @@ export const classicCocktails = [
     {
         id: 'hot-toddy',
         name: "Hot Toddy",
-        category: ["Hot", "Winter", "Whiskey", "Sweet", "Spicy"],
+        category: ["Hot", "Winter", "Sweet", "Spicy"],
         description: "A soothing winter warmer with honeyed comfort, bright lemon and gentle whiskey heat.",
         ingredients: [
             { amount: 50, unit: "ml", name: "Bourbon or Scotch", fridgeCategory: "spirit" },
@@ -1601,7 +1601,7 @@ export const classicCocktails = [
     {
         id: 'mint-julep',
         name: "Mint Julep",
-        category: ["Whiskey", "Herbal", "Classic", "Spirit-Forward", "Fresh"],
+        category: ["Herbal", "Classic", "Spirit-Forward", "Fresh"],
         description: "Cooling mint and subtle sweetness wrapped around bold bourbon.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Bourbon", fridgeCategory: "spirit" },
@@ -1649,7 +1649,7 @@ export const classicCocktails = [
     {
         id: 'monte-carlo',
         name: "Monte Carlo",
-        category: ["Whiskey", "Strong", "Classic", "Spirit-Forward", "Herbal"],
+        category: ["Strong", "Classic", "Spirit-Forward", "Herbal"],
         description: "A richer, spiced twist on the Old Fashioned with herbal depth from Benedictine.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Rye whiskey", fridgeCategory: "spirit" },
@@ -1850,7 +1850,7 @@ export const classicCocktails = [
     {
         id: 'orchard-oak-old-fashioned',
         name: "Orchard & Oak Old Fashioned",
-        category: ["Spirit-Forward", "Smoky", "Fruity", "Modern", "Whiskey"],
+        category: ["Spirit-Forward", "Smoky", "Fruity", "Modern"],
         description: "A smoky Islay-driven twist on the Old Fashioned, softened by ripe peach sweetness and deepened with rich walnut bitters.",
         ingredients: [
             { amount: 50, unit: "ml", name: "Islay Single Malt", fridgeCategory: "spirit" },
@@ -1950,7 +1950,7 @@ export const classicCocktails = [
     {
         id: 'penicillin',
         name: "Penicillin",
-        category: ["Whiskey", "Spicy", "Smoky", "Sour", "Honey"],
+        category: ["Spicy", "Smoky", "Sour", "Honey"],
         description: "A modern masterpiece with honeyed warmth, ginger spice and a smoky Scotch finish.",
         ingredients: [
             { amount: 45, unit: "ml", name: "Blended Scotch", fridgeCategory: "spirit" },
@@ -2181,7 +2181,7 @@ export const classicCocktails = [
     {
         id: 'sazerac',
         name: "Sazerac",
-        category: ["Strong", "Whiskey", "Classic", "Spirit-Forward", "Herbal", "Bitter"],
+        category: ["Strong", "Classic", "Spirit-Forward", "Herbal", "Bitter"],
         description: "Powerful and aromatic with rye spice, subtle sweetness and an anise finish.",
         ingredients: [
             { amount: 60, unit: "ml", name: "Rye whiskey", fridgeCategory: "spirit" },
@@ -2672,3 +2672,4 @@ export const classicCocktails = [
     },
 
 ];
+

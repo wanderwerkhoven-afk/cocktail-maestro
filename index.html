@@ -77,6 +77,20 @@
     <link rel="stylesheet" href="css/components/presentation.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Theme blocking script to prevent white flash -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('appTheme') || 'dark';
+            if (theme === 'auto') {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            } else if (theme !== 'dark') {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+        })();
+    </script>
+
 </head>
 
 <body>
@@ -657,7 +671,7 @@
             <!-- Drink Mode Toggle -->
             <div class="drink-mode-toggle" id="fridge-mode-toggle">
                 <button class="mode-pill active" id="fridge-pill-cocktail" onclick="setDrinkMode('cocktail', 'fridge')">
-                    <i class="fa-solid fa-martini-glass"></i> <span data-i18n="cat-mocktails">Cocktails</span>
+                    <i class="fa-solid fa-martini-glass"></i> <span data-i18n="cat-cocktails">Cocktails</span>
                 </button>
                 <button class="mode-pill" id="fridge-pill-mocktail" onclick="setDrinkMode('mocktail', 'fridge')">
                     <i class="fa-solid fa-lemon"></i> <span data-i18n="cat-mocktails">Mocktails</span>
@@ -716,7 +730,7 @@
         <section class="drink-mode-section">
             <div class="drink-mode-toggle" id="vault-mode-toggle">
                 <button class="mode-pill active" id="vault-pill-cocktail" onclick="setDrinkMode('cocktail', 'vault')">
-                    <i class="fa-solid fa-martini-glass"></i> <span data-i18n="cat-mocktails">Cocktails</span>
+                    <i class="fa-solid fa-martini-glass"></i> <span data-i18n="cat-cocktails">Cocktails</span>
                 </button>
                 <button class="mode-pill" id="vault-pill-mocktail" onclick="setDrinkMode('mocktail', 'vault')">
                     <i class="fa-solid fa-lemon"></i> <span data-i18n="cat-mocktails">Mocktails</span>
@@ -987,6 +1001,26 @@
                             <div class="lang-item theme-item" onclick="window.changeTheme('auto')"
                                 data-theme-val="auto">
                                 <span class="lang-name" data-i18n="theme-auto">Auto (System)</span>
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </div>
+                            <div class="lang-item theme-item" onclick="window.changeTheme('sunset-lounge')"
+                                data-theme-val="sunset-lounge">
+                                <span class="lang-name" data-i18n="theme-sunset">Sunset Lounge</span>
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </div>
+                            <div class="lang-item theme-item" onclick="window.changeTheme('olive-citrus')"
+                                data-theme-val="olive-citrus">
+                                <span class="lang-name" data-i18n="theme-olive">Olive Citrus</span>
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </div>
+                            <div class="lang-item theme-item" onclick="window.changeTheme('midnight-plum')"
+                                data-theme-val="midnight-plum">
+                                <span class="lang-name" data-i18n="theme-plum">Midnight Plum</span>
+                                <i class="fa-solid fa-check check-icon"></i>
+                            </div>
+                            <div class="lang-item theme-item" onclick="window.changeTheme('jungle-tiki')"
+                                data-theme-val="jungle-tiki">
+                                <span class="lang-name" data-i18n="theme-tiki">Jungle Tiki</span>
                                 <i class="fa-solid fa-check check-icon"></i>
                             </div>
                         </div>

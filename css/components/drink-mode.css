@@ -48,7 +48,7 @@
 
 /* Active state — cocktail uses warm amber, mocktail uses fresh green */
 .mode-pill.active {
-    background: linear-gradient(135deg, #ff9f1a 0%, #ffb347 100%);
+    background: linear-gradient(135deg, #ff9f1a 0%, var(--accent-secondary) 100%);
     color: var(--bg-card);
     box-shadow:
         0 4px 14px rgba(255, 159, 26, 0.45),
@@ -95,3 +95,4 @@
     width: 100%;
     justify-content: center;
 }
+

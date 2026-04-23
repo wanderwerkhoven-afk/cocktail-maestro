@@ -16,7 +16,7 @@
 .action-btn-header {
     background: none;
     border: none;
-    color: #ffb347;
+    color: var(--accent-secondary);
     font-size: 1.2rem;
     cursor: pointer;
     padding: 15px 10px;
@@ -30,11 +30,11 @@
 .section-title {
     margin: 0;
     font-size: 0.85rem;
-    color: #ffb347;
+    color: var(--accent-secondary);
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 800;
-    border-left: 3px solid #ffb347;
+    border-left: 3px solid var(--accent-secondary);
     padding-left: 12px;
     opacity: 0.9;
 }
@@ -55,7 +55,7 @@
 .action-btn-header, .clear-list-btn {
     background: var(--glass-bg-subtle);
     border: 1px solid var(--border-light);
-    color: #ffb347;
+    color: var(--accent-secondary);
     font-size: 1.1rem;
     cursor: pointer;
     padding: 10px 12px;
@@ -70,7 +70,7 @@
     background: rgba(255, 179, 71, 0.1);
     border-color: rgba(255, 179, 71, 0.3);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px var(--shadow-color);
 }
 
 .action-btn-header:active, .clear-list-btn:active {
@@ -86,7 +86,7 @@
     border-radius: 12px;
     padding: 2rem 1.5rem;
     margin: 1.5rem 0 1rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 179, 71, 0.1);
+    box-shadow: 0 8px 32px var(--shadow-color), inset 0 0 0 1px rgba(255, 179, 71, 0.1);
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -106,7 +106,7 @@
 
 .shopping-intro-icon {
     font-size: 2.5rem;
-    color: #ffb347;
+    color: var(--accent-secondary);
     margin-bottom: 1rem;
     position: relative;
     z-index: 1;
@@ -138,14 +138,14 @@
     background: var(--icon-bg);
     padding: 1rem;
     border-radius: 8px;
-    border-left: 3px solid #ffb347;
+    border-left: 3px solid var(--accent-secondary);
     text-align: left;
     position: relative;
     z-index: 1;
 }
 
 .shopping-intro-note i {
-    color: #ffb347;
+    color: var(--accent-secondary);
     font-size: 1.1rem;
     margin-top: 3px;
 }
@@ -313,7 +313,7 @@
     width: 35px;
     height: 35px;
     background: rgba(255, 179, 71, 0.1);
-    color: #ffb347;
+    color: var(--accent-secondary);
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -326,7 +326,7 @@
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 1.2px;
-    color: #ffb347;
+    color: var(--accent-secondary);
     margin: 0;
     font-weight: 800;
 }
@@ -350,7 +350,7 @@
     border-radius: 22px;
     padding: 1.5rem;
     border: 1px solid var(--border-strong);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 30px var(--shadow-color);
     scroll-snap-align: start;
     position: relative;
     overflow: hidden;
@@ -361,7 +361,7 @@
     top: 14px;
     left: 14px;
     background: var(--icon-bg);
-    color: #ffb347;
+    color: var(--accent-secondary);
     font-size: 0.9rem;
     font-weight: 800;
     padding: 5px 10px;
@@ -460,13 +460,13 @@
 
 .unlock-count {
     font-size: 1rem;
-    color: #ffb347;
+    color: var(--accent-secondary);
     font-weight: 600;
 }
 
 .add-recommendation-btn {
     margin-top: 12px;
-    background: #ffb347;
+    background: var(--accent-secondary);
     color: #000;
     border: none;
     padding: 11px 22px;
@@ -565,3 +565,4 @@
     width: 100%;
     line-height: 1.3;
 }
+

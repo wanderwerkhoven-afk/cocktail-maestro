@@ -11,7 +11,7 @@
     border-radius: 12px;
     padding: 2rem 1.5rem;
     margin: 1.5rem 1rem 2rem 1rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 179, 71, 0.1);
+    box-shadow: 0 8px 32px var(--shadow-color), inset 0 0 0 1px rgba(255, 179, 71, 0.1);
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -31,7 +31,7 @@
 
 .vault-intro-icon {
     font-size: 2.5rem;
-    color: #ffb347;
+    color: var(--accent-secondary);
     margin-bottom: 1rem;
     position: relative;
     z-index: 1;
@@ -63,14 +63,14 @@
     background: var(--icon-bg);
     padding: 1rem;
     border-radius: 8px;
-    border-left: 3px solid #ffb347;
+    border-left: 3px solid var(--accent-secondary);
     text-align: left;
     position: relative;
     z-index: 1;
 }
 
 .vault-intro-note i {
-    color: #ffb347;
+    color: var(--accent-secondary);
     font-size: 1.1rem;
     margin-top: 3px;
 }
@@ -113,4 +113,5 @@
     padding: 0 20px 100px 20px;
 }
 
-/* /* Styles relocated to components/cards.css */
+/* /* Styles relocated to components/cards.css */
+

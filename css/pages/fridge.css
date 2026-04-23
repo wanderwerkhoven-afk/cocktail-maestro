@@ -11,7 +11,7 @@
     border-radius: 12px;
     padding: 2rem 1.5rem;
     margin: 1.5rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 179, 71, 0.1);
+    box-shadow: 0 8px 32px var(--shadow-color), inset 0 0 0 1px rgba(255, 179, 71, 0.1);
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -32,7 +32,7 @@
 
 .fridge-intro-icon {
     font-size: 2.5rem;
-    color: #ffb347;
+    color: var(--accent-secondary);
     margin-bottom: 1rem;
     position: relative;
     z-index: 1;
@@ -64,14 +64,14 @@
     background: var(--icon-bg);
     padding: 1rem;
     border-radius: 8px;
-    border-left: 3px solid #ffb347;
+    border-left: 3px solid var(--accent-secondary);
     text-align: left;
     position: relative;
     z-index: 1;
 }
 
 .fridge-intro-note i {
-    color: #ffb347;
+    color: var(--accent-secondary);
     font-size: 1.1rem;
     margin-top: 3px;
 }
@@ -109,7 +109,7 @@
     width: 100%;
     padding: 12px 20px; /* Reduced vertical padding since image adds height */
     background: transparent;
-    color: #ffb347;
+    color: var(--accent-secondary);
     border: none;
     text-align: left;
     display: flex;
@@ -161,7 +161,7 @@
 }
 
 .universal-search-wrapper i {
-    color: #ffb347;
+    color: var(--accent-secondary);
     font-size: 0.95rem;
     opacity: 0.8;
 }
@@ -217,7 +217,7 @@
 }
 
 .category-search-wrapper i {
-    color: #ffb347;
+    color: var(--accent-secondary);
     color: var(--accent-color);
     font-size: 0.95rem;
     opacity: 0.8;
@@ -315,7 +315,7 @@
 }
 
 .fridge-item-premium:has(input[type="checkbox"]:checked) .item-name {
-    color: #ffb347;
+    color: var(--accent-secondary);
     font-weight: 600;
 }
 
@@ -325,15 +325,15 @@
 
 .fridge-item-premium:has(input[type="checkbox"]:checked) .toggle-switch::after {
     transform: translateX(16px);
-    background-color: #ffb347;
-    box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+    background-color: var(--accent-secondary);
+    box-shadow: -2px 0 5px var(--shadow-color);
 }
 
 /* Fridge Shopping Cart Button */
 .fridge-item-premium .add-to-cart-btn {
     background: rgba(255, 179, 71, 0.05);
     border: 1px solid rgba(255, 179, 71, 0.1);
-    color: #ffb347;
+    color: var(--accent-secondary);
     border-radius: 8px;
     width: 34px;
     height: 34px;
@@ -368,7 +368,7 @@
 .match-btn-large {
     width: 100%;
     padding: 18px;
-    background: linear-gradient(135deg, #ffb347 0%, #ffcc33 100%);
+    background: linear-gradient(135deg, var(--accent-secondary) 0%, #ffcc33 100%);
     color: #000;
     border: none;
     border-radius: 15px;
@@ -396,3 +396,4 @@
 #matching-results {
     width: 100%;
 }
+

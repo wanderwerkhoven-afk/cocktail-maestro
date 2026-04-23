@@ -10,7 +10,7 @@
     border-radius: 12px;
     padding: 2rem 1.5rem;
     margin: 1.5rem 1rem 2rem 1rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 179, 71, 0.1);
+    box-shadow: 0 8px 32px var(--shadow-strong), inset 0 0 0 1px rgba(255, 179, 71, 0.1);
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -31,7 +31,7 @@
 
 .kitchen-intro-icon {
     font-size: 2.5rem;
-    color: #ffb347;
+    color: var(--accent-secondary);
     margin-bottom: 1rem;
     position: relative;
     z-index: 1;
@@ -63,14 +63,14 @@
     background: var(--icon-bg);
     padding: 1rem;
     border-radius: 8px;
-    border-left: 3px solid #ffb347;
+    border-left: 3px solid var(--accent-secondary);
     text-align: left;
     position: relative;
     z-index: 1;
 }
 
 .kitchen-intro-note i {
-    color: #ffb347;
+    color: var(--accent-secondary);
     font-size: 1.1rem;
     margin-top: 3px;
 }
@@ -96,10 +96,11 @@
     background: var(--surface-light, var(--bg-card));
     border-radius: 12px;
     padding: 1.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px var(--shadow-color);
     border: 1px solid var(--border-light);
     display: flex;
     flex-direction: column;
+    height: auto;
 }
 
 .kitchen-card-header {
@@ -133,7 +134,7 @@
 
 .kitchen-card-hero i {
     z-index: 2;
-    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(0 4px 6px var(--shadow-color));
 }
 
 .kitchen-card-hero img {
@@ -182,7 +183,7 @@
 
 .hero-syrup {
     background: linear-gradient(135deg, rgba(255, 179, 71, 0.3) 0%, rgba(255, 179, 71, 0.05) 100%);
-    color: #ffb347;
+    color: var(--accent-secondary);
 }
 
 .hero-syrup-rich {
@@ -273,7 +274,7 @@
 .kitchen-ingredients h4,
 .kitchen-instructions h4 {
     margin: 0 0 0.8rem 0;
-    color: #ffb347;
+    color: var(--accent-secondary);
     display: flex;
     align-items: center;
     gap: 8px;
@@ -339,7 +340,7 @@
     width: 8px;
     height: 8px;
     background: var(--bg-card);
-    border: 2px solid #ffb347;
+    border: 2px solid var(--accent-secondary);
     border-radius: 50%;
     box-shadow: 0 0 8px rgba(255, 179, 71, 0.4);
     transition: all 0.3s ease;
@@ -373,7 +374,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px var(--shadow-color);
     border: 1px solid var(--border-light);
 }
 
@@ -408,7 +409,7 @@
 
 .kitchen-dropdown-wrapper label {
     display: block;
-    color: #ffb347;
+    color: var(--accent-secondary);
     font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -437,7 +438,7 @@
 }
 
 .kitchen-select:focus {
-    border-color: #ffb347;
+    border-color: var(--accent-secondary);
     box-shadow: 0 0 0 2px rgba(255, 179, 71, 0.2);
 }
 
@@ -446,7 +447,7 @@
     right: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    color: #ffb347;
+    color: var(--accent-secondary);
     pointer-events: none;
     font-size: 0.8rem;
     transition: transform 0.3s ease;
@@ -461,3 +462,4 @@
 }
 
 /* Indicators moved to vault-carousel.css for global use (Home, Vault, Kitchen) */
+

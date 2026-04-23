@@ -46,13 +46,13 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    box-shadow: 0 15px 35px var(--shadow-color);
 }
 
 .profile-avatar-large {
     width: 90px;
     height: 90px;
-    background: linear-gradient(135deg, #ffb347, #ff4757);
+    background: linear-gradient(135deg, var(--accent-secondary), #ff4757);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -84,7 +84,7 @@
 }
 
 .settings-auth-btn {
-    background: linear-gradient(135deg, #ffb347, #ff9f1a);
+    background: linear-gradient(135deg, var(--accent-secondary), #ff9f1a);
     color: var(--bg-body);
     border: none;
     padding: 12px 30px;
@@ -108,7 +108,7 @@
 
 .settings-group h3 {
     font-size: 0.8rem;
-    color: #ffb347;
+    color: var(--accent-secondary);
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 15px;
@@ -145,7 +145,7 @@
 .settings-item i:first-child {
     width: 32px;
     font-size: 1.1rem;
-    color: #ffb347;
+    color: var(--accent-secondary);
 }
 
 .settings-item span {
@@ -208,7 +208,7 @@
 
 .settings-home-btn:hover {
     background: rgba(255, 255, 255, 0.15);
-    color: #ffb347;
+    color: var(--accent-secondary);
     border-color: rgba(255, 179, 71, 0.5);
 }
 
@@ -227,7 +227,7 @@
 .settings-item-trigger i:first-child {
     width: 32px;
     font-size: 1.1rem;
-    color: #ffb347;
+    color: var(--accent-secondary);
 }
 
 .settings-item-trigger span {
@@ -265,7 +265,8 @@
 }
 
 .settings-dropdown-content.open {
-    max-height: 200px;
+    max-height: 240px;
+    overflow-y: auto;
     border-bottom: 1px solid var(--border-light);
 }
 
@@ -293,7 +294,7 @@
 }
 
 .lang-item .check-icon {
-    color: #ffb347;
+    color: var(--accent-secondary);
     font-size: 0.8rem;
     opacity: 0;
     transition: opacity 0.2s ease;
@@ -304,7 +305,7 @@
 }
 
 .lang-item.active .lang-name {
-    color: #ffb347;
+    color: var(--accent-secondary);
     font-weight: 700;
 }
 
@@ -333,7 +334,7 @@
 
 .legal-icon {
     font-size: 2.5rem;
-    color: #ffb347;
+    color: var(--accent-secondary);
     margin-bottom: 15px;
 }
 
@@ -360,7 +361,7 @@
 }
 
 .legal-text-body h3 {
-    color: #ffb347;
+    color: var(--accent-secondary);
     font-size: 1.1rem;
     margin-top: 25px;
     margin-bottom: 10px;
@@ -372,3 +373,4 @@
     line-height: 1.6;
     margin-bottom: 15px;
 }
+

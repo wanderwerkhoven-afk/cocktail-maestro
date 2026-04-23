@@ -1,22 +1,23 @@
 .card {
     background-color: var(--bg-card);
     border-radius: 16px;
-    padding: 24px; /* Increased padding for more "air" */
+    padding: 24px;
     display: flex;
     align-items: center;
     gap: 24px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid var(--border-light);
-    text-align: left; /* Keep text left aligned inside the card */
+    text-align: left;
+    box-shadow: 0 8px 20px var(--shadow-color);
 }
 
 
 .card:hover {
     transform: translateY(-5px);
     border-color: rgba(255, 179, 71, 0.4);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 179, 71, 0.1);
-    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 10px 25px var(--shadow-strong), 0 0 15px rgba(255, 179, 71, 0.1);
+    background-color: var(--glass-bg-hover);
 }
 
 
@@ -38,12 +39,12 @@
 }
 
 .icon-box i {
-    color: #ffb347;
+    color: var(--accent-secondary);
     font-size: 1.8rem;
 }
 
 .icon-box svg.custom-icon {
-    stroke: #ffb347;
+    stroke: var(--accent-secondary);
     width: 32px;
     height: 32px;
 }
@@ -68,17 +69,18 @@
     flex-direction: column;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 20px var(--shadow-color);
 }
 
 .cocktail-card:hover {
     transform: translateY(-5px);
     border-color: rgba(255, 179, 71, 0.4);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 15px 35px var(--shadow-strong);
 }
 
 
 .cocktail-card.open {
-    border-color: #ffb347;
+    border-color: var(--accent-secondary);
 }
 
 .cocktail-card.is-favorite {
@@ -154,7 +156,7 @@
 
 .category-tag {
     background: rgba(255, 179, 71, 0.15);
-    color: #ffb347;
+    color: var(--accent-secondary);
     padding: 5px 14px;
     border-radius: 20px;
     font-size: 0.85rem;
@@ -195,7 +197,7 @@
 .ingredients-section strong,
 .hardware-section strong,
 .method-section strong {
-    color: #ffb347;
+    color: var(--accent-secondary);
     display: block;
     margin-bottom: 8px;
     font-size: 0.9rem;
@@ -230,7 +232,7 @@
 }
 
 .step-num {
-    color: #ffb347;
+    color: var(--accent-secondary);
     font-weight: 800;
     font-size: 0.85rem;
     text-transform: uppercase;
@@ -277,7 +279,7 @@
     justify-content: center;
     background: var(--glass-bg-subtle);
     border: 1px solid rgba(255, 179, 71, 0.35);
-    color: #ffb347;
+    color: var(--accent-secondary);
     width: 26px !important;
     min-width: 26px !important;
     max-width: 26px !important;
@@ -297,7 +299,7 @@
 
 .kitchen-link-tag:hover {
     background: rgba(255, 179, 71, 0.1);
-    border-color: #ffb347;
+    border-color: var(--accent-secondary);
     transform: translateY(-1px);
     box-shadow: 0 0 10px rgba(255, 179, 71, 0.2);
 }
@@ -340,7 +342,7 @@
 }
 
 .edit-recipe-btn:hover {
-    background: #ffb347;
+    background: var(--accent-secondary);
     transform: scale(1.05);
 }
 
@@ -367,7 +369,7 @@
 }
 
 .fav-btn.active {
-    color: #ffb347;
+    color: var(--accent-secondary);
     background: var(--glass-bg-active);
 }
 
@@ -388,8 +390,8 @@
 .enlarge-btn:hover,
 .download-btn:hover {
     background: rgba(255, 179, 71, 0.2);
-    border-color: #ffb347;
-    color: #ffb347;
+    border-color: var(--accent-secondary);
+    color: var(--accent-secondary);
 }
 
 /* Visibility logic: show on card hover (desktop) OR when card is open */
@@ -436,7 +438,7 @@
 .add-to-cart-btn {
     background: none;
     border: none;
-    color: #ffb347 !important;
+    color: var(--accent-secondary) !important;
     cursor: pointer;
     padding: 8px;
     margin-left: 15px;

@@ -8,7 +8,7 @@ import { shakeForCocktail, closeShakeModal, toggleRandomizerFullscreen, openRand
 import { handleCardClick, showToast, createCocktailCardHTML, updateCarouselDots, enlargeRecipe, closeImmersiveRecipe, updateImmersiveServings, updateSearchClearButton, clearSearch } from './core/ui-utils.js';
 import { filterKitchen, initKitchenCarousels, toggleKitchenCard, openKitchenItem } from './pages/kitchen.js';
 import { setDrinkMode } from './modules/drink-mode.js';
-import { initSettings, openSettingsModal, closeSettingsModal, toggleLanguageList, closeLanguageList, toggleUnitList, closeUnitList, changeUnit, toggleThemeList, closeThemeList, changeTheme, openTermsModal, closeTermsModal, openPrivacyModal, closePrivacyModal } from './pages/settings.js';
+import { initSettings, applyThemeUI, openSettingsModal, closeSettingsModal, toggleLanguageList, closeLanguageList, toggleUnitList, closeUnitList, changeUnit, toggleThemeList, closeThemeList, changeTheme, openTermsModal, closeTermsModal, openPrivacyModal, closePrivacyModal } from './pages/settings.js';
 import { fetchCloudData } from './core/auth.js';
 import { getInitialDestination } from './core/auth-flow.js';
 import { applyLanguage, changeLanguage } from './core/i18n.js';
@@ -278,6 +278,8 @@ window.goToKitchenItem = (event, kitchenId) => {
 
 // Initialisatie
 document.addEventListener('DOMContentLoaded', () => {
+    applyThemeUI(); // Apply theme immediately
+    initSettings(); // Authenticate and sync cloud data
     applyLanguage(); // Apply saved language
     renderFridgeCategories();
     initKitchenCarousels();
