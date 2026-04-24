@@ -153,6 +153,20 @@
     /* Echt helemaal achteraan */
 }
 
+/* Mobiel: totem groter en boven de bottom nav zichtbaar */
+@media (max-width: 600px) {
+    [data-theme="jungle-tiki"] body::before {
+        width: 70vw;
+        height: 70vw;
+        max-width: none;
+        max-height: none;
+        bottom: 60px;
+        /* Boven de bottom navigatiebalk */
+        right: -10px;
+        opacity: 0.15;
+    }
+}
+
 [data-theme="jungle-tiki"] body::after {
     content: "";
     position: fixed;
