@@ -181,6 +181,7 @@ export function previewImage(event) {
 }
 
 export function saveNewRecipe() {
+    const name = document.getElementById('recipe-name').value.trim();
     const ingredients = getIngredientsFromForm();
 
     if (!name || ingredients.length === 0) {
@@ -193,7 +194,7 @@ export function saveNewRecipe() {
         name: name,
         type: document.getElementById('recipe-type')?.value || "cocktail",
         description: document.getElementById('recipe-description').value || "A custom masterpiece.",
-        category: document.getElementById('recipe-category')?.value.split(',').map(c => c.trim()).filter(c => c !== "") || ["Custom"],
+        category: document.getElementById('recipe-category')?.value?.split(',').map(c => c.trim()).filter(c => c !== "") || ["Custom"],
         glassware: document.getElementById('recipe-glassware')?.value || "Standard Glass",
         ice: document.getElementById('recipe-ice')?.value || "None",
         ingredients: ingredients,
@@ -217,6 +218,7 @@ export function updateRecipe(id) {
     const index = myRecipes.findIndex(r => r.id === id);
     if (index === -1) return;
 
+    const name = document.getElementById('recipe-name').value.trim();
     const ingredients = getIngredientsFromForm();
 
     if (!name || ingredients.length === 0) {
@@ -229,7 +231,7 @@ export function updateRecipe(id) {
         name: name,
         type: document.getElementById('recipe-type')?.value || "cocktail",
         description: document.getElementById('recipe-description').value,
-        category: document.getElementById('recipe-category')?.value.split(',').map(c => c.trim()) || ["Custom"],
+        category: document.getElementById('recipe-category')?.value?.split(',').map(c => c.trim()) || ["Custom"],
         glassware: document.getElementById('recipe-glassware')?.value || "Standard",
         ice: document.getElementById('recipe-ice')?.value || "None",
         ingredients: ingredients,

@@ -37,8 +37,7 @@ async function main() {
     ];
 
     const dbFiles = [
-        path.join(__dirname, '../js/modules/database.js'),
-        path.join(__dirname, '../js/modules/mocktails.js'),
+        path.join(__dirname, '../js/database.js'),
         path.join(__dirname, '../js/modules/kitchen-db.js'),
         path.join(__dirname, '../index.html')
     ];
