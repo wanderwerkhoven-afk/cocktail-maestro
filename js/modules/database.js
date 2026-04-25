@@ -16,6 +16,7 @@
  *      - Bloody Mary
  *      - Blue Lagoon
  *      - Blueberry Mule
+ *      - Blueberry Mojito
  *      - Boulevardier
  *      - Bramble
  *      - Brown Derby
@@ -460,6 +461,37 @@ export const classicCocktails = [
             Step 4: Garnish with fresh blueberries and a lime wheel for a bold mule finish.
         `.trim(),
         image: "./assets/Cocktails/blueberrymule.webp"
+    },
+    {
+        id: 'blueberry-mojito',
+        name: "Blueberry Mojito",
+        category: ["Fruity", "Refreshing", "Minty", "Rum"],
+        description: "A vibrant and fruity twist on the classic Mojito, bursting with fresh blueberry flavour and refreshing mint.",
+        ingredients: [
+            { amount: 60, unit: "ml", name: "White rum", fridgeCategory: "spirit" },
+            { amount: 15, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
+            { amount: 8, unit: "pcs", name: "Fresh mint leaves", fridgeCategory: "fresh" },
+            { amount: 8 - 12, unit: "pcs", name: "Fresh blueberries", fridgeCategory: "fresh" },
+            { amount: 90, unit: "ml", name: "Sprite", fridgeCategory: "juice" }
+        ],
+        glassware: "Highball glass",
+        ice: "Crushed ice",
+        method: "Muddled & Built",
+        methodDesc: `
+            Step 1: In a highball glass, gently muddle the mint leaves with the simple syrup to release the mint oils without shredding the leaves.
+
+            Step 2: Add the fresh blueberries and gently press them 2–3 times to release their juices.
+
+            Step 3: Fill the glass completely with crushed ice.
+
+            Step 4: Pour in the white rum and fresh lime juice, then top with soda water.
+
+            Step 5: Stir gently from the bottom up to combine all ingredients and bring the blueberries to the surface.
+
+            Step 6: Garnish with a fresh mint sprig and a few extra blueberries for a vibrant finish.
+        `.trim(),
+        image: "./assets/Cocktails/blueberrymojito.webp"
     },
     {
         id: 'boulevardier',
@@ -1627,11 +1659,11 @@ export const classicCocktails = [
         category: ["Refreshing", "Rum", "Fresh", "Sour", "Tropical"],
         description: "A bright Cuban classic with fresh mint, zesty lime and a crisp, refreshing finish.",
         ingredients: [
-            { amount: 50, unit: "ml", name: "White Rum", fridgeCategory: "spirit" },
-            { amount: 10, unit: "g", name: "Fresh mint", fridgeCategory: "fresh" },
-            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "syrups:simple" },
-            { amount: 25, unit: "ml", name: "Soda water", fridgeCategory: "juice" },
-            { amount: 25, unit: "ml", name: "Lime juice", fridgeCategory: "juice" }
+            { amount: 60, unit: "ml", name: "White Rum", fridgeCategory: "spirit" },
+            { amount: 8, unit: "pcs", name: "Fresh mint", fridgeCategory: "fresh" },
+            { amount: 22.5, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "syrups:simple" },
+            { amount: 90, unit: "ml", name: "Sprite", fridgeCategory: "juice" },
+            { amount: 15, unit: "ml", name: "Lime juice", fridgeCategory: "juice" }
         ],
         glassware: "Highball glass",
         ice: "Crushed ice",

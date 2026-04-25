@@ -128,6 +128,17 @@
     /* Subtle lift for active item */
 }
 
+.nav-item:not(.active):hover {
+    color: var(--text-primary);
+}
+
+.nav-item:not(.active):hover i {
+    color: var(--accent-secondary);
+    filter: drop-shadow(0 0 8px rgba(255, 179, 71, 0.6));
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
 @media (max-width: 400px) {
     .bottom-nav {
         padding: 12px 10px calc(25px + env(safe-area-inset-bottom)) 10px;
@@ -869,7 +880,8 @@
 .vault-intro,
 .recipes-intro,
 .shopping-intro,
-.kitchen-intro {
+.kitchen-intro,
+.admin-intro {
     position: relative;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -928,12 +940,14 @@
 .is-collapsed .recipes-intro-icon,
 .is-collapsed .shopping-intro-icon,
 .is-collapsed .kitchen-intro-icon,
+.is-collapsed .admin-intro-icon,
 .is-collapsed p,
 .is-collapsed .fridge-intro-note,
 .is-collapsed .vault-intro-note,
 .is-collapsed .recipes-intro-note,
 .is-collapsed .shopping-intro-note,
-.is-collapsed .kitchen-intro-note {
+.is-collapsed .kitchen-intro-note,
+.is-collapsed .admin-intro-note {
     opacity: 0;
     pointer-events: none;
     transform: translateY(-10px);

@@ -2,6 +2,63 @@
    ADMIN DASHBOARD STYLES
    ============================================================ */
 
+/* ---------- Admin Intro Tile ---------- */
+.admin-intro {
+    background: var(--bg-card-gradient);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    margin: 1.5rem 1rem 2rem 1rem;
+    box-shadow: 0 8px 32px var(--shadow-color), inset 0 0 0 1px rgba(255, 179, 71, 0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-intro::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 179, 71, 0.03) 0%, transparent 60%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.admin-intro-icon {
+    font-size: 2.5rem;
+    color: var(--accent-secondary);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 0 10px rgba(255, 179, 71, 0.3));
+}
+
+.admin-intro h2 {
+    color: var(--text-primary);
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.5px;
+}
+
+.admin-intro p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Let op: .admin-intro-note verwijderd want dat is niet overal nodig, maar de p mag zonder margin staan */
+
+
 .admin-tabs {
     display: flex;
     background: var(--bg-card);
@@ -456,6 +513,18 @@
     box-shadow: 0 8px 20px rgba(255, 179, 71, 0.3);
 }
 
+.admin-nav-item:not(.active):not(.exit-admin):hover {
+    color: var(--text-primary);
+}
+
+.admin-nav-item:not(.active):not(.exit-admin):hover i {
+    color: var(--accent-secondary);
+    filter: drop-shadow(0 0 8px rgba(255, 179, 71, 0.6));
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+
 /* Admin Sub-Navigation (Database Categories) */
 .admin-sub-nav {
     display: flex;
@@ -572,5 +641,34 @@
     .admin-ing-row.complex .row-remove-btn {
         flex: 0 0 auto !important;
         align-self: flex-end;
+    }
+
+    /* Extra optimizations for mobile Admin Editor */
+    #admin-editor-form {
+        padding: 15px 12px; /* Minder padding voor meer horizontale ruimte */
+    }
+
+    .input-group input, 
+    .input-group textarea, 
+    .input-group select {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+
+    .row-remove-btn {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+    }
+
+    .row-number {
+        min-width: 18px;
+        font-size: 0.85rem;
+        padding-top: 10px;
+    }
+
+    .save-btn-admin {
+        padding: 14px;
+        font-size: 0.9rem;
     }
 }

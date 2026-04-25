@@ -338,7 +338,7 @@ window.viewUserRecipe = async (recipeId, authorUid) => {
             const recipe = data.recipes.find(r => r.id === recipeId);
             if (recipe) {
                 const { enlargeRecipe } = await import("../core/ui-utils.js");
-                enlargeRecipe(recipe);
+                enlargeRecipe(null, recipe.id, recipe);
             }
         }
     } catch (err) {
@@ -724,9 +724,9 @@ window.startMigration = async (type) => {
     loadStats(); // Refresh stats
 };
 
-/**
- * Load Global Statistics
- */
+let favChartInstance = null;
+let usageChartInstance = null;
+
 async function loadStats() {
     try {
         const usersSnap = await getDocs(collection(db, "users"));
@@ -738,13 +738,138 @@ async function loadStats() {
         document.getElementById('stat-vault').innerText = cocktailSnap.size + mocktailSnap.size;
         
         let totalUserRecipes = 0;
+        let favoriteCounts = {};
+        let activeDates = {};
+
         usersSnap.forEach(doc => {
             const data = doc.data();
             if (data.recipes) totalUserRecipes += data.recipes.length;
+
+            if (data.favorites) {
+                data.favorites.forEach(favId => {
+                    favoriteCounts[favId] = (favoriteCounts[favId] || 0) + 1;
+                });
+            }
+
+            if (data.updatedAt) {
+                const date = data.updatedAt.split('T')[0];
+                activeDates[date] = (activeDates[date] || 0) + 1;
+            }
         });
         document.getElementById('stat-user-recipes').innerText = totalUserRecipes;
+
+        // Collect names for favorites
+        let idToNameMap = {};
+        cocktailSnap.docs.forEach(d => idToNameMap[d.id] = d.data().name);
+        mocktailSnap.docs.forEach(d => idToNameMap[d.id] = d.data().name);
+
+        const sortedFavs = Object.entries(favoriteCounts)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 10);
+        
+        const favLabels = sortedFavs.map(f => idToNameMap[f[0]] || f[0]);
+        const favData = sortedFavs.map(f => f[1]);
+
+        renderFavoritesChart(favLabels, favData);
+        renderUsageChart(activeDates);
 
     } catch (e) {
         console.error("Error loading admin stats:", e);
     }
+}
+
+function renderFavoritesChart(labels, data) {
+    if (typeof Chart === 'undefined') {
+        setTimeout(() => renderFavoritesChart(labels, data), 500); // Wait for Chart.js to load
+        return;
+    }
+    const canvas = document.getElementById('favorites-chart');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    if (favChartInstance) favChartInstance.destroy();
+    
+    favChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Aantal Favorieten',
+                data: data,
+                backgroundColor: 'rgba(255, 179, 71, 0.6)',
+                borderColor: 'rgba(255, 179, 71, 1)',
+                borderWidth: 1,
+                borderRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true, ticks: { stepSize: 1, color: '#aaa' }, grid: { color: 'rgba(255,255,255,0.1)' } },
+                x: { ticks: { color: '#aaa' }, grid: { display: false } }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.raw + ' gebruikers';
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+function renderUsageChart(dateCounts) {
+    if (typeof Chart === 'undefined') {
+        setTimeout(() => renderUsageChart(dateCounts), 500); // Wait for Chart.js to load
+        return;
+    }
+    const canvas = document.getElementById('usage-chart');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    const labels = [];
+    const data = [];
+    
+    for (let i = 6; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const dateStr = d.toISOString().split('T')[0];
+        labels.push(d.toLocaleDateString('nl-NL', { weekday: 'short', day: 'numeric' }));
+        data.push(dateCounts[dateStr] || 0);
+    }
+
+    if (usageChartInstance) usageChartInstance.destroy();
+    
+    usageChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Actieve Gebruikers',
+                data: data,
+                backgroundColor: 'rgba(46, 213, 115, 0.2)',
+                borderColor: '#2ed573',
+                borderWidth: 2,
+                tension: 0.4,
+                fill: true,
+                pointBackgroundColor: '#2ed573'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true, ticks: { stepSize: 1, color: '#aaa' }, grid: { color: 'rgba(255,255,255,0.1)' } },
+                x: { ticks: { color: '#aaa' }, grid: { display: false } }
+            },
+            plugins: {
+                legend: { display: false }
+            }
+        }
+    });
 }

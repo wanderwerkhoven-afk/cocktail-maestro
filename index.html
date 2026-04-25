@@ -62,7 +62,8 @@
 
     <!-- ========== 1.1 META TAGS ========== -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#121212">
     <title>Cocktail Maestro</title>
 
     <!-- ========== 1.2 FAVICON & APP ICONS ========== -->
@@ -115,7 +116,7 @@
         <div class="auth-page-container">
             <div class="auth-branding">
                 <img src="assets/logo/logo_cocktailmaestro_transp.webp" alt="Logo" class="auth-logo">
-                <h1 data-i18n="nav-home">Cocktail Maestro</h1>
+                <h1>Cocktail Maestro</h1>
                 <p data-i18n="auth-tagline">Elevate your mixology journey</p>
             </div>
 
@@ -1301,9 +1302,20 @@
      2.8  PAGE: ADMIN (MANAGEMENT)
      ============================================================ -->
     <main id="admin-page" class="page">
+        <!-- Top Bar (with settings button) -->
+        <header class="top-bar">
+            <button class="settings-home-btn" onclick="window.openSettingsModal()" title="Settings">
+                <i class="fa-solid fa-gear"></i>
+            </button>
+        </header>
 
-
+        <!-- TAB 1: DASHBOARD (Stats) -->
         <section id="admin-dashboard" class="admin-section active">
+            <div class="hero" style="padding-bottom: 20px; padding-top: 20px;">
+                <h2 class="brand-title" style="font-size: 2.5rem;">Maestro Admin</h2>
+                <div class="subtitle">Control Center</div>
+            </div>
+            
             <div class="admin-stats-grid">
                 <div class="stat-card">
                     <span class="stat-label">Gebruikers</span>
@@ -1329,17 +1341,41 @@
                     </div>
                 </div>
             </div>
+
+            <div class="settings-group">
+                <h3>Top 10 Favorieten</h3>
+                <div class="settings-list" style="padding: 15px; background-color: var(--bg-card);">
+                    <canvas id="favorites-chart" style="width: 100%; height: 250px;"></canvas>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <h3>Actieve Gebruikers (Laatste 7 Dagen)</h3>
+                <div class="settings-list" style="padding: 15px; background-color: var(--bg-card);">
+                    <canvas id="usage-chart" style="width: 100%; height: 200px;"></canvas>
+                </div>
+            </div>
         </section>
 
+        <!-- TAB 2: DATABASE -->
         <section id="admin-database" class="admin-section">
+            <section class="admin-intro" style="margin-bottom: 20px;">
+                <button class="intro-collapse-btn" onclick="toggleIntro(this)" aria-label="Toggle Intro">
+                    <i class="fa-solid fa-chevron-up"></i>
+                </button>
+                <div class="admin-intro-icon">
+                    <i class="fa-solid fa-database"></i>
+                </div>
+                <h2>Cloud Database</h2>
+                <p>Beheer en bewerk alle cocktails, mocktails en kitchen cards in de cloud.</p>
+            </section>
+
             <div class="admin-section-header">
-                <h3>Cloud Database</h3>
                 <button class="add-line-btn small" id="admin-db-add-btn" onclick="openAdminEditor('cocktail')">
                     <i class="fa-solid fa-plus"></i> Nieuw
                 </button>
             </div>
 
-            <!-- Sub-Category Navigation Pills -->
             <div class="admin-sub-nav">
                 <button class="sub-nav-pill active" onclick="switchDatabaseCategory('cocktail')">Cocktails</button>
                 <button class="sub-nav-pill" onclick="switchDatabaseCategory('mocktail')">Mocktails</button>
@@ -1355,21 +1391,40 @@
             </div>
         </section>
 
+        <!-- TAB 3: USER RECIPES -->
         <section id="admin-user-recipes" class="admin-section">
-            <h3>Gebruiker Creaties</h3>
+            <section class="admin-intro" style="margin-bottom: 20px;">
+                <button class="intro-collapse-btn" onclick="toggleIntro(this)" aria-label="Toggle Intro">
+                    <i class="fa-solid fa-chevron-up"></i>
+                </button>
+                <div class="admin-intro-icon">
+                    <i class="fa-solid fa-users-viewfinder"></i>
+                </div>
+                <h2>Gebruiker Creaties</h2>
+                <p>Bekijk en modereer recepten die door gebruikers zijn aangemaakt.</p>
+            </section>
+
             <div id="admin-user-recipes-list" class="admin-list-container">
                 <p class="placeholder-text">Laden...</p>
             </div>
         </section>
 
+        <!-- TAB 4: TO-DO LIST -->
         <section id="admin-todos" class="admin-section">
-            <div class="admin-section-header">
-                <h3>Admin To-Do List</h3>
-            </div>
+            <section class="admin-intro" style="margin-bottom: 20px;">
+                <button class="intro-collapse-btn" onclick="toggleIntro(this)" aria-label="Toggle Intro">
+                    <i class="fa-solid fa-chevron-up"></i>
+                </button>
+                <div class="admin-intro-icon">
+                    <i class="fa-solid fa-list-check"></i>
+                </div>
+                <h2>Admin To-Do List</h2>
+                <p>Houd bij welke features en bugfixes er nog gebouwd moeten worden.</p>
+            </section>
             
             <div class="todo-input-group" style="display: flex; gap: 10px; margin-bottom: 20px;">
                 <input type="text" id="new-todo-input" placeholder="Nieuwe taak toevoegen..." style="flex: 1; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-light); color: white;">
-                <button class="add-line-btn" onclick="addAdminTodo()" style="padding: 0 20px;">
+                <button class="add-line-btn" onclick="addAdminTodo()" style="width: auto; padding: 0 30px; flex-shrink: 0;">
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
@@ -1379,9 +1434,18 @@
             </div>
         </section>
 
+        <!-- TAB 5: MIGRATIE -->
         <section id="admin-migration" class="admin-section">
-            <h3>Cloud Migratie</h3>
-            <p class="placeholder-text" style="padding: 10px 0;">Gebruik deze tool om de lokale databases éénmalig over te zetten naar Firebase Firestore.</p>
+            <section class="admin-intro" style="margin-bottom: 20px;">
+                <button class="intro-collapse-btn" onclick="toggleIntro(this)" aria-label="Toggle Intro">
+                    <i class="fa-solid fa-chevron-up"></i>
+                </button>
+                <div class="admin-intro-icon">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                </div>
+                <h2>Cloud Migratie</h2>
+                <p>Gebruik deze tool om de lokale databases éénmalig over te zetten naar Firebase Firestore.</p>
+            </section>
             
             <div class="settings-group">
                 <div class="settings-list">
@@ -1605,6 +1669,7 @@
      4.1  EXTERNAL LIBRARIES
      ============================================================ -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- ============================================================
      4.2  MODULAR APP ENTRY POINT
@@ -1617,11 +1682,11 @@
      ============================================================ -->
     <div id="admin-editor-modal" class="modal">
         <div class="modal-content admin-editor-content">
+            <button class="close-modal" onclick="closeAdminEditor()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
             <div class="modal-header">
                 <h2 id="admin-editor-title">Bewerk Item</h2>
-                <button class="close-btn" onclick="closeAdminEditor()">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
             </div>
             <form id="admin-editor-form" onsubmit="saveAdminItem(event)">
                 <input type="hidden" id="admin-edit-id">
@@ -1633,7 +1698,7 @@
 
                 <div class="form-actions-admin">
                     <button type="submit" class="save-btn-admin">
-                        <i class="fa-solid fa-cloud-arrow-up"></i> OPSLAAN NAAR CLOUD
+                        <i class="fa-solid fa-cloud-arrow-up"></i> OPSLAAN
                     </button>
                     <button type="button" id="admin-delete-btn">
                         <i class="fa-solid fa-trash"></i> VERWIJDEREN

@@ -1,5 +1,6 @@
 import { registerUser, loginUser, logoutUser, initAuthListener, sendPasswordReset } from "../core/auth.js";
 import { navigateTo } from "../core/navigation.js";
+import { t } from "../core/i18n.js";
 
 /**
  * Initialize Settings Page logic
@@ -18,6 +19,29 @@ export function openSettingsModal() {
     if (modal) {
         modal.classList.add('show');
         modal.style.display = 'flex';
+        
+        // Dynamically change Admin button based on current page
+        const activePage = document.querySelector('main.page.active');
+        const adminTrigger = document.querySelector('#admin-section .settings-item-trigger');
+        
+        if (adminTrigger) {
+            if (activePage && activePage.id === 'admin-page') {
+                adminTrigger.onclick = () => { window.closeSettingsModal(); navigateTo('home'); };
+                adminTrigger.innerHTML = `
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span data-i18n="settings-back-maestro">${t('settings-back-maestro')}</span>
+                    <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                `;
+            } else {
+                adminTrigger.onclick = () => { window.closeSettingsModal(); navigateTo('admin'); };
+                adminTrigger.innerHTML = `
+                    <i class="fa-solid fa-user-shield"></i>
+                    <span data-i18n="settings-beheer">${t('settings-beheer')}</span>
+                    <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                `;
+            }
+        }
+
         initSettings(); // Refresh UI state
     }
 }
@@ -234,9 +258,16 @@ window.handleAuthSubmit = async (event, type) => {
         const pass = document.getElementById('login-password').value;
         const errorEl = document.getElementById('login-error');
         result = await loginUser(email, pass);
+        
         if (!result.success) {
             errorEl.style.color = "#ff4757"; // Ensure red
             errorEl.innerText = getFriendlyErrorMessage(result.error);
+        } else {
+            // Success: Go to home
+            navigateTo('home');
+            // Small delay to ensure state is readable before potential reload
+            setTimeout(() => location.reload(), 100);
+            return; // Prevent resetting button state below
         }
     } else {
         const name = document.getElementById('signup-name').value;
@@ -244,21 +275,38 @@ window.handleAuthSubmit = async (event, type) => {
         const pass = document.getElementById('signup-password').value;
         const errorEl = document.getElementById('signup-error');
         result = await registerUser(email, pass, name);
+        
         if (!result.success) {
             errorEl.style.color = "#ff4757"; // Ensure red
             errorEl.innerText = getFriendlyErrorMessage(result.error);
+        } else {
+            // Firebase logs in automatically after registration, so we log out to force manual login
+            await logoutUser();
+            
+            // Switch back to login tab
+            window.switchAuthTab('login');
+            
+            // Show success message on the login screen
+            const loginErrorEl = document.getElementById('login-error');
+            if (loginErrorEl) {
+                loginErrorEl.style.color = "#2ed573"; // Success green
+                loginErrorEl.innerText = "Account succesvol aangemaakt! Je kunt nu inloggen.";
+            }
+            
+            // Pre-fill the email address to make logging in faster
+            const loginEmailEl = document.getElementById('login-email');
+            if (loginEmailEl) {
+                loginEmailEl.value = email;
+            }
+            
+            // Reset the signup form
+            document.getElementById('signup-form').reset();
         }
     }
 
-    if (result.success) {
-        // Success: Go to home
-        navigateTo('home');
-        // Small delay to ensure state is readable before potential reload
-        setTimeout(() => location.reload(), 100);
-    } else {
-        btn.disabled = false;
-        btn.innerText = originalText;
-    }
+    // Reset button state if we didn't redirect
+    btn.disabled = false;
+    btn.innerText = originalText;
 };
 
 /**

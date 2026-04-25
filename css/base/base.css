@@ -441,6 +441,8 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     /* Globally disables double-tap to zoom but allows pinch-to-zoom for better mobile UX */
     touch-action: manipulation;
+    /* Verwijdert de blauwe of grijze gloed op Android wanneer je ergens op tikt */
+    -webkit-tap-highlight-color: transparent;
 }
 
 html {
@@ -456,6 +458,7 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    overscroll-behavior-y: none; /* Voorkomt pull-to-refresh op mobiele web-apps */
     width: 100%;
     transition: color 0.3s ease;
 }
@@ -472,4 +475,12 @@ body {
 *::-webkit-scrollbar {
     display: none;
     /* Chrome, Safari and Opera */
+}
+
+/* --- ANDROID PWA TWEAKS --- */
+img, button, i, svg {
+    /* Voorkomt dat je op Android een "Afbeelding opslaan" of copy-paste pop-up krijgt */
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
 }

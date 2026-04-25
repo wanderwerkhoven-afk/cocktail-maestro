@@ -188,7 +188,7 @@
 
 /* --- Home Button --- */
 .settings-home-btn {
-    position: absolute;
+    position: fixed;
     top: 30px;
     right: 20px;
     background: var(--glass-bg-light);

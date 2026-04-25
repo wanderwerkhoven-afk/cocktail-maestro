@@ -307,22 +307,13 @@ export function updateCarouselDots(carouselId) {
 /**
  * Immersive Recipe View Logic
  */
-export function enlargeRecipe(e, id) {
-    if (e) e.stopPropagation();
+export function enlargeRecipe(e, id, directRecipeObj = null) {
+    if (e && typeof e.stopPropagation === 'function') e.stopPropagation();
 
     const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
-    // We need access to the databases here, but to avoid circular imports or complex lookups,
-    // we'll try to find it in the global/imported databases if we can, 
-    // or just pass the object from the card if we refactor.
-    // For now, we'll use a search approach.
     
-    // We'll import these at the top of the file in the next step or assume they are available.
-    // Actually, it's better to find the cocktail from the DOM or state.
-    
-    // For simplicity, let's assume we can find it in classicCocktails, mocktailRecipes or myRecipes.
-    // I will add the imports at the top of the file.
-    
-    const cocktail = [...window.classicCocktails || [], ...window.mocktailRecipes || [], ...myRecipes].find(c => c.id == id);
+    // We'll use the directly provided recipe object, or search for it by ID
+    const cocktail = directRecipeObj || [...window.classicCocktails || [], ...window.mocktailRecipes || [], ...myRecipes].find(c => c.id == id);
     if (!cocktail) return;
 
     const modal = document.getElementById('recipe-immersive-view');

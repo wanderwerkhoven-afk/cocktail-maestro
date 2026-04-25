@@ -267,6 +267,81 @@
     background: linear-gradient(135deg, #ffffff, #fff5e6, #ffe0b3);
 }
 
+/* JUNGLE TIKI IMMERSIVE RANDOMIZER BACKGROUND DECORATION */
+[data-theme="jungle-tiki"] .shake-card-super.is-fullscreen::before {
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 60vw;
+    max-width: 400px;
+    height: 60vw;
+    max-height: 400px;
+    background-image: url('../../assets/extra elementen/tiki-totem.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
+}
+
+[data-theme="jungle-tiki"] .shake-card-super.is-fullscreen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        url('../../assets/extra elementen/tiki-blad-2.png'),
+        url('../../assets/extra elementen/tiki-blad-4.png'),
+        url('../../assets/extra elementen/tiki-blad-5.png');
+    background-position:
+        top -10px right -20px,
+        top 30% right -30px,
+        bottom -20px left 30%;
+    background-size:
+        clamp(100px, 20vw, 200px),
+        clamp(130px, 18vw, 180px),
+        clamp(440px, 60vw, 600px);
+    background-repeat: no-repeat;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
+}
+
+[data-theme="jungle-tiki"] .shake-card-super.is-fullscreen .content-text-super::before {
+    content: "";
+    position: fixed;
+    top: -20px;
+    left: -20px;
+    width: clamp(120px, 25vw, 250px);
+    height: clamp(120px, 25vw, 250px);
+    background-image: url('../../assets/extra elementen/tiki-blad-1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: -1;
+    transform: rotate(30deg);
+}
+
+[data-theme="jungle-tiki"] .shake-card-super.is-fullscreen .content-text-super::after {
+    content: "";
+    position: fixed;
+    bottom: 30%;
+    left: -20px;
+    width: clamp(150px, 22vw, 220px);
+    height: clamp(150px, 22vw, 220px);
+    background-image: url('../../assets/extra elementen/tiki-blad-3.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: -1;
+    transform: rotate(60deg) scale(1.2);
+}
+
 .super-tile-menu-btn,
 .super-tile-options-btn {
     position: absolute;
