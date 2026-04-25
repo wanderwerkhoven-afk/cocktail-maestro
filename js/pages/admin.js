@@ -582,13 +582,27 @@ window.saveAdminItem = async (e) => {
             const unitInput = row.querySelector('.ing-unit');
             const catSelect = row.querySelector('.ing-category');
             const nameInput = row.querySelector('.ing-name');
+            const nameVal = nameInput.value.trim();
             
-            return {
+            const ingObj = {
                 amount: amountInput.value ? parseFloat(amountInput.value) : null,
                 unit: unitInput.value.trim(),
                 fridgeCategory: catSelect.value,
-                name: nameInput.value.trim()
+                name: nameVal
             };
+
+            // Auto-link kitchen ID if it matches a known kitchen item
+            if (window.kitchenItems && Array.isArray(window.kitchenItems)) {
+                const match = window.kitchenItems.find(k => 
+                    (k.title && k.title.toLowerCase() === nameVal.toLowerCase()) || 
+                    (k.id && k.id.toLowerCase() === nameVal.toLowerCase())
+                );
+                if (match && match.id) {
+                    ingObj.kitchenId = match.id;
+                }
+            }
+            
+            return ingObj;
         }).filter(ing => ing.name !== '');
 
         const stepRows = document.querySelectorAll('.admin-step-row');

@@ -533,3 +533,44 @@
     background-color: #1a1a1a !important;
     color: white !important;
 }
+
+/* ============================================================
+   MOBILE RESPONSIVENESS
+   ============================================================ */
+@media (max-width: 600px) {
+    .input-row-flex {
+        flex-direction: column !important;
+        gap: 15px !important;
+    }
+
+    .admin-ing-row.complex {
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+    }
+
+    .admin-ing-row.complex .ing-amount {
+        flex: 0 0 30% !important;
+    }
+
+    .admin-ing-row.complex .ing-unit {
+        flex: 0 0 30% !important;
+    }
+
+    .admin-ing-row.complex .ing-category {
+        flex: 1 1 100% !important;
+        width: 100% !important;
+    }
+
+    .admin-ing-row.complex .ing-name {
+        flex: 1 1 75% !important;
+        width: auto !important;
+    }
+
+    .admin-ing-row.complex .row-remove-btn {
+        flex: 0 0 auto !important;
+        align-self: flex-end;
+    }
+}

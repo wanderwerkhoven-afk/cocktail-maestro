@@ -125,6 +125,7 @@ export const classicCocktails = [
         ingredients: [
             { amount: 60, unit: "ml", name: "Amaretto", fridgeCategory: "liqueur" },
             { amount: 30, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 1, unit: "pcs", name: "Egg white", fridgeCategory: "fresh" },
             { amount: 2, unit: "dashes", name: "Angostura bitters", fridgeCategory: "bitters" }
         ],
