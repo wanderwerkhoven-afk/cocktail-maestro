@@ -10,11 +10,44 @@ import {
     doc, 
     getDoc, 
     setDoc,
-    onSnapshot 
+    onSnapshot,
+    collection,
+    getDocs
 } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
 import { auth, db } from "./firebase.js";
 export { auth, db };
-import { refreshState } from "./state.js";
+import { refreshState, setCloudCocktails, setCloudMocktails, setCloudKitchen } from "./state.js";
+
+/**
+ * Fetch the global cocktail, mocktail and kitchen databases from Firestore
+ */
+export async function fetchGlobalDatabases() {
+    try {
+        console.log("Fetching global databases from cloud...");
+        const [cocktailSnap, mocktailSnap, kitchenSnap] = await Promise.all([
+            getDocs(collection(db, "Cocktail-db")),
+            getDocs(collection(db, "Mocktail-db")),
+            getDocs(collection(db, "Kitchen-db"))
+        ]);
+
+        const cocktails = cocktailSnap.docs.map(doc => doc.data());
+        const mocktails = mocktailSnap.docs.map(doc => doc.data());
+        const kitchen = kitchenSnap.docs.map(doc => doc.data());
+
+        setCloudCocktails(cocktails);
+        setCloudMocktails(mocktails);
+        setCloudKitchen(kitchen);
+
+        // Notify the rest of the app that data has changed
+        window.dispatchEvent(new CustomEvent('cloudDataChanged'));
+
+        console.log(`Loaded ${cocktails.length} cocktails, ${mocktails.length} mocktails, and ${kitchen.length} kitchen cards.`);
+        return { cocktails, mocktails, kitchen };
+    } catch (e) {
+        console.error("Error fetching global databases:", e);
+        return null;
+    }
+}
 
 /**
  * Handle user registration
@@ -28,7 +61,7 @@ export async function registerUser(email, password, displayName) {
         await updateProfile(user, { displayName });
         
         // Sync existing local data to new account
-        await syncLocalDataToCloud(user.uid);
+        await syncLocalDataToCloud(user);
         
         return { success: true, user };
     } catch (error) {
@@ -86,8 +119,12 @@ export async function sendPasswordReset(email) {
 /**
  * Sync LocalStorage data to Firestore
  */
-async function syncLocalDataToCloud(uid) {
+async function syncLocalDataToCloud(user) {
+    const uid = user.uid;
     const data = {
+        displayName: user.displayName,
+        email: user.email,
+        updatedAt: new Date().toISOString(),
         ingredients: JSON.parse(localStorage.getItem('myIngredients')) || {},
         favorites: JSON.parse(localStorage.getItem('myFavorites')) || [],
         recipes: JSON.parse(localStorage.getItem('myRecipes')) || [],
@@ -100,6 +137,22 @@ async function syncLocalDataToCloud(uid) {
 /**
  * Fetch data from Firestore and update LocalStorage
  */
+/**
+ * Check if the current user is an admin
+ */
+export async function checkAdminStatus(uid) {
+    if (!uid) return false;
+    try {
+        const userDoc = await getDoc(doc(db, "users", uid));
+        if (userDoc.exists()) {
+            return userDoc.data().Admin === true;
+        }
+    } catch (e) {
+        console.error("Error checking admin status:", e);
+    }
+    return false;
+}
+
 export async function fetchCloudData(uid) {
     const userDoc = await getDoc(doc(db, "users", uid));
     if (userDoc.exists()) {
@@ -126,7 +179,11 @@ export async function syncData(type, data) {
     if (!user) return; // Only sync if logged in
 
     try {
-        const payload = {};
+        const payload = {
+            displayName: user.displayName,
+            email: user.email,
+            updatedAt: new Date().toISOString()
+        };
         payload[type] = data;
         await setDoc(doc(db, "users", user.uid), payload, { merge: true });
         console.log(`Synced ${type} to cloud.`);
@@ -150,6 +207,9 @@ export function initAuthListener(callback) {
         if (user) {
             // First do an initial fetch
             await fetchCloudData(user.uid);
+            
+            // Update user info in cloud (name, email)
+            await syncLocalDataToCloud(user);
 
             // Then subscribe to real-time updates for multi-device sync
             dataUnsubscribe = onSnapshot(doc(db, "users", user.uid), (snapshot) => {
@@ -181,6 +241,7 @@ export function initAuthListener(callback) {
                 }
             });
         }
+
         if (callback) callback(user);
     });
 }

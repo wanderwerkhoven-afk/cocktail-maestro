@@ -9,11 +9,12 @@ import { handleCardClick, showToast, createCocktailCardHTML, updateCarouselDots,
 import { filterKitchen, initKitchenCarousels, toggleKitchenCard, openKitchenItem } from './pages/kitchen.js';
 import { setDrinkMode } from './modules/drink-mode.js';
 import { initSettings, applyThemeUI, openSettingsModal, closeSettingsModal, toggleLanguageList, closeLanguageList, toggleUnitList, closeUnitList, changeUnit, toggleThemeList, closeThemeList, changeTheme, openTermsModal, closeTermsModal, openPrivacyModal, closePrivacyModal } from './pages/settings.js';
-import { fetchCloudData } from './core/auth.js';
+import { fetchCloudData, fetchGlobalDatabases } from './core/auth.js';
 import { getInitialDestination } from './core/auth-flow.js';
 import { applyLanguage, changeLanguage } from './core/i18n.js';
 import { classicCocktails } from './modules/database.js';
 import { mocktailRecipes } from './modules/mocktails.js';
+import { cloudCocktails, cloudMocktails, cloudKitchen } from './core/state.js';
 
 /**
  * Device detection helper for iOS specific behavior
@@ -184,8 +185,9 @@ window.printRecipe = async () => {
         if (servings) servings.style.display = 'flex';
     }
 };
-window.classicCocktails = classicCocktails;
-window.mocktailRecipes = mocktailRecipes;
+window.classicCocktails = cloudCocktails.length > 0 ? cloudCocktails : classicCocktails;
+window.mocktailRecipes = cloudMocktails.length > 0 ? cloudMocktails : mocktailRecipes;
+window.kitchenItems = cloudKitchen.length > 0 ? cloudKitchen : [];
 
 /**
  * Filter by category from the Home page — navigates to Vault with a filter term
@@ -277,13 +279,21 @@ window.goToKitchenItem = (event, kitchenId) => {
 };
 
 // Initialisatie
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     applyThemeUI(); // Apply theme immediately
     initSettings(); // Authenticate and sync cloud data
     applyLanguage(); // Apply saved language
+    
+    // Load Cloud Databases
+    await fetchGlobalDatabases();
+    
+    // Refresh global window variables with cloud data
+    window.classicCocktails = cloudCocktails.length > 0 ? cloudCocktails : classicCocktails;
+    window.mocktailRecipes = cloudMocktails.length > 0 ? cloudMocktails : mocktailRecipes;
+    window.kitchenItems = cloudKitchen.length > 0 ? cloudKitchen : [];
+    
     renderFridgeCategories();
     initKitchenCarousels();
-    initSettings(); // Authenticate and sync cloud data
     window.applyIntroStates(); // Sync collapsible intros
 
     // Pre-calculate the destination for a smooth transition
@@ -362,6 +372,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Listen for cloud data changes (from other devices) and refresh the current view
     window.addEventListener('cloudDataChanged', () => {
         console.log("Cloud data change detected, refreshing current view...");
+        
+        // Refresh global window variables with the latest cloud data
+        window.classicCocktails = cloudCocktails.length > 0 ? cloudCocktails : classicCocktails;
+        window.mocktailRecipes = cloudMocktails.length > 0 ? cloudMocktails : mocktailRecipes;
+        window.kitchenItems = cloudKitchen.length > 0 ? cloudKitchen : [];
+
         const activePage = document.querySelector('.page.active');
         if (activePage) {
             const pageId = activePage.id.replace('-page', '');

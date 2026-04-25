@@ -1,6 +1,4 @@
 import { myIngredients } from '../core/state.js';
-import { classicCocktails } from './database.js';
-import { mocktailRecipes } from './mocktails.js';
 import { createCocktailCardHTML, createPresentationHTML, showToast } from '../core/ui-utils.js';
 
 export function shakeForCocktail() {
@@ -27,7 +25,7 @@ export function shakeForCocktail() {
         shakerCard.classList.remove('shaking');
 
         const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
-        let allCocktails = [...classicCocktails, ...mocktailRecipes, ...myRecipes];
+        let allCocktails = [...(window.classicCocktails || []), ...(window.mocktailRecipes || []), ...myRecipes];
 
         // 1. Filter by Type (Cocktail/Mocktail)
         if (filters.type === 'cocktail') {

@@ -1,5 +1,6 @@
-import { classicCocktails } from '../modules/database.js';
-import { mocktailRecipes } from '../modules/mocktails.js';
+// Data will be fetched from cloud and exposed on window
+const classicCocktails = window.classicCocktails || [];
+const mocktailRecipes = window.mocktailRecipes || [];
 import { myFavorites } from '../core/state.js';
 import { createCocktailCardHTML } from '../core/ui-utils.js';
 import { drinkMode } from '../modules/drink-mode.js';
@@ -17,8 +18,8 @@ export function renderVault(filter = "") {
 
     // Pick source array based on drink mode
     const sourceList = drinkMode === 'mocktail'
-        ? [...mocktailRecipes, ...myCustomMocktails]
-        : [...classicCocktails, ...myCocktails];
+        ? [...(window.mocktailRecipes || []), ...myCustomMocktails]
+        : [...(window.classicCocktails || []), ...myCocktails];
 
     // Categorization logic
     let categories = [];
@@ -243,7 +244,7 @@ export function updateServings(e, cocktailId, delta) {
     servingsLabel.innerText = newServings;
 
     // 3. Haal het originele recept op voor de basis-aantallen
-    const allCocktails = [...classicCocktails, ...(JSON.parse(localStorage.getItem('myRecipes')) || [])];
+    const allCocktails = [...(window.classicCocktails || []), ...(window.mocktailRecipes || []), ...(JSON.parse(localStorage.getItem('myRecipes')) || [])];
     const cocktail = allCocktails.find(c => c.id.toString() === cocktailId.toString());
 
     if (cocktail) {

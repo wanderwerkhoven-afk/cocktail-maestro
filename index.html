@@ -928,6 +928,18 @@
                         <button class="settings-auth-btn" onclick="navigateTo('auth')">Log In / Sign Up</button>
                     </div>
                 </div>
+                
+                <!-- Admin Section -->
+                <div class="settings-group" id="admin-section" style="display: none;">
+                    <h3 data-i18n="settings-admin">Management</h3>
+                    <div class="settings-list">
+                        <div class="settings-item-trigger" onclick="window.closeSettingsModal(); navigateTo('admin')">
+                            <i class="fa-solid fa-user-shield"></i>
+                            <span data-i18n="settings-beheer">Open Beheer Webapp</span>
+                            <i class="fa-solid fa-chevron-right arrow-icon"></i>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- App Settings -->
                 <div class="settings-group">
@@ -1284,6 +1296,121 @@
     <!-- ============================================================
      END PAGE: KITCHEN
      ============================================================ -->
+     
+    <!-- ============================================================
+     2.8  PAGE: ADMIN (MANAGEMENT)
+     ============================================================ -->
+    <main id="admin-page" class="page">
+
+
+        <section id="admin-dashboard" class="admin-section active">
+            <div class="admin-stats-grid">
+                <div class="stat-card">
+                    <span class="stat-label">Gebruikers</span>
+                    <span class="stat-value" id="stat-users">...</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Vault Recepten</span>
+                    <span class="stat-value" id="stat-vault">...</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">User Recepten</span>
+                    <span class="stat-value" id="stat-user-recipes">...</span>
+                </div>
+            </div>
+            
+            <div class="settings-group">
+                <h3>Systeem Status</h3>
+                <div class="settings-list">
+                    <div class="settings-item-trigger no-border-top">
+                        <i class="fa-solid fa-cloud-check"></i>
+                        <span>Firebase Connection</span>
+                        <span class="status-badge online">Online</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="admin-database" class="admin-section">
+            <div class="admin-section-header">
+                <h3>Cloud Database</h3>
+                <button class="add-line-btn small" id="admin-db-add-btn" onclick="openAdminEditor('cocktail')">
+                    <i class="fa-solid fa-plus"></i> Nieuw
+                </button>
+            </div>
+
+            <!-- Sub-Category Navigation Pills -->
+            <div class="admin-sub-nav">
+                <button class="sub-nav-pill active" onclick="switchDatabaseCategory('cocktail')">Cocktails</button>
+                <button class="sub-nav-pill" onclick="switchDatabaseCategory('mocktail')">Mocktails</button>
+                <button class="sub-nav-pill" onclick="switchDatabaseCategory('kitchen')">Kitchen</button>
+            </div>
+
+            <div class="admin-filter-bar" style="margin-bottom: 15px;">
+                <input type="text" id="admin-db-search" placeholder="Zoek in database..." oninput="filterAdminDatabase(this.value)" style="width: 100%; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-light); color: white;">
+            </div>
+
+            <div id="admin-db-list" class="admin-list-container">
+                <p class="placeholder-text">Selecteer een categorie...</p>
+            </div>
+        </section>
+
+        <section id="admin-user-recipes" class="admin-section">
+            <h3>Gebruiker Creaties</h3>
+            <div id="admin-user-recipes-list" class="admin-list-container">
+                <p class="placeholder-text">Laden...</p>
+            </div>
+        </section>
+
+        <section id="admin-todos" class="admin-section">
+            <div class="admin-section-header">
+                <h3>Admin To-Do List</h3>
+            </div>
+            
+            <div class="todo-input-group" style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <input type="text" id="new-todo-input" placeholder="Nieuwe taak toevoegen..." style="flex: 1; padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-light); color: white;">
+                <button class="add-line-btn" onclick="addAdminTodo()" style="padding: 0 20px;">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div>
+
+            <div id="admin-todo-list" class="admin-list-container">
+                <p class="placeholder-text">Taken laden...</p>
+            </div>
+        </section>
+
+        <section id="admin-migration" class="admin-section">
+            <h3>Cloud Migratie</h3>
+            <p class="placeholder-text" style="padding: 10px 0;">Gebruik deze tool om de lokale databases éénmalig over te zetten naar Firebase Firestore.</p>
+            
+            <div class="settings-group">
+                <div class="settings-list">
+                    <div class="settings-item-trigger no-border-top" onclick="startMigration('cocktails')">
+                        <i class="fa-solid fa-martini-glass"></i>
+                        <span>Migreer Cocktails</span>
+                        <i class="fa-solid fa-play" style="margin-left: auto; color: var(--accent-secondary);"></i>
+                    </div>
+                    <div class="settings-item-trigger" onclick="startMigration('mocktails')">
+                        <i class="fa-solid fa-lemon"></i>
+                        <span>Migreer Mocktails</span>
+                        <i class="fa-solid fa-play" style="margin-left: auto; color: var(--accent-secondary);"></i>
+                    </div>
+                    <div class="settings-item-trigger" onclick="startMigration('kitchen')">
+                        <i class="fa-solid fa-fire-burner"></i>
+                        <span>Migreer Kitchen Cards</span>
+                        <i class="fa-solid fa-play" style="margin-left: auto; color: var(--accent-secondary);"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div id="migration-log" style="margin-top: 20px; font-family: monospace; font-size: 0.8rem; background: #000; padding: 15px; border-radius: 10px; max-height: 200px; overflow-y: auto; display: none;">
+                <!-- Logs here -->
+            </div>
+        </section>
+    </main>
+    <!-- ============================================================
+     END PAGE: ADMIN
+     ============================================================ -->
 
 
     <!-- ============================================================
@@ -1313,6 +1440,34 @@
         <div class="nav-item" id="nav-shopping" onclick="navigateTo('shopping')">
             <i class="fa-solid fa-cart-shopping"></i>
             <span data-i18n="nav-shopping">Winkelen</span>
+        </div>
+    </nav>
+
+    <!-- Admin Bottom Nav (Hidden by default) -->
+    <nav class="admin-nav" style="display: none;">
+        <div class="admin-nav-item active" id="admin-nav-dashboard" onclick="switchAdminTab('dashboard')">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Stats</span>
+        </div>
+        <div class="admin-nav-item" id="admin-nav-database" onclick="switchAdminTab('database')">
+            <i class="fa-solid fa-database"></i>
+            <span>Database</span>
+        </div>
+        <div class="admin-nav-item" id="admin-nav-user-recipes" onclick="switchAdminTab('user-recipes')">
+            <i class="fa-solid fa-users-viewfinder"></i>
+            <span>Users</span>
+        </div>
+        <div class="admin-nav-item" id="admin-nav-todos" onclick="switchAdminTab('todos')">
+            <i class="fa-solid fa-list-check"></i>
+            <span>To Do</span>
+        </div>
+        <div class="admin-nav-item" id="admin-nav-migration" onclick="switchAdminTab('migration')">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <span>Migratie</span>
+        </div>
+        <div class="admin-nav-item exit-admin" onclick="navigateTo('home')">
+            <i class="fa-solid fa-arrow-left-from-bracket"></i>
+            <span>Exit</span>
         </div>
     </nav>
     <!-- ============================================================
@@ -1457,6 +1612,36 @@
     <script type="module" src="./js/ui.js"></script>
 
 
+    <!-- ============================================================
+     MODAL: ADMIN EDITOR
+     ============================================================ -->
+    <div id="admin-editor-modal" class="modal">
+        <div class="modal-content admin-editor-content">
+            <div class="modal-header">
+                <h2 id="admin-editor-title">Bewerk Item</h2>
+                <button class="close-btn" onclick="closeAdminEditor()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form id="admin-editor-form" onsubmit="saveAdminItem(event)">
+                <input type="hidden" id="admin-edit-id">
+                <input type="hidden" id="admin-edit-type">
+                
+                <div id="admin-editor-fields">
+                    <!-- Dynamic fields based on type -->
+                </div>
+
+                <div class="form-actions-admin">
+                    <button type="submit" class="save-btn-admin">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> OPSLAAN NAAR CLOUD
+                    </button>
+                    <button type="button" id="admin-delete-btn">
+                        <i class="fa-solid fa-trash"></i> VERWIJDEREN
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 
 </html>

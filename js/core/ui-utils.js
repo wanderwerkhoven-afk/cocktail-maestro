@@ -149,13 +149,29 @@ export function createCocktailCardHTML(cocktail, options = {}) {
                     <div class="method-section">
                         <strong>${t('card-method', [cocktail.method])}</strong>
                         <div class="method-text">
-                            ${Array.isArray(cocktail.methodDesc) 
-                                ? cocktail.methodDesc.map((step, i) => `
-                                    <div class="method-step">
-                                        <span class="step-num">${t('card-step', [i + 1])}</span> ${step}
-                                    </div>`).join('')
-                                : cocktail.methodDesc || t('card-no-desc')
-                            }
+                            ${(() => {
+                                const highlightSteps = (text) => {
+                                    if (typeof text !== 'string') return text;
+                                    // Regex to find "Step X:" or "Stap X:" or "Step X." at the start of a line or paragraph
+                                    return text.replace(/(Step\s\d+[:.]|Stap\s\d+[:.]|\bStep\b\s\d+[:.]|\bStap\b\s\d+[:.])/gi, (match) => {
+                                        return `<span class="step-num">${match}</span>`;
+                                    });
+                                };
+
+                                // Check various possible step fields
+                                const steps = cocktail.steps || cocktail.instructions || cocktail.methodDesc;
+
+                                if (Array.isArray(steps)) {
+                                    return steps.map((step, i) => `
+                                        <div class="method-step">
+                                            <span class="step-num">${t('card-step', [i + 1])}</span> ${step}
+                                        </div>`).join('');
+                                } else if (steps) {
+                                    return highlightSteps(steps);
+                                } else {
+                                    return t('card-no-desc');
+                                }
+                            })()}
                         </div>
                     </div>
                 </div>

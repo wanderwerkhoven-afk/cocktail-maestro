@@ -23,6 +23,7 @@
 @import url('./pages/shopping.css');
 @import url('./pages/kitchen.css');
 @import url('./pages/settings.css');
+@import url('./pages/admin.css');
 
 /* 5. Utilities & Animations */
 @import url('./utilities/animations.css');

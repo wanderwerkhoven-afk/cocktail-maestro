@@ -1,4 +1,5 @@
-import { kitchenItems } from '../modules/kitchen-db.js';
+// Data will be fetched from cloud and exposed on window
+const kitchenItems = window.kitchenItems || [];
 
 window.toggleKitchenCard = toggleKitchenCard;
 window.openKitchenItem = openKitchenItem;
@@ -72,7 +73,7 @@ function renderKitchen() {
         'hero-highball': 'fa-wine-glass-alt'
     };
 
-    kitchenItems.forEach(item => {
+    (window.kitchenItems || []).forEach(item => {
         const targetCarousel = carousels[item.category];
         if (!targetCarousel) return;
 
@@ -193,7 +194,7 @@ export function openKitchenItem(itemId) {
     // If there is a sub-id, try to select it in the dropdown
     if (subId) {
         const select = card.querySelector('.kitchen-select');
-        const dbItem = kitchenItems.find(i => i.id === itemId);
+        const dbItem = (window.kitchenItems || []).find(i => i.id === itemId);
         
         if (select && dbItem && dbItem.dropdown) {
             // Find the index of the option that matches our subId
@@ -215,7 +216,7 @@ export function updateKitchenDropdown(selectElement, itemId) {
     const card = selectElement.closest('.kitchen-card');
     if (!card) return;
     
-    const dbItem = kitchenItems.find(i => i.id === itemId);
+    const dbItem = (window.kitchenItems || []).find(i => i.id === itemId);
     if (!dbItem || !dbItem.dropdown) return;
 
     const selectedIdx = selectElement.value;

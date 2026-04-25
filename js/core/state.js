@@ -9,6 +9,15 @@ export let myFavorites = JSON.parse(localStorage.getItem('myFavorites')) || [];
 export let shoppingList = JSON.parse(localStorage.getItem('shoppingList')) || [];
 export let currentImageBase64 = "";
 
+// Cloud Database Cache
+export let cloudCocktails = [];
+export let cloudMocktails = [];
+export let cloudKitchen = [];
+
+export function setCloudCocktails(val) { cloudCocktails = val; }
+export function setCloudMocktails(val) { cloudMocktails = val; }
+export function setCloudKitchen(val) { cloudKitchen = val; }
+
 export function setCurrentImageBase64(val) {
     currentImageBase64 = val;
 }

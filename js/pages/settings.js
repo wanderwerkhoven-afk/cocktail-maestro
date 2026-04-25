@@ -155,13 +155,14 @@ export function applyUnitUI() {
 /**
  * Update the Settings page UI based on auth state
  */
-export function updateSettingsUI(user) {
+export async function updateSettingsUI(user) {
     applyUnitUI();
     applyThemeUI();
 
     const profileContent = document.getElementById('profile-info-content');
     const avatar = document.querySelector('.profile-avatar-large');
     const logoutSection = document.getElementById('logout-section');
+    const adminSection = document.getElementById('admin-section');
 
     if (user) {
         profileContent.innerHTML = `
@@ -170,6 +171,15 @@ export function updateSettingsUI(user) {
         `;
         if (avatar) avatar.innerHTML = `<i class="fa-solid fa-user-check" style="color: #ffb347;"></i>`;
         if (logoutSection) logoutSection.style.display = 'block';
+
+        // Admin check
+        const { checkAdminStatus } = await import("../core/auth.js");
+        const isAdmin = await checkAdminStatus(user.uid);
+        if (isAdmin && adminSection) {
+            adminSection.style.display = 'block';
+        } else if (adminSection) {
+            adminSection.style.display = 'none';
+        }
     } else {
         profileContent.innerHTML = `
             <h2>Guest Account</h2>
@@ -178,6 +188,7 @@ export function updateSettingsUI(user) {
         `;
         if (avatar) avatar.innerHTML = `<i class="fa-solid fa-user"></i>`;
         if (logoutSection) logoutSection.style.display = 'none';
+        if (adminSection) adminSection.style.display = 'none';
     }
 }
 
