@@ -14,6 +14,7 @@ import { getInitialDestination } from './core/auth-flow.js';
 import { applyLanguage, changeLanguage } from './core/i18n.js';
 import { classicCocktails } from './modules/database.js';
 import { mocktailRecipes } from './modules/mocktails.js';
+import { cloudCocktails, cloudMocktails, cloudKitchen } from './core/state.js';
 // Disable pinch-to-zoom for better native feel
 document.addEventListener('touchstart', (e) => {
     if (e.touches.length > 1) {
@@ -308,9 +309,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Pre-calculate the destination for a smooth transition
     const getDestPromise = getInitialDestination();
 
-    // Start motion detection for shaker
-    initShakeDetection();
-
     // Splash Screen Logic
     const splashScreen = document.getElementById('splash-screen');
     const originalContent = splashScreen?.querySelector('.splash-content')?.cloneNode(true);
@@ -367,6 +365,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     window.updateIngredientSuggestions();
+    
+    // Initialize shake detection for the randomizer
+    initShakeDetection();
 
     // Listen for cloud data changes (from other devices) and refresh the current view
     window.addEventListener('cloudDataChanged', () => {

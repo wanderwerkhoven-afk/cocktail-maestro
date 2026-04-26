@@ -9,6 +9,11 @@ export function shakeForCocktail() {
     if (!shakerCard || !modal || !resultContainer) return;
     if (shakerCard.classList.contains('shaking')) return;
 
+    // Haptic feedback for mobile
+    if (window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate([80, 50, 80]);
+    }
+
     shakerCard.classList.add('shaking');
 
     const isFullscreen = shakerCard.classList.contains('is-fullscreen');
@@ -95,70 +100,6 @@ export function shakeForCocktail() {
     }, 2000);
 }
 
-let lastShakeTime = 0;
-const SHAKE_THRESHOLD = 15; // G-force threshold for a shake
-
-export function initShakeDetection() {
-    if (typeof DeviceMotionEvent === 'undefined') return;
-
-    // iOS 13+ requires permission for motion sensors
-    if (typeof DeviceMotionEvent.requestPermission === 'function') {
-        const shakerCard = document.getElementById('main-shaker-card');
-        if (shakerCard) {
-            const requestPerm = () => {
-                DeviceMotionEvent.requestPermission()
-                    .then(response => {
-                        if (response === 'granted') {
-                            window.addEventListener('devicemotion', handleMotion);
-                        }
-                    })
-                    .catch(err => console.error("Motion permission denied:", err));
-                shakerCard.removeEventListener('click', requestPerm);
-            };
-            shakerCard.addEventListener('click', requestPerm);
-        }
-    } else {
-        // Non-iOS or older versions — listen immediately
-        window.addEventListener('devicemotion', handleMotion);
-    }
-}
-
-function handleMotion(event) {
-    const acc = event.accelerationIncludingGravity;
-    if (!acc) return;
-
-    const x = acc.x || 0;
-    const y = acc.y || 0;
-    const z = acc.z || 0;
-
-    // Calculate total acceleration (G-force)
-    const totalAcc = Math.sqrt(x * x + y * y + z * z);
-
-    if (totalAcc > SHAKE_THRESHOLD) {
-        const now = Date.now();
-        // Prevent multiple triggers (2 second cooldown)
-        if (now - lastShakeTime > 2000) {
-            // Only trigger if we are on the home page and shaker card is visible
-            const homePage = document.getElementById('home-page');
-            const modal = document.getElementById('shake-modal');
-            
-            // Don't shake if a result is already showing
-            const isModalOpen = modal && modal.classList.contains('show');
-
-            if (homePage && homePage.classList.contains('active') && !isModalOpen) {
-                lastShakeTime = now;
-                
-                // Add a small haptic vibration for feedback if supported
-                if (navigator.vibrate) {
-                    navigator.vibrate([100, 50, 100]);
-                }
-                
-                shakeForCocktail();
-            }
-        }
-    }
-}
-
 export function openRandomizerFilters() {
     const modal = document.getElementById('randomizer-filter-modal');
     if (!modal) return;
@@ -238,6 +179,11 @@ export function toggleRandomizerFullscreen(event) {
     if (!shakerCard) return;
     const isNowFullscreen = shakerCard.classList.toggle('is-fullscreen');
     document.body.style.overflow = isNowFullscreen ? 'hidden' : '';
+
+    // Request motion permission for iOS on interaction
+    if (isNowFullscreen && window.requestShakePermission) {
+        window.requestShakePermission();
+    }
 }
 
 export function closeShakeModal() {
@@ -246,3 +192,63 @@ export function closeShakeModal() {
     modal.classList.remove('show');
     setTimeout(() => modal.style.display = 'none', 400);
 }
+
+// --- SHAKE DETECTION LOGIC ---
+let lastX, lastY, lastZ;
+let moveCounter = 0;
+const SHAKE_THRESHOLD = 15;
+
+export function initShakeDetection() {
+    if (typeof DeviceMotionEvent === 'undefined') return;
+    
+    if (typeof DeviceMotionEvent.requestPermission !== 'function') {
+        // Android or older iOS
+        window.addEventListener('devicemotion', handleMotion);
+    }
+}
+
+function handleMotion(event) {
+    const shakerCard = document.getElementById('main-shaker-card');
+    if (!shakerCard || !shakerCard.classList.contains('is-fullscreen')) return;
+    if (shakerCard.classList.contains('shaking')) return;
+
+    const acc = event.accelerationIncludingGravity;
+    if (!acc) return;
+
+    if (lastX !== undefined) {
+        let deltaX = Math.abs(lastX - acc.x);
+        let deltaY = Math.abs(lastY - acc.y);
+        let deltaZ = Math.abs(lastZ - acc.z);
+
+        if ((deltaX > SHAKE_THRESHOLD && deltaY > SHAKE_THRESHOLD) || 
+            (deltaX > SHAKE_THRESHOLD && deltaZ > SHAKE_THRESHOLD) || 
+            (deltaY > SHAKE_THRESHOLD && deltaZ > SHAKE_THRESHOLD)) {
+            
+            moveCounter++;
+            if (moveCounter > 4) { 
+                shakeForCocktail();
+                moveCounter = 0;
+            }
+        } else {
+            if (moveCounter > 0) moveCounter -= 0.05;
+        }
+    }
+
+    lastX = acc.x;
+    lastY = acc.y;
+    lastZ = acc.z;
+}
+
+window.requestShakePermission = async () => {
+    if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+        try {
+            const permission = await DeviceMotionEvent.requestPermission();
+            if (permission === 'granted') {
+                window.addEventListener('devicemotion', handleMotion);
+            }
+        } catch (error) {
+            console.warn("Shake permission request failed or was denied.");
+        }
+    }
+};
+

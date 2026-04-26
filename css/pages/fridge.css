@@ -141,43 +141,23 @@
 /* Make toggle sticky when the accordion is expanded */
 .fridge-category:has(.category-content.active) .category-toggle {
     position: sticky;
-    top: 60px; /* Underneath the sticky universal search (approx 60px) */
-    z-index: 12;
+    top: 20px;
+    z-index: 10;
     background: var(--bg-body);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border-bottom: 1px solid var(--border-strong);
-    margin-top: -1px; /* Prevent sub-pixel gaps */
 }
 
 /* ---------- 5.2.5 Universal Search ---------- */
 .universal-search-wrapper {
-    position: sticky;
-    top: 0;
-    z-index: 15;
-    background: var(--bg-body);
-    margin-top: -10px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid var(--border-strong);
-    border-radius: 0;
-    margin-left: -20px;
-    margin-right: -20px;
-    padding-left: 40px; /* Extra padding for the icon */
-    padding-right: 40px;
-    margin-bottom: 20px;
+    background: var(--input-bg);
     display: flex;
     align-items: center;
-}
-
-.universal-search-wrapper i.fa-magnifying-glass {
-    position: absolute;
-    left: 40px;
-}
-
-.universal-search-wrapper i.clear-search-btn {
-    position: absolute;
-    right: 40px;
+    padding: 14px 20px;
+    border: 1px solid var(--border-light); /* very subtle border */
+    border-radius: 12px;
+    margin-bottom: 20px;
 }
 
 .universal-search-wrapper i {
@@ -226,13 +206,13 @@
 /* ---------- 5.3 Category Search Bar ---------- */
 .category-search-wrapper {
     position: sticky;
-    top: 117px; /* Underneath universal search (60px) + category toggle (approx 57px) */
+    top: 77px; /* Sit right underneath the sticky category-toggle (57px + 20px top offset) */
     background: var(--bg-card);
     display: flex;
     align-items: center;
     padding: 14px 20px;
     border-bottom: 1px solid var(--border-light);
-    z-index: 11;
+    z-index: 5;
     margin-bottom: 10px;
 }
 
