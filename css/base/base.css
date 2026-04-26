@@ -439,8 +439,8 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* Globally disables double-tap to zoom but allows pinch-to-zoom for better mobile UX */
-    touch-action: manipulation;
+    /* Globally disables double-tap to zoom and pinch-to-zoom for a native app feel */
+    touch-action: pan-x pan-y;
     /* Verwijdert de blauwe of grijze gloed op Android wanneer je ergens op tikt */
     -webkit-tap-highlight-color: transparent;
 }

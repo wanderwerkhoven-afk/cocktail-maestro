@@ -95,6 +95,70 @@ export function shakeForCocktail() {
     }, 2000);
 }
 
+let lastShakeTime = 0;
+const SHAKE_THRESHOLD = 15; // G-force threshold for a shake
+
+export function initShakeDetection() {
+    if (typeof DeviceMotionEvent === 'undefined') return;
+
+    // iOS 13+ requires permission for motion sensors
+    if (typeof DeviceMotionEvent.requestPermission === 'function') {
+        const shakerCard = document.getElementById('main-shaker-card');
+        if (shakerCard) {
+            const requestPerm = () => {
+                DeviceMotionEvent.requestPermission()
+                    .then(response => {
+                        if (response === 'granted') {
+                            window.addEventListener('devicemotion', handleMotion);
+                        }
+                    })
+                    .catch(err => console.error("Motion permission denied:", err));
+                shakerCard.removeEventListener('click', requestPerm);
+            };
+            shakerCard.addEventListener('click', requestPerm);
+        }
+    } else {
+        // Non-iOS or older versions — listen immediately
+        window.addEventListener('devicemotion', handleMotion);
+    }
+}
+
+function handleMotion(event) {
+    const acc = event.accelerationIncludingGravity;
+    if (!acc) return;
+
+    const x = acc.x || 0;
+    const y = acc.y || 0;
+    const z = acc.z || 0;
+
+    // Calculate total acceleration (G-force)
+    const totalAcc = Math.sqrt(x * x + y * y + z * z);
+
+    if (totalAcc > SHAKE_THRESHOLD) {
+        const now = Date.now();
+        // Prevent multiple triggers (2 second cooldown)
+        if (now - lastShakeTime > 2000) {
+            // Only trigger if we are on the home page and shaker card is visible
+            const homePage = document.getElementById('home-page');
+            const modal = document.getElementById('shake-modal');
+            
+            // Don't shake if a result is already showing
+            const isModalOpen = modal && modal.classList.contains('show');
+
+            if (homePage && homePage.classList.contains('active') && !isModalOpen) {
+                lastShakeTime = now;
+                
+                // Add a small haptic vibration for feedback if supported
+                if (navigator.vibrate) {
+                    navigator.vibrate([100, 50, 100]);
+                }
+                
+                shakeForCocktail();
+            }
+        }
+    }
+}
+
 export function openRandomizerFilters() {
     const modal = document.getElementById('randomizer-filter-modal');
     if (!modal) return;

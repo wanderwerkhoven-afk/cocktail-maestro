@@ -4,7 +4,7 @@ import { toggleFavorite } from './modules/favorites.js';
 import { renderVault, downloadRecipe, updateServings } from './pages/vault.js';
 import { openRecipeForm, closeRecipeForm, addIngredientRow, removeIngredientRow, addInstructionRow, removeInstructionRow, previewImage, saveNewRecipe, updateRecipe, editRecipe, deleteRecipe, checkRowTyping, checkStepTyping, renderMyRecipes, setRecipeMode } from './pages/recipes.js';
 import { toggleCategory, filterCategoryList, filterAllIngredients, updateFridge, syncCheckboxes, checkMatches, calculateBarProgress, renderFridgeCategories } from './modules/fridge.js';
-import { shakeForCocktail, closeShakeModal, toggleRandomizerFullscreen, openRandomizerFilters, closeRandomizerFilters, applyRandomizerFilters } from './modules/randomizer.js';
+import { shakeForCocktail, closeShakeModal, toggleRandomizerFullscreen, openRandomizerFilters, closeRandomizerFilters, applyRandomizerFilters, initShakeDetection } from './modules/randomizer.js';
 import { handleCardClick, showToast, createCocktailCardHTML, updateCarouselDots, enlargeRecipe, closeImmersiveRecipe, updateImmersiveServings, updateSearchClearButton, clearSearch } from './core/ui-utils.js';
 import { filterKitchen, initKitchenCarousels, toggleKitchenCard, openKitchenItem } from './pages/kitchen.js';
 import { setDrinkMode } from './modules/drink-mode.js';
@@ -14,7 +14,16 @@ import { getInitialDestination } from './core/auth-flow.js';
 import { applyLanguage, changeLanguage } from './core/i18n.js';
 import { classicCocktails } from './modules/database.js';
 import { mocktailRecipes } from './modules/mocktails.js';
-import { cloudCocktails, cloudMocktails, cloudKitchen } from './core/state.js';
+// Disable pinch-to-zoom for better native feel
+document.addEventListener('touchstart', (e) => {
+    if (e.touches.length > 1) {
+        e.preventDefault();
+    }
+}, { passive: false });
+
+document.addEventListener('gesturestart', (e) => {
+    e.preventDefault();
+});
 
 /**
  * Device detection helper for iOS specific behavior
@@ -298,6 +307,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Pre-calculate the destination for a smooth transition
     const getDestPromise = getInitialDestination();
+
+    // Start motion detection for shaker
+    initShakeDetection();
 
     // Splash Screen Logic
     const splashScreen = document.getElementById('splash-screen');
