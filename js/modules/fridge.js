@@ -11,6 +11,11 @@ export function toggleCategory(id) {
     if (!content) return;
 
     content.classList.toggle('active');
+    
+    const parentCategory = content.closest('.fridge-category');
+    if (parentCategory) {
+        parentCategory.classList.toggle('is-open', content.classList.contains('active'));
+    }
 
     const button = content.previousElementSibling;
     // Specifically target the chevron icon since some categories might use <i> for their main icon

@@ -102,12 +102,14 @@
 }
 
 .fridge-category:focus-within {
-    border-color: transparent; /* Keep transparent on focus */
+    border-color: transparent;
+    /* Keep transparent on focus */
 }
 
 .category-toggle {
     width: 100%;
-    padding: 12px 20px; /* Reduced vertical padding since image adds height */
+    padding: 12px 20px;
+    /* Reduced vertical padding since image adds height */
     background: transparent;
     color: var(--accent-secondary);
     border: none;
@@ -132,21 +134,25 @@
 .category-icon {
     width: 40px;
     height: 40px;
-    border-radius: 8px; /* Slightly rounded corners for the images */
+    border-radius: 8px;
+    /* Slightly rounded corners for the images */
     object-fit: contain;
-    background: var(--glass-bg-light); /* Safe background in case of transparency */
+    background: var(--glass-bg-light);
+    /* Safe background in case of transparency */
     border: 1px solid var(--border-strong);
 }
 
 /* Make toggle sticky when the accordion is expanded */
-.fridge-category:has(.category-content.active) .category-toggle {
+.fridge-category.is-open .category-toggle {
     position: sticky;
-    top: 20px;
-    z-index: 10;
+    top: 15px;
+    z-index: 20;
     background: var(--bg-body);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border-bottom: 1px solid var(--border-strong);
+    border-radius: 0;
+    /* Square corners when sticky for better seal */
 }
 
 /* ---------- 5.2.5 Universal Search ---------- */
@@ -155,7 +161,8 @@
     display: flex;
     align-items: center;
     padding: 14px 20px;
-    border: 1px solid var(--border-light); /* very subtle border */
+    border: 1px solid var(--border-light);
+    /* very subtle border */
     border-radius: 12px;
     margin-bottom: 20px;
 }
@@ -188,7 +195,8 @@
     border-top: 1px solid transparent;
     max-height: 0;
     opacity: 0;
-    overflow: hidden; /* Hides content when collapsed */
+    overflow: hidden;
+    /* Hides content when collapsed */
     padding: 0 16px;
     transition: max-height 0.4s ease-out, opacity 0.3s ease, padding 0.3s ease;
     border-bottom-left-radius: 12px;
@@ -200,19 +208,22 @@
     opacity: 1;
     padding: 0 0 16px 0;
     border-top: 1px solid var(--border-light);
-    overflow: visible; /* Needs to be visible for sticky children inside to work */
+    overflow: visible;
+    /* Needs to be visible for sticky children inside to work */
 }
 
 /* ---------- 5.3 Category Search Bar ---------- */
 .category-search-wrapper {
     position: sticky;
-    top: 77px; /* Sit right underneath the sticky category-toggle (57px + 20px top offset) */
-    background: var(--bg-card);
+    top: 79px;
+    /* Sit right underneath the sticky category-toggle (height of toggle + 15px offset) */
+    background: var(--bg-body);
+    /* Using body bg to ensure it covers content during push */
     display: flex;
     align-items: center;
     padding: 14px 20px;
     border-bottom: 1px solid var(--border-light);
-    z-index: 5;
+    z-index: 15;
     margin-bottom: 10px;
 }
 
@@ -242,26 +253,32 @@
 .ingredient-checkbox-list {
     display: flex;
     flex-direction: column;
-    padding: 0; /* Remove padding to span full width */
-    gap: 0; /* Remove gap so items touch */
+    padding: 0;
+    /* Remove padding to span full width */
+    gap: 0;
+    /* Remove gap so items touch */
 }
 
 .fridge-item-premium {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 20px; /* Internal padding matches the toggle padding */
+    padding: 12px 20px;
+    /* Internal padding matches the toggle padding */
     background: transparent;
     border: none;
-    border-bottom: 1px solid var(--border-light); /* Subtle separator instead of full border */
-    border-radius: 0; /* No rounded corners for full-width items */
+    border-bottom: 1px solid var(--border-light);
+    /* Subtle separator instead of full border */
+    border-radius: 0;
+    /* No rounded corners for full-width items */
     transition: background 0.3s ease;
     -webkit-tap-highlight-color: transparent;
     gap: 8px;
 }
 
 .fridge-item-premium:last-child {
-    border-bottom: none; /* Hide border on the last item */
+    border-bottom: none;
+    /* Hide border on the last item */
 }
 
 .item-main-click {
@@ -396,4 +413,3 @@
 #matching-results {
     width: 100%;
 }
-
