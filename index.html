@@ -201,6 +201,19 @@
             <p class="subtitle" data-i18n="home-subtitle">Discover, create, and master the art of cocktails</p>
         </section>
 
+        <!-- News Carousel Section (Promo Tile) -->
+        <section class="news-carousel-section">
+            <div class="carousel-container">
+                <div class="carousel-track" id="news-carousel">
+                    <!-- Dynamic slides will be injected here -->
+                </div>
+                <!-- Pagination Dots -->
+                <div class="carousel-dots" id="carousel-dots">
+                    <!-- Dynamic dots will be injected here -->
+                </div>
+            </div>
+        </section>
+
         <!-- Menu Cards -->
         <section class="menu-cards">
             <div class="card" onclick="navigateTo('fridge')">
@@ -1334,7 +1347,7 @@
             <div class="settings-group">
                 <h3>Systeem Status</h3>
                 <div class="settings-list">
-                    <div class="settings-item-trigger no-border-top">
+                    <div class="settings-item-trigger no-border-top" onclick="window.open('https://console.firebase.google.com/', '_blank')" style="cursor: pointer;">
                         <i class="fa-solid fa-cloud-check"></i>
                         <span>Firebase Connection</span>
                         <span class="status-badge online">Online</span>
@@ -1434,6 +1447,30 @@
             </div>
         </section>
 
+        <!-- TAB: NEWS MANAGEMENT -->
+        <section id="admin-news" class="admin-section">
+            <section class="admin-intro" style="margin-bottom: 20px;">
+                <button class="intro-collapse-btn" onclick="toggleIntro(this)" aria-label="Toggle Intro">
+                    <i class="fa-solid fa-chevron-up"></i>
+                </button>
+                <div class="admin-intro-icon">
+                    <i class="fa-solid fa-newspaper"></i>
+                </div>
+                <h2>Nieuws Management</h2>
+                <p>Beheer de berichten in de home carousel. Zet ze aan of uit voor gebruikers.</p>
+            </section>
+
+            <div class="admin-section-header">
+                <button class="add-line-btn small" onclick="openAdminEditor('news')">
+                    <i class="fa-solid fa-plus"></i> Nieuw Bericht
+                </button>
+            </div>
+
+            <div id="admin-news-list" class="admin-list-container">
+                <p class="placeholder-text">Berichten laden...</p>
+            </div>
+        </section>
+
         <!-- TAB 5: MIGRATIE -->
         <section id="admin-migration" class="admin-section">
             <section class="admin-intro" style="margin-bottom: 20px;">
@@ -1462,6 +1499,11 @@
                     <div class="settings-item-trigger" onclick="startMigration('kitchen')">
                         <i class="fa-solid fa-fire-burner"></i>
                         <span>Migreer Kitchen Cards</span>
+                        <i class="fa-solid fa-play" style="margin-left: auto; color: var(--accent-secondary);"></i>
+                    </div>
+                    <div class="settings-item-trigger" onclick="startMigration('news')">
+                        <i class="fa-solid fa-newspaper"></i>
+                        <span>Migreer Nieuws</span>
                         <i class="fa-solid fa-play" style="margin-left: auto; color: var(--accent-secondary);"></i>
                     </div>
                 </div>
@@ -1524,6 +1566,10 @@
         <div class="admin-nav-item" id="admin-nav-todos" onclick="switchAdminTab('todos')">
             <i class="fa-solid fa-list-check"></i>
             <span>To Do</span>
+        </div>
+        <div class="admin-nav-item" id="admin-nav-news" onclick="switchAdminTab('news')">
+            <i class="fa-solid fa-newspaper"></i>
+            <span>Nieuws</span>
         </div>
         <div class="admin-nav-item" id="admin-nav-migration" onclick="switchAdminTab('migration')">
             <i class="fa-solid fa-cloud-arrow-up"></i>
@@ -1715,6 +1761,27 @@
                     </button>
                 </div>
             </form>
+        </div>
+    </div>
+    <!-- MODAL: News Article -->
+    <div id="article-modal" class="modal-overlay">
+        <div class="modal-content article-modal-content">
+            <button class="close-modal" onclick="closeArticleModal()">&times;</button>
+            <div class="article-header">
+                <img id="article-img" src="" alt="Article Header">
+                <div class="article-header-overlay">
+                    <h2 id="article-title"></h2>
+                    <p id="article-tagline"></p>
+                </div>
+            </div>
+            <div class="article-body-wrapper">
+                <div class="article-body" id="article-body">
+                    <!-- Content filled by JS -->
+                </div>
+            </div>
+            <footer class="article-footer">
+                <button class="modal-action-btn" onclick="closeArticleModal()">Sluiten</button>
+            </footer>
         </div>
     </div>
 </body>

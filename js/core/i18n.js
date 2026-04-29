@@ -29,6 +29,16 @@ const translations = {
         // Home Page
         "home-search-placeholder": "Zoek klassiekers...",
         "home-subtitle": "Creëer momenten, glas voor glas.",
+        "home-news-promo-title": "Koningsdag komt er aan!",
+        "home-news-promo-sub": "Ontdek de oranje cocktails die jij in huis moet hebben voor het ultieme feest.",
+        "home-news-summer-title": "Zomer in je Glas",
+        "home-news-summer-sub": "Nieuwe frisse recepten toegevoegd aan de Vault. Klaar voor het zonnetje?",
+        "home-news-read-more": "Lees Artikel",
+        "home-news-view-recipes": "Bekijk Recepten",
+        "home-news-badge-new": "NIEUW",
+        "home-news-game-title": "Mix & Match Game",
+        "home-news-game-sub": "Test je mixology skills in onze interactieve minigame! Help Miguel de perfecte cocktail te shaken.",
+        "home-news-play-now": "Speel Nu",
         "home-welcome": "Hoi, {0}!",
         "home-welcome-guest": "Welkom bij de Maestro!",
 
@@ -246,6 +256,16 @@ const translations = {
         // Home Page
         "home-search-placeholder": "Search classics...",
         "home-subtitle": "Crafting moments, one glass at a time.",
+        "home-news-promo-title": "King's Day is coming!",
+        "home-news-promo-sub": "Discover the orange cocktails you must have at home for the ultimate party.",
+        "home-news-summer-title": "Summer in your Glass",
+        "home-news-summer-sub": "New fresh recipes added to the Vault. Ready for the sun?",
+        "home-news-read-more": "Read Article",
+        "home-news-view-recipes": "View Recipes",
+        "home-news-badge-new": "NEW",
+        "home-news-game-title": "Mix & Match Game",
+        "home-news-game-sub": "Test your mixology skills in our interactive minigame! Help Miguel shake the perfect cocktail.",
+        "home-news-play-now": "Play Now",
         "home-welcome": "Hi, {0}!",
         "home-welcome-guest": "Welcome to the Maestro!",
 

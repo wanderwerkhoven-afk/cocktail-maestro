@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+    <title>Cocktail Maestro - Mini Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="portrait-warning">
+        <div class="warning-box">
+            <div class="phone-icon">📱</div>
+            <p>Draai je scherm horizontaal om te spelen!</p>
+        </div>
+    </div>
+    <div id="game-scale">
+        <div id="game">
+            <div id="game-menu" class="game-menu-overlay">
+                <div class="menu-content">
+                    <h3>Menu</h3>
+                    <button class="menu-item" onclick="window.location.href='../index.html'">
+                        <i class="fa-solid fa-house"></i> Terug naar Home
+                    </button>
+                    <button class="menu-item" onclick="resetGame()">
+                        <i class="fa-solid fa-rotate-right"></i> Opnieuw Beginnen
+                    </button>
+                    <button class="menu-item close-menu" id="close-menu">
+                        Sluiten
+                    </button>
+                </div>
+            </div>
+
+            <div class="top-banner">
+                <div class="header-left">
+                    <div class="menu-btn" id="menu-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="game-title">Cocktail Maestro <span>Mini Game</span></div>
+                </div>
+                <div class="stats" id="stats">Volume: 0 ml | Dilution: 0%</div>
+            </div>
+
+            <div class="main-area">
+                <div class="shelf-wrap">
+                    <div class="shelf one" id="shelf-one"></div>
+                    <div class="shelf two" id="shelf-two"></div>
+                </div>
+
+                <div class="ice-bucket" id="ice-btn">
+                    <div class="ice-cube"></div>
+                    <div class="ice-cube"></div>
+                    <div class="ice-cube"></div>
+                </div>
+
+                <div class="lemon-bowl" id="lemon-btn">
+                    <div class="lemon"></div>
+                    <div class="lemon"></div>
+                    <div class="lemon"></div>
+                </div>
+
+                <div class="egg-bowl" id="egg-btn">
+                    <div class="egg"></div>
+                    <div class="egg"></div>
+                    <div class="egg"></div>
+                </div>
+
+                <div class="mixing-station">
+                    <div class="shaker" id="shaker">
+                        <div class="liquid-fill" id="liquid-fill"></div>
+                    </div>
+                </div>
+
+                <div class="bartender" id="bartender">
+                    <div class="head">
+                        <div class="hair"></div>
+                        <div class="ear left"></div>
+                        <div class="ear right"></div>
+                        <div class="eyebrow left"></div>
+                        <div class="eyebrow right"></div>
+                        <div class="eye left"></div>
+                        <div class="eye right"></div>
+                        <div class="nose"></div>
+                        <div class="mustache"></div>
+                        <div class="mouth"></div>
+                    </div>
+                    <div class="body">
+                        <div class="vest"></div>
+                        <div class="bowtie"></div>
+                    </div>
+                    <div class="arm left"><div class="hand"></div></div>
+                    <div class="arm right"><div class="hand"></div></div>
+                </div>
+
+                <div class="counter">
+                    <div class="juice-shelf" id="juice-shelf"></div>
+                    <div class="counter-front"></div>
+                </div>
+            </div>
+
+            <div class="bottom-ui">
+                <div class="controls">
+                    <button class="game-btn hold-btn" id="pour-btn">POUR</button>
+                    <button class="game-btn hold-btn" id="shake-btn">SHAKE</button>
+                    <button class="game-btn" id="serve-btn">SERVE</button>
+                </div>
+                <div class="info-panel" id="info-panel">
+                    Selecteer een drankje en HOUD de POUR knop ingedrukt.
+                </div>
+            </div>
+
+            <div id="explosion-layer"></div>
+            <canvas id="fx-canvas"></canvas>
+
+            <div class="score-popup" id="score-popup">
+                <div class="score-title" id="score-title">Resultaat</div>
+                <div class="score-number" id="score-number">0</div>
+                <div class="score-text" id="score-text"></div>
+                <button class="reset-btn" id="reset-btn">NIEUWE MIX</button>
+            </div>
+        </div>
+    </div>
+    <script src="recipes.js"></script>
+    <script src="canvas-effects.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>

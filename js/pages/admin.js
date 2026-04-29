@@ -5,6 +5,7 @@ import { collection, getDocs, doc, setDoc, deleteDoc, query, orderBy } from "htt
 import { classicCocktails } from "../modules/database.js";
 import { mocktailRecipes } from "../modules/mocktails.js";
 import { kitchenItems } from "../modules/kitchen-db.js";
+import { newsArticles } from "../modules/news-db.js";
 
 let vaultData = [];
 let kitchenData = [];
@@ -48,6 +49,7 @@ window.switchAdminTab = (tabId) => {
     if (tabId === 'database') switchDatabaseCategory('cocktail'); // Default to cocktails
     if (tabId === 'user-recipes') loadUserRecipes();
     if (tabId === 'todos') loadAdminTodos();
+    if (tabId === 'news') loadNewsList();
 };
 
 /**
@@ -282,6 +284,61 @@ async function loadKitchenList() {
 }
 
 /**
+ * Load News Articles List
+ */
+async function loadNewsList() {
+    const list = document.getElementById('admin-news-list');
+    if (!list) return;
+    list.innerHTML = '<p class="placeholder-text">Laden uit cloud...</p>';
+
+    try {
+        const snap = await getDocs(collection(db, "news"));
+        const news = snap.docs.map(d => ({ ...d.data(), firebaseId: d.id }));
+        currentDbData = news; // Reuse for search/edit
+
+        if (news.length === 0) {
+            list.innerHTML = '<p class="placeholder-text">Geen nieuwsberichten gevonden.</p>';
+            return;
+        }
+
+        list.innerHTML = news.map(item => `
+            <div class="admin-list-item ${!item.active ? 'disabled' : ''}" style="opacity: ${item.active ? 1 : 0.6};">
+                <div class="item-info">
+                    <strong>${item.title}</strong>
+                    <span>${item.badge || 'PROMO'} • ${item.firebaseId}</span>
+                </div>
+                <div class="item-actions">
+                    <button class="icon-btn ${item.active ? 'toggle-on' : 'toggle-off'}" onclick="toggleNewsActive('${item.firebaseId}', ${item.active})" title="${item.active ? 'Deactiveren' : 'Activeren'}">
+                        <i class="fa-solid ${item.active ? 'fa-toggle-on' : 'fa-toggle-off'}"></i>
+                    </button>
+                    <button class="icon-btn edit" onclick="openAdminEditor('news', '${item.firebaseId}')">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    } catch (e) {
+        list.innerHTML = `<p class="placeholder-text" style="color: #ff4757;">Fout bij laden: ${e.message}</p>`;
+    }
+}
+
+window.toggleNewsActive = async (id, currentStatus) => {
+    try {
+        const { updateDoc } = await import("https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js");
+        await updateDoc(doc(db, "news", id), {
+            active: !currentStatus
+        });
+        loadNewsList();
+        
+        // Refresh global news cache if needed
+        const { fetchGlobalNews } = await import("../modules/news.js");
+        if (fetchGlobalNews) fetchGlobalNews();
+    } catch (e) {
+        console.error("Error toggling news status:", e);
+    }
+};
+
+/**
  * Load All User Recipes
  */
 async function loadUserRecipes() {
@@ -377,6 +434,8 @@ window.openAdminEditor = (type, id = null) => {
         renderCocktailFields(fields, item);
     } else if (type === 'kitchen') {
         renderKitchenFields(fields, item);
+    } else if (type === 'news') {
+        renderNewsFields(fields, item);
     }
 
     modal.style.display = 'flex';
@@ -558,6 +617,45 @@ function renderKitchenFields(container, item) {
     `;
 }
 
+function renderNewsFields(container, item) {
+    container.innerHTML = `
+        <div class="input-group">
+            <label>Titel</label>
+            <input type="text" name="title" value="${item?.title || ''}" placeholder="bijv. Koningsdag 2026" required>
+        </div>
+        <div class="input-group">
+            <label>Tagline (Home subtitle)</label>
+            <input type="text" name="tagline" value="${item?.tagline || ''}" placeholder="De koninklijke gids voor cocktails.">
+        </div>
+        <div class="input-row-flex" style="display: flex; gap: 10px;">
+            <div class="input-group" style="flex: 1;">
+                <label>Badge</label>
+                <input type="text" name="badge" value="${item?.badge || 'PROMO'}" placeholder="PROMO">
+            </div>
+            <div class="input-group" style="flex: 1;">
+                <label>Status</label>
+                <select name="active">
+                    <option value="true" ${item?.active !== false ? 'selected' : ''}>Actief</option>
+                    <option value="false" ${item?.active === false ? 'selected' : ''}>Gedeactiveerd</option>
+                </select>
+            </div>
+        </div>
+        <div class="input-group">
+            <label>Afbeelding Pad</label>
+            <input type="text" name="image" value="${item?.image || ''}" placeholder="assets/promos/xxx.webp">
+        </div>
+        <div class="input-group">
+            <label>Artikel Inhoud (HTML toegestaan)</label>
+            <textarea name="content" rows="10" placeholder="Typ hier de volledige tekst van het artikel...">${item?.content || ''}</textarea>
+        </div>
+        <div class="input-group">
+            <label>Button Actie (Optioneel)</label>
+            <input type="text" name="buttonAction" value="${item?.buttonAction || ''}" placeholder="window.location.href='Mini game/index.html'">
+            <small style="color: #888;">Laat leeg for standaard "Lees Artikel" gedrag.</small>
+        </div>
+    `;
+}
+
 window.saveAdminItem = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -615,8 +713,11 @@ window.saveAdminItem = async (e) => {
     if (type === 'mocktail') itemData.isMocktail = true;
 
     try {
-        const collectionName = type === 'cocktail' ? 'Cocktail-db' : (type === 'mocktail' ? 'Mocktail-db' : 'Kitchen-db');
-        const docId = itemData.name || itemData.title || itemData.id;
+        const collectionName = type === 'cocktail' ? 'Cocktail-db' : (type === 'mocktail' ? 'Mocktail-db' : (type === 'news' ? 'news' : 'Kitchen-db'));
+        const docId = id || itemData.name || itemData.title || itemData.id;
+        
+        // Convert active string to boolean
+        if (itemData.active) itemData.active = itemData.active === 'true';
         
         await setDoc(doc(db, collectionName, docId), itemData);
         
@@ -630,6 +731,7 @@ window.saveAdminItem = async (e) => {
         
         // Refresh appropriate list
         if (type === 'kitchen') loadKitchenList();
+        else if (type === 'news') loadNewsList();
         else loadVaultList();
         
         loadStats();
@@ -654,6 +756,7 @@ async function deleteAdminItem(id, type) {
         closeAdminEditor();
         
         if (type === 'kitchen') loadKitchenList();
+        else if (type === 'news') loadNewsList();
         else loadVaultList();
         
         loadStats();
@@ -692,6 +795,9 @@ window.startMigration = async (type) => {
     } else if (type === 'kitchen') {
         data = kitchenItems;
         collectionName = "Kitchen-db";
+    } else if (type === 'news') {
+        data = newsArticles;
+        collectionName = "news";
     }
 
     let count = 0;

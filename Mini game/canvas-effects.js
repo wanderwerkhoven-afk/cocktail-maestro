@@ -1,0 +1,312 @@
+/* ============================================================
+ * canvas-effects.js — Particle system for Cocktail Maestro
+ * Effects:
+ *   - Pour stream: physics-based liquid droplets with gravity + curve
+ *   - Splash:      small particles bounce out of the shaker top
+ *   - Bubbles:     ambient bubbles rising in the shaker liquid
+ *   - Explosion:   dramatic burst when over-shaking
+ *   - Confetti:    celebration rain on a perfect score
+ * ============================================================ */
+
+const FX = (() => {
+    const GAME_W = 1920;
+    const GAME_H = 1080;
+
+    let canvas, ctx;
+    let particles = [];
+    let isPouringActive = false;
+    let pourColor = "#f3c34e";
+    let pourSourceX = 0, pourSourceY = 0;
+    let shakerTopX = 0, shakerTopY = 0;
+    let animFrameId = null;
+
+    // ─── Pour target (user-tuned: where the stream aims) ──────
+    const POUR_TARGET_X = 1600;
+    const POUR_TARGET_Y = 590;
+
+    // ─── Pour source (above-left, where bottle tip is) ────────
+    const POUR_SRC_X = 1400;
+    const POUR_SRC_Y = 280;
+
+    // ─── Shaker visual position: read from DOM dynamically ────
+    function getShakerPos() {
+        const shakerEl = document.getElementById('shaker');
+        const gameEl   = document.getElementById('game');
+        if (!shakerEl || !gameEl) return { x: POUR_TARGET_X, top: POUR_TARGET_Y, height: 200 };
+        const sr = shakerEl.getBoundingClientRect();
+        const gr = gameEl.getBoundingClientRect();
+        const scale = gr.width / 1920;
+        return {
+            x:      (sr.left - gr.left) / scale + (sr.width  / scale) / 2,
+            top:    (sr.top  - gr.top)  / scale,
+            height:  sr.height / scale
+        };
+    }
+
+
+
+    // ─── Particle base class ───────────────────────────────────
+    class Particle {
+        constructor(x, y, vx, vy, color, radius, life, gravity = 0.4, fade = true) {
+            this.x = x; this.y = y;
+            this.vx = vx; this.vy = vy;
+            this.color = color;
+            this.radius = radius;
+            this.life = life;       // frames
+            this.maxLife = life;
+            this.gravity = gravity;
+            this.fade = fade;
+            this.alpha = 1;
+        }
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            this.vy += this.gravity;
+            this.life--;
+            if (this.fade) this.alpha = this.life / this.maxLife;
+            return this.life > 0;
+        }
+        draw(ctx) {
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, this.alpha);
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, Math.max(0.5, this.radius * this.alpha), 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+    }
+
+    // ─── Stream droplet (follows a slight curve toward shaker) ─
+    class StreamDroplet extends Particle {
+        constructor(srcX, srcY, destX, destY, color) {
+            const dx = destX - srcX;
+            const dy = destY - srcY;
+            const ox = (Math.random() - 0.5) * 10;
+            // Slower velocity so arc is natural, gravity does most of the work
+            super(
+                srcX + ox,
+                srcY + (Math.random() * 15),
+                dx * 0.018 + (Math.random() - 0.5) * 1.0,
+                dy * 0.008 + Math.random() * 1.5,
+                color,
+                2.5 + Math.random() * 2.5,
+                22 + Math.random() * 6,  // shorter life — die at shaker top
+                0.38,
+                false
+            );
+            this.alpha = 0.9;
+            this.color = color;
+            this.maxY = destY + 5; // kill particle if it passes the shaker opening
+        }
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            this.vy += this.gravity;
+            this.life--;
+            // Die if we've passed the shaker top
+            if (this.y > this.maxY) return false;
+            return this.life > 0;
+        }
+        draw(ctx) {
+            ctx.save();
+            ctx.globalAlpha = this.alpha;
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.ellipse(this.x, this.y, this.radius * 0.6, this.radius, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+    }
+
+    // ─── Splash particle ───────────────────────────────────────
+    class SplashParticle extends Particle {
+        constructor(x, y, color) {
+            super(
+                x + (Math.random() - 0.5) * 30,
+                y,
+                (Math.random() - 0.5) * 8,
+                -(Math.random() * 6 + 3),
+                color,
+                2 + Math.random() * 3,
+                20 + Math.random() * 15,
+                0.35
+            );
+        }
+    }
+
+    // ─── Bubble (rises slowly in the shaker) ──────────────────
+    class Bubble extends Particle {
+        constructor(x, bottomY, liquidHeight) {
+            const startY = bottomY - Math.random() * liquidHeight;
+            super(
+                x + (Math.random() - 0.5) * 80,
+                startY,
+                (Math.random() - 0.5) * 0.8,
+                -(0.8 + Math.random() * 1.2),
+                "rgba(255,255,255,0.25)",
+                1.5 + Math.random() * 3,
+                60 + Math.random() * 40,
+                -0.03, // negative = rising
+                true
+            );
+        }
+    }
+
+    // ─── Explosion burst ───────────────────────────────────────
+    class ExplosionParticle extends Particle {
+        constructor(x, y) {
+            const angle = Math.random() * Math.PI * 2;
+            const speed = 5 + Math.random() * 18;
+            const colors = ["#ff4500", "#ffcc00", "#ff6600", "#ff9900", "#ffffff"];
+            super(
+                x, y,
+                Math.cos(angle) * speed,
+                Math.sin(angle) * speed - 4,
+                colors[Math.floor(Math.random() * colors.length)],
+                3 + Math.random() * 7,
+                40 + Math.random() * 30,
+                0.25
+            );
+        }
+    }
+
+    // ─── Confetti ──────────────────────────────────────────────
+    class ConfettiParticle {
+        constructor() {
+            const palette = ["#f5c542", "#ff4e91", "#4ecbff", "#7fff6e", "#ff8c00", "#e040fb"];
+            this.x = Math.random() * GAME_W;
+            this.y = -20;
+            this.vx = (Math.random() - 0.5) * 4;
+            this.vy = 3 + Math.random() * 5;
+            this.rot = Math.random() * Math.PI * 2;
+            this.rotV = (Math.random() - 0.5) * 0.2;
+            this.w = 10 + Math.random() * 14;
+            this.h = 6 + Math.random() * 8;
+            this.color = palette[Math.floor(Math.random() * palette.length)];
+            this.life = 180 + Math.random() * 80;
+            this.alpha = 1;
+            this.gravity = 0.15;
+        }
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            this.vy += this.gravity;
+            this.rot += this.rotV;
+            this.life--;
+            if (this.y > GAME_H + 20) this.life = 0;
+            return this.life > 0;
+        }
+        draw(ctx) {
+            ctx.save();
+            ctx.globalAlpha = Math.min(1, this.life / 30);
+            ctx.translate(this.x, this.y);
+            ctx.rotate(this.rot);
+            ctx.fillStyle = this.color;
+            ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
+            ctx.restore();
+        }
+    }
+
+    // ─── Main loop ─────────────────────────────────────────────
+    function loop() {
+        ctx.clearRect(0, 0, GAME_W, GAME_H);
+
+        // Spawn new stream droplets while pouring
+        if (isPouringActive) {
+            for (let i = 0; i < 4; i++) {
+                particles.push(new StreamDroplet(
+                    pourSourceX, pourSourceY,
+                    shakerTopX, shakerTopY,
+                    pourColor
+                ));
+            }
+            // Random small splash at shaker top — dynamically track shaker pos
+            if (Math.random() < 0.25) {
+                const pos = getShakerPos();
+                for (let i = 0; i < 3; i++) {
+                    particles.push(new SplashParticle(pos.x, pos.top, pourColor));
+                }
+            }
+        }
+
+        // Update + draw all particles
+        particles = particles.filter(p => {
+            const alive = p.update();
+            if (alive) p.draw(ctx);
+            return alive;
+        });
+
+        animFrameId = requestAnimationFrame(loop);
+    }
+
+    // ─── Public API ────────────────────────────────────────────
+    return {
+        init() {
+            canvas = document.getElementById("fx-canvas");
+            ctx = canvas.getContext("2d");
+            canvas.width = GAME_W;
+            canvas.height = GAME_H;
+            loop();
+        },
+
+        startPour(color) {
+            isPouringActive = true;
+            pourColor = color;
+            pourSourceX = POUR_SRC_X;
+            pourSourceY = POUR_SRC_Y;
+            // Stream aims at the user-tuned pour target
+            shakerTopX = POUR_TARGET_X;
+            shakerTopY = POUR_TARGET_Y;
+        },
+
+        stopPour() {
+            isPouringActive = false;
+        },
+
+        spawnBubbles(liquidHeightFraction) {
+            if (Math.random() < 0.15) {
+                const pos = getShakerPos();
+                const liquidPx = liquidHeightFraction * pos.height;
+                particles.push(new Bubble(pos.x, pos.top + pos.height, liquidPx));
+            }
+        },
+
+        triggerSplash(color) {
+            const pos = getShakerPos();
+            for (let i = 0; i < 25; i++) {
+                particles.push(new SplashParticle(pos.x, pos.top, color));
+            }
+        },
+
+        triggerExplosion() {
+            const pos = getShakerPos();
+            const cx = pos.x;
+            const cy = pos.top + pos.height * 0.4;
+            for (let i = 0; i < 120; i++) {
+                particles.push(new ExplosionParticle(cx, cy));
+            }
+            setTimeout(() => {
+                for (let i = 0; i < 80; i++) {
+                    particles.push(new ExplosionParticle(
+                        cx + (Math.random() - 0.5) * 200,
+                        cy - 100 + (Math.random() - 0.5) * 100
+                    ));
+                }
+            }, 200);
+        },
+
+        triggerConfetti() {
+            for (let i = 0; i < 180; i++) {
+                setTimeout(() => {
+                    particles.push(new ConfettiParticle());
+                }, i * 15);
+            }
+        },
+
+        clear() {
+            particles = [];
+            isPouringActive = false;
+        }
+    };
+})();

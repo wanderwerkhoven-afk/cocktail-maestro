@@ -42,6 +42,12 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // Publicly readable news, Admin-only write
+    match /news/{articleId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
     // Admin-only TO DO list
     match /admin-todos/{todoId} {
       allow read, write: if isAdmin();
