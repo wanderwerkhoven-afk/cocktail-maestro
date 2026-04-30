@@ -183,6 +183,19 @@ function init() {
         });
     }
 
+    // Uitleg logic
+    const uitlegBtn = document.getElementById("uitleg-btn");
+    const uitlegModal = document.getElementById("uitleg-modal");
+    const closeUitlegBtn = document.getElementById("close-uitleg-btn");
+
+    if (uitlegBtn && uitlegModal) {
+        uitlegBtn.addEventListener("click", () => uitlegModal.classList.add("show"));
+        if (closeUitlegBtn) closeUitlegBtn.addEventListener("click", () => uitlegModal.classList.remove("show"));
+        uitlegModal.addEventListener("click", (e) => {
+            if (e.target === uitlegModal) uitlegModal.classList.remove("show");
+        });
+    }
+
     updateUI();
     handleResize();
     window.addEventListener("resize", handleResize);

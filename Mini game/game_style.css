@@ -21,9 +21,18 @@
 * {
     box-sizing: border-box;
     user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-touch-callout: none;
     -webkit-tap-highlight-color: transparent;
     margin: 0;
     padding: 0;
+}
+
+img {
+    -webkit-user-drag: none;
+    user-drag: none;
 }
 
 html,
@@ -946,6 +955,64 @@ body {
     opacity: 1;
     color: var(--gold);
     transform: none;
+}
+
+/* Uitleg Specifieke Stijlen */
+.uitleg-content {
+    width: 800px;
+    padding: 50px 60px;
+}
+
+.uitleg-title {
+    color: var(--gold);
+    font-size: 54px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.uitleg-text {
+    text-align: left;
+    color: #fef9e7;
+    font-size: 26px;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.uitleg-text p {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 20px 30px;
+    border-radius: 20px;
+    border-left: 6px solid var(--gold);
+    display: flex;
+    align-items: center;
+}
+
+.uitleg-text i {
+    color: var(--gold);
+    width: 50px;
+    text-align: center;
+    margin-right: 20px;
+    font-size: 36px;
+}
+
+.uitleg-text strong {
+    color: var(--gold);
+}
+
+.uitleg-tip {
+    background: rgba(163, 27, 27, 0.2) !important;
+    border-left: 6px solid #a31b1b !important;
+}
+
+.uitleg-tip i {
+    color: #a31b1b;
+}
+.uitleg-tip strong {
+    color: #ffcccc;
 }
 
 /* =========================
