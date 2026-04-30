@@ -41,7 +41,7 @@ export const newsArticles = [
         image: 'assets/promos/mini game.png',
         active: true,
         buttonText: 'Speel Nu',
-        buttonAction: "window.location.href='Mini game/index.html'",
+        buttonAction: "window.location.href='Mini game/game_index.html'",
         content: '<p>Help Miguel de perfecte cocktail te shaken in onze nieuwe interactieve minigame!</p>'
     }
 ];

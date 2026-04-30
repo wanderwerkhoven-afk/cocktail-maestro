@@ -21,11 +21,11 @@ const FX = (() => {
     let animFrameId = null;
 
     // ─── Pour target (user-tuned: where the stream aims) ──────
-    const POUR_TARGET_X = 1600;
+    const POUR_TARGET_X = 1450; // Moved 150px left
     const POUR_TARGET_Y = 590;
 
     // ─── Pour source (above-left, where bottle tip is) ────────
-    const POUR_SRC_X = 1400;
+    const POUR_SRC_X = 1250; // Moved 150px left
     const POUR_SRC_Y = 280;
 
     // ─── Shaker visual position: read from DOM dynamically ────

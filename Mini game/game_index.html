@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="game_style.css">
 </head>
 <body>
     <div id="portrait-warning">
@@ -19,6 +19,44 @@
     </div>
     <div id="game-scale">
         <div id="game">
+            <div id="entree-screen" class="entree-screen">
+                <div class="entree-content">
+                    <!-- Left board: High Scores -->
+                    <div id="leaderboard-box" class="entree-board topscore-board">
+                        <img src="graphics/entree-screen-elements/topscore-board.webp" class="board-bg" alt="High Scores">
+                        <div class="board-content">
+                            <ul id="leaderboard-list"></ul>
+                        </div>
+                    </div>
+
+                    <!-- Right board: Recent Shakes -->
+                    <div id="logs-box" class="entree-board recent-shakes-board">
+                        <img src="graphics/entree-screen-elements/recent-shakes-board.webp" class="board-bg" alt="Recent Shakes">
+                        <div class="board-content">
+                            <ul id="logs-list"></ul>
+                        </div>
+                    </div>
+
+                    <!-- Buttons Row -->
+                    <div class="entree-buttons">
+                        <button id="uitleg-btn" class="entree-icon-btn">
+                            <img src="graphics/entree-screen-elements/description-game-button.webp" alt="Uitleg">
+                            <span class="btn-text">UITLEG</span>
+                        </button>
+                        
+                        <button id="start-game-btn" class="entree-start-btn">
+                            <img src="graphics/entree-screen-elements/start-button.webp" alt="Start Game">
+                            <span class="btn-text">LET'S<br>SHAKE!</span>
+                        </button>
+                        
+                        <button id="back-home-btn" class="entree-back-btn" onclick="window.location.href='../index.html'">
+                            <img src="graphics/entree-screen-elements/back-home-button.webp" alt="Terug">
+                            <span class="btn-text">BACK TO<br>COCKTAIL MAESTRO</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div id="game-menu" class="game-menu-overlay">
                 <div class="menu-content">
                     <h3>Menu</h3>
@@ -77,24 +115,7 @@
                 </div>
 
                 <div class="bartender" id="bartender">
-                    <div class="head">
-                        <div class="hair"></div>
-                        <div class="ear left"></div>
-                        <div class="ear right"></div>
-                        <div class="eyebrow left"></div>
-                        <div class="eyebrow right"></div>
-                        <div class="eye left"></div>
-                        <div class="eye right"></div>
-                        <div class="nose"></div>
-                        <div class="mustache"></div>
-                        <div class="mouth"></div>
-                    </div>
-                    <div class="body">
-                        <div class="vest"></div>
-                        <div class="bowtie"></div>
-                    </div>
-                    <div class="arm left"><div class="hand"></div></div>
-                    <div class="arm right"><div class="hand"></div></div>
+                    <img src="graphics/sprite/sprite-barman-rest-mode/frame_000.webp" id="bartender-sprite" alt="Bartender">
                 </div>
 
                 <div class="counter">
@@ -125,7 +146,7 @@
             </div>
         </div>
     </div>
-    <script src="recipes.js"></script>
+    <script src="game_recipes.js"></script>
     <script src="canvas-effects.js"></script>
     <script src="game.js"></script>
 </body>

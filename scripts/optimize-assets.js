@@ -5,9 +5,9 @@ const { execSync } = require('child_process');
 /**
  * OPTIMIZE ASSETS SCRIPT
  * 1. Checks for 'sharp' dependency and installs if missing.
- * 2. Scans assets folders for PNG/JPG files.
+ * 2. Scans assets and mini-game folders for PNG/JPG files recursively.
  * 3. Converts them to WebP using sharp.
- * 4. Updates .js database files to point to .webp extensions.
+ * 4. Updates .js, .html, and .css files to point to .webp extensions.
  */
 
 async function main() {
@@ -28,57 +28,72 @@ async function main() {
 
     const sharp = require('sharp');
 
-    const targetDirs = [
+    const rootDirs = [
         path.join(__dirname, '../assets'),
-        path.join(__dirname, '../assets/Cocktails'),
-        path.join(__dirname, '../assets/Fridge'),
-        path.join(__dirname, '../assets/logo'),
-        path.join(__dirname, '../assets/Kitchen')
+        path.join(__dirname, '../Mini game/graphics')
     ];
 
     const dbFiles = [
         path.join(__dirname, '../js/database.js'),
         path.join(__dirname, '../js/modules/kitchen-db.js'),
-        path.join(__dirname, '../index.html')
+        path.join(__dirname, '../index.html'),
+        path.join(__dirname, '../Mini game/game_index.html'),
+        path.join(__dirname, '../Mini game/game.js'),
+        path.join(__dirname, '../Mini game/game_style.css')
     ];
 
     let convertedCount = 0;
 
-    // 2. Convert Images
-    for (const dir of targetDirs) {
-        if (!fs.existsSync(dir)) {
-            console.warn(`⚠️ Directory not found: ${dir}`);
-            continue;
-        }
-
-        const files = fs.readdirSync(dir);
-        for (const file of files) {
-            if (file.toLowerCase().endsWith('.png') || file.toLowerCase().endsWith('.jpg') || file.toLowerCase().endsWith('.jpeg')) {
-                const inputPath = path.join(dir, file);
-                const outputPath = inputPath.replace(/\.(png|jpg|jpeg)$/i, '.webp');
-
-                if (fs.existsSync(outputPath)) {
-                    console.log(`⏩ Skipping (already exists): ${file}`);
-                    continue;
-                }
-
-                try {
-                    console.log(`📸 Converting: ${file} -> .webp`);
-                    await sharp(inputPath)
-                        .webp({ quality: 85 })
-                        .toFile(outputPath);
-                    convertedCount++;
-                } catch (err) {
-                    console.error(`❌ Error converting ${file}:`, err.message);
+    // Helper for recursive file finding
+    function getFilesRecursive(dir, files = []) {
+        if (!fs.existsSync(dir)) return files;
+        const items = fs.readdirSync(dir);
+        for (const item of items) {
+            const fullPath = path.join(dir, item);
+            if (fs.statSync(fullPath).isDirectory()) {
+                getFilesRecursive(fullPath, files);
+            } else {
+                if (/\.(png|jpg|jpeg)$/i.test(item)) {
+                    files.push(fullPath);
                 }
             }
         }
+        return files;
     }
 
-    console.log(`✅ Conversion complete! ${convertedCount} images processed.`);
+    // 2. Convert Images
+    console.log('🖼️ Scanning for images...');
+    const allImages = [];
+    for (const root of rootDirs) {
+        getFilesRecursive(root, allImages);
+    }
 
-    // 3. Update Database Files
-    console.log('📝 Updating database references...');
+    console.log(`🔍 Found ${allImages.length} images. Processing...`);
+
+    for (const inputPath of allImages) {
+        const file = path.basename(inputPath);
+        const outputPath = inputPath.replace(/\.(png|jpg|jpeg)$/i, '.webp');
+
+        if (fs.existsSync(outputPath)) {
+            // console.log(`⏩ Skipping (already exists): ${file}`);
+            continue;
+        }
+
+        try {
+            console.log(`📸 Converting: ${file} -> .webp`);
+            await sharp(inputPath)
+                .webp({ quality: 85 })
+                .toFile(outputPath);
+            convertedCount++;
+        } catch (err) {
+            console.error(`❌ Error converting ${file}:`, err.message);
+        }
+    }
+
+    console.log(`✅ Conversion complete! ${convertedCount} new images processed.`);
+
+    // 3. Update Reference Files
+    console.log('📝 Updating references in code files...');
     let updatedFilesCount = 0;
 
     for (const file of dbFiles) {
@@ -87,8 +102,8 @@ async function main() {
             const originalContent = content;
 
             // Replace .png, .jpg, .jpeg with .webp in strings
-            // We look for patterns like "/path/to/image.png" or "./assets/img.jpg"
-            content = content.replace(/\.(png|jpg|jpeg)(?=["'])/gi, '.webp');
+            // This regex handles extensions followed by a quote or backtick
+            content = content.replace(/\.(png|jpg|jpeg)(?=["'`])/gi, '.webp');
 
             if (content !== originalContent) {
                 fs.writeFileSync(file, content, 'utf8');

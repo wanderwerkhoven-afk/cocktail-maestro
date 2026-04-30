@@ -292,22 +292,58 @@ async function loadNewsList() {
     list.innerHTML = '<p class="placeholder-text">Laden uit cloud...</p>';
 
     try {
+        // Try to get news articles
         const snap = await getDocs(collection(db, "news"));
-        const news = snap.docs.map(d => ({ ...d.data(), firebaseId: d.id }));
-        currentDbData = news; // Reuse for search/edit
+        let news = snap.docs.map(d => ({ ...d.data(), firebaseId: d.id }));
+
+        // If some items don't have an 'order' field, assign one and save back
+        let needsOrderFix = false;
+        news.forEach((item, idx) => {
+            if (item.order === undefined) {
+                item.order = idx;
+                needsOrderFix = true;
+            }
+        });
+
+        if (needsOrderFix) {
+            console.log("Fixing missing order fields...");
+            const { writeBatch } = await import("https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js");
+            const batch = writeBatch(db);
+            news.forEach(item => {
+                batch.update(doc(db, "news", item.firebaseId), { order: item.order });
+            });
+            await batch.commit();
+        }
+
+        // Now sort locally to ensure correct display
+        news.sort((a, b) => a.order - b.order);
+        currentDbData = news;
 
         if (news.length === 0) {
             list.innerHTML = '<p class="placeholder-text">Geen nieuwsberichten gevonden.</p>';
             return;
         }
 
-        list.innerHTML = news.map(item => `
-            <div class="admin-list-item ${!item.active ? 'disabled' : ''}" style="opacity: ${item.active ? 1 : 0.6};">
+        list.innerHTML = news.map((item, index) => `
+            <div class="admin-list-item ${!item.active ? 'disabled' : ''}" 
+                 draggable="true" 
+                 ondragstart="window.handleDragStart(event, ${index})"
+                 ondragover="window.handleDragOver(event)"
+                 ondrop="window.handleDrop(event, ${index})"
+                 style="opacity: ${item.active ? 1 : 0.6}; cursor: grab;">
+                
+                <div class="drag-handle" style="margin-right: 15px; color: var(--text-muted); cursor: grab;">
+                    <i class="fa-solid fa-grip-lines"></i>
+                </div>
+
                 <div class="item-info">
                     <strong>${item.title}</strong>
                     <span>${item.badge || 'PROMO'} • ${item.firebaseId}</span>
                 </div>
                 <div class="item-actions">
+                    <button class="icon-btn preview" onclick="handleNewsPreview('${item.firebaseId}')" title="In preview tonen">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
                     <button class="icon-btn ${item.active ? 'toggle-on' : 'toggle-off'}" onclick="toggleNewsActive('${item.firebaseId}', ${item.active})" title="${item.active ? 'Deactiveren' : 'Activeren'}">
                         <i class="fa-solid ${item.active ? 'fa-toggle-on' : 'fa-toggle-off'}"></i>
                     </button>
@@ -322,6 +358,28 @@ async function loadNewsList() {
     }
 }
 
+// Drag & Drop Logic
+let draggedIndex = null;
+
+window.handleDragStart = (e, index) => {
+    draggedIndex = index;
+    e.dataTransfer.effectAllowed = 'move';
+    e.target.style.opacity = '0.4';
+};
+
+window.handleDragOver = (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    return false;
+};
+
+window.handleNewsPreview = (id) => {
+    const item = currentDbData.find(d => d.firebaseId === id);
+    if (item && window.previewArticleInAdmin) {
+        window.previewArticleInAdmin(item);
+    }
+};
+
 window.toggleNewsActive = async (id, currentStatus) => {
     try {
         const { updateDoc } = await import("https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js");
@@ -335,6 +393,31 @@ window.toggleNewsActive = async (id, currentStatus) => {
         if (fetchGlobalNews) fetchGlobalNews();
     } catch (e) {
         console.error("Error toggling news status:", e);
+    }
+};
+
+window.handleDrop = async (e, targetIndex) => {
+    e.preventDefault();
+    if (draggedIndex === null || draggedIndex === targetIndex) return;
+
+    const news = [...currentDbData];
+    const draggedItem = news.splice(draggedIndex, 1)[0];
+    news.splice(targetIndex, 0, draggedItem);
+
+    // Save all to Firestore
+    try {
+        const { writeBatch } = await import("https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js");
+        const batch = writeBatch(db);
+        
+        news.forEach((item, idx) => {
+            const docRef = doc(db, "news", item.firebaseId);
+            batch.update(docRef, { order: idx });
+        });
+
+        await batch.commit();
+        loadNewsList();
+    } catch (err) {
+        console.error("Error saving new order:", err);
     }
 };
 
@@ -650,7 +733,7 @@ function renderNewsFields(container, item) {
         </div>
         <div class="input-group">
             <label>Button Actie (Optioneel)</label>
-            <input type="text" name="buttonAction" value="${item?.buttonAction || ''}" placeholder="window.location.href='Mini game/index.html'">
+            <input type="text" name="buttonAction" value="${item?.buttonAction || ''}" placeholder="window.location.href='Mini game/game_index.html'">
             <small style="color: #888;">Laat leeg for standaard "Lees Artikel" gedrag.</small>
         </div>
     `;
@@ -717,7 +800,14 @@ window.saveAdminItem = async (e) => {
         const docId = id || itemData.name || itemData.title || itemData.id;
         
         // Convert active string to boolean
-        if (itemData.active) itemData.active = itemData.active === 'true';
+        if (itemData.active !== undefined) {
+            itemData.active = itemData.active === 'true' || itemData.active === true;
+        }
+
+        // For news, assign an order if it's a new item
+        if (type === 'news' && itemData.order === undefined) {
+            itemData.order = currentDbData.length;
+        }
         
         await setDoc(doc(db, collectionName, docId), itemData);
         

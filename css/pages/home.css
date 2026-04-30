@@ -243,7 +243,7 @@
 
 /* Article Modal Specifics */
 .article-modal-content {
-    max-width: 800px !important;
+    max-width: 1060px !important;
     padding: 0 !important;
     overflow: hidden;
     border-radius: 30px !important;

@@ -34,9 +34,91 @@ const UI = {
     stats: document.getElementById("stats"),
     liquidFill: document.getElementById("liquid-fill"),
     bartender: document.getElementById("bartender"),
+    bartenderSprite: document.getElementById("bartender-sprite"),
     popup: document.getElementById("score-popup"),
-    game: document.getElementById("game")
+    game: document.getElementById("game"),
+    entreeScreen: document.getElementById("entree-screen"),
+    leaderboardList: document.getElementById("leaderboard-list"),
+    logsList: document.getElementById("logs-list")
 };
+
+// --- Bartender Sprite Animation ---
+const animations = {
+    'rest': {
+        path: 'graphics/sprite/sprite-barman-rest-mode/',
+        count: 64,
+        frames: []
+    },
+    'winking': {
+        path: 'graphics/sprite/sprite-barman-winking-mode/',
+        count: 12,
+        frames: []
+    }
+};
+
+let isAnimating = false;
+
+function preloadAnimations() {
+    for (const key in animations) {
+        const anim = animations[key];
+        for (let i = 0; i < anim.count; i++) {
+            const img = new Image();
+            const frameNum = i.toString().padStart(3, '0');
+            img.src = `${anim.path}frame_${frameNum}.webp`;
+            anim.frames.push(img);
+        }
+    }
+}
+
+async function playBartenderAnimation(mode = 'rest', loops = 1) {
+    if (isAnimating) return;
+    isAnimating = true;
+    
+    const anim = animations[mode];
+    if (!anim || anim.frames.length === 0) {
+        isAnimating = false;
+        return;
+    }
+
+    for (let l = 0; l < loops; l++) {
+        await new Promise(resolve => {
+            let currentFrame = 0;
+            const animInterval = setInterval(() => {
+                currentFrame++;
+                if (currentFrame >= anim.count) {
+                    clearInterval(animInterval);
+                    resolve();
+                    return;
+                }
+                UI.bartenderSprite.src = anim.frames[currentFrame].src;
+            }, 40);
+        });
+    }
+    
+    // Back to first frame of rest mode (idle state)
+    if (animations['rest'].frames[0]) {
+        UI.bartenderSprite.src = animations['rest'].frames[0].src;
+    }
+    isAnimating = false;
+}
+
+const animationSequence = [
+    { mode: 'rest', loops: 1, pause: 4000 },
+    { mode: 'winking', loops: 2, pause: 3000 },
+    { mode: 'winking', loops: 1, pause: 5000 },
+    { mode: 'winking', loops: 1, pause: 2000 }
+];
+
+let sequenceIndex = 0;
+
+async function startAnimationLoop() {
+    const step = animationSequence[sequenceIndex];
+    await playBartenderAnimation(step.mode, step.loops);
+    
+    sequenceIndex = (sequenceIndex + 1) % animationSequence.length;
+    setTimeout(startAnimationLoop, step.pause);
+}
+// --- End Bartender Sprite Animation ---
 
 init();
 
@@ -84,7 +166,48 @@ function init() {
     updateUI();
     handleResize();
     window.addEventListener("resize", handleResize);
+    preloadAnimations();
+    startAnimationLoop();
     FX.init();
+
+    // Entree Screen Logic
+    document.getElementById("start-game-btn").addEventListener("click", () => {
+        UI.entreeScreen.classList.add("hide");
+    });
+    updateEntreeScreen();
+}
+
+function updateEntreeScreen() {
+    const scores = JSON.parse(localStorage.getItem("cocktail_highscores") || "[]");
+    const logs = JSON.parse(localStorage.getItem("cocktail_logs") || "[]");
+    
+    UI.leaderboardList.innerHTML = scores.length 
+        ? scores.map(s => `<li><span>${s.name}</span><span>${s.score} pts</span></li>`).join('')
+        : '<li><span>Geen scores...</span></li>';
+
+    UI.logsList.innerHTML = logs.length
+        ? logs.map(l => `<li><span>${l.time} - ${l.name}</span><span>${l.score}</span></li>`).join('')
+        : '<li><span>Begin met mixen!</span></li>';
+
+    if (logs.length > 4) {
+        UI.logsList.classList.add("animate");
+        UI.logsList.innerHTML += UI.logsList.innerHTML; // Double for seamless loop
+    } else {
+        UI.logsList.classList.remove("animate");
+    }
+}
+
+function saveGameResult(score, name) {
+    if (score <= 0) return; // Don't save failures/explosions
+
+    const scores = JSON.parse(localStorage.getItem("cocktail_highscores") || "[]");
+    scores.push({ score, name, date: new Date().toLocaleDateString() });
+    scores.sort((a, b) => b.score - a.score);
+    localStorage.setItem("cocktail_highscores", JSON.stringify(scores.slice(0, 5)));
+
+    const logs = JSON.parse(localStorage.getItem("cocktail_logs") || "[]");
+    logs.unshift({ score, name, time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) });
+    localStorage.setItem("cocktail_logs", JSON.stringify(logs.slice(0, 10)));
 }
 
 function handleResize() {
@@ -114,8 +237,7 @@ function selectBottle(ing, el) {
     selectedItem = { type: "ing", data: ing };
     UI.info.innerHTML = `<div>Geselecteerd: <span style="color: var(--gold)">${ing.name}</span></div><div style="font-size: 24px; opacity: 0.8">HOUD DE POUR KNOP IN</div>`;
     
-    // Animate bottle tilt preview? 
-    UI.bartender.querySelector('.arm.right').style.transform = "rotate(-20deg)";
+    // UI.bartender.querySelector('.arm.right').style.transform = "rotate(-20deg)";
 }
 
 function addSpecial(name, color) {
@@ -157,7 +279,7 @@ function startPouring(e) {
 
     gameState = "pouring";
     const streamColor = selectedItem.type === "ing" ? selectedItem.data.color : selectedItem.color;
-    UI.bartender.querySelector('.arm.right').style.transform = "rotate(-60deg)";
+    // UI.bartender.querySelector('.arm.right').style.transform = "rotate(-60deg)";
     FX.startPour(streamColor);
     
     holdTimer = setInterval(() => {
@@ -195,7 +317,7 @@ function stopPouring() {
     if (gameState !== "pouring") return;
     clearInterval(holdTimer);
     gameState = "idle";
-    UI.bartender.querySelector('.arm.right').style.transform = "rotate(-30deg)";
+    // UI.bartender.querySelector('.arm.right').style.transform = "rotate(-30deg)";
     FX.stopPour();
 }
 
@@ -236,12 +358,12 @@ function explode() {
 function serveMix() {
     if (mix.volume === 0 || !mix.shaken || gameState !== "idle") return;
     gameState = "serving";
-    UI.bartender.querySelector('.arm.left').style.transform = "rotate(-55deg) translateY(-40px)";
+    // UI.bartender.querySelector('.arm.left').style.transform = "rotate(-55deg) translateY(-40px)";
     setTimeout(() => showResult(evaluateMix()), 1500);
 }
 
 function evaluateMix() {
-    // Use the global cocktailDatabase from recipes.js
+    // Use the global cocktailDatabase from game_recipes.js
     const recipes = cocktailDatabase;
 
     let bestMatch = null;
@@ -301,7 +423,7 @@ function evaluateMix() {
     if (finalScore < 2500) {
         reaction = "disgust";
         title = "BAH!";
-        text = "Dit is niet te drinken. Miguel is diep teleurgesteld.";
+        text = "Dit is niet te drinken. Boudewijn is diep teleurgesteld.";
     } else if (finalScore < 6000) {
         reaction = "neutral";
         title = "NOG NIET...";
@@ -309,10 +431,10 @@ function evaluateMix() {
     } else if (alcPerc > 42) {
         reaction = "dizzy";
         title = "HEFTIG!";
-        text = `Een goede ${bestMatch.name}, maar Miguel ziet nu sterretjes!`;
+        text = `Een goede ${bestMatch.name}, maar Boudewijn ziet nu sterretjes!`;
     }
 
-    return { score: finalScore, reaction, title, text, alc: alcPerc.toFixed(1) };
+    return { score: finalScore, reaction, title, text, alc: alcPerc.toFixed(1), recipeName: bestMatch ? bestMatch.name : "Custom Mix" };
 }
 
 function showResult(r) {
@@ -321,6 +443,11 @@ function showResult(r) {
     document.getElementById("score-number").textContent = r.score;
     document.getElementById("score-text").innerHTML = `${r.text}<br>Alcohol: ${r.alc}%`;
     UI.popup.classList.add("show");
+    
+    if (r.score > 0) {
+        saveGameResult(r.score, r.recipeName || "Explosie");
+    }
+
     if (r.score >= 7000) FX.triggerConfetti();
 }
 
