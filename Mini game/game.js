@@ -13,7 +13,13 @@ const spirits = [
     { name: "Cointreau", alcohol: 40, sweet: 4, sour: 1, bitter: 0, color: "#ff9f24", color2: "#d85810" },
     { name: "Kahlua", alcohol: 20, sweet: 4, sour: 0, bitter: 3, color: "#5a2c18", color2: "#1f0d06" },
     { name: "Sake", alcohol: 15, sweet: 1, sour: 1, bitter: 0, color: "#fff", color2: "#eee" },
-    { name: "Brandy", alcohol: 35, sweet: 2, sour: 0, bitter: 2, color: "#a34b11", color2: "#5e2609" }
+    { name: "Brandy", alcohol: 35, sweet: 2, sour: 0, bitter: 2, color: "#a34b11", color2: "#5e2609" },
+    { name: "Amaretto", alcohol: 28, sweet: 4, sour: 0, bitter: 1, color: "#b56014", color2: "#5e2e04" },
+    { name: "Campari", alcohol: 25, sweet: 2, sour: 0, bitter: 5, color: "#d92323", color2: "#8a1111" },
+    { name: "Blue Curacao", alcohol: 25, sweet: 4, sour: 0, bitter: 0, color: "#185edb", color2: "#0d3785" },
+    { name: "Peach Schnapps", alcohol: 20, sweet: 5, sour: 0, bitter: 0, color: "#fcd6a2", color2: "#c29f6d" },
+    { name: "Baileys", alcohol: 17, sweet: 5, sour: 0, bitter: 0, color: "#e6d5b8", color2: "#ab9875" },
+    { name: "Absinthe", alcohol: 65, sweet: 1, sour: 0, bitter: 4, color: "#47e640", color2: "#207a1c" }
 ];
 
 const juices = [
@@ -149,9 +155,11 @@ function init() {
     const iceBtn = document.getElementById("ice-btn");
     const lemonBtn = document.getElementById("lemon-btn");
     const eggBtn = document.getElementById("egg-btn");
+    const bittersBtn = document.getElementById("bitters-btn");
     if (iceBtn) iceBtn.addEventListener("click", () => addSpecial("Ice", "#fff"));
     if (lemonBtn) lemonBtn.addEventListener("click", () => addSpecial("Lemon Slice", "#fff04a"));
     if (eggBtn) eggBtn.addEventListener("click", () => addSpecial("Egg White", "#fdfdfd"));
+    if (bittersBtn) bittersBtn.addEventListener("click", () => addSpecial("Bitters", "#6e1c10"));
 
     const pourBtn = document.getElementById("pour-btn");
     if (pourBtn) {
@@ -174,10 +182,12 @@ function init() {
     const menuBtn = document.getElementById("menu-btn");
     const gameMenu = document.getElementById("game-menu");
     const closeMenuBtn = document.getElementById("close-menu");
+    const closeMenuCross = document.getElementById("close-menu-cross");
 
     if (menuBtn && gameMenu) {
         menuBtn.addEventListener("click", () => gameMenu.classList.add("show"));
         if (closeMenuBtn) closeMenuBtn.addEventListener("click", () => gameMenu.classList.remove("show"));
+        if (closeMenuCross) closeMenuCross.addEventListener("click", () => gameMenu.classList.remove("show"));
         gameMenu.addEventListener("click", (e) => {
             if (e.target === gameMenu) gameMenu.classList.remove("show");
         });
@@ -187,10 +197,12 @@ function init() {
     const uitlegBtn = document.getElementById("uitleg-btn");
     const uitlegModal = document.getElementById("uitleg-modal");
     const closeUitlegBtn = document.getElementById("close-uitleg-btn");
+    const closeUitlegCross = document.getElementById("close-uitleg-cross");
 
     if (uitlegBtn && uitlegModal) {
         uitlegBtn.addEventListener("click", () => uitlegModal.classList.add("show"));
         if (closeUitlegBtn) closeUitlegBtn.addEventListener("click", () => uitlegModal.classList.remove("show"));
+        if (closeUitlegCross) closeUitlegCross.addEventListener("click", () => uitlegModal.classList.remove("show"));
         uitlegModal.addEventListener("click", (e) => {
             if (e.target === uitlegModal) uitlegModal.classList.remove("show");
         });
@@ -274,17 +286,54 @@ async function updateEntreeScreen() {
                 }).join('')
                 : '<li><span>Begin met mixen!</span></li>';
 
-            if (logs.length > 1) {
-                UI.logsList.classList.add("animate");
+            if (logs.length > 3) {
                 UI.logsList.innerHTML += UI.logsList.innerHTML; 
+                startLogsAutoScroll(UI.logsList.parentElement);
             } else {
-                UI.logsList.classList.remove("animate");
+                stopLogsAutoScroll();
             }
         } else {
              UI.logsList.innerHTML = '<li><span>Log in om je shakes op te slaan!</span></li>';
         }
     } catch (e) {
         console.error("Error updating entree screen:", e);
+    }
+}
+
+let logsAutoScrollTimer = null;
+let isLogsHovered = false;
+
+function startLogsAutoScroll(container) {
+    stopLogsAutoScroll();
+    
+    // Only attach events once
+    if (!container.dataset.hasScrollEvents) {
+        container.addEventListener('mouseenter', () => isLogsHovered = true);
+        container.addEventListener('mouseleave', () => isLogsHovered = false);
+        container.addEventListener('touchstart', () => isLogsHovered = true, {passive: true});
+        container.addEventListener('touchend', () => {
+            // resume after slight delay on touch
+            setTimeout(() => isLogsHovered = false, 1000);
+        });
+        container.dataset.hasScrollEvents = "true";
+    }
+
+    logsAutoScrollTimer = setInterval(() => {
+        if (isLogsHovered) return;
+        
+        container.scrollTop += 1;
+        
+        // Loop back when reaching exactly half (since we duplicated the content)
+        if (container.scrollTop >= container.scrollHeight / 2) {
+            container.scrollTop = 0;
+        }
+    }, 30);
+}
+
+function stopLogsAutoScroll() {
+    if (logsAutoScrollTimer) {
+        clearInterval(logsAutoScrollTimer);
+        logsAutoScrollTimer = null;
     }
 }
 
@@ -357,7 +406,7 @@ function selectBottle(ing, el) {
 function addSpecial(name, color) {
     if (gameState !== "idle" && gameState !== "pouring") return;
     
-    const amount = 15; // fixed amount per click
+    const amount = name === "Bitters" ? 5 : 15; // 5ml for a dash of bitters, 15 for others
     if (mix.volume + amount > 300) return;
     
     mix.volume += amount;
@@ -379,7 +428,7 @@ function addSpecial(name, color) {
     FX.triggerSplash(color);
     
     // Visual feedback
-    const btnId = name === "Ice" ? "ice-btn" : (name === "Egg White" ? "egg-btn" : "lemon-btn");
+    const btnId = name === "Ice" ? "ice-btn" : (name === "Egg White" ? "egg-btn" : (name === "Bitters" ? "bitters-btn" : "lemon-btn"));
     const el = document.getElementById(btnId);
     el.style.transform = "scale(1.2) translateY(-20px)";
     setTimeout(() => el.style.transform = "", 200);
@@ -444,7 +493,7 @@ function startShaking() {
     holdTimer = setInterval(() => {
         shakeTime += 0.1;
         mix.dilution += 0.3;
-        if (shakeTime > 6) explode();
+        if (shakeTime > 10) explode();
         updateUI();
     }, 100);
 }
@@ -513,7 +562,7 @@ function evaluateMix() {
 
         // 3. Shake time penalty
         const shakeDiff = Math.abs(shakeTime - recipe.idealShake);
-        recipeScore -= shakeDiff * 1500;
+        recipeScore -= shakeDiff * 1200;
 
         // 4. Ice requirement (Always 2x ice)
         const iceCount = mix.iceCount || 0;
@@ -530,9 +579,40 @@ function evaluateMix() {
     const finalScore = Math.max(0, Math.round(maxScore));
     const alcPerc = mix.volume > 0 ? (mix.alcoholMl / mix.volume) * 100 : 0;
 
+    const titlesPerfect = ["PERFECT!", "MEESTERLIJK!", "WAANZINNIG!", "HEERLIJK!"];
+    const textsPerfect = [
+        `Een meesterlijke ${bestMatch ? bestMatch.name : 'creatie'}! De smaken dansen op Boudewijns tong.`,
+        `Perfectie in een glas! Precies de juiste verhoudingen voor een verbluffende ${bestMatch ? bestMatch.name : 'cocktail'}.`,
+        `Boudewijn buigt diep. Dit is een ${bestMatch ? bestMatch.name : 'drankje'} dat rechtstreeks op de menukaart mag!`,
+        `Fenomenaal gemixt! Zelfs een doorgewinterde bartender zou jaloers zijn op deze ${bestMatch ? bestMatch.name : 'mix'}.`
+    ];
+
+    const titlesDisgust = ["BAH!", "YUCK!", "IEUW!", "NEEEE..."];
+    const textsDisgust = [
+        "Dit is niet te drinken! Boudewijn is diep teleurgesteld en spoelt z'n mond met water.",
+        "Wat heb je in hemelsnaam bij elkaar gegooid? Zelfs de gootsteen weigert dit door te slikken.",
+        "Een regelrechte belediging voor de cocktailwereld. Dit lijkt meer op afwaswater!",
+        "Boudewijn trekt wit weg. Dit brouwsel zou verboden moeten worden volgens de Geneefse conventies."
+    ];
+
+    const titlesNeutral = ["NOG NIET...", "BIJNA...", "MWAH...", "OEFENEN!"];
+    const textsNeutral = [
+        `Het lijkt heel in de verte op een ${bestMatch ? bestMatch.name : 'cocktail'}, maar de balans is ver te zoeken.`,
+        `Leuk geprobeerd, maar dit is nog geen meesterwerk. Oefen nog even goed op je verhoudingen!`,
+        `Er zit potentie in, maar Boudewijn is nog niet overtuigd. Let extra goed op het recept.`,
+        `Niet slecht voor een amateur, maar een echte Maestro zou zich hier nog kapot voor schamen.`
+    ];
+
+    const titlesDizzy = ["HEFTIG!", "WOW!", "ZO DAN!", "BRANDSTOF!"];
+    const textsDizzy = [
+        `De smaak is goed voor een ${bestMatch ? bestMatch.name : 'mix'}, maar Boudewijn ziet nu dubbel! Iets minder alcohol?`,
+        `Wow! Deze ${bestMatch ? bestMatch.name : 'cocktail'} slaat in als een bom. Dit is eerder raketbrandstof!`,
+        `Heerlijk, maar dodelijk. Boudewijn moet even gaan zitten na dit extreem sterke drankje.`
+    ];
+
     let reaction = "happy";
-    let title = "PERFECT!";
-    let text = `Een meesterlijke ${bestMatch ? bestMatch.name : 'creatie'}!`;
+    let title = titlesPerfect[Math.floor(Math.random() * titlesPerfect.length)];
+    let text = textsPerfect[Math.floor(Math.random() * textsPerfect.length)];
 
     // Feedback logic
     let feedback = [];
@@ -540,29 +620,29 @@ function evaluateMix() {
         Object.keys(bestMatch.ingredients).forEach(ing => {
             const target = bestMatch.ingredients[ing];
             const actual = mix.volumes[ing] || 0;
-            if (actual === 0) feedback.push(`Mis ${ing}`);
-            else if (actual > target + 10) feedback.push(`Te veel ${ing}`);
-            else if (actual < target - 10) feedback.push(`Te weinig ${ing}`);
+            if (actual === 0) feedback.push(`Missend: ${ing}`);
+            else if (actual > target + 10) feedback.push(`Te veel: ${ing}`);
+            else if (actual < target - 10) feedback.push(`Te weinig: ${ing}`);
         });
         Object.keys(mix.volumes).forEach(ing => {
             if (ing !== "Ice" && ing !== "Lemon Slice" && ing !== "Egg White" && !bestMatch.ingredients[ing]) {
-                feedback.push(`Extra: ${ing}`);
+                feedback.push(`Fout (Extra): ${ing}`);
             }
         });
     }
 
     if (finalScore < 2500) {
         reaction = "disgust";
-        title = "BAH!";
-        text = "Dit is niet te drinken. Boudewijn is diep teleurgesteld.";
+        title = titlesDisgust[Math.floor(Math.random() * titlesDisgust.length)];
+        text = textsDisgust[Math.floor(Math.random() * textsDisgust.length)];
     } else if (finalScore < 6000) {
         reaction = "neutral";
-        title = "NOG NIET...";
-        text = `Het lijkt een beetje op een ${bestMatch ? bestMatch.name : 'cocktail'}, maar de balans is ver te zoeken.`;
+        title = titlesNeutral[Math.floor(Math.random() * titlesNeutral.length)];
+        text = textsNeutral[Math.floor(Math.random() * textsNeutral.length)];
     } else if (alcPerc > 42) {
         reaction = "dizzy";
-        title = "HEFTIG!";
-        text = `Een goede ${bestMatch.name}, maar Boudewijn ziet nu sterretjes!`;
+        title = titlesDizzy[Math.floor(Math.random() * titlesDizzy.length)];
+        text = textsDizzy[Math.floor(Math.random() * textsDizzy.length)];
     }
 
     return { 

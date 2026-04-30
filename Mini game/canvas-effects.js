@@ -157,16 +157,16 @@ export const FX = (() => {
     class ExplosionParticle extends Particle {
         constructor(x, y) {
             const angle = Math.random() * Math.PI * 2;
-            const speed = 5 + Math.random() * 18;
-            const colors = ["#ff4500", "#ffcc00", "#ff6600", "#ff9900", "#ffffff"];
+            const speed = 10 + Math.random() * 45; // much faster
+            const colors = ["#ff4500", "#ffcc00", "#ff6600", "#ff9900", "#ffffff", "#ff0000"];
             super(
                 x, y,
                 Math.cos(angle) * speed,
-                Math.sin(angle) * speed - 4,
+                Math.sin(angle) * speed - 5,
                 colors[Math.floor(Math.random() * colors.length)],
-                3 + Math.random() * 7,
-                40 + Math.random() * 30,
-                0.25
+                10 + Math.random() * 25, // much bigger particles
+                50 + Math.random() * 40, // longer life
+                0.15 // lower gravity so they fly further
             );
         }
     }
@@ -283,17 +283,22 @@ export const FX = (() => {
             const pos = getShakerPos();
             const cx = pos.x;
             const cy = pos.top + pos.height * 0.4;
-            for (let i = 0; i < 120; i++) {
+            
+            // Initial massive burst
+            for (let i = 0; i < 500; i++) {
                 particles.push(new ExplosionParticle(cx, cy));
             }
-            setTimeout(() => {
-                for (let i = 0; i < 80; i++) {
-                    particles.push(new ExplosionParticle(
-                        cx + (Math.random() - 0.5) * 200,
-                        cy - 100 + (Math.random() - 0.5) * 100
-                    ));
-                }
-            }, 200);
+            
+            // Chain reaction explosions across the screen
+            for (let j = 0; j < 8; j++) {
+                setTimeout(() => {
+                    const exX = cx + (Math.random() - 0.5) * 1200;
+                    const exY = cy + (Math.random() - 0.5) * 800;
+                    for (let i = 0; i < 250; i++) {
+                        particles.push(new ExplosionParticle(exX, exY));
+                    }
+                }, 100 + j * 120);
+            }
         },
 
         triggerConfetti() {

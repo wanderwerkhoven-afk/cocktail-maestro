@@ -64,13 +64,29 @@
             <!-- Uitleg Modal -->
             <div id="uitleg-modal" class="game-menu-overlay">
                 <div class="menu-content uitleg-content">
+                    <button class="close-cross-btn" id="close-uitleg-cross"><i class="fa-solid fa-xmark"></i></button>
                     <h3 class="uitleg-title">Hoe speel je?</h3>
                     <div class="uitleg-text">
-                        <p><i class="fa-solid fa-bottle-water"></i> <strong>1. Kies:</strong> Selecteer flessen uit de kast of kies sappen en specials (ijs, citroen, eiwit) vanaf de bar.</p>
-                        <p><i class="fa-solid fa-glass-water-droplet"></i> <strong>2. Schenk:</strong> Houd de <strong>POUR</strong> knop ingedrukt. Let op je timing en de juiste verhoudingen!</p>
-                        <p><i class="fa-solid fa-hands-bubbles"></i> <strong>3. Shake:</strong> Houd de <strong>SHAKE</strong> knop ingedrukt. Niet te lang, anders explodeert de shaker!</p>
-                        <p><i class="fa-solid fa-martini-glass"></i> <strong>4. Serveer:</strong> Klik op <strong>SERVE</strong> om je cocktail aan Boudewijn te presenteren.</p>
-                        <p class="uitleg-tip"><i class="fa-solid fa-lightbulb"></i> Tip: Vergeet niet om altijd <strong>2 ijsblokjes</strong> toe te voegen!</p>
+                        <div class="uitleg-step">
+                            <div class="uitleg-icon"><i class="fa-solid fa-bottle-water"></i></div>
+                            <div class="uitleg-desc"><strong>1. Kies:</strong> Selecteer flessen uit de kast of sappen en specials (ijs, citroen, eiwit) vanaf de bar.</div>
+                        </div>
+                        <div class="uitleg-step">
+                            <div class="uitleg-icon"><i class="fa-solid fa-glass-water-droplet"></i></div>
+                            <div class="uitleg-desc"><strong>2. Schenk:</strong> Houd de <strong>POUR</strong> knop ingedrukt. Let op je timing en de verhoudingen!</div>
+                        </div>
+                        <div class="uitleg-step">
+                            <div class="uitleg-icon"><i class="fa-solid fa-hands-bubbles"></i></div>
+                            <div class="uitleg-desc"><strong>3. Shake:</strong> Houd de <strong>SHAKE</strong> knop ingedrukt. Niet te lang, anders explodeert de shaker!</div>
+                        </div>
+                        <div class="uitleg-step">
+                            <div class="uitleg-icon"><i class="fa-solid fa-martini-glass"></i></div>
+                            <div class="uitleg-desc"><strong>4. Serveer:</strong> Klik op <strong>SERVE</strong> om je cocktail aan Boudewijn te presenteren.</div>
+                        </div>
+                        <div class="uitleg-step uitleg-tip">
+                            <div class="uitleg-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                            <div class="uitleg-desc"><strong>Tip:</strong> Vergeet niet om altijd <strong>2 ijsblokjes</strong> toe te voegen aan je mix!</div>
+                        </div>
                     </div>
                     <button class="menu-item close-menu" id="close-uitleg-btn">
                         Begrepen!
@@ -80,6 +96,7 @@
 
             <div id="game-menu" class="game-menu-overlay">
                 <div class="menu-content">
+                    <button class="close-cross-btn" id="close-menu-cross"><i class="fa-solid fa-xmark"></i></button>
                     <h3>Menu</h3>
                     <button class="menu-item" onclick="goToEntree()">
                         <i class="fa-solid fa-house"></i> Terug naar Home
@@ -130,6 +147,10 @@
                     <div class="egg"></div>
                     <div class="egg"></div>
                     <div class="egg"></div>
+                </div>
+
+                <div class="bitters-bottle" id="bitters-btn">
+                    <div class="bitters-label"><span>ANGO</span></div>
                 </div>
 
                 <div class="mixing-station">
