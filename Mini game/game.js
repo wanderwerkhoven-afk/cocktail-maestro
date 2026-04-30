@@ -1,3 +1,8 @@
+import { db, auth } from "../js/core/firebase.js";
+import { collection, getDocs, doc, updateDoc, arrayUnion, query, orderBy, limit, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+import { cocktailDatabase } from "./game_recipes.js";
+import { FX } from "./canvas-effects.js";
+
 const spirits = [
     { name: "Gin", alcohol: 40, sweet: 0, sour: 0, bitter: 2, color: "#34c878", color2: "#0d7a3d" },
     { name: "Rum", alcohol: 38, sweet: 2, sour: 0, bitter: 1, color: "#d99032", color2: "#8a4219" },
@@ -120,48 +125,63 @@ async function startAnimationLoop() {
 }
 // --- End Bartender Sprite Animation ---
 
-init();
+// Initialize when ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        auth.onAuthStateChanged(() => {
+            init();
+        });
+    });
+} else {
+    auth.onAuthStateChanged(() => {
+        init();
+    });
+}
 
 function init() {
     spirits.forEach((s, i) => {
         const parent = i < Math.ceil(spirits.length / 2) ? UI.shelfOne : UI.shelfTwo;
-        parent.appendChild(createBottle(s));
+        if (parent) parent.appendChild(createBottle(s));
     });
-    juices.forEach(j => UI.juiceShelf.appendChild(createBottle(j, true)));
+    if (UI.juiceShelf) juices.forEach(j => UI.juiceShelf.appendChild(createBottle(j, true)));
     
-    // Counter items: Click to add instantly (2x ice rule)
-    document.getElementById("ice-btn").addEventListener("click", () => addSpecial("Ice", "#fff"));
-    document.getElementById("lemon-btn").addEventListener("click", () => addSpecial("Lemon Slice", "#fff04a"));
-    document.getElementById("egg-btn").addEventListener("click", () => addSpecial("Egg White", "#fdfdfd"));
+    // Counter items
+    const iceBtn = document.getElementById("ice-btn");
+    const lemonBtn = document.getElementById("lemon-btn");
+    const eggBtn = document.getElementById("egg-btn");
+    if (iceBtn) iceBtn.addEventListener("click", () => addSpecial("Ice", "#fff"));
+    if (lemonBtn) lemonBtn.addEventListener("click", () => addSpecial("Lemon Slice", "#fff04a"));
+    if (eggBtn) eggBtn.addEventListener("click", () => addSpecial("Egg White", "#fdfdfd"));
 
     const pourBtn = document.getElementById("pour-btn");
-    pourBtn.addEventListener("pointerdown", startPouring);
-    window.addEventListener("pointerup", stopPouring);
+    if (pourBtn) {
+        pourBtn.addEventListener("pointerdown", startPouring);
+        window.addEventListener("pointerup", stopPouring);
+    }
 
     const shakeBtn = document.getElementById("shake-btn");
-    shakeBtn.addEventListener("pointerdown", startShaking);
-    window.addEventListener("pointerup", stopShaking);
+    if (shakeBtn) {
+        shakeBtn.addEventListener("pointerdown", startShaking);
+        window.addEventListener("pointerup", stopShaking);
+    }
 
-    document.getElementById("serve-btn").addEventListener("click", serveMix);
-    document.getElementById("reset-btn").addEventListener("click", resetGame);
+    const serveBtn = document.getElementById("serve-btn");
+    const resetBtn = document.getElementById("reset-btn");
+    if (serveBtn) serveBtn.addEventListener("click", serveMix);
+    if (resetBtn) resetBtn.addEventListener("click", window.resetGame);
 
     // Menu logic
     const menuBtn = document.getElementById("menu-btn");
     const gameMenu = document.getElementById("game-menu");
     const closeMenuBtn = document.getElementById("close-menu");
 
-    menuBtn.addEventListener("click", () => {
-        gameMenu.classList.add("show");
-    });
-
-    closeMenuBtn.addEventListener("click", () => {
-        gameMenu.classList.remove("show");
-    });
-
-    // Close menu when clicking outside content
-    gameMenu.addEventListener("click", (e) => {
-        if (e.target === gameMenu) gameMenu.classList.remove("show");
-    });
+    if (menuBtn && gameMenu) {
+        menuBtn.addEventListener("click", () => gameMenu.classList.add("show"));
+        if (closeMenuBtn) closeMenuBtn.addEventListener("click", () => gameMenu.classList.remove("show"));
+        gameMenu.addEventListener("click", (e) => {
+            if (e.target === gameMenu) gameMenu.classList.remove("show");
+        });
+    }
 
     updateUI();
     handleResize();
@@ -171,43 +191,124 @@ function init() {
     FX.init();
 
     // Entree Screen Logic
-    document.getElementById("start-game-btn").addEventListener("click", () => {
-        UI.entreeScreen.classList.add("hide");
-    });
+    const startBtn = document.getElementById("start-game-btn");
+    if (startBtn) {
+        startBtn.addEventListener("click", () => {
+            UI.entreeScreen.classList.add("hide");
+        });
+    }
+
+    // Clear logs logic
+    const clearBtn = document.getElementById("clear-logs-btn");
+    if (clearBtn) {
+        clearBtn.addEventListener("click", async () => {
+            if (!confirm("Weet je zeker dat je jouw recente shakes wilt verwijderen?")) return;
+            const user = auth.currentUser;
+            if (user) {
+                await updateDoc(doc(db, "users", user.uid), {
+                    minigameLogs: []
+                });
+                updateEntreeScreen();
+            }
+        });
+    }
+
     updateEntreeScreen();
 }
 
-function updateEntreeScreen() {
-    const scores = JSON.parse(localStorage.getItem("cocktail_highscores") || "[]");
-    const logs = JSON.parse(localStorage.getItem("cocktail_logs") || "[]");
-    
-    UI.leaderboardList.innerHTML = scores.length 
-        ? scores.map(s => `<li><span>${s.name}</span><span>${s.score} pts</span></li>`).join('')
-        : '<li><span>Geen scores...</span></li>';
+async function updateEntreeScreen() {
+    try {
+        // 1. Global Highscores
+        const scoresQuery = query(collection(db, "minigame-highscores"), orderBy("score", "desc"), limit(5));
+        const scoresSnap = await getDocs(scoresQuery);
+        const scores = scoresSnap.docs.map(d => d.data());
+        
+        UI.leaderboardList.innerHTML = scores.length 
+            ? scores.map(s => `<li><span>${s.name}</span><span>${s.score} pts</span></li>`).join('')
+            : '<li><span>Geen scores...</span></li>';
 
-    UI.logsList.innerHTML = logs.length
-        ? logs.map(l => `<li><span>${l.time} - ${l.name}</span><span>${l.score}</span></li>`).join('')
-        : '<li><span>Begin met mixen!</span></li>';
+        // 2. User Recent Shakes
+        const user = auth.currentUser;
+        if (user) {
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            let logs = userDoc.exists() ? (userDoc.data().minigameLogs || []) : [];
+            
+            // Sort by timestamp if available, else reverse order
+            logs.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
 
-    if (logs.length > 4) {
-        UI.logsList.classList.add("animate");
-        UI.logsList.innerHTML += UI.logsList.innerHTML; // Double for seamless loop
-    } else {
-        UI.logsList.classList.remove("animate");
+            UI.logsList.innerHTML = logs.length
+                ? logs.slice(0, 10).map(l => {
+                    const ingList = l.volumes ? Object.entries(l.volumes)
+                        .map(([name, vol]) => `<div class="log-ing">${Math.round(vol)} ml - ${name}</div>`)
+                        .join('') : '';
+                    
+                    const feedbackList = (l.feedback && l.feedback.length > 0) 
+                        ? `<div class="log-feedback">${l.feedback.join(', ')}</div>` 
+                        : '';
+
+                    return `
+                        <li class="log-item">
+                            <div class="log-header">
+                                <span class="log-title">${l.time} - ${l.name}</span>
+                                <span class="log-score">${l.score}</span>
+                            </div>
+                            <div class="log-details">
+                                ${ingList}
+                                ${feedbackList}
+                            </div>
+                        </li>
+                    `;
+                }).join('')
+                : '<li><span>Begin met mixen!</span></li>';
+
+            if (logs.length > 1) {
+                UI.logsList.classList.add("animate");
+                UI.logsList.innerHTML += UI.logsList.innerHTML; 
+            } else {
+                UI.logsList.classList.remove("animate");
+            }
+        } else {
+             UI.logsList.innerHTML = '<li><span>Log in om je shakes op te slaan!</span></li>';
+        }
+    } catch (e) {
+        console.error("Error updating entree screen:", e);
     }
 }
 
-function saveGameResult(score, name) {
-    if (score <= 0) return; // Don't save failures/explosions
+async function saveGameResult(score, name, volumes, feedback) {
+    if (score <= 0) return; 
 
-    const scores = JSON.parse(localStorage.getItem("cocktail_highscores") || "[]");
-    scores.push({ score, name, date: new Date().toLocaleDateString() });
-    scores.sort((a, b) => b.score - a.score);
-    localStorage.setItem("cocktail_highscores", JSON.stringify(scores.slice(0, 5)));
+    const user = auth.currentUser;
+    const displayName = user ? (user.displayName || user.email.split('@')[0]) : "Gast";
 
-    const logs = JSON.parse(localStorage.getItem("cocktail_logs") || "[]");
-    logs.unshift({ score, name, time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) });
-    localStorage.setItem("cocktail_logs", JSON.stringify(logs.slice(0, 10)));
+    try {
+        // 1. Save to Global Leaderboard (if higher than top 5 or just add)
+        const scoreId = `${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
+        await setDoc(doc(db, "minigame-highscores", scoreId), {
+            score,
+            name: displayName,
+            date: new Date().toLocaleDateString(),
+            uid: user ? user.uid : 'guest',
+            timestamp: Date.now()
+        });
+
+        // 2. Save to User Logs
+        if (user) {
+            const userRef = doc(db, "users", user.uid);
+            await updateDoc(userRef, {
+                minigameLogs: arrayUnion({
+                    score,
+                    name,
+                    time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                    volumes,
+                    feedback: feedback || [],
+                    timestamp: Date.now()
+                })
+            });
+        }
+    } catch (e) {
+        console.error("Error saving result:", e);
+    }
 }
 
 function handleResize() {
@@ -420,6 +521,23 @@ function evaluateMix() {
     let title = "PERFECT!";
     let text = `Een meesterlijke ${bestMatch ? bestMatch.name : 'creatie'}!`;
 
+    // Feedback logic
+    let feedback = [];
+    if (bestMatch) {
+        Object.keys(bestMatch.ingredients).forEach(ing => {
+            const target = bestMatch.ingredients[ing];
+            const actual = mix.volumes[ing] || 0;
+            if (actual === 0) feedback.push(`Mis ${ing}`);
+            else if (actual > target + 10) feedback.push(`Te veel ${ing}`);
+            else if (actual < target - 10) feedback.push(`Te weinig ${ing}`);
+        });
+        Object.keys(mix.volumes).forEach(ing => {
+            if (ing !== "Ice" && ing !== "Lemon Slice" && ing !== "Egg White" && !bestMatch.ingredients[ing]) {
+                feedback.push(`Extra: ${ing}`);
+            }
+        });
+    }
+
     if (finalScore < 2500) {
         reaction = "disgust";
         title = "BAH!";
@@ -434,7 +552,16 @@ function evaluateMix() {
         text = `Een goede ${bestMatch.name}, maar Boudewijn ziet nu sterretjes!`;
     }
 
-    return { score: finalScore, reaction, title, text, alc: alcPerc.toFixed(1), recipeName: bestMatch ? bestMatch.name : "Custom Mix" };
+    return { 
+        score: finalScore, 
+        reaction, 
+        title, 
+        text, 
+        alc: alcPerc.toFixed(1), 
+        recipeName: bestMatch ? bestMatch.name : "Custom Mix",
+        volumes: { ...mix.volumes },
+        feedback: feedback
+    };
 }
 
 function showResult(r) {
@@ -445,13 +572,34 @@ function showResult(r) {
     UI.popup.classList.add("show");
     
     if (r.score > 0) {
-        saveGameResult(r.score, r.recipeName || "Explosie");
+        saveGameResult(r.score, r.recipeName || "Explosie", r.volumes, r.feedback);
     }
 
     if (r.score >= 7000) FX.triggerConfetti();
 }
 
-function resetGame() { FX.clear(); location.reload(); }
+window.resetGame = function() { FX.clear(); location.reload(); }
+
+window.goToEntree = function() {
+    const gameMenu = document.getElementById("game-menu");
+    if (gameMenu) gameMenu.classList.remove("show");
+    
+    if (UI.entreeScreen) {
+        UI.entreeScreen.classList.remove("hide");
+        updateEntreeScreen();
+    }
+    
+    resetGameState();
+};
+
+function resetGameState() {
+    mix = createEmptyMix();
+    shakeTime = 0;
+    selectedItem = null;
+    gameState = "idle";
+    document.querySelectorAll(".bottle, .ice-bucket, .lemon-bowl, .egg-bowl").forEach(x => x.classList.remove("selected"));
+    updateUI();
+}
 
 function updateUI() {
     const h = Math.min(100, (mix.volume / 300) * 100);

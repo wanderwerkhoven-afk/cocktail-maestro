@@ -17,12 +17,12 @@
             <p>Draai je scherm horizontaal om te spelen!</p>
         </div>
     </div>
-    <div id="game-scale">
-        <div id="game">
+    <div id="game" class="game-container">
             <div id="entree-screen" class="entree-screen">
                 <div class="entree-content">
                     <!-- Left board: High Scores -->
                     <div id="leaderboard-box" class="entree-board topscore-board">
+                        <h3 class="board-header">TOP SCORES</h3>
                         <img src="graphics/entree-screen-elements/topscore-board.webp" class="board-bg" alt="High Scores">
                         <div class="board-content">
                             <ul id="leaderboard-list"></ul>
@@ -31,6 +31,10 @@
 
                     <!-- Right board: Recent Shakes -->
                     <div id="logs-box" class="entree-board recent-shakes-board">
+                        <h3 class="board-header">RECENT SHAKES</h3>
+                        <button id="clear-logs-btn" class="board-clear-btn" title="Clear Recent Shakes">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
                         <img src="graphics/entree-screen-elements/recent-shakes-board.webp" class="board-bg" alt="Recent Shakes">
                         <div class="board-content">
                             <ul id="logs-list"></ul>
@@ -60,8 +64,11 @@
             <div id="game-menu" class="game-menu-overlay">
                 <div class="menu-content">
                     <h3>Menu</h3>
-                    <button class="menu-item" onclick="window.location.href='../index.html'">
+                    <button class="menu-item" onclick="goToEntree()">
                         <i class="fa-solid fa-house"></i> Terug naar Home
+                    </button>
+                    <button class="menu-item" onclick="window.location.href='../index.html'">
+                        <i class="fa-solid fa-door-open"></i> Verlaat Spel
                     </button>
                     <button class="menu-item" onclick="resetGame()">
                         <i class="fa-solid fa-rotate-right"></i> Opnieuw Beginnen
@@ -145,9 +152,6 @@
                 <button class="reset-btn" id="reset-btn">NIEUWE MIX</button>
             </div>
         </div>
-    </div>
-    <script src="game_recipes.js"></script>
-    <script src="canvas-effects.js"></script>
-    <script src="game.js"></script>
+    <script type="module" src="game.js"></script>
 </body>
 </html>

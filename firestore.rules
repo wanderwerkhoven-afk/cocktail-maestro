@@ -52,5 +52,12 @@ service cloud.firestore {
     match /admin-todos/{todoId} {
       allow read, write: if isAdmin();
     }
+
+    // Minigame Global Highscores
+    match /minigame-highscores/{scoreId} {
+      allow read: if true;
+      allow create: if request.auth != null; 
+      allow update, delete: if isAdmin();
+    }
   }
 }

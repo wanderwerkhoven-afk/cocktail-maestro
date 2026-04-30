@@ -1,4 +1,4 @@
-const cocktailDatabase = [
+export const cocktailDatabase = [
     { name: "Cosmopolitan", ingredients: { "Vodka": 45, "Cointreau": 15, "Cranberry": 30, "Lime": 15 }, idealShake: 2.5 },
     { name: "Screwdriver", ingredients: { "Vodka": 50, "Orange": 150 }, idealShake: 1.5 },
     { name: "Gin Fizz", ingredients: { "Gin": 45, "Lemon": 30, "Sugar Syrup": 15, "Soda": 30 }, idealShake: 3.5 },

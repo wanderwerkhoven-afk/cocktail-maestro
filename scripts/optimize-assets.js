@@ -30,16 +30,18 @@ async function main() {
 
     const rootDirs = [
         path.join(__dirname, '../assets'),
-        path.join(__dirname, '../Mini game/graphics')
+        path.join(__dirname, '../mini-game/graphics')
     ];
 
     const dbFiles = [
         path.join(__dirname, '../js/database.js'),
         path.join(__dirname, '../js/modules/kitchen-db.js'),
+        path.join(__dirname, '../js/modules/news.js'),
+        path.join(__dirname, '../js/modules/news-db.js'),
         path.join(__dirname, '../index.html'),
-        path.join(__dirname, '../Mini game/game_index.html'),
-        path.join(__dirname, '../Mini game/game.js'),
-        path.join(__dirname, '../Mini game/game_style.css')
+        path.join(__dirname, '../mini-game/game_index.html'),
+        path.join(__dirname, '../mini-game/game.js'),
+        path.join(__dirname, '../mini-game/game_style.css')
     ];
 
     let convertedCount = 0;

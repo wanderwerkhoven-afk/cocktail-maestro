@@ -8,7 +8,7 @@
  *   - Confetti:    celebration rain on a perfect score
  * ============================================================ */
 
-const FX = (() => {
+export const FX = (() => {
     const GAME_W = 1920;
     const GAME_H = 1080;
 

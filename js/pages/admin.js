@@ -733,7 +733,7 @@ function renderNewsFields(container, item) {
         </div>
         <div class="input-group">
             <label>Button Actie (Optioneel)</label>
-            <input type="text" name="buttonAction" value="${item?.buttonAction || ''}" placeholder="window.location.href='Mini game/game_index.html'">
+            <input type="text" name="buttonAction" value="${item?.buttonAction || ''}" placeholder="window.location.href='mini-game/game_index.html'">
             <small style="color: #888;">Laat leeg for standaard "Lees Artikel" gedrag.</small>
         </div>
     `;
