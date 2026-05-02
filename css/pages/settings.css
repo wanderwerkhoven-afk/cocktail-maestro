@@ -40,13 +40,64 @@
     background: var(--bg-card-gradient);
     border-radius: 28px;
     padding: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 5px; /* Reduced for seamless dropdown */
     border: 1px solid var(--border-light);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     box-shadow: 0 15px 35px var(--shadow-color);
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.account-profile-card.clickable {
+    cursor: pointer;
+}
+
+.account-profile-card.clickable:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-secondary);
+    box-shadow: 0 20px 40px var(--shadow-color);
+}
+
+.account-profile-card.clickable:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.account-profile-card.open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-bottom: 0;
+}
+
+.account-profile-card .expand-icon {
+    position: absolute;
+    bottom: 15px;
+    right: 50%;
+    transform: translateX(50%);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    opacity: 0.5;
+    transition: transform 0.3s ease;
+}
+
+.account-profile-card.open .expand-icon {
+    transform: translateX(50%) rotate(180deg);
+}
+
+.account-dropdown-premium {
+    background: var(--glass-bg-subtle) !important;
+    border: 1px solid var(--border-light);
+    border-top: none;
+    border-bottom-left-radius: 28px;
+    border-bottom-right-radius: 28px;
+    margin-bottom: 30px;
+    box-shadow: 0 20px 30px var(--shadow-color);
+}
+
+.account-dropdown-premium.open {
+    max-height: 500px !important; /* Allow more space for form */
 }
 
 .profile-avatar-large {
@@ -374,3 +425,101 @@
     margin-bottom: 15px;
 }
 
+/* --- Account Details Form --- */
+.account-details-form {
+    padding: 15px 20px;
+}
+
+.account-details-form .settings-input-group {
+    margin-bottom: 20px;
+}
+
+.account-details-form .settings-input-group label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--accent-secondary);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.account-details-form .input-with-action {
+    display: flex;
+    gap: 10px;
+}
+
+.account-details-form input {
+    width: 100%;
+    flex: 1;
+    background: var(--input-bg);
+    border: 1px solid var(--border-light);
+    color: var(--text-primary);
+    padding: 12px 15px;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease;
+}
+
+.account-details-form input:focus {
+    outline: none;
+    border-color: var(--accent-secondary);
+}
+
+.account-details-form input[disabled] {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    cursor: not-allowed;
+}
+
+.small-action-btn {
+    background: var(--accent-secondary);
+    color: var(--bg-body);
+    border: none;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.small-action-btn:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.small-action-btn:active {
+    transform: scale(0.95);
+}
+
+.settings-secondary-btn {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    border: 1px solid var(--border-light);
+    padding: 14px;
+    border-radius: 18px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.settings-secondary-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--text-secondary);
+}
+
+.settings-msg {
+    margin-top: 12px;
+    font-size: 0.85rem;
+    text-align: center;
+    font-weight: 600;
+    min-height: 1.2rem;
+}

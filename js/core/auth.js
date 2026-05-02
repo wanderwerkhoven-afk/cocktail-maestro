@@ -197,6 +197,23 @@ export async function syncData(type, data) {
  */
 let dataUnsubscribe = null;
 
+/**
+ * Update user profile (displayName)
+ */
+export async function updateUserProfile(displayName) {
+    const user = auth.currentUser;
+    if (!user) return { success: false, error: "No user logged in" };
+    try {
+        await updateProfile(user, { displayName });
+        // Also sync to firestore
+        await syncLocalDataToCloud(user);
+        return { success: true };
+    } catch (error) {
+        console.error("Update profile error:", error);
+        return { success: false, error: error.message };
+    }
+}
+
 export function initAuthListener(callback) {
     onAuthStateChanged(auth, async (user) => {
         if (dataUnsubscribe) {

@@ -65,11 +65,18 @@ body {
     height: var(--game-h);
     transform-origin: center center;
     overflow: hidden;
-    background: url('graphics/game_screen_elements/bar_backround_png.webp') center/cover no-repeat;
+    background: #000;
     box-shadow: 0 0 100px rgba(0, 0, 0, 0.8);
     flex-shrink: 0;
     touch-action: none;
     transition: none !important;
+}
+
+#game-content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: url('graphics/game_screen_elements/bar_backround_png.webp') center/cover no-repeat;
 }
 
 /* Portrait Warning */
@@ -1042,8 +1049,28 @@ body {
     }
 }
 
-.exploding .main-area {
+.exploding #game-content {
     animation: screenShake 0.4s infinite cubic-bezier(.36, .07, .19, .97);
+}
+
+.exploding .mixing-station {
+    animation: shakerExplodeFall 0.8s ease-in forwards;
+    pointer-events: none;
+}
+
+@keyframes shakerExplodeFall {
+    0% { 
+        transform: translate(0, 0) scale(1) rotate(0deg); 
+        opacity: 1; 
+    }
+    20% {
+        transform: translate(30px, -50px) scale(1.1) rotate(20deg);
+        opacity: 1;
+    }
+    100% { 
+        transform: translate(100px, 800px) scale(0.2) rotate(180deg); 
+        opacity: 0; 
+    }
 }
 
 @keyframes screenShake {

@@ -200,6 +200,11 @@ const translations = {
         "settings-terms": "Gebruikersvoorwaarden",
         "settings-privacy": "Privacybeleid",
         "settings-logout": "Uitloggen",
+        "settings-account-title": "Accountgegevens",
+        "settings-account-details": "Beheer Account",
+        "settings-username-label": "Gebruikersnaam",
+        "settings-email-label": "E-mailadres",
+        "settings-change-password": "Wachtwoord wijzigen",
 
         // Legal Document
         "terms-title": "Gebruikersvoorwaarden",
@@ -427,6 +432,11 @@ const translations = {
         "settings-terms": "Terms of Service",
         "settings-privacy": "Privacy Policy",
         "settings-logout": "Logout",
+        "settings-account-title": "Account Details",
+        "settings-account-details": "Manage Account",
+        "settings-username-label": "Username",
+        "settings-email-label": "Email Address",
+        "settings-change-password": "Change Password",
 
         // Legal Document
         "terms-title": "Terms of Service",

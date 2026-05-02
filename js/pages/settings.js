@@ -1,4 +1,4 @@
-import { registerUser, loginUser, logoutUser, initAuthListener, sendPasswordReset } from "../core/auth.js";
+import { registerUser, loginUser, logoutUser, initAuthListener, sendPasswordReset, updateUserProfile } from "../core/auth.js";
 import { navigateTo } from "../core/navigation.js";
 import { t } from "../core/i18n.js";
 
@@ -96,6 +96,78 @@ export function closeUnitList() {
     if (trigger) trigger.classList.remove('open');
 }
 
+export function toggleAccountDetails() {
+    const user = document.querySelector('#profile-info-content h2').innerText !== "Guest Account";
+    if (!user) return;
+
+    const card = document.getElementById('account-status-card');
+    const dropdown = document.getElementById('account-details-dropdown');
+    
+    if (dropdown && card) {
+        dropdown.classList.toggle('open');
+        card.classList.toggle('open');
+    }
+}
+
+export function closeAccountDetails() {
+    const card = document.getElementById('account-status-card');
+    const dropdown = document.getElementById('account-details-dropdown');
+    if (dropdown) dropdown.classList.remove('open');
+    if (card) card.classList.remove('open');
+}
+
+export async function handleUpdateName(event) {
+    if (event) event.stopPropagation();
+    const nameInput = document.getElementById('settings-display-name');
+    const msgEl = document.getElementById('account-details-message');
+    const btn = nameInput.nextElementSibling;
+    
+    const newName = nameInput.value.trim();
+    if (!newName) return;
+
+    btn.disabled = true;
+    const originalContent = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+    
+    const result = await updateUserProfile(newName);
+    
+    if (result.success) {
+        msgEl.style.color = "#2ed573";
+        msgEl.innerText = "Naam succesvol gewijzigd!";
+        // Update header UI
+        const headerName = document.querySelector('#profile-info-content h2');
+        if (headerName) headerName.innerText = newName;
+    } else {
+        msgEl.style.color = "#ff4757";
+        msgEl.innerText = "Fout bij wijzigen naam.";
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = originalContent;
+    
+    setTimeout(() => { msgEl.innerText = ""; }, 3000);
+}
+
+export async function handlePasswordChange(event) {
+    if (event) event.stopPropagation();
+    const email = document.getElementById('settings-email').value;
+    const msgEl = document.getElementById('account-details-message');
+    
+    if (!email) return;
+
+    if (confirm("We sturen een e-mail naar " + email + " om je wachtwoord te wijzigen. Doorgaan?")) {
+        const result = await sendPasswordReset(email);
+        if (result.success) {
+            msgEl.style.color = "#2ed573";
+            msgEl.innerText = "E-mail verstuurd!";
+        } else {
+            msgEl.style.color = "#ff4757";
+            msgEl.innerText = "Fout bij versturen e-mail.";
+        }
+        setTimeout(() => { msgEl.innerText = ""; }, 4000);
+    }
+}
+
 export function changeUnit(unit) {
     localStorage.setItem('appUnit', unit);
     applyUnitUI();
@@ -187,6 +259,7 @@ export async function updateSettingsUI(user) {
     const avatar = document.querySelector('.profile-avatar-large');
     const logoutSection = document.getElementById('logout-section');
     const adminSection = document.getElementById('admin-section');
+    const accountCard = document.getElementById('account-status-card');
 
     if (user) {
         profileContent.innerHTML = `
@@ -195,6 +268,23 @@ export async function updateSettingsUI(user) {
         `;
         if (avatar) avatar.innerHTML = `<i class="fa-solid fa-user-check" style="color: #ffb347;"></i>`;
         if (logoutSection) logoutSection.style.display = 'block';
+        
+        // Make card clickable
+        if (accountCard) {
+            accountCard.classList.add('clickable');
+            // Add chevron if not exists
+            if (!accountCard.querySelector('.expand-icon')) {
+                const chevron = document.createElement('i');
+                chevron.className = 'fa-solid fa-chevron-down expand-icon';
+                accountCard.appendChild(chevron);
+            }
+        }
+
+        // Pre-fill account details fields
+        const nameInput = document.getElementById('settings-display-name');
+        const emailInput = document.getElementById('settings-email');
+        if (nameInput) nameInput.value = user.displayName || '';
+        if (emailInput) emailInput.value = user.email || '';
 
         // Admin check
         const { checkAdminStatus } = await import("../core/auth.js");
@@ -213,6 +303,16 @@ export async function updateSettingsUI(user) {
         if (avatar) avatar.innerHTML = `<i class="fa-solid fa-user"></i>`;
         if (logoutSection) logoutSection.style.display = 'none';
         if (adminSection) adminSection.style.display = 'none';
+        
+        if (accountCard) {
+            accountCard.classList.remove('clickable');
+            accountCard.classList.remove('open');
+            const chevron = accountCard.querySelector('.expand-icon');
+            if (chevron) chevron.remove();
+        }
+        
+        const accountDropdown = document.getElementById('account-details-dropdown');
+        if (accountDropdown) accountDropdown.classList.remove('open');
     }
 }
 
