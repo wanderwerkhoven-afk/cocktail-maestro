@@ -38,7 +38,7 @@ export const newsArticles = [
         title: 'Mix & Match Game',
         tagline: 'Test je mixology skills in onze interactieve minigame!',
         badge: 'PLAY',
-        image: 'assets/promos/mini game.png',
+        image: 'assets/promos/mini game.webp',
         active: true,
         buttonText: 'Speel Nu',
         buttonAction: "window.location.href='mini-game/game_index.html'",

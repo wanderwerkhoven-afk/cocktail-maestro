@@ -53,6 +53,8 @@ const UI = {
     logsList: document.getElementById("logs-list")
 };
 
+handleResize(); // Call immediately to avoid initial zoom effect
+
 // --- Bartender Sprite Animation ---
 const animations = {
     'rest': {
@@ -145,38 +147,80 @@ if (document.readyState === 'loading') {
 }
 
 function init() {
-    spirits.forEach((s, i) => {
-        const parent = i < Math.ceil(spirits.length / 2) ? UI.shelfOne : UI.shelfTwo;
-        if (parent) parent.appendChild(createBottle(s));
+    // Hide old shelves if they exist
+    if (UI.shelfOne) UI.shelfOne.style.display = 'none';
+    if (UI.shelfTwo) UI.shelfTwo.style.display = 'none';
+    if (UI.juiceShelf) UI.juiceShelf.style.display = 'none';
+
+    // Map new bottle IDs to ingredients
+    const bottleMapping = [
+        { id: "new-bottle-whiskey", name: "Whiskey" },
+        { id: "new-bottle-cognac", name: "Brandy" }, // Cognac maps to Brandy for recipes
+        { id: "new-bottle-dark-rum", name: "Rum" },
+        { id: "new-bottle-white-rum", name: "Rum" },
+        { id: "new-bottle-vodka", name: "Vodka" },
+        { id: "new-bottle-gin", name: "Gin" },
+        { id: "new-bottle-tequila", name: "Tequila" },
+        { id: "new-bottle-cointreau", name: "Cointreau" },
+        { id: "new-bottle-disaronno", name: "Amaretto" }, // Disaronno is Amaretto
+        { id: "new-bottle-campari", name: "Campari" },
+        { id: "new-bottle-soda", name: "Soda" },
+        { id: "new-bottle-baileys", name: "Baileys" },
+        { id: "new-bottle-kahlua", name: "Kahlua" },
+        { id: "new-bottle-vermouth", name: "Vermouth" },
+        { id: "new-bottle-blue-curacau", name: "Blue Curacao" },
+        { id: "new-bottle-peach-liquor", name: "Peach Schnapps" },
+        { id: "new-bottle-orange-juice", name: "Orange" },
+        { id: "new-bottle-lemon-juice", name: "Lemon" },
+        { id: "new-bottle-lime-juice", name: "Lime" },
+        { id: "new-bottle-cranberry-juice", name: "Cranberry" },
+        { id: "new-bottle-sugar-syrup", name: "Sugar Syrup" }
+    ];
+
+    bottleMapping.forEach(map => {
+        const el = document.getElementById(map.id);
+        if (el) {
+            // Find data in spirits or juices
+            const data = spirits.find(s => s.name === map.name) || juices.find(j => j.name === map.name);
+            if (data) {
+                el.addEventListener("click", () => selectBottle(data, el));
+            }
+        }
     });
-    if (UI.juiceShelf) juices.forEach(j => UI.juiceShelf.appendChild(createBottle(j, true)));
-    
-    // Counter items
-    const iceBtn = document.getElementById("ice-btn");
-    const lemonBtn = document.getElementById("lemon-btn");
-    const eggBtn = document.getElementById("egg-btn");
-    const bittersBtn = document.getElementById("bitters-btn");
+
+    // Special items
+    const iceBtn = document.getElementById("new-ice-bucket");
+    const lemonBtn = document.getElementById("new-lemon-bowl");
+    const bittersBtn = document.getElementById("new-bottle-angostura");
+    const eggBtn = document.getElementById("egg-btn"); // Keeping old egg btn for now if no new one
+
     if (iceBtn) iceBtn.addEventListener("click", () => addSpecial("Ice", "#fff"));
     if (lemonBtn) lemonBtn.addEventListener("click", () => addSpecial("Lemon Slice", "#fff04a"));
-    if (eggBtn) eggBtn.addEventListener("click", () => addSpecial("Egg White", "#fdfdfd"));
     if (bittersBtn) bittersBtn.addEventListener("click", () => addSpecial("Bitters", "#6e1c10"));
+    if (eggBtn) eggBtn.addEventListener("click", () => addSpecial("Egg White", "#fdfdfd"));
 
-    const pourBtn = document.getElementById("pour-btn");
+    const pourBtn = document.getElementById("new-pour-btn");
     if (pourBtn) {
         pourBtn.addEventListener("pointerdown", startPouring);
         window.addEventListener("pointerup", stopPouring);
     }
 
-    const shakeBtn = document.getElementById("shake-btn");
+    const shakeBtn = document.getElementById("new-shake-btn");
     if (shakeBtn) {
         shakeBtn.addEventListener("pointerdown", startShaking);
         window.addEventListener("pointerup", stopShaking);
     }
 
-    const serveBtn = document.getElementById("serve-btn");
+    const serveBtn = document.getElementById("new-serve-btn");
     const resetBtn = document.getElementById("reset-btn");
+    const toScoreboardBtn = document.getElementById("to-scoreboard-btn");
     if (serveBtn) serveBtn.addEventListener("click", serveMix);
     if (resetBtn) resetBtn.addEventListener("click", window.resetGame);
+    if (toScoreboardBtn) {
+        toScoreboardBtn.addEventListener("click", () => {
+            window.goToEntree();
+        });
+    }
 
     // Menu logic
     const menuBtn = document.getElementById("menu-btn");
@@ -243,10 +287,23 @@ function init() {
 
 async function updateEntreeScreen() {
     try {
-        // 1. Global Highscores
-        const scoresQuery = query(collection(db, "minigame-highscores"), orderBy("score", "desc"), limit(5));
+        // 1. Global Highscores (Top score per user)
+        const scoresQuery = query(collection(db, "minigame-highscores"), orderBy("score", "desc"), limit(50));
         const scoresSnap = await getDocs(scoresQuery);
-        const scores = scoresSnap.docs.map(d => d.data());
+        const allScores = scoresSnap.docs.map(d => d.data());
+        
+        // Filter for unique users (only the best score per person)
+        const seenUsers = new Set();
+        const scores = [];
+        for (const s of allScores) {
+            // Identifier is UID for logged in, Name for guests
+            const identifier = s.uid && s.uid !== 'guest' ? s.uid : s.name;
+            if (!seenUsers.has(identifier)) {
+                seenUsers.add(identifier);
+                scores.push(s);
+            }
+            if (scores.length >= 5) break;
+        }
         
         UI.leaderboardList.innerHTML = scores.length 
             ? scores.map(s => `<li><span>${s.name}</span><span>${s.score} pts</span></li>`).join('')
@@ -264,11 +321,23 @@ async function updateEntreeScreen() {
             UI.logsList.innerHTML = logs.length
                 ? logs.slice(0, 10).map(l => {
                     const ingList = l.volumes ? Object.entries(l.volumes)
-                        .map(([name, vol]) => `<div class="log-ing">${Math.round(vol)} ml - ${name}</div>`)
+                        .map(([name, vol]) => {
+                            // Find feedback for this specific ingredient
+                            const fb = Array.isArray(l.feedback) ? l.feedback.find(f => f.ing === name) : null;
+                            let statusHtml = '';
+                            if (fb) {
+                                if (fb.type === 'too_much') statusHtml = `<span class="fb-less">minder <i class="fa-solid fa-arrow-down"></i></span>`;
+                                else if (fb.type === 'too_little') statusHtml = `<span class="fb-more">meer <i class="fa-solid fa-arrow-up"></i></span>`;
+                                else if (fb.type === 'extra') statusHtml = `<span class="fb-extra">laat weg</span>`;
+                            }
+                            return `<div class="log-ing">${Math.round(vol)} ml - ${name} ${statusHtml}</div>`;
+                        })
                         .join('') : '';
                     
-                    const feedbackList = (l.feedback && l.feedback.length > 0) 
-                        ? `<div class="log-feedback">${l.feedback.join(', ')}</div>` 
+                    // Handle missing ingredients
+                    const missing = Array.isArray(l.feedback) ? l.feedback.filter(f => f.type === 'missing') : [];
+                    const missingHtml = missing.length > 0 
+                        ? `<div class="log-feedback missing">Je mist wat ...</div>` 
                         : '';
 
                     return `
@@ -279,7 +348,7 @@ async function updateEntreeScreen() {
                             </div>
                             <div class="log-details">
                                 ${ingList}
-                                ${feedbackList}
+                                ${missingHtml}
                             </div>
                         </li>
                     `;
@@ -344,7 +413,7 @@ async function saveGameResult(score, name, volumes, feedback) {
     const displayName = user ? (user.displayName || user.email.split('@')[0]) : "Gast";
 
     try {
-        // 1. Save to Global Leaderboard (if higher than top 5 or just add)
+        // 1. Save to Global Leaderboard (All scores, filtered on display)
         const scoreId = `${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
         await setDoc(doc(db, "minigame-highscores", scoreId), {
             score,
@@ -393,12 +462,17 @@ function createBottle(ing, isJuice = false) {
     return b;
 }
 
+function deselectAll() {
+    document.querySelectorAll(".bottle, .new-bottle, .new-ui-element").forEach(x => x.classList.remove("selected"));
+    selectedItem = null;
+}
+
 function selectBottle(ing, el) {
     if (gameState !== "idle") return;
-    document.querySelectorAll(".bottle, .ice-bucket, .lemon-bowl").forEach(x => x.classList.remove("selected"));
+    deselectAll();
     el.classList.add("selected");
     selectedItem = { type: "ing", data: ing };
-    UI.info.innerHTML = `<div>Geselecteerd: <span style="color: var(--gold)">${ing.name}</span></div><div style="font-size: 24px; opacity: 0.8">HOUD DE POUR KNOP IN</div>`;
+    UI.info.innerHTML = `<div>Geselecteerd: <strong>${ing.name}</strong></div><div style="font-size: 32px; margin-top: 5px;">HOUD DE POUR KNOP IN</div>`;
     
     // UI.bartender.querySelector('.arm.right').style.transform = "rotate(-20deg)";
 }
@@ -406,8 +480,11 @@ function selectBottle(ing, el) {
 function addSpecial(name, color) {
     if (gameState !== "idle" && gameState !== "pouring") return;
     
+    // Deselect any bottle when adding specials
+    deselectAll();
+    
     const amount = name === "Bitters" ? 5 : 15; // 5ml for a dash of bitters, 15 for others
-    if (mix.volume + amount > 300) return;
+    if (mix.volume + amount > 250) return;
     
     mix.volume += amount;
     if (name === "Ice") {
@@ -428,17 +505,19 @@ function addSpecial(name, color) {
     FX.triggerSplash(color);
     
     // Visual feedback
-    const btnId = name === "Ice" ? "ice-btn" : (name === "Egg White" ? "egg-btn" : (name === "Bitters" ? "bitters-btn" : "lemon-btn"));
+    const btnId = name === "Ice" ? "new-ice-bucket" : (name === "Egg White" ? "egg-btn" : (name === "Bitters" ? "new-bottle-angostura" : "new-lemon-bowl"));
     const el = document.getElementById(btnId);
-    el.style.transform = "scale(1.2) translateY(-20px)";
-    setTimeout(() => el.style.transform = "", 200);
+    if (el) {
+        el.style.transform = "scale(1.2) translateY(-20px)";
+        setTimeout(() => el.style.transform = "", 200);
+    }
 
-    UI.info.innerHTML = `<div>Toegevoegd: <span style="color: var(--gold)">${name}</span></div><div style="font-size: 20px; opacity: 0.8">${name === 'Ice' ? 'IJs count: '+mix.iceCount : ''}</div>`;
+    UI.info.innerHTML = `<div>Toegevoegd: <strong>${name}</strong></div><div style="font-size: 32px; margin-top: 4px;">${name === 'Ice' ? 'IJsblokjes: '+mix.iceCount : ''}</div>`;
 }
 
 function startPouring(e) {
     if (!selectedItem || gameState !== "idle") return;
-    if (mix.volume >= 300) return;
+    if (mix.volume >= 250) return;
 
     gameState = "pouring";
     const streamColor = selectedItem.type === "ing" ? selectedItem.data.color : selectedItem.color;
@@ -446,7 +525,7 @@ function startPouring(e) {
     FX.startPour(streamColor);
     
     holdTimer = setInterval(() => {
-        if (mix.volume >= 300) { stopPouring(); return; }
+        if (mix.volume >= 250) { stopPouring(); return; }
 
         if (selectedItem.type === "ing") {
             const ing = selectedItem.data;
@@ -620,13 +699,18 @@ function evaluateMix() {
         Object.keys(bestMatch.ingredients).forEach(ing => {
             const target = bestMatch.ingredients[ing];
             const actual = mix.volumes[ing] || 0;
-            if (actual === 0) feedback.push(`Missend: ${ing}`);
-            else if (actual > target + 10) feedback.push(`Te veel: ${ing}`);
-            else if (actual < target - 10) feedback.push(`Te weinig: ${ing}`);
+            if (actual === 0) {
+                feedback.push({ ing: ing, type: 'missing' });
+            } else if (actual > target + 10) {
+                feedback.push({ ing: ing, type: 'too_much' });
+            } else if (actual < target - 10) {
+                feedback.push({ ing: ing, type: 'too_little' });
+            }
         });
         Object.keys(mix.volumes).forEach(ing => {
-            if (ing !== "Ice" && ing !== "Lemon Slice" && ing !== "Egg White" && !bestMatch.ingredients[ing]) {
-                feedback.push(`Fout (Extra): ${ing}`);
+            // Check if ingredient should NOT be in the recipe (excluding ice and garnishes usually)
+            if (ing !== "Ice" && ing !== "Lemon Slice" && ing !== "Egg White" && ing !== "Bitters" && !bestMatch.ingredients[ing]) {
+                feedback.push({ ing: ing, type: 'extra' });
             }
         });
     }
@@ -671,7 +755,12 @@ function showResult(r) {
     if (r.score >= 7000) FX.triggerConfetti();
 }
 
-window.resetGame = function() { FX.clear(); location.reload(); }
+window.resetGame = function() { 
+    UI.game.classList.remove("exploding");
+    UI.bartender.className = "bartender";
+    FX.clear(); 
+    resetGameState();
+}
 
 window.goToEntree = function() {
     const gameMenu = document.getElementById("game-menu");
@@ -690,12 +779,19 @@ function resetGameState() {
     shakeTime = 0;
     selectedItem = null;
     gameState = "idle";
-    document.querySelectorAll(".bottle, .ice-bucket, .lemon-bowl, .egg-bowl").forEach(x => x.classList.remove("selected"));
+    
+    // Reset visual elements
+    if (UI.popup) UI.popup.classList.remove("show");
+    document.querySelectorAll(".bottle, .new-bottle, .new-ui-element").forEach(x => x.classList.remove("selected"));
+    UI.game.classList.remove("shaking", "exploding");
+    UI.bartender.className = "bartender";
+    UI.info.innerHTML = "Selecteer een drankje en HOUD de POUR knop ingedrukt.";
+    
     updateUI();
 }
 
 function updateUI() {
-    const h = Math.min(100, (mix.volume / 300) * 100);
+    const h = Math.min(100, (mix.volume / 250) * 100);
     UI.liquidFill.style.height = `${h}%`;
     UI.liquidFill.style.setProperty("--fill", mix.visualColor);
     UI.stats.textContent = `Vol: ${Math.round(mix.volume)}ml | Shake: ${shakeTime.toFixed(1)}s`;

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
     <title>Cocktail Maestro - Mini Game</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="game_style.css">
 </head>
+
 <body>
     <div id="portrait-warning">
         <div class="warning-box">
@@ -18,178 +21,260 @@
         </div>
     </div>
     <div id="game" class="game-container">
-            <div id="entree-screen" class="entree-screen">
-                <div class="entree-content">
-                    <!-- Left board: High Scores -->
-                    <div id="leaderboard-box" class="entree-board topscore-board">
-                        <h3 class="board-header">TOP SCORES</h3>
-                        <img src="graphics/entree-screen-elements/topscore-board.webp" class="board-bg" alt="High Scores">
-                        <div class="board-content">
-                            <ul id="leaderboard-list"></ul>
-                        </div>
-                    </div>
-
-                    <!-- Right board: Recent Shakes -->
-                    <div id="logs-box" class="entree-board recent-shakes-board">
-                        <h3 class="board-header">RECENT SHAKES</h3>
-                        <button id="clear-logs-btn" class="board-clear-btn" title="Clear Recent Shakes">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
-                        <img src="graphics/entree-screen-elements/recent-shakes-board.webp" class="board-bg" alt="Recent Shakes">
-                        <div class="board-content">
-                            <ul id="logs-list"></ul>
-                        </div>
-                    </div>
-
-                    <!-- Buttons Row -->
-                    <div class="entree-buttons">
-                        <button id="uitleg-btn" class="entree-icon-btn">
-                            <img src="graphics/entree-screen-elements/description-game-button.webp" alt="Uitleg">
-                            <span class="btn-text">UITLEG</span>
-                        </button>
-                        
-                        <button id="start-game-btn" class="entree-start-btn">
-                            <img src="graphics/entree-screen-elements/start-button.webp" alt="Start Game">
-                            <span class="btn-text">LET'S<br>SHAKE!</span>
-                        </button>
-                        
-                        <button id="back-home-btn" class="entree-back-btn" onclick="window.location.href='../index.html'">
-                            <img src="graphics/entree-screen-elements/back-home-button.webp" alt="Terug">
-                            <span class="btn-text">BACK TO<br>COCKTAIL MAESTRO</span>
-                        </button>
+        <div id="entree-screen" class="entree-screen">
+            <div class="entree-content">
+                <!-- Left board: High Scores -->
+                <div id="leaderboard-box" class="entree-board topscore-board">
+                    <h3 class="board-header">TOP SCORES</h3>
+                    <img src="graphics/entree-screen-elements/topscore-board.webp" class="board-bg" alt="High Scores">
+                    <div class="board-content">
+                        <ul id="leaderboard-list"></ul>
                     </div>
                 </div>
-            </div>
 
-            <!-- Uitleg Modal -->
-            <div id="uitleg-modal" class="game-menu-overlay">
-                <div class="menu-content uitleg-content">
-                    <button class="close-cross-btn" id="close-uitleg-cross"><i class="fa-solid fa-xmark"></i></button>
-                    <h3 class="uitleg-title">Hoe speel je?</h3>
-                    <div class="uitleg-text">
-                        <div class="uitleg-step">
-                            <div class="uitleg-icon"><i class="fa-solid fa-bottle-water"></i></div>
-                            <div class="uitleg-desc"><strong>1. Kies:</strong> Selecteer flessen uit de kast of sappen en specials (ijs, citroen, eiwit) vanaf de bar.</div>
-                        </div>
-                        <div class="uitleg-step">
-                            <div class="uitleg-icon"><i class="fa-solid fa-glass-water-droplet"></i></div>
-                            <div class="uitleg-desc"><strong>2. Schenk:</strong> Houd de <strong>POUR</strong> knop ingedrukt. Let op je timing en de verhoudingen!</div>
-                        </div>
-                        <div class="uitleg-step">
-                            <div class="uitleg-icon"><i class="fa-solid fa-hands-bubbles"></i></div>
-                            <div class="uitleg-desc"><strong>3. Shake:</strong> Houd de <strong>SHAKE</strong> knop ingedrukt. Niet te lang, anders explodeert de shaker!</div>
-                        </div>
-                        <div class="uitleg-step">
-                            <div class="uitleg-icon"><i class="fa-solid fa-martini-glass"></i></div>
-                            <div class="uitleg-desc"><strong>4. Serveer:</strong> Klik op <strong>SERVE</strong> om je cocktail aan Boudewijn te presenteren.</div>
-                        </div>
-                        <div class="uitleg-step uitleg-tip">
-                            <div class="uitleg-icon"><i class="fa-solid fa-lightbulb"></i></div>
-                            <div class="uitleg-desc"><strong>Tip:</strong> Vergeet niet om altijd <strong>2 ijsblokjes</strong> toe te voegen aan je mix!</div>
-                        </div>
+                <!-- Right board: Recent Shakes -->
+                <div id="logs-box" class="entree-board recent-shakes-board">
+                    <h3 class="board-header">RECENT SHAKES</h3>
+                    <button id="clear-logs-btn" class="board-clear-btn" title="Clear Recent Shakes">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                    <img src="graphics/entree-screen-elements/recent-shakes-board.webp" class="board-bg"
+                        alt="Recent Shakes">
+                    <div class="board-content">
+                        <ul id="logs-list"></ul>
                     </div>
-                    <button class="menu-item close-menu" id="close-uitleg-btn">
-                        Begrepen!
+                </div>
+
+                <!-- Buttons Row -->
+                <div class="entree-buttons">
+                    <button id="uitleg-btn" class="entree-icon-btn">
+                        <img src="graphics/entree-screen-elements/description-game-button.webp" alt="Uitleg">
+                        <span class="btn-text">UITLEG</span>
+                    </button>
+
+                    <button id="start-game-btn" class="entree-start-btn">
+                        <img src="graphics/entree-screen-elements/start-button.webp" alt="Start Game">
+                        <span class="btn-text">LET'S<br>SHAKE!</span>
+                    </button>
+
+                    <button id="back-home-btn" class="entree-back-btn" onclick="window.location.href='../index.html'">
+                        <img src="graphics/entree-screen-elements/back-home-button.webp" alt="Terug">
+                        <span class="btn-text">BACK TO<br>COCKTAIL MAESTRO</span>
                     </button>
                 </div>
-            </div>
-
-            <div id="game-menu" class="game-menu-overlay">
-                <div class="menu-content">
-                    <button class="close-cross-btn" id="close-menu-cross"><i class="fa-solid fa-xmark"></i></button>
-                    <h3>Menu</h3>
-                    <button class="menu-item" onclick="goToEntree()">
-                        <i class="fa-solid fa-house"></i> Terug naar Home
-                    </button>
-                    <button class="menu-item" onclick="window.location.href='../index.html'">
-                        <i class="fa-solid fa-door-open"></i> Verlaat Spel
-                    </button>
-                    <button class="menu-item" onclick="resetGame()">
-                        <i class="fa-solid fa-rotate-right"></i> Opnieuw Beginnen
-                    </button>
-                    <button class="menu-item close-menu" id="close-menu">
-                        Sluiten
-                    </button>
-                </div>
-            </div>
-
-            <div class="top-banner">
-                <div class="header-left">
-                    <div class="menu-btn" id="menu-btn">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                    <div class="game-title">Cocktail Maestro <span>Mini Game</span></div>
-                </div>
-                <div class="stats" id="stats">Volume: 0 ml | Dilution: 0%</div>
-            </div>
-
-            <div class="main-area">
-                <div class="shelf-wrap">
-                    <div class="shelf one" id="shelf-one"></div>
-                    <div class="shelf two" id="shelf-two"></div>
-                </div>
-
-                <div class="ice-bucket" id="ice-btn">
-                    <div class="ice-cube"></div>
-                    <div class="ice-cube"></div>
-                    <div class="ice-cube"></div>
-                </div>
-
-                <div class="lemon-bowl" id="lemon-btn">
-                    <div class="lemon"></div>
-                    <div class="lemon"></div>
-                    <div class="lemon"></div>
-                </div>
-
-                <div class="egg-bowl" id="egg-btn">
-                    <div class="egg"></div>
-                    <div class="egg"></div>
-                    <div class="egg"></div>
-                </div>
-
-                <div class="bitters-bottle" id="bitters-btn">
-                    <div class="bitters-label"><span>ANGO</span></div>
-                </div>
-
-                <div class="mixing-station">
-                    <div class="shaker" id="shaker">
-                        <div class="liquid-fill" id="liquid-fill"></div>
-                    </div>
-                </div>
-
-                <div class="bartender" id="bartender">
-                    <img src="graphics/sprite/sprite-barman-rest-mode/frame_000.webp" id="bartender-sprite" alt="Bartender">
-                </div>
-
-                <div class="counter">
-                    <div class="juice-shelf" id="juice-shelf"></div>
-                    <div class="counter-front"></div>
-                </div>
-            </div>
-
-            <div class="bottom-ui">
-                <div class="controls">
-                    <button class="game-btn hold-btn" id="pour-btn">POUR</button>
-                    <button class="game-btn hold-btn" id="shake-btn">SHAKE</button>
-                    <button class="game-btn" id="serve-btn">SERVE</button>
-                </div>
-                <div class="info-panel" id="info-panel">
-                    Selecteer een drankje en HOUD de POUR knop ingedrukt.
-                </div>
-            </div>
-
-            <div id="explosion-layer"></div>
-            <canvas id="fx-canvas"></canvas>
-
-            <div class="score-popup" id="score-popup">
-                <div class="score-title" id="score-title">Resultaat</div>
-                <div class="score-number" id="score-number">0</div>
-                <div class="score-text" id="score-text"></div>
-                <button class="reset-btn" id="reset-btn">NIEUWE MIX</button>
             </div>
         </div>
+
+        <!-- Uitleg Modal -->
+        <div id="uitleg-modal" class="game-menu-overlay">
+            <div class="menu-content uitleg-content">
+                <button class="close-cross-btn" id="close-uitleg-cross"><i class="fa-solid fa-xmark"></i></button>
+                <h3 class="uitleg-title">Hoe speel je?</h3>
+                <div class="uitleg-text">
+                    <div class="uitleg-step">
+                        <div class="uitleg-icon"><i class="fa-solid fa-bottle-water"></i></div>
+                        <div class="uitleg-desc"><strong>1. Kies:</strong> Selecteer flessen uit de kast of sappen en
+                            specials (ijs, citroen, eiwit) vanaf de bar.</div>
+                    </div>
+                    <div class="uitleg-step">
+                        <div class="uitleg-icon"><i class="fa-solid fa-glass-water-droplet"></i></div>
+                        <div class="uitleg-desc"><strong>2. Schenk:</strong> Houd de <strong>POUR</strong> knop
+                            ingedrukt. Let op je timing en de verhoudingen!</div>
+                    </div>
+                    <div class="uitleg-step">
+                        <div class="uitleg-icon"><i class="fa-solid fa-hands-bubbles"></i></div>
+                        <div class="uitleg-desc"><strong>3. Shake:</strong> Houd de <strong>SHAKE</strong> knop
+                            ingedrukt. Niet te lang, anders explodeert de shaker!</div>
+                    </div>
+                    <div class="uitleg-step">
+                        <div class="uitleg-icon"><i class="fa-solid fa-martini-glass"></i></div>
+                        <div class="uitleg-desc"><strong>4. Serveer:</strong> Klik op <strong>SERVE</strong> om je
+                            cocktail aan Boudewijn te presenteren.</div>
+                    </div>
+                    <div class="uitleg-step uitleg-tip">
+                        <div class="uitleg-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                        <div class="uitleg-desc"><strong>Tip:</strong> Vergeet niet om altijd <strong>2
+                                ijsblokjes</strong> toe te voegen aan je mix!</div>
+                    </div>
+                </div>
+                <button class="menu-item close-menu" id="close-uitleg-btn">
+                    Begrepen!
+                </button>
+            </div>
+        </div>
+
+        <div id="game-menu" class="game-menu-overlay">
+            <div class="menu-content">
+                <button class="close-cross-btn" id="close-menu-cross"><i class="fa-solid fa-xmark"></i></button>
+                <h3>Menu</h3>
+                <button class="menu-item" onclick="goToEntree()">
+                    <i class="fa-solid fa-house"></i> Terug naar Home
+                </button>
+                <button class="menu-item" onclick="window.location.href='../index.html'">
+                    <i class="fa-solid fa-door-open"></i> Verlaat Spel
+                </button>
+                <button class="menu-item" onclick="resetGame()">
+                    <i class="fa-solid fa-rotate-right"></i> Opnieuw Beginnen
+                </button>
+                <button class="menu-item close-menu" id="close-menu">
+                    Sluiten
+                </button>
+            </div>
+        </div>
+
+        <div class="game-title">Cocktail Maestro <span>Mini Game</span></div>
+
+        <div class="top-banner">
+            <div class="header-left">
+                <div class="menu-btn" id="menu-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="stats" id="stats">Volume: 0 ml | Dilution: 0%</div>
+        </div>
+
+        <div class="main-area">
+            <div class="shelf-wrap">
+                <div class="shelf one" id="shelf-one"></div>
+                <div class="shelf two" id="shelf-two"></div>
+            </div>
+
+            <div class="ice-bucket" id="ice-btn">
+                <div class="ice-cube"></div>
+                <div class="ice-cube"></div>
+                <div class="ice-cube"></div>
+            </div>
+
+            <div class="lemon-bowl" id="lemon-btn">
+                <div class="lemon"></div>
+                <div class="lemon"></div>
+                <div class="lemon"></div>
+            </div>
+
+            <div class="egg-bowl" id="egg-btn">
+                <div class="egg"></div>
+                <div class="egg"></div>
+                <div class="egg"></div>
+            </div>
+
+            <div class="bitters-bottle" id="bitters-btn">
+                <div class="bitters-label"><span>ANGO</span></div>
+            </div>
+
+            <div class="mixing-station" id="mixing-station">
+                <img src="graphics/game_screen_elements/shaker_body.webp" id="shaker-body" class="shaker-part" alt="">
+                <div id="liquid-container" class="shaker-part">
+                    <div id="liquid-fill"></div>
+                </div>
+                <img src="graphics/game_screen_elements/shaker_highlights.svg" id="shaker-highlights" class="shaker-part" alt="">
+                <img src="graphics/game_screen_elements/shaker_cap.webp" id="shaker-cap" class="shaker-part" alt="">
+            </div>
+
+            <div class="bartender" id="bartender">
+                <img src="graphics/sprite/sprite-barman-rest-mode/frame_000.webp" id="bartender-sprite" alt="Bartender">
+            </div>
+
+            <div class="counter">
+                <div class="juice-shelf" id="juice-shelf"></div>
+                <div class="counter-front"></div>
+            </div>
+        </div>
+
+        <!-- Old UI Elements (can be removed later) -->
+        <div class="bottom-ui">
+        </div>
+
+        <!-- New Game Elements -->
+        <img src="graphics/game_screen_elements/bartop_front_png.webp" id="new-bartop-front" class="new-ui-element"
+            alt="Bartop Front">
+        <img src="graphics/game_screen_elements/whiskey_png.webp" id="new-bottle-whiskey"
+            class="new-ui-element new-bottle" alt="Whiskey">
+        <img src="graphics/game_screen_elements/cognac_png.webp" id="new-bottle-cognac"
+            class="new-ui-element new-bottle" alt="Cognac">
+        <img src="graphics/game_screen_elements/dark_rum_png.webp" id="new-bottle-dark-rum"
+            class="new-ui-element new-bottle" alt="Dark Rum">
+        <img src="graphics/game_screen_elements/white_rum_png.webp" id="new-bottle-white-rum"
+            class="new-ui-element new-bottle" alt="White Rum">
+        <img src="graphics/game_screen_elements/vodka_png.webp" id="new-bottle-vodka" class="new-ui-element new-bottle"
+            alt="Vodka">
+        <img src="graphics/game_screen_elements/gin_png.webp" id="new-bottle-gin" class="new-ui-element new-bottle"
+            alt="Gin">
+        <img src="graphics/game_screen_elements/tequila_png.webp" id="new-bottle-tequila"
+            class="new-ui-element new-bottle" alt="Tequila">
+        <img src="graphics/game_screen_elements/cointreau_png.webp" id="new-bottle-cointreau"
+            class="new-ui-element new-bottle" alt="Cointreau">
+        <img src="graphics/game_screen_elements/disaronno_png.webp" id="new-bottle-disaronno"
+            class="new-ui-element new-bottle" alt="Disaronno">
+        <img src="graphics/game_screen_elements/campari_png.webp" id="new-bottle-campari"
+            class="new-ui-element new-bottle" alt="Campari">
+        <img src="graphics/game_screen_elements/soda_png.webp" id="new-bottle-soda" class="new-ui-element new-bottle"
+            alt="Soda">
+        <img src="graphics/game_screen_elements/baileys_png.webp" id="new-bottle-baileys"
+            class="new-ui-element new-bottle" alt="Baileys">
+        <img src="graphics/game_screen_elements/kahlua_png.webp" id="new-bottle-kahlua"
+            class="new-ui-element new-bottle" alt="Kahlua">
+        <img src="graphics/game_screen_elements/vermouth_png.webp" id="new-bottle-vermouth"
+            class="new-ui-element new-bottle" alt="Vermouth">
+        <img src="graphics/game_screen_elements/blue_curacau_png.webp" id="new-bottle-blue-curacau"
+            class="new-ui-element new-bottle" alt="Blue Curacau">
+        <img src="graphics/game_screen_elements/peach_liquor_png.webp" id="new-bottle-peach-liquor"
+            class="new-ui-element new-bottle" alt="Peach Liquor">
+        <img src="graphics/game_screen_elements/orange_juice_png.webp" id="new-bottle-orange-juice"
+            class="new-ui-element new-bottle" alt="Orange Juice">
+        <img src="graphics/game_screen_elements/lemon_juice_png.webp" id="new-bottle-lemon-juice"
+            class="new-ui-element new-bottle" alt="Lemon Juice">
+        <img src="graphics/game_screen_elements/lime_juice_png.webp" id="new-bottle-lime-juice"
+            class="new-ui-element new-bottle" alt="Lime Juice">
+        <img src="graphics/game_screen_elements/cranberry_juice_png.webp" id="new-bottle-cranberry-juice"
+            class="new-ui-element new-bottle" alt="Cranberry Juice">
+        <img src="graphics/game_screen_elements/sugar_syrup_png.webp" id="new-bottle-sugar-syrup"
+            class="new-ui-element new-bottle" alt="Sugar Syrup">
+        <img src="graphics/game_screen_elements/ice_png.webp" id="new-ice-bucket"
+            class="new-ui-element new-bottle" alt="Ice Bucket">
+        <img src="graphics/game_screen_elements/lemons_png.webp" id="new-lemon-bowl"
+            class="new-ui-element new-bottle" alt="Lemon Bowl">
+        <img src="graphics/game_screen_elements/angostura_png.webp" id="new-bottle-angostura"
+            class="new-ui-element new-bottle" alt="Angostura Bitters">
+        <img src="graphics/game_screen_elements/info_shield_png.webp" id="new-info-shield" class="new-ui-element"
+            alt="Info Shield">
+        <img src="graphics/game_screen_elements/button_shield_png.webp" id="new-button-shield-pour"
+            class="new-ui-element" alt="Button Shield Pour">
+        <img src="graphics/game_screen_elements/button_shield_png.webp" id="new-button-shield-shake"
+            class="new-ui-element" alt="Button Shield Shake">
+        <img src="graphics/game_screen_elements/button_shield_png.webp" id="new-button-shield-serve"
+            class="new-ui-element" alt="Button Shield Serve">
+
+        <div class="info-panel new-ui-element" id="info-panel">
+            Selecteer een drankje en HOUD de POUR knop ingedrukt.
+        </div>
+
+        <img src="graphics/game_screen_elements/pour_button_png.webp" id="new-pour-btn"
+            class="new-ui-element new-action-btn" alt="Pour">
+        <img src="graphics/game_screen_elements/shake_button_png.webp" id="new-shake-btn"
+            class="new-ui-element new-action-btn" alt="Shake">
+        <img src="graphics/game_screen_elements/serve_button_png.webp" id="new-serve-btn"
+            class="new-ui-element new-action-btn" alt="Serve">
+
+        <div class="action-label new-ui-element" id="label-pour">POUR</div>
+        <div class="action-label new-ui-element" id="label-shake">SHAKE</div>
+        <div class="action-label new-ui-element" id="label-serve">SERVE</div>
+
+        <div id="explosion-layer"></div>
+        <canvas id="fx-canvas"></canvas>
+
+        <div class="score-popup" id="score-popup">
+            <div class="score-title" id="score-title">Resultaat</div>
+            <div class="score-number" id="score-number">0</div>
+            <div class="score-text" id="score-text"></div>
+            <div class="score-buttons">
+                <button class="reset-btn" id="reset-btn">NIEUWE MIX</button>
+                <button class="scoreboard-btn" id="to-scoreboard-btn">SCOREBOARD</button>
+            </div>
+        </div>
+    </div>
     <script type="module" src="game.js"></script>
 </body>
+
 </html>

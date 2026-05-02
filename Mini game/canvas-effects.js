@@ -21,25 +21,35 @@ export const FX = (() => {
     let animFrameId = null;
 
     // ─── Pour target (user-tuned: where the stream aims) ──────
-    const POUR_TARGET_X = 1450; // Moved 150px left
-    const POUR_TARGET_Y = 590;
+    const POUR_TARGET_X = 1550; // Moved 100px right
+    const POUR_TARGET_Y = 570;
 
     // ─── Pour source (above-left, where bottle tip is) ────────
-    const POUR_SRC_X = 1250; // Moved 150px left
+    const POUR_SRC_X = 1360; // Moved 100px right
     const POUR_SRC_Y = 280;
 
     // ─── Shaker visual position: read from DOM dynamically ────
     function getShakerPos() {
-        const shakerEl = document.getElementById('shaker');
-        const gameEl   = document.getElementById('game');
-        if (!shakerEl || !gameEl) return { x: POUR_TARGET_X, top: POUR_TARGET_Y, height: 200 };
-        const sr = shakerEl.getBoundingClientRect();
+        const liquidEl = document.getElementById('liquid-container');
+        const fillEl = document.getElementById('liquid-fill');
+        const gameEl = document.getElementById('game');
+        if (!liquidEl || !gameEl) return { x: POUR_TARGET_X, top: POUR_TARGET_Y, height: 200, surface: POUR_TARGET_Y };
+
+        const lr = liquidEl.getBoundingClientRect();
         const gr = gameEl.getBoundingClientRect();
         const scale = gr.width / 1920;
+
+        // Calculate the actual Y position of the liquid surface
+        const fillHeightPercent = fillEl ? parseFloat(fillEl.style.height) || 0 : 0;
+        const totalHeight = lr.height / scale;
+        const bottomY = (lr.bottom - gr.top) / scale;
+        const surfaceY = bottomY - (totalHeight * (fillHeightPercent / 100));
+
         return {
-            x:      (sr.left - gr.left) / scale + (sr.width  / scale) / 2,
-            top:    (sr.top  - gr.top)  / scale,
-            height:  sr.height / scale
+            x: (lr.left - gr.left) / scale + (lr.width / scale) / 2,
+            top: (lr.top - gr.top) / scale,
+            height: totalHeight,
+            surface: surfaceY
         };
     }
 
@@ -82,22 +92,21 @@ export const FX = (() => {
         constructor(srcX, srcY, destX, destY, color) {
             const dx = destX - srcX;
             const dy = destY - srcY;
-            const ox = (Math.random() - 0.5) * 10;
-            // Slower velocity so arc is natural, gravity does most of the work
+            const ox = (Math.random() - 0.5) * 4; // Reduced horizontal spread at source
             super(
                 srcX + ox,
-                srcY + (Math.random() * 15),
-                dx * 0.018 + (Math.random() - 0.5) * 1.0,
-                dy * 0.008 + Math.random() * 1.5,
+                srcY + (Math.random() * 10),
+                dx * 0.025 + (Math.random() - 0.5) * 0.3, // Faster horizontal
+                dy * 0.012 + Math.random() * 2.0,        // Faster vertical
                 color,
-                2.5 + Math.random() * 2.5,
-                22 + Math.random() * 6,  // shorter life — die at shaker top
-                0.38,
+                3.0 + Math.random() * 2.0,               // Slightly thicker stream
+                25 + Math.random() * 5,
+                0.32,                                    // Lower gravity for straighter arc
                 false
             );
-            this.alpha = 0.9;
+            this.alpha = 0.95;
             this.color = color;
-            this.maxY = destY + 5; // kill particle if it passes the shaker opening
+            this.maxY = destY + 5;
         }
         update() {
             this.x += this.vx;
@@ -214,7 +223,11 @@ export const FX = (() => {
 
         // Spawn new stream droplets while pouring
         if (isPouringActive) {
-            for (let i = 0; i < 4; i++) {
+            const pos = getShakerPos();
+            shakerTopX = pos.x + 30; // Offset 10px to the right as requested
+            shakerTopY = pos.surface; // Target the dynamic liquid surface
+
+            for (let i = 0; i < 10; i++) { // Increased particle count for denser stream
                 particles.push(new StreamDroplet(
                     pourSourceX, pourSourceY,
                     shakerTopX, shakerTopY,
@@ -223,9 +236,8 @@ export const FX = (() => {
             }
             // Random small splash at shaker top — dynamically track shaker pos
             if (Math.random() < 0.25) {
-                const pos = getShakerPos();
                 for (let i = 0; i < 3; i++) {
-                    particles.push(new SplashParticle(pos.x, pos.top, pourColor));
+                    particles.push(new SplashParticle(pos.x, pos.surface, pourColor));
                 }
             }
         }
@@ -283,12 +295,12 @@ export const FX = (() => {
             const pos = getShakerPos();
             const cx = pos.x;
             const cy = pos.top + pos.height * 0.4;
-            
+
             // Initial massive burst
             for (let i = 0; i < 500; i++) {
                 particles.push(new ExplosionParticle(cx, cy));
             }
-            
+
             // Chain reaction explosions across the screen
             for (let j = 0; j < 8; j++) {
                 setTimeout(() => {

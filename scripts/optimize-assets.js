@@ -5,7 +5,7 @@ const { execSync } = require('child_process');
 /**
  * OPTIMIZE ASSETS SCRIPT
  * 1. Checks for 'sharp' dependency and installs if missing.
- * 2. Scans assets and mini-game folders for PNG/JPG files recursively.
+ * 2. Scans assets and Mini game folders for PNG/JPG files recursively.
  * 3. Converts them to WebP using sharp.
  * 4. Updates .js, .html, and .css files to point to .webp extensions.
  */
@@ -30,7 +30,8 @@ async function main() {
 
     const rootDirs = [
         path.join(__dirname, '../assets'),
-        path.join(__dirname, '../mini-game/graphics')
+        path.join(__dirname, '../Mini game/graphics'),
+        path.join(__dirname, '../Mini game/graphics/game_screen_elements')
     ];
 
     const dbFiles = [
@@ -39,9 +40,9 @@ async function main() {
         path.join(__dirname, '../js/modules/news.js'),
         path.join(__dirname, '../js/modules/news-db.js'),
         path.join(__dirname, '../index.html'),
-        path.join(__dirname, '../mini-game/game_index.html'),
-        path.join(__dirname, '../mini-game/game.js'),
-        path.join(__dirname, '../mini-game/game_style.css')
+        path.join(__dirname, '../Mini game/game_index.html'),
+        path.join(__dirname, '../Mini game/game.js'),
+        path.join(__dirname, '../Mini game/game_style.css')
     ];
 
     let convertedCount = 0;
