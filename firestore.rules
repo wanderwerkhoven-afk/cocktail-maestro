@@ -18,9 +18,12 @@ service cloud.firestore {
         (!request.resource.data.keys().hasAll(['Admin']) || request.resource.data.Admin == false);
       
       // Allow user to update their own record, but NOT change the Admin field
-      // The new value of Admin must match the old value
+      // We check if the Admin field is being changed. If it's missing in both, it's fine.
       allow update: if request.auth != null && request.auth.uid == userId && 
-        (request.resource.data.Admin == resource.data.Admin);
+        (
+          (!request.resource.data.keys().hasAny(['Admin']) && !resource.data.keys().hasAny(['Admin'])) ||
+          (request.resource.data.Admin == resource.data.Admin)
+        );
       
       // Admin can do anything
       allow write: if isAdmin();

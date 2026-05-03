@@ -141,7 +141,10 @@ export async function handleUpdateName(event) {
         if (headerName) headerName.innerText = newName;
     } else {
         msgEl.style.color = "#ff4757";
-        msgEl.innerText = "Fout bij wijzigen naam.";
+        msgEl.innerText = result.error || "Fout bij wijzigen naam.";
+        if (result.error?.includes('requires-recent-login')) {
+            msgEl.innerText = "Log opnieuw in om je naam te wijzigen (beveiliging).";
+        }
     }
 
     btn.disabled = false;

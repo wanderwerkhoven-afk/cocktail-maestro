@@ -122,17 +122,33 @@ export async function sendPasswordReset(email) {
  */
 async function syncLocalDataToCloud(user, displayNameOverride) {
     const uid = user.uid;
+    
+    const safeParse = (key, fallback) => {
+        try {
+            const item = localStorage.getItem(key);
+            return item ? JSON.parse(item) : fallback;
+        } catch (e) {
+            console.warn(`Error parsing localStorage key "${key}":`, e);
+            return fallback;
+        }
+    };
+
     const data = {
         displayName: displayNameOverride || user.displayName || '',
         email: user.email,
         updatedAt: new Date().toISOString(),
-        ingredients: JSON.parse(localStorage.getItem('myIngredients')) || {},
-        favorites: JSON.parse(localStorage.getItem('myFavorites')) || [],
-        recipes: JSON.parse(localStorage.getItem('myRecipes')) || [],
-        shoppingList: JSON.parse(localStorage.getItem('shoppingList')) || []
+        ingredients: safeParse('myIngredients', {}),
+        favorites: safeParse('myFavorites', []),
+        recipes: safeParse('myRecipes', []),
+        shoppingList: safeParse('shoppingList', [])
     };
     
-    await setDoc(doc(db, "users", uid), data, { merge: true });
+    try {
+        await setDoc(doc(db, "users", uid), data, { merge: true });
+    } catch (e) {
+        console.error("Firestore sync error:", e);
+        throw e; // Re-throw to be caught by the caller (like updateUserProfile)
+    }
 }
 
 /**
@@ -207,7 +223,8 @@ export async function updateUserProfile(displayName) {
     try {
         await updateProfile(user, { displayName });
         // Also sync to firestore
-        await syncLocalDataToCloud(user);
+        // Pass displayName explicitly because user.displayName might not be updated yet
+        await syncLocalDataToCloud(user, displayName);
         return { success: true };
     } catch (error) {
         console.error("Update profile error:", error);
