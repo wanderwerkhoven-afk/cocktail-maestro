@@ -16,7 +16,5 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Export instances
-// Note: Firebase Web SDK already uses browserLocalPersistence by default —
-// sessions survive browser restarts without any extra configuration.
 export const auth = getAuth(app);
 export const db = getFirestore(app);

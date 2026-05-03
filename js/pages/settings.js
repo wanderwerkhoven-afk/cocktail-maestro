@@ -380,8 +380,7 @@ window.handleAuthSubmit = async (event, type) => {
             errorEl.style.color = "#ff4757"; // Ensure red
             errorEl.innerText = getFriendlyErrorMessage(result.error);
         } else {
-            // Firebase automatically logs in after createUserWithEmailAndPassword
-            // Navigate straight to home — no need to log out and re-login
+            // Firebase auto-signs in after registration — navigate directly to home
             navigateTo('home');
             setTimeout(() => location.reload(), 100);
             return; // Prevent resetting button state below
@@ -507,12 +506,6 @@ function getFriendlyErrorMessage(errorString) {
     }
     if (errorString.includes('wrong-password') || errorString.includes('invalid-credential')) {
         return "Onjuist wachtwoord. Probeer het opnieuw.";
-    }
-    if (errorString.includes('permission-denied')) {
-        return "Geen toegang. Controleer je verbinding en probeer opnieuw.";
-    }
-    if (errorString.includes('network-request-failed')) {
-        return "Geen internetverbinding. Controleer je netwerk.";
     }
     
     return "Oeps! Er ging iets mis. Probeer het later opnieuw.";

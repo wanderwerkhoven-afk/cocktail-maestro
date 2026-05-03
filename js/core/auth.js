@@ -53,30 +53,22 @@ export async function fetchGlobalDatabases() {
  * Handle user registration
  */
 export async function registerUser(email, password, displayName) {
-    let user;
     try {
-        // Step 1 (critical): Create the Firebase Auth account — user is auto-logged in here
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        user = userCredential.user;
+        const user = userCredential.user;
         
-        // Step 2 (critical): Set the display name on the Auth profile
+        // Update profile with name
         await updateProfile(user, { displayName });
+        
+        // Sync existing local data to new account
+        // Pass displayName explicitly — user.displayName may not reflect yet after updateProfile
+        await syncLocalDataToCloud(user, displayName);
+        
+        return { success: true, user };
     } catch (error) {
-        // Auth creation failed — return the real error
-        console.error("Registration auth error:", error);
+        console.error("Registration error:", error);
         return { success: false, error: error.message };
     }
-
-    try {
-        // Step 3 (non-critical): Save profile to Firestore
-        // If this fails the user is still logged in — initAuthListener will retry on next load
-        await syncLocalDataToCloud(user, true);
-    } catch (firestoreError) {
-        // Log but don't block — auth succeeded, so registration is effectively done
-        console.warn("Firestore profile write failed after registration (will retry):", firestoreError);
-    }
-
-    return { success: true, user };
 }
 
 /**
@@ -89,14 +81,6 @@ export async function loginUser(email, password) {
         
         // Fetch data from cloud
         await fetchCloudData(user.uid);
-        
-        // Failsafe: ensure displayName and email are always present in Firestore.
-        // Uses merge so existing data (ingredients, favorites, etc.) is never overwritten.
-        await setDoc(doc(db, "users", user.uid), {
-            displayName: user.displayName || '',
-            email: user.email,
-            updatedAt: new Date().toISOString()
-        }, { merge: true });
         
         return { success: true, user };
     } catch (error) {
@@ -136,10 +120,10 @@ export async function sendPasswordReset(email) {
 /**
  * Sync LocalStorage data to Firestore
  */
-async function syncLocalDataToCloud(user, isNewUser = false) {
+async function syncLocalDataToCloud(user, displayNameOverride) {
     const uid = user.uid;
     const data = {
-        displayName: user.displayName,
+        displayName: displayNameOverride || user.displayName || '',
         email: user.email,
         updatedAt: new Date().toISOString(),
         ingredients: JSON.parse(localStorage.getItem('myIngredients')) || {},
@@ -147,11 +131,6 @@ async function syncLocalDataToCloud(user, isNewUser = false) {
         recipes: JSON.parse(localStorage.getItem('myRecipes')) || [],
         shoppingList: JSON.parse(localStorage.getItem('shoppingList')) || []
     };
-    
-    // Save createdAt only once, on first registration
-    if (isNewUser) {
-        data.createdAt = new Date().toISOString();
-    }
     
     await setDoc(doc(db, "users", uid), data, { merge: true });
 }
