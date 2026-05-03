@@ -92,6 +92,7 @@
  *      - Sidecar
  *      - Singapore Sling
  *      - South Side
+ *      - Spanish Coffee
  *      - Spicy Margarita
  *      - Spritz Veneziano
  *      - Tequila Sunrise
@@ -105,6 +106,11 @@
  *      - White Russian
  *      - Yellow Bird
  *      - Zombie
+ *      - Spanish Coffee
+ *      - Italian Coffee
+ *      - French Coffee
+ *      - Irish Coffee
+ *      - Dutch Coffee
  *  
  *      FRIDGE CATEGORIES
  *      - spirits               "spirit"    
@@ -463,8 +469,8 @@ export const classicCocktails = [
         image: "./assets/Cocktails/blueberrymule.webp"
     },
     {
-        id: 'blueberry-mojito',
-        name: "Blueberry Mojito",
+        id: 'berry-mojito',
+        name: "Berry Mojito",
         category: ["Fruity", "Refreshing", "Minty", "Rum"],
         description: "A vibrant and fruity twist on the classic Mojito, bursting with fresh blueberry flavour and refreshing mint.",
         ingredients: [
@@ -472,7 +478,7 @@ export const classicCocktails = [
             { amount: 15, unit: "ml", name: "Lime juice", fridgeCategory: "juice" },
             { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
             { amount: 8, unit: "pcs", name: "Fresh mint leaves", fridgeCategory: "fresh" },
-            { amount: 8 - 12, unit: "pcs", name: "Fresh blueberries", fridgeCategory: "fresh" },
+            { amount: 8 - 12, unit: "pcs", name: "Fresh berries", fridgeCategory: "fresh" },
             { amount: 90, unit: "ml", name: "Sprite", fridgeCategory: "juice" }
         ],
         glassware: "Highball glass",
@@ -481,7 +487,7 @@ export const classicCocktails = [
         methodDesc: `
             Step 1: In a highball glass, gently muddle the mint leaves with the simple syrup to release the mint oils without shredding the leaves.
 
-            Step 2: Add the fresh blueberries and gently press them 2–3 times to release their juices.
+            Step 2: Add the fresh berries (strawberries, blueberries, raspberries, what you have in the fridge!) and gently press them 2–3 times to release their juices.
 
             Step 3: Fill the glass completely with crushed ice.
 
@@ -2702,6 +2708,145 @@ export const classicCocktails = [
             Step 4: Garnish with mint and citrus; ignite the overproof rum only if safe and permitted.
         `.trim(),
         image: "./assets/Cocktails/zombie.webp"
+    },
+    {
+        id: 'spanish-coffee',
+        name: "Spanish Coffee",
+        category: ["Coffee", "Sweet", "Warm", "Tiki"],
+        description: "A theatrical flaming coffee classic — rum, triple sec, bold espresso and whipped cream in a caramelised glass.",
+        ingredients: [
+            { amount: 50, unit: "ml", name: "Licor 43", fridgeCategory: "spirit" },
+            { amount: 120, unit: "ml", name: "Black coffee", fridgeCategory: "fresh" },
+            { amount: 30, unit: "ml", name: "Whipped cream", fridgeCategory: "fresh" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup" }
+        ],
+        glassware: "Footed glass or mug",
+        ice: "No ice",
+        method: "Built & Flamed",
+        methodDesc: `
+            Step 1: Rim the glass with lime juice and dip in sugar. Warm the glass with hot water first.
+
+            Step 2: Add triple sec to the glass. Carefully flame it by tilting and spinning the glass to caramelise the sugar rim.
+
+            Step 3: Add rum and coffee liqueur, then extinguish the flame.
+
+            Step 4: Pour in hot black coffee and stir gently to combine.
+
+            Step 5: Top with freshly whipped cream, poured over the back of a spoon.
+
+            Step 6: Optional: dust with grated nutmeg or cinnamon.
+        `.trim(),
+        image: "./assets/Cocktails/spanishcoffee.webp"
+    },
+    {
+        id: 'italian-coffee',
+        name: "Italian Coffee",
+        category: ["Coffee", "Sweet", "Warm", "Nutty"],
+        description: "Silky amaretto and rich espresso meet in this elegant Italian warm coffee classic, crowned with velvety cream.",
+        ingredients: [
+            { amount: 50, unit: "ml", name: "Amaretto", fridgeCategory: "liqueur" },
+            { amount: 120, unit: "ml", name: "Black coffee", fridgeCategory: "fresh" },
+            { amount: 30, unit: "ml", name: "Whipped cream", fridgeCategory: "fresh" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" }
+        ],
+        glassware: "Irish coffee glass",
+        ice: "No ice",
+        method: "Built",
+        methodDesc: `
+            Step 1: Pre-warm an Irish coffee glass with hot water, then discard the water.
+
+            Step 2: Pour in the amaretto and simple syrup.
+
+            Step 3: Add freshly brewed hot black coffee and stir gently.
+
+            Step 4: Top carefully with lightly whipped cream poured over the back of a spoon so it floats.
+
+            Step 5: Garnish with crushed amaretti biscuits or a drizzle of amaretto on top of the cream.
+        `.trim(),
+        image: "./assets/Cocktails/italiancoffee.webp"
+    },
+    {
+        id: 'french-coffee',
+        name: "French Coffee",
+        category: ["Coffee", "Sweet", "Warm", "Elegant"],
+        description: "Warming cognac and Grand Marnier with bold coffee and a luxurious cream float — sophisticated French flair in a glass.",
+        ingredients: [
+            { amount: 50, unit: "ml", name: "Cointreau", fridgeCategory: "liqueur" },
+            { amount: 120, unit: "ml", name: "Black coffee", fridgeCategory: "fresh" },
+            { amount: 30, unit: "ml", name: "Whipped cream", fridgeCategory: "fresh" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" }
+        ],
+        glassware: "Irish coffee glass",
+        ice: "No ice",
+        method: "Built",
+        methodDesc: `
+            Step 1: Pre-warm an Irish coffee glass with hot water, then discard the water.
+
+            Step 2: Add the cognac, Grand Marnier and simple syrup to the glass.
+
+            Step 3: Pour in freshly brewed hot black coffee and stir once to combine.
+
+            Step 4: Slowly pour lightly whipped cream over the back of a spoon to create a floating layer.
+
+            Step 5: Garnish with an orange zest twist placed on the cream.
+        `.trim(),
+        image: "./assets/Cocktails/frenchcoffee.webp"
+    },
+    {
+        id: 'irish-coffee',
+        name: "Irish Coffee",
+        category: ["Coffee", "Classic", "Warm", "Whiskey"],
+        description: "The timeless original — smooth Irish whiskey, hot coffee, a touch of sugar and a cloud of fresh cream.",
+        ingredients: [
+            { amount: 50, unit: "ml", name: "Jameson", fridgeCategory: "spirit" },
+            { amount: 120, unit: "ml", name: "Black coffee", fridgeCategory: "fresh" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" },
+            { amount: 30, unit: "ml", name: "Whipped cream", fridgeCategory: "fresh" }
+        ],
+        glassware: "Irish coffee glass",
+        ice: "No ice",
+        method: "Built",
+        methodDesc: `
+            Step 1: Pre-warm an Irish coffee glass with boiling water. Discard the water.
+
+            Step 2: Add the brown sugar syrup, then pour in the freshly brewed hot coffee.
+
+            Step 3: Add the Irish whiskey and stir gently to dissolve the sugar.
+
+            Step 4: Carefully pour lightly whipped cream over the back of a spoon so it floats on the surface.
+
+            Step 5: Do not stir — sip the hot coffee through the cool cream layer.
+        `.trim(),
+        image: "./assets/Cocktails/irishcoffee.webp"
+    },
+    {
+        id: 'dutch-coffee',
+        name: "Dutch Coffee",
+        category: ["Coffee", "Sweet", "Warm", "Unique"],
+        description: "A Dutch classic — rich Advocaat egg liqueur and bold coffee create a uniquely creamy, indulgent warm drink.",
+        ingredients: [
+            { amount: 50, unit: "ml", name: "Jenever", fridgeCategory: "spirit" },
+            { amount: 120, unit: "ml", name: "Black coffee", fridgeCategory: "fresh" },
+            { amount: 30, unit: "ml", name: "Whipped cream", fridgeCategory: "fresh" },
+            { amount: 15, unit: "ml", name: "Simple syrup", fridgeCategory: "syrup", kitchenId: "simple-syrup" }
+        ],
+        glassware: "Irish coffee glass",
+        ice: "No ice",
+        method: "Built",
+        methodDesc: `
+            Step 1: Pre-warm an Irish coffee glass with hot water, then discard.
+
+            Step 2: Spoon the Advocaat into the bottom of the glass.
+
+            Step 3: Add the jenever and simple syrup, then stir briefly.
+
+            Step 4: Pour in hot freshly brewed coffee and stir gently to combine with the Advocaat.
+
+            Step 5: Float lightly whipped cream over the back of a spoon on top.
+
+            Step 6: Optional: grate a little dark chocolate over the cream for a festive finish.
+        `.trim(),
+        image: "./assets/Cocktails/dutchcoffee.webp"
     },
 
 ];
