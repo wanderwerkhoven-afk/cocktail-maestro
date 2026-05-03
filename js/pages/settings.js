@@ -1,4 +1,4 @@
-import { registerUser, loginUser, logoutUser, initAuthListener, sendPasswordReset, updateUserProfile } from "../core/auth.js";
+import { registerUser, loginUser, logoutUser, initAuthListener, sendPasswordReset, updateUserProfile, auth } from "../core/auth.js";
 import { navigateTo } from "../core/navigation.js";
 import { t } from "../core/i18n.js";
 
@@ -42,7 +42,9 @@ export function openSettingsModal() {
             }
         }
 
-        initSettings(); // Refresh UI state
+        // Use auth.currentUser directly (synchronous) so the UI reflects login state immediately
+        // without waiting for the async onAuthStateChanged callback
+        updateSettingsUI(auth.currentUser);
     }
 }
 
