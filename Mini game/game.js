@@ -195,7 +195,7 @@ function init() {
     const iceBtn = document.getElementById("new-ice-bucket");
     const lemonBtn = document.getElementById("new-lemon-bowl");
     const bittersBtn = document.getElementById("new-bottle-angostura");
-    const eggBtn = document.getElementById("egg-btn"); // Keeping old egg btn for now if no new one
+    const eggBtn = document.getElementById("new-egg-bowl");
 
     if (iceBtn) iceBtn.addEventListener("click", () => addSpecial("Ice", "#fff"));
     if (lemonBtn) lemonBtn.addEventListener("click", () => addSpecial("Lemon Slice", "#fff04a"));
@@ -339,10 +339,38 @@ async function updateEntreeScreen() {
                         })
                         .join('') : '';
                     
-                    // Handle missing ingredients
-                    const missing = Array.isArray(l.feedback) ? l.feedback.filter(f => f.type === 'missing') : [];
-                    const missingHtml = missing.length > 0 
-                        ? `<div class="log-feedback missing">Je mist wat ...</div>` 
+                    // Handle missing ingredients — categorized hints, no names revealed
+                    const SPIRITS    = ["Vodka","Gin","Rum","Tequila","Whiskey","Brandy","Cointreau","Amaretto","Campari","Baileys","Kahlua","Blue Curacao","Peach Schnapps","Vermouth"];
+                    const FRUITY     = ["Orange","Lemon","Lime","Cranberry","Lemon Slice"];
+                    const SWEET      = ["Sugar Syrup"];
+                    const CREAMY     = ["Baileys","Egg White"];
+                    const BITTER_ING = ["Bitters"];
+
+                    const missing = Array.isArray(l.feedback) ? l.feedback.filter(f => f.type === 'missing' && f.ing !== 'Shake' && f.ing !== 'IJs') : [];
+                    const iceHint  = Array.isArray(l.feedback) && l.feedback.find(f => f.ing === 'IJs' && f.type === 'missing');
+
+                    const hintSet = new Set();
+                    missing.forEach(f => {
+                        if (SPIRITS.includes(f.ing))     hintSet.add('Er mist nog wat sterks...');
+                        else if (FRUITY.includes(f.ing)) hintSet.add('Er mist nog iets fruitigs...');
+                        else if (SWEET.includes(f.ing))  hintSet.add('Er mist nog iets zoets...');
+                        else if (BITTER_ING.includes(f.ing)) hintSet.add('Een vleugje bitter mis je nog...');
+                        else if (CREAMY.includes(f.ing)) hintSet.add('Er mist iets romigs of schuimigs...');
+                        else hintSet.add('Er mist nog wat...');
+                    });
+
+                    const missingHtml = [
+                        ...[...hintSet].map(hint => `<div class="log-feedback missing"><i class="fa-solid fa-triangle-exclamation"></i> ${hint}</div>`),
+                        iceHint ? `<div class="log-feedback missing"><i class="fa-solid fa-snowflake"></i> Shake je altijd zonder ijs?</div>` : ''
+                    ].join('');
+
+                    // Handle shake feedback
+                    const shakeFb = Array.isArray(l.feedback) ? l.feedback.find(f => f.ing === 'Shake') : null;
+                    const shakeFbHtml = shakeFb
+                        ? `<div class="log-feedback ${shakeFb.type === 'too_little' ? 'missing' : ''}">
+                               <i class="fa-solid fa-${shakeFb.type === 'too_little' ? 'hourglass-start' : 'hourglass-end'}"></i>
+                               ${shakeFb.type === 'too_little' ? 'Niet lang genoeg geshaked!' : 'Te lang geshaked!'}
+                           </div>`
                         : '';
 
                     return `
@@ -354,6 +382,7 @@ async function updateEntreeScreen() {
                             <div class="log-details">
                                 ${ingList}
                                 ${missingHtml}
+                                ${shakeFbHtml}
                             </div>
                         </li>
                     `;
@@ -510,7 +539,7 @@ function addSpecial(name, color) {
     FX.triggerSplash(color);
     
     // Visual feedback
-    const btnId = name === "Ice" ? "new-ice-bucket" : (name === "Egg White" ? "egg-btn" : (name === "Bitters" ? "new-bottle-angostura" : "new-lemon-bowl"));
+    const btnId = name === "Ice" ? "new-ice-bucket" : (name === "Egg White" ? "new-egg-bowl" : (name === "Bitters" ? "new-bottle-angostura" : "new-lemon-bowl"));
     const el = document.getElementById(btnId);
     if (el) {
         el.style.transform = "scale(1.2) translateY(-20px)";
@@ -644,14 +673,17 @@ function evaluateMix() {
             }
         });
 
-        // 3. Shake time penalty
-        const shakeDiff = Math.abs(shakeTime - recipe.idealShake);
-        recipeScore -= shakeDiff * 1200;
+        // 3. Shake time penalty (Global 3-5s range)
+        if (shakeTime < 3) {
+            recipeScore -= 2000;
+        } else if (shakeTime > 5) {
+            recipeScore -= 1500;
+        }
 
-        // 4. Ice requirement (Always 2x ice)
+        // 4. Ice requirement (Mandatory)
         const iceCount = mix.iceCount || 0;
-        if (iceCount !== 2) {
-            recipeScore -= Math.abs(2 - iceCount) * 1500;
+        if (iceCount === 0) {
+            recipeScore -= 3000;
         }
 
         if (recipeScore > maxScore) {
@@ -663,35 +695,56 @@ function evaluateMix() {
     const finalScore = Math.max(0, Math.round(maxScore));
     const alcPerc = mix.volume > 0 ? (mix.alcoholMl / mix.volume) * 100 : 0;
 
-    const titlesPerfect = ["PERFECT!", "MEESTERLIJK!", "WAANZINNIG!", "HEERLIJK!"];
+    const titlesPerfect = ["PERFECT!", "MEESTERLIJK!", "WAANZINNIG!", "HEERLIJK!", "FENOMENAAL!", "TOP SHELF!", "MAGISTRAAL!", "EEN STER!"];
     const textsPerfect = [
         `Een meesterlijke ${bestMatch ? bestMatch.name : 'creatie'}! De smaken dansen op Boudewijns tong.`,
         `Perfectie in een glas! Precies de juiste verhoudingen voor een verbluffende ${bestMatch ? bestMatch.name : 'cocktail'}.`,
         `Boudewijn buigt diep. Dit is een ${bestMatch ? bestMatch.name : 'drankje'} dat rechtstreeks op de menukaart mag!`,
-        `Fenomenaal gemixt! Zelfs een doorgewinterde bartender zou jaloers zijn op deze ${bestMatch ? bestMatch.name : 'mix'}.`
+        `Fenomenaal gemixt! Zelfs een doorgewinterde bartender zou jaloers zijn op deze ${bestMatch ? bestMatch.name : 'mix'}.`,
+        `Boudewijn knipoogt. "Niet slecht, kid." Dat is het hoogste compliment dat hij geeft.`,
+        `Wow. Gewoon... wow. Dit is precies hoe een ${bestMatch ? bestMatch.name : 'cocktail'} hoort te smaken.`,
+        `Boudewijn zet het glas neer en applaudisseert. Dit is het werk van een echte Maestro!`,
+        `De verhoudingen kloppen als een bus. Dit wordt jouw handtekening-drankje.`,
+        `Boudewijn sluit z'n ogen bij de eerste slok. Stil. Dan: "Uitstekend." Meer hoef je niet te weten.`,
+        `Een ${bestMatch ? bestMatch.name : 'drankje'} om trots op te zijn. Boudewijn vraagt om een tweede glas!`
     ];
 
-    const titlesDisgust = ["BAH!", "YUCK!", "IEUW!", "NEEEE..."];
+    const titlesDisgust = ["BAH!", "YUCK!", "IEUW!", "NEEEE...", "RAMPZALIG!", "AFSCHUWELIJK!", "OMG...", "BOUDEWIJN HUILT"];
     const textsDisgust = [
         "Dit is niet te drinken! Boudewijn is diep teleurgesteld en spoelt z'n mond met water.",
         "Wat heb je in hemelsnaam bij elkaar gegooid? Zelfs de gootsteen weigert dit door te slikken.",
         "Een regelrechte belediging voor de cocktailwereld. Dit lijkt meer op afwaswater!",
-        "Boudewijn trekt wit weg. Dit brouwsel zou verboden moeten worden volgens de Geneefse conventies."
+        "Boudewijn trekt wit weg. Dit brouwsel zou verboden moeten worden.",
+        "Boudewijn kijkt naar het glas, kijkt naar jou, kijkt terug naar het glas... en schudt zijn hoofd.",
+        "Dit is geen cocktail. Dit is een aanslag op de smaakpapillen.",
+        "Boudewijn pakt zijn jas. Hij heeft besloten om eerder naar huis te gaan vandaag.",
+        "De ratio's kloppen van geen kant. Boudewijn suggereert een carrière buiten de horeca.",
+        "Oeps. Dit is niet hoe cocktails werken. Boudewijn bladert alvast door vacatures voor jou.",
+        "Zelfs de citroen schaamt zich voor wat hier in het glas zit."
     ];
 
-    const titlesNeutral = ["NOG NIET...", "BIJNA...", "MWAH...", "OEFENEN!"];
+    const titlesNeutral = ["NOG NIET...", "BIJNA...", "MWAH...", "OEFENEN!", "BIJNA GOED", "HMMMM...", "WERK AAN DE WINKEL", "POTENTIE!"];
     const textsNeutral = [
         `Het lijkt heel in de verte op een ${bestMatch ? bestMatch.name : 'cocktail'}, maar de balans is ver te zoeken.`,
         `Leuk geprobeerd, maar dit is nog geen meesterwerk. Oefen nog even goed op je verhoudingen!`,
         `Er zit potentie in, maar Boudewijn is nog niet overtuigd. Let extra goed op het recept.`,
-        `Niet slecht voor een amateur, maar een echte Maestro zou zich hier nog kapot voor schamen.`
+        `Niet slecht voor een beginner, maar een echte Maestro zou zich hier nog kapot voor schamen.`,
+        `Boudewijn fronst z'n wenkbrauwen. "Iets klopt er niet... maar ik kan niet zeggen wat."`,
+        `De intentie was goed, de uitvoering minder. Probeer het nog een keer met meer precisie.`,
+        `Boudewijn neemt een tweede slokje, twijfelt, neemt een derde. "Nee. Toch niet."`,
+        `Je bent op de goede weg! Maar de verhoudingen zijn nog niet in balans.`,
+        `Een ${bestMatch ? bestMatch.name : 'mix'} die roept om een herkansing. Jij kan beter dan dit.`,
+        `Boudewijn maakt een "zo-zo" gebaar met zijn hand. Bevredigend is anders.`
     ];
 
-    const titlesDizzy = ["HEFTIG!", "WOW!", "ZO DAN!", "BRANDSTOF!"];
+    const titlesDizzy = ["TE STERK!", "BRANDBOM!", "RUSTIG AAN!", "WAT EEN KICK!", "OEPS...", "STEADY..."];
     const textsDizzy = [
-        `De smaak is goed voor een ${bestMatch ? bestMatch.name : 'mix'}, maar Boudewijn ziet nu dubbel! Iets minder alcohol?`,
-        `Wow! Deze ${bestMatch ? bestMatch.name : 'cocktail'} slaat in als een bom. Dit is eerder raketbrandstof!`,
-        `Heerlijk, maar dodelijk. Boudewijn moet even gaan zitten na dit extreem sterke drankje.`
+        `De ${bestMatch ? bestMatch.name : 'mix'} smaakt goed, maar Boudewijn voelt z'n benen al wiebelen. Iets minder sterkedrank?`,
+        `Goed van smaak, maar dit is eerder een scheutje cocktail dan een cocktail met een scheutje drank.`,
+        `Boudewijn houdt zich vast aan de bar. "Hoe... hoeveel drank zit hier eigenlijk in?"`,
+        `De balans klopt, de sterkte niet. Schroom niet om meer sap of soda toe te voegen.`,
+        `Boudewijn knippert met zijn ogen. "Dit... dit is een sterke." Even rustiger aan met de flessen.`,
+        `Technisch gezien een geslaagde mix, maar Boudewijn heeft nu een taxi nodig naar huis.`
     ];
 
     let reaction = "happy";
@@ -706,18 +759,31 @@ function evaluateMix() {
             const actual = mix.volumes[ing] || 0;
             if (actual === 0) {
                 feedback.push({ ing: ing, type: 'missing' });
-            } else if (actual > target + 10) {
+            } else if (actual > target + 1) {
                 feedback.push({ ing: ing, type: 'too_much' });
-            } else if (actual < target - 10) {
+            } else if (actual < target - 1) {
                 feedback.push({ ing: ing, type: 'too_little' });
             }
         });
+        
         Object.keys(mix.volumes).forEach(ing => {
             // Check if ingredient should NOT be in the recipe (excluding ice and garnishes usually)
             if (ing !== "Ice" && ing !== "Lemon Slice" && ing !== "Egg White" && ing !== "Bitters" && !bestMatch.ingredients[ing]) {
                 feedback.push({ ing: ing, type: 'extra' });
             }
         });
+
+        // Ice check for feedback
+        if ((mix.iceCount || 0) === 0) {
+            feedback.push({ ing: "IJs", type: 'missing' });
+        }
+
+        // Shake time feedback
+        if (shakeTime < 3) {
+            feedback.push({ ing: "Shake", type: 'too_little' });
+        } else if (shakeTime > 5) {
+            feedback.push({ ing: "Shake", type: 'too_much' });
+        }
     }
 
     if (finalScore < 2500) {
@@ -728,7 +794,7 @@ function evaluateMix() {
         reaction = "neutral";
         title = titlesNeutral[Math.floor(Math.random() * titlesNeutral.length)];
         text = textsNeutral[Math.floor(Math.random() * textsNeutral.length)];
-    } else if (alcPerc > 42) {
+    } else if (alcPerc > 28) {
         reaction = "dizzy";
         title = titlesDizzy[Math.floor(Math.random() * titlesDizzy.length)];
         text = textsDizzy[Math.floor(Math.random() * textsDizzy.length)];
