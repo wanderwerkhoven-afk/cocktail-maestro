@@ -53,21 +53,30 @@ export async function fetchGlobalDatabases() {
  * Handle user registration
  */
 export async function registerUser(email, password, displayName) {
+    let user;
     try {
+        // Step 1 (critical): Create the Firebase Auth account — user is auto-logged in here
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
+        user = userCredential.user;
         
-        // Update Firebase Auth profile with display name
+        // Step 2 (critical): Set the display name on the Auth profile
         await updateProfile(user, { displayName });
-        
-        // Save full user profile to Firestore (isNewUser = true adds createdAt)
-        await syncLocalDataToCloud(user, true);
-        
-        return { success: true, user };
     } catch (error) {
-        console.error("Registration error:", error);
+        // Auth creation failed — return the real error
+        console.error("Registration auth error:", error);
         return { success: false, error: error.message };
     }
+
+    try {
+        // Step 3 (non-critical): Save profile to Firestore
+        // If this fails the user is still logged in — initAuthListener will retry on next load
+        await syncLocalDataToCloud(user, true);
+    } catch (firestoreError) {
+        // Log but don't block — auth succeeded, so registration is effectively done
+        console.warn("Firestore profile write failed after registration (will retry):", firestoreError);
+    }
+
+    return { success: true, user };
 }
 
 /**

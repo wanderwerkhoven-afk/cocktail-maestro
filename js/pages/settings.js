@@ -508,6 +508,12 @@ function getFriendlyErrorMessage(errorString) {
     if (errorString.includes('wrong-password') || errorString.includes('invalid-credential')) {
         return "Onjuist wachtwoord. Probeer het opnieuw.";
     }
+    if (errorString.includes('permission-denied')) {
+        return "Geen toegang. Controleer je verbinding en probeer opnieuw.";
+    }
+    if (errorString.includes('network-request-failed')) {
+        return "Geen internetverbinding. Controleer je netwerk.";
+    }
     
     return "Oeps! Er ging iets mis. Probeer het later opnieuw.";
 }
