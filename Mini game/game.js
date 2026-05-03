@@ -86,7 +86,7 @@ function preloadAnimations() {
 async function playBartenderAnimation(mode = 'rest', loops = 1) {
     if (isAnimating) return;
     isAnimating = true;
-    
+
     const anim = animations[mode];
     if (!anim || anim.frames.length === 0) {
         isAnimating = false;
@@ -107,7 +107,7 @@ async function playBartenderAnimation(mode = 'rest', loops = 1) {
             }, 40);
         });
     }
-    
+
     // Back to first frame of rest mode (idle state)
     if (animations['rest'].frames[0]) {
         UI.bartenderSprite.src = animations['rest'].frames[0].src;
@@ -127,7 +127,7 @@ let sequenceIndex = 0;
 async function startAnimationLoop() {
     const step = animationSequence[sequenceIndex];
     await playBartenderAnimation(step.mode, step.loops);
-    
+
     sequenceIndex = (sequenceIndex + 1) % animationSequence.length;
     setTimeout(startAnimationLoop, step.pause);
 }
@@ -296,7 +296,7 @@ async function updateEntreeScreen() {
         const scoresQuery = query(collection(db, "minigame-highscores"), orderBy("score", "desc"), limit(50));
         const scoresSnap = await getDocs(scoresQuery);
         const allScores = scoresSnap.docs.map(d => d.data());
-        
+
         // Filter for unique users (only the best score per person)
         const seenUsers = new Set();
         const scores = [];
@@ -309,8 +309,8 @@ async function updateEntreeScreen() {
             }
             if (scores.length >= 5) break;
         }
-        
-        UI.leaderboardList.innerHTML = scores.length 
+
+        UI.leaderboardList.innerHTML = scores.length
             ? scores.map(s => `<li><span>${s.name}</span><span>${s.score} pts</span></li>`).join('')
             : '<li><span>Geen scores...</span></li>';
 
@@ -319,7 +319,7 @@ async function updateEntreeScreen() {
         if (user) {
             const userDoc = await getDoc(doc(db, "users", user.uid));
             let logs = userDoc.exists() ? (userDoc.data().minigameLogs || []) : [];
-            
+
             // Sort by timestamp if available, else reverse order
             logs.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
 
@@ -338,23 +338,23 @@ async function updateEntreeScreen() {
                             return `<div class="log-ing">${Math.round(vol)} ml - ${name} ${statusHtml}</div>`;
                         })
                         .join('') : '';
-                    
+
                     // Handle missing ingredients — categorized hints, no names revealed
-                    const SPIRITS    = ["Vodka","Gin","Rum","Tequila","Whiskey","Brandy","Cointreau","Amaretto","Campari","Baileys","Kahlua","Blue Curacao","Peach Schnapps","Vermouth"];
-                    const FRUITY     = ["Orange","Lemon","Lime","Cranberry","Lemon Slice"];
-                    const SWEET      = ["Sugar Syrup"];
-                    const CREAMY     = ["Baileys","Egg White"];
+                    const SPIRITS = ["Vodka", "Gin", "Rum", "Tequila", "Whiskey", "Brandy", "Cointreau", "Amaretto", "Campari", "Baileys", "Kahlua", "Blue Curacao", "Peach Schnapps", "Vermouth"];
+                    const FRUITY = ["Orange", "Lemon", "Lime", "Cranberry", "Lemon Slice"];
+                    const SWEET = ["Sugar Syrup"];
+                    const CREAMY = ["Baileys", "Egg White"];
                     const BITTER_ING = ["Bitters"];
 
                     const missing = Array.isArray(l.feedback) ? l.feedback.filter(f => f.type === 'missing' && f.ing !== 'Shake' && f.ing !== 'IJs') : [];
-                    const iceHint  = Array.isArray(l.feedback) && l.feedback.find(f => f.ing === 'IJs' && f.type === 'missing');
+                    const iceHint = Array.isArray(l.feedback) && l.feedback.find(f => f.ing === 'IJs' && f.type === 'missing');
 
                     const hintSet = new Set();
                     missing.forEach(f => {
-                        if (SPIRITS.includes(f.ing))     hintSet.add('Er mist nog wat sterks...');
+                        if (SPIRITS.includes(f.ing)) hintSet.add('Er mist nog wat sterks...');
                         else if (FRUITY.includes(f.ing)) hintSet.add('Er mist nog iets fruitigs...');
-                        else if (SWEET.includes(f.ing))  hintSet.add('Er mist nog iets zoets...');
-                        else if (BITTER_ING.includes(f.ing)) hintSet.add('Een vleugje bitter mis je nog...');
+                        else if (SWEET.includes(f.ing)) hintSet.add('Er mist nog iets zoets...');
+                        else if (BITTER_ING.includes(f.ing)) hintSet.add('Een vleugje bitter zou wonderen doen.');
                         else if (CREAMY.includes(f.ing)) hintSet.add('Er mist iets romigs of schuimigs...');
                         else hintSet.add('Er mist nog wat...');
                     });
@@ -390,13 +390,13 @@ async function updateEntreeScreen() {
                 : '<li><span>Begin met mixen!</span></li>';
 
             if (logs.length > 3) {
-                UI.logsList.innerHTML += UI.logsList.innerHTML; 
+                UI.logsList.innerHTML += UI.logsList.innerHTML;
                 startLogsAutoScroll(UI.logsList.parentElement);
             } else {
                 stopLogsAutoScroll();
             }
         } else {
-             UI.logsList.innerHTML = '<li><span>Log in om je shakes op te slaan!</span></li>';
+            UI.logsList.innerHTML = '<li><span>Log in om je shakes op te slaan!</span></li>';
         }
     } catch (e) {
         console.error("Error updating entree screen:", e);
@@ -408,12 +408,12 @@ let isLogsHovered = false;
 
 function startLogsAutoScroll(container) {
     stopLogsAutoScroll();
-    
+
     // Only attach events once
     if (!container.dataset.hasScrollEvents) {
         container.addEventListener('mouseenter', () => isLogsHovered = true);
         container.addEventListener('mouseleave', () => isLogsHovered = false);
-        container.addEventListener('touchstart', () => isLogsHovered = true, {passive: true});
+        container.addEventListener('touchstart', () => isLogsHovered = true, { passive: true });
         container.addEventListener('touchend', () => {
             // resume after slight delay on touch
             setTimeout(() => isLogsHovered = false, 1000);
@@ -423,9 +423,9 @@ function startLogsAutoScroll(container) {
 
     logsAutoScrollTimer = setInterval(() => {
         if (isLogsHovered) return;
-        
+
         container.scrollTop += 1;
-        
+
         // Loop back when reaching exactly half (since we duplicated the content)
         if (container.scrollTop >= container.scrollHeight / 2) {
             container.scrollTop = 0;
@@ -441,7 +441,7 @@ function stopLogsAutoScroll() {
 }
 
 async function saveGameResult(score, name, volumes, feedback) {
-    if (score <= 0) return; 
+    if (score <= 0) return;
 
     const user = auth.currentUser;
     const displayName = user ? (user.displayName || user.email.split('@')[0]) : "Gast";
@@ -464,7 +464,7 @@ async function saveGameResult(score, name, volumes, feedback) {
                 minigameLogs: arrayUnion({
                     score,
                     name,
-                    time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
+                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
                     volumes,
                     feedback: feedback || [],
                     timestamp: Date.now()
@@ -481,7 +481,7 @@ function handleResize() {
     const wh = window.innerHeight;
     const gameW = 1920;
     const gameH = 1080;
-    
+
     const scale = Math.min(ww / gameW, wh / gameH);
     UI.game.style.transform = `scale(${scale})`;
 }
@@ -507,19 +507,19 @@ function selectBottle(ing, el) {
     el.classList.add("selected");
     selectedItem = { type: "ing", data: ing };
     UI.info.innerHTML = `<div>Geselecteerd: <strong>${ing.name}</strong></div><div style="font-size: 32px; margin-top: 5px;">HOUD DE POUR KNOP IN</div>`;
-    
+
     // UI.bartender.querySelector('.arm.right').style.transform = "rotate(-20deg)";
 }
 
 function addSpecial(name, color) {
     if (gameState !== "idle" && gameState !== "pouring") return;
-    
+
     // Deselect any bottle when adding specials
     deselectAll();
-    
+
     const amount = name === "Bitters" ? 5 : 15; // 5ml for a dash of bitters, 15 for others
     if (mix.volume + amount > 250) return;
-    
+
     mix.volume += amount;
     if (name === "Ice") {
         mix.dilution += 5;
@@ -530,14 +530,14 @@ function addSpecial(name, color) {
     } else if (name === "Egg White") {
         mix.sweetness += 0.5; // slight texture
     }
-    
+
     if (!mix.volumes[name]) mix.volumes[name] = 0;
     mix.volumes[name] += amount;
-    
+
     mix.visualColor = blendColor(color, 0.1);
     updateUI();
     FX.triggerSplash(color);
-    
+
     // Visual feedback
     const btnId = name === "Ice" ? "new-ice-bucket" : (name === "Egg White" ? "new-egg-bowl" : (name === "Bitters" ? "new-bottle-angostura" : "new-lemon-bowl"));
     const el = document.getElementById(btnId);
@@ -546,7 +546,7 @@ function addSpecial(name, color) {
         setTimeout(() => el.style.transform = "", 200);
     }
 
-    UI.info.innerHTML = `<div>Toegevoegd: <strong>${name}</strong></div><div style="font-size: 32px; margin-top: 4px;">${name === 'Ice' ? 'IJsblokjes: '+mix.iceCount : ''}</div>`;
+    UI.info.innerHTML = `<div>Toegevoegd: <strong>${name}</strong></div><div style="font-size: 32px; margin-top: 4px;">${name === 'Ice' ? 'IJsblokjes: ' + mix.iceCount : ''}</div>`;
 }
 
 function startPouring(e) {
@@ -557,7 +557,7 @@ function startPouring(e) {
     const streamColor = selectedItem.type === "ing" ? selectedItem.data.color : selectedItem.color;
     // UI.bartender.querySelector('.arm.right').style.transform = "rotate(-60deg)";
     FX.startPour(streamColor);
-    
+
     holdTimer = setInterval(() => {
         if (mix.volume >= 250) { stopPouring(); return; }
 
@@ -571,7 +571,7 @@ function startPouring(e) {
             mix.sourness += (ing.sour / 10) * pourAmount;
             mix.bitterness += (ing.bitter / 10) * pourAmount;
             mix.visualColor = blendColor(ing.color, 0.05);
-            
+
             // Track exact volume of each ingredient for better scoring
             if (!mix.volumes[ing.name]) mix.volumes[ing.name] = 0;
             mix.volumes[ing.name] += pourAmount;
@@ -647,7 +647,7 @@ function evaluateMix() {
 
     recipes.forEach(recipe => {
         let recipeScore = 10000;
-        
+
         // 1. Ingredient Match (Presence and Volume)
         const recipeIngredients = Object.keys(recipe.ingredients);
         const mixIngredients = Object.keys(mix.volumes).filter(ing => ing !== "Ice" && ing !== "Lemon Slice");
@@ -657,7 +657,7 @@ function evaluateMix() {
             const target = recipe.ingredients[ing];
             const actual = mix.volumes[ing] || 0;
             const diff = Math.abs(target - actual);
-            
+
             // Penalty based on percentage deviation
             if (actual === 0) {
                 recipeScore -= 3000; // Missing critical ingredient
@@ -695,56 +695,35 @@ function evaluateMix() {
     const finalScore = Math.max(0, Math.round(maxScore));
     const alcPerc = mix.volume > 0 ? (mix.alcoholMl / mix.volume) * 100 : 0;
 
-    const titlesPerfect = ["PERFECT!", "MEESTERLIJK!", "WAANZINNIG!", "HEERLIJK!", "FENOMENAAL!", "TOP SHELF!", "MAGISTRAAL!", "EEN STER!"];
+    const titlesPerfect = ["PERFECT!", "MEESTERLIJK!", "WAANZINNIG!", "HEERLIJK!"];
     const textsPerfect = [
         `Een meesterlijke ${bestMatch ? bestMatch.name : 'creatie'}! De smaken dansen op Boudewijns tong.`,
         `Perfectie in een glas! Precies de juiste verhoudingen voor een verbluffende ${bestMatch ? bestMatch.name : 'cocktail'}.`,
         `Boudewijn buigt diep. Dit is een ${bestMatch ? bestMatch.name : 'drankje'} dat rechtstreeks op de menukaart mag!`,
-        `Fenomenaal gemixt! Zelfs een doorgewinterde bartender zou jaloers zijn op deze ${bestMatch ? bestMatch.name : 'mix'}.`,
-        `Boudewijn knipoogt. "Niet slecht, kid." Dat is het hoogste compliment dat hij geeft.`,
-        `Wow. Gewoon... wow. Dit is precies hoe een ${bestMatch ? bestMatch.name : 'cocktail'} hoort te smaken.`,
-        `Boudewijn zet het glas neer en applaudisseert. Dit is het werk van een echte Maestro!`,
-        `De verhoudingen kloppen als een bus. Dit wordt jouw handtekening-drankje.`,
-        `Boudewijn sluit z'n ogen bij de eerste slok. Stil. Dan: "Uitstekend." Meer hoef je niet te weten.`,
-        `Een ${bestMatch ? bestMatch.name : 'drankje'} om trots op te zijn. Boudewijn vraagt om een tweede glas!`
+        `Fenomenaal gemixt! Zelfs een doorgewinterde bartender zou jaloers zijn op deze ${bestMatch ? bestMatch.name : 'mix'}.`
     ];
 
-    const titlesDisgust = ["BAH!", "YUCK!", "IEUW!", "NEEEE...", "RAMPZALIG!", "AFSCHUWELIJK!", "OMG...", "BOUDEWIJN HUILT"];
+    const titlesDisgust = ["BAH!", "YUCK!", "IEUW!", "NEEEE..."];
     const textsDisgust = [
         "Dit is niet te drinken! Boudewijn is diep teleurgesteld en spoelt z'n mond met water.",
         "Wat heb je in hemelsnaam bij elkaar gegooid? Zelfs de gootsteen weigert dit door te slikken.",
         "Een regelrechte belediging voor de cocktailwereld. Dit lijkt meer op afwaswater!",
-        "Boudewijn trekt wit weg. Dit brouwsel zou verboden moeten worden.",
-        "Boudewijn kijkt naar het glas, kijkt naar jou, kijkt terug naar het glas... en schudt zijn hoofd.",
-        "Dit is geen cocktail. Dit is een aanslag op de smaakpapillen.",
-        "Boudewijn pakt zijn jas. Hij heeft besloten om eerder naar huis te gaan vandaag.",
-        "De ratio's kloppen van geen kant. Boudewijn suggereert een carrière buiten de horeca.",
-        "Oeps. Dit is niet hoe cocktails werken. Boudewijn bladert alvast door vacatures voor jou.",
-        "Zelfs de citroen schaamt zich voor wat hier in het glas zit."
+        "Boudewijn trekt wit weg. Dit brouwsel zou verboden moeten worden volgens de Geneefse conventies."
     ];
 
-    const titlesNeutral = ["NOG NIET...", "BIJNA...", "MWAH...", "OEFENEN!", "BIJNA GOED", "HMMMM...", "WERK AAN DE WINKEL", "POTENTIE!"];
+    const titlesNeutral = ["NOG NIET...", "BIJNA...", "MWAH...", "OEFENEN!"];
     const textsNeutral = [
         `Het lijkt heel in de verte op een ${bestMatch ? bestMatch.name : 'cocktail'}, maar de balans is ver te zoeken.`,
         `Leuk geprobeerd, maar dit is nog geen meesterwerk. Oefen nog even goed op je verhoudingen!`,
         `Er zit potentie in, maar Boudewijn is nog niet overtuigd. Let extra goed op het recept.`,
-        `Niet slecht voor een beginner, maar een echte Maestro zou zich hier nog kapot voor schamen.`,
-        `Boudewijn fronst z'n wenkbrauwen. "Iets klopt er niet... maar ik kan niet zeggen wat."`,
-        `De intentie was goed, de uitvoering minder. Probeer het nog een keer met meer precisie.`,
-        `Boudewijn neemt een tweede slokje, twijfelt, neemt een derde. "Nee. Toch niet."`,
-        `Je bent op de goede weg! Maar de verhoudingen zijn nog niet in balans.`,
-        `Een ${bestMatch ? bestMatch.name : 'mix'} die roept om een herkansing. Jij kan beter dan dit.`,
-        `Boudewijn maakt een "zo-zo" gebaar met zijn hand. Bevredigend is anders.`
+        `Niet slecht voor een amateur, maar een echte Maestro zou zich hier nog kapot voor schamen.`
     ];
 
-    const titlesDizzy = ["TE STERK!", "BRANDBOM!", "RUSTIG AAN!", "WAT EEN KICK!", "OEPS...", "STEADY..."];
+    const titlesDizzy = ["HEFTIG!", "WOW!", "ZO DAN!", "BRANDSTOF!"];
     const textsDizzy = [
-        `De ${bestMatch ? bestMatch.name : 'mix'} smaakt goed, maar Boudewijn voelt z'n benen al wiebelen. Iets minder sterkedrank?`,
-        `Goed van smaak, maar dit is eerder een scheutje cocktail dan een cocktail met een scheutje drank.`,
-        `Boudewijn houdt zich vast aan de bar. "Hoe... hoeveel drank zit hier eigenlijk in?"`,
-        `De balans klopt, de sterkte niet. Schroom niet om meer sap of soda toe te voegen.`,
-        `Boudewijn knippert met zijn ogen. "Dit... dit is een sterke." Even rustiger aan met de flessen.`,
-        `Technisch gezien een geslaagde mix, maar Boudewijn heeft nu een taxi nodig naar huis.`
+        `De smaak is goed voor een ${bestMatch ? bestMatch.name : 'mix'}, maar Boudewijn ziet nu dubbel! Iets minder alcohol?`,
+        `Wow! Deze ${bestMatch ? bestMatch.name : 'cocktail'} slaat in als een bom. Dit is eerder raketbrandstof!`,
+        `Heerlijk, maar dodelijk. Boudewijn moet even gaan zitten na dit extreem sterke drankje.`
     ];
 
     let reaction = "happy";
@@ -765,7 +744,7 @@ function evaluateMix() {
                 feedback.push({ ing: ing, type: 'too_little' });
             }
         });
-        
+
         Object.keys(mix.volumes).forEach(ing => {
             // Check if ingredient should NOT be in the recipe (excluding ice and garnishes usually)
             if (ing !== "Ice" && ing !== "Lemon Slice" && ing !== "Egg White" && ing !== "Bitters" && !bestMatch.ingredients[ing]) {
@@ -794,18 +773,18 @@ function evaluateMix() {
         reaction = "neutral";
         title = titlesNeutral[Math.floor(Math.random() * titlesNeutral.length)];
         text = textsNeutral[Math.floor(Math.random() * textsNeutral.length)];
-    } else if (alcPerc > 28) {
+    } else if (alcPerc > 42) {
         reaction = "dizzy";
         title = titlesDizzy[Math.floor(Math.random() * titlesDizzy.length)];
         text = textsDizzy[Math.floor(Math.random() * textsDizzy.length)];
     }
 
-    return { 
-        score: finalScore, 
-        reaction, 
-        title, 
-        text, 
-        alc: alcPerc.toFixed(1), 
+    return {
+        score: finalScore,
+        reaction,
+        title,
+        text,
+        alc: alcPerc.toFixed(1),
         recipeName: bestMatch ? bestMatch.name : "Custom Mix",
         volumes: { ...mix.volumes },
         feedback: feedback
@@ -818,7 +797,7 @@ function showResult(r) {
     document.getElementById("score-number").textContent = r.score;
     document.getElementById("score-text").innerHTML = `${r.text}<br>Alcohol: ${r.alc}%`;
     UI.popup.classList.add("show");
-    
+
     if (r.score > 0) {
         saveGameResult(r.score, r.recipeName || "Explosie", r.volumes, r.feedback);
     }
@@ -826,22 +805,22 @@ function showResult(r) {
     if (r.score >= 7000) FX.triggerConfetti();
 }
 
-window.resetGame = function() { 
+window.resetGame = function () {
     UI.game.classList.remove("exploding");
     UI.bartender.className = "bartender";
-    FX.clear(); 
+    FX.clear();
     resetGameState();
 }
 
-window.goToEntree = function() {
+window.goToEntree = function () {
     const gameMenu = document.getElementById("game-menu");
     if (gameMenu) gameMenu.classList.remove("show");
-    
+
     if (UI.entreeScreen) {
         UI.entreeScreen.classList.remove("hide");
         updateEntreeScreen();
     }
-    
+
     resetGameState();
 };
 
@@ -850,14 +829,14 @@ function resetGameState() {
     shakeTime = 0;
     selectedItem = null;
     gameState = "idle";
-    
+
     // Reset visual elements
     if (UI.popup) UI.popup.classList.remove("show");
     document.querySelectorAll(".bottle, .new-bottle, .new-ui-element").forEach(x => x.classList.remove("selected"));
     UI.game.classList.remove("shaking", "exploding");
     UI.bartender.className = "bartender";
     UI.info.innerHTML = "Selecteer een drankje en HOUD de POUR knop ingedrukt.";
-    
+
     updateUI();
 }
 
@@ -870,17 +849,17 @@ function updateUI() {
 }
 
 function createEmptyMix() {
-    return { 
-        volume: 0, 
-        alcoholMl: 0, 
-        sweetness: 0, 
-        sourness: 0, 
-        bitterness: 0, 
-        dilution: 0, 
-        shaken: false, 
-        ingredients: [], 
-        volumes: {}, 
-        visualColor: "#f3c34e" 
+    return {
+        volume: 0,
+        alcoholMl: 0,
+        sweetness: 0,
+        sourness: 0,
+        bitterness: 0,
+        dilution: 0,
+        shaken: false,
+        ingredients: [],
+        volumes: {},
+        visualColor: "#f3c34e"
     };
 }
 

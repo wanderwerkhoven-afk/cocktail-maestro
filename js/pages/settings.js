@@ -380,27 +380,11 @@ window.handleAuthSubmit = async (event, type) => {
             errorEl.style.color = "#ff4757"; // Ensure red
             errorEl.innerText = getFriendlyErrorMessage(result.error);
         } else {
-            // Firebase logs in automatically after registration, so we log out to force manual login
-            await logoutUser();
-            
-            // Switch back to login tab
-            window.switchAuthTab('login');
-            
-            // Show success message on the login screen
-            const loginErrorEl = document.getElementById('login-error');
-            if (loginErrorEl) {
-                loginErrorEl.style.color = "#2ed573"; // Success green
-                loginErrorEl.innerText = "Account succesvol aangemaakt! Je kunt nu inloggen.";
-            }
-            
-            // Pre-fill the email address to make logging in faster
-            const loginEmailEl = document.getElementById('login-email');
-            if (loginEmailEl) {
-                loginEmailEl.value = email;
-            }
-            
-            // Reset the signup form
-            document.getElementById('signup-form').reset();
+            // Firebase automatically logs in after createUserWithEmailAndPassword
+            // Navigate straight to home — no need to log out and re-login
+            navigateTo('home');
+            setTimeout(() => location.reload(), 100);
+            return; // Prevent resetting button state below
         }
     }
 

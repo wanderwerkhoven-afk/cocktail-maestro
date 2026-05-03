@@ -57,11 +57,11 @@ export async function registerUser(email, password, displayName) {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         
-        // Update profile with name
+        // Update Firebase Auth profile with display name
         await updateProfile(user, { displayName });
         
-        // Sync existing local data to new account
-        await syncLocalDataToCloud(user);
+        // Save full user profile to Firestore (isNewUser = true adds createdAt)
+        await syncLocalDataToCloud(user, true);
         
         return { success: true, user };
     } catch (error) {
@@ -80,6 +80,14 @@ export async function loginUser(email, password) {
         
         // Fetch data from cloud
         await fetchCloudData(user.uid);
+        
+        // Failsafe: ensure displayName and email are always present in Firestore.
+        // Uses merge so existing data (ingredients, favorites, etc.) is never overwritten.
+        await setDoc(doc(db, "users", user.uid), {
+            displayName: user.displayName || '',
+            email: user.email,
+            updatedAt: new Date().toISOString()
+        }, { merge: true });
         
         return { success: true, user };
     } catch (error) {
@@ -119,7 +127,7 @@ export async function sendPasswordReset(email) {
 /**
  * Sync LocalStorage data to Firestore
  */
-async function syncLocalDataToCloud(user) {
+async function syncLocalDataToCloud(user, isNewUser = false) {
     const uid = user.uid;
     const data = {
         displayName: user.displayName,
@@ -130,6 +138,11 @@ async function syncLocalDataToCloud(user) {
         recipes: JSON.parse(localStorage.getItem('myRecipes')) || [],
         shoppingList: JSON.parse(localStorage.getItem('shoppingList')) || []
     };
+    
+    // Save createdAt only once, on first registration
+    if (isNewUser) {
+        data.createdAt = new Date().toISOString();
+    }
     
     await setDoc(doc(db, "users", uid), data, { merge: true });
 }
