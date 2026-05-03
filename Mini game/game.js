@@ -152,6 +152,9 @@ function init() {
     if (UI.shelfTwo) UI.shelfTwo.style.display = 'none';
     if (UI.juiceShelf) UI.juiceShelf.style.display = 'none';
 
+    // Prevent context menu globally on the game to avoid selection/copy-paste UI on mobile
+    UI.game.addEventListener("contextmenu", e => e.preventDefault());
+
     // Map new bottle IDs to ingredients
     const bottleMapping = [
         { id: "new-bottle-whiskey", name: "Whiskey" },
@@ -203,12 +206,14 @@ function init() {
     if (pourBtn) {
         pourBtn.addEventListener("pointerdown", startPouring);
         window.addEventListener("pointerup", stopPouring);
+        pourBtn.addEventListener("contextmenu", e => e.preventDefault());
     }
 
     const shakeBtn = document.getElementById("new-shake-btn");
     if (shakeBtn) {
         shakeBtn.addEventListener("pointerdown", startShaking);
         window.addEventListener("pointerup", stopShaking);
+        shakeBtn.addEventListener("contextmenu", e => e.preventDefault());
     }
 
     const serveBtn = document.getElementById("new-serve-btn");
