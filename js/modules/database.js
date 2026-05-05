@@ -1468,11 +1468,11 @@ export const classicCocktails = [
         category: ["Exotic", "Floral", "Fruity", "Sweet", "Sour"],
         description: "A silky exotic sour with floral lychee sweetness, bright citrus and a soft Aperol glow.",
         ingredients: [
-            { amount: 20, unit: "ml", name: "Elderflower syrup", fridgeCategory: "syrup" },
-            { amount: 20, unit: "ml", name: "Lychee liqueur", fridgeCategory: "liqueur" },
-            { amount: 20, unit: "ml", name: "Aperol", fridgeCategory: "liqueur" },
-            { amount: 15, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
-            { amount: 15, unit: "ml", name: "Egg white", fridgeCategory: "fresh" }
+            { amount: 15, unit: "ml", name: "Elderflower syrup", fridgeCategory: "syrup" },
+            { amount: 40, unit: "ml", name: "Lychee liqueur", fridgeCategory: "liqueur" },
+            { amount: 30, unit: "ml", name: "Aperol", fridgeCategory: "liqueur" },
+            { amount: 30, unit: "ml", name: "Lemon juice", fridgeCategory: "juice" },
+            { amount: 30, unit: "ml", name: "Egg white", fridgeCategory: "fresh" }
         ],
         glassware: "Coupe glass",
         ice: "Cubed ice",

@@ -163,6 +163,22 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.admin-list-item.dragging-mobile {
+    opacity: 0.5;
+    transform: scale(1.02);
+    background: var(--bg-card-light);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    z-index: 100;
+}
+
+.admin-list-item.drop-target-highlight {
+    border: 2px dashed var(--accent-secondary);
+    background: rgba(255, 179, 71, 0.1);
 }
 
 .item-info {

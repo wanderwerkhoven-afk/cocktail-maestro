@@ -327,12 +327,15 @@ async function loadNewsList() {
         list.innerHTML = news.map((item, index) => `
             <div class="admin-list-item ${!item.active ? 'disabled' : ''}" 
                  draggable="true" 
+                 data-index="${index}"
                  ondragstart="window.handleDragStart(event, ${index})"
                  ondragover="window.handleDragOver(event)"
                  ondrop="window.handleDrop(event, ${index})"
                  style="opacity: ${item.active ? 1 : 0.6}; cursor: grab;">
                 
-                <div class="drag-handle" style="margin-right: 15px; color: var(--text-muted); cursor: grab;">
+                <div class="drag-handle" 
+                     ontouchstart="window.handleTouchStart(event, ${index})"
+                     style="margin-right: 15px; color: var(--text-muted); cursor: grab; padding: 10px;">
                     <i class="fa-solid fa-grip-lines"></i>
                 </div>
 
@@ -373,6 +376,58 @@ window.handleDragOver = (e) => {
     return false;
 };
 
+// Touch Drag Logic
+let touchTargetIndex = null;
+
+window.handleTouchStart = (e, index) => {
+    draggedIndex = index;
+    const item = e.target.closest('.admin-list-item');
+    if (item) {
+        item.classList.add('dragging-mobile');
+    }
+    // Add temporary event listeners for move and end
+    window.addEventListener('touchmove', window.handleTouchMove, { passive: false });
+    window.addEventListener('touchend', window.handleTouchEnd);
+};
+
+window.handleTouchMove = (e) => {
+    // Prevent scrolling while dragging
+    e.preventDefault();
+    
+    const touch = e.touches[0];
+    const targetEl = document.elementFromPoint(touch.clientX, touch.clientY);
+    const listItem = targetEl?.closest('.admin-list-item');
+    
+    // Clear previous highlights
+    document.querySelectorAll('.admin-list-item').forEach(item => {
+        item.classList.remove('drop-target-highlight');
+    });
+    
+    if (listItem) {
+        listItem.classList.add('drop-target-highlight');
+        touchTargetIndex = parseInt(listItem.getAttribute('data-index'));
+    } else {
+        touchTargetIndex = null;
+    }
+};
+
+window.handleTouchEnd = (e) => {
+    // Remove temporary listeners
+    window.removeEventListener('touchmove', window.handleTouchMove);
+    window.removeEventListener('touchend', window.handleTouchEnd);
+    
+    document.querySelectorAll('.admin-list-item').forEach(item => {
+        item.classList.remove('dragging-mobile', 'drop-target-highlight');
+    });
+
+    if (draggedIndex !== null && touchTargetIndex !== null && draggedIndex !== touchTargetIndex) {
+        reorderNewsItems(draggedIndex, touchTargetIndex);
+    }
+    
+    draggedIndex = null;
+    touchTargetIndex = null;
+};
+
 window.handleNewsPreview = (id) => {
     const item = currentDbData.find(d => d.firebaseId === id);
     if (item && window.previewArticleInAdmin) {
@@ -399,10 +454,13 @@ window.toggleNewsActive = async (id, currentStatus) => {
 window.handleDrop = async (e, targetIndex) => {
     e.preventDefault();
     if (draggedIndex === null || draggedIndex === targetIndex) return;
+    reorderNewsItems(draggedIndex, targetIndex);
+};
 
+async function reorderNewsItems(fromIndex, toIndex) {
     const news = [...currentDbData];
-    const draggedItem = news.splice(draggedIndex, 1)[0];
-    news.splice(targetIndex, 0, draggedItem);
+    const draggedItem = news.splice(fromIndex, 1)[0];
+    news.splice(toIndex, 0, draggedItem);
 
     // Save all to Firestore
     try {
@@ -419,7 +477,7 @@ window.handleDrop = async (e, targetIndex) => {
     } catch (err) {
         console.error("Error saving new order:", err);
     }
-};
+}
 
 /**
  * Load All User Recipes
