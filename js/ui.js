@@ -243,7 +243,7 @@ window.filterByCategory = (categoryKey) => {
 /**
  * Toggle expanding/collapsing of intro cards
  */
-window.toggleIntro = (btn) => {
+export const toggleIntro = (btn) => {
     const section = btn.closest('section');
     const introClass = Array.from(section.classList).find(c => c.endsWith('-intro'));
     const storageKey = `is_collapsed_${introClass}`;
@@ -265,7 +265,7 @@ window.toggleIntro = (btn) => {
 /**
  * Apply saved collapse states to all intro sections
  */
-window.applyIntroStates = () => {
+export const applyIntroStates = () => {
     const introSections = document.querySelectorAll('[class$="-intro"]');
     introSections.forEach(section => {
         const introClass = Array.from(section.classList).find(c => c.endsWith('-intro'));
@@ -283,6 +283,10 @@ window.applyIntroStates = () => {
         }
     });
 };
+
+// Global assignments for HTML compatibility
+window.toggleIntro = toggleIntro;
+window.applyIntroStates = applyIntroStates;
 
 // Navigation bridge to specific kitchen items
 window.goToKitchenItem = (event, kitchenId) => {

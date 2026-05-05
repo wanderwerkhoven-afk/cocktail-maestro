@@ -4,11 +4,13 @@ import { collection, getDocs, doc, setDoc, deleteDoc, query, orderBy } from "htt
 // Import local databases for migration
 import { classicCocktails } from "../modules/database.js";
 import { mocktailRecipes } from "../modules/mocktails.js";
+import { workshopCocktails } from "../modules/workshop-db.js";
 import { kitchenItems } from "../modules/kitchen-db.js";
 import { newsArticles } from "../modules/news-db.js";
 
 let vaultData = [];
 let kitchenData = [];
+let workshopProducts = [];
 
 /**
  * Initialize Admin Page
@@ -28,6 +30,14 @@ export async function initAdmin() {
     }
 
     loadStats();
+    
+    // For the workshop tool, we only use the curated workshop database
+    window.workshopRecipes = workshopCocktails;
+    window.mocktailRecipes = mocktailRecipes; // Keep for other uses
+    window.classicCocktails = classicCocktails; // Keep for migration
+    
+    loadWorkshopList(); // Pre-load workshops
+    loadProductList(); // Pre-load products for calculator
     switchAdminTab('dashboard');
 }
 
@@ -46,10 +56,21 @@ window.switchAdminTab = (tabId) => {
     });
 
     // Load data based on tab
+    if (tabId === 'dashboard') loadStats();
     if (tabId === 'database') switchDatabaseCategory('cocktail'); // Default to cocktails
-    if (tabId === 'user-recipes') loadUserRecipes();
-    if (tabId === 'todos') loadAdminTodos();
+    if (tabId === 'tools') switchToolsCategory('todo');
     if (tabId === 'news') loadNewsList();
+};
+
+window.switchToolsCategory = (category) => {
+    document.querySelectorAll('.tool-content-section').forEach(sec => sec.style.display = 'none');
+    document.querySelectorAll('#admin-tools .sub-nav-pill').forEach(pill => pill.classList.remove('active'));
+    
+    document.getElementById(`tool-${category}-content`).style.display = 'block';
+    document.getElementById(`tool-pill-${category}`).classList.add('active');
+    
+    if (category === 'workshop') loadWorkshopList();
+    if (category === 'products') loadProductList();
 };
 
 /**
@@ -72,6 +93,24 @@ window.switchDatabaseCategory = (category) => {
     if (category === 'cocktail') loadDatabaseList('Cocktail-db', 'cocktail');
     else if (category === 'mocktail') loadDatabaseList('Mocktail-db', 'mocktail');
     else if (category === 'kitchen') loadDatabaseList('Kitchen-db', 'kitchen');
+};
+
+/**
+ * Tools Sub-Category Switching
+ */
+window.switchToolsCategory = (category) => {
+    // Update pill UI
+    document.querySelectorAll('#admin-tools .sub-nav-pill').forEach(pill => {
+        pill.classList.toggle('active', pill.id === `tool-pill-${category}`);
+    });
+
+    // Update content sections
+    document.querySelectorAll('.tool-content-section').forEach(section => {
+        section.style.display = section.id === `tool-${category}-content` ? 'block' : 'none';
+    });
+
+    // Load data if needed
+    if (category === 'todo') loadAdminTodos();
 };
 
 /**
@@ -482,12 +521,13 @@ async function reorderNewsItems(fromIndex, toIndex) {
 /**
  * Load All User Recipes
  */
-async function loadUserRecipes() {
+async function loadUserRecipes(usersSnap = null) {
     const list = document.getElementById('admin-user-recipes-list');
+    if (!list) return;
     list.innerHTML = '<p class="placeholder-text">Laden...</p>';
 
     try {
-        const snap = await getDocs(collection(db, "users"));
+        const snap = usersSnap || await getDocs(collection(db, "users"));
         let allRecipes = [];
         snap.forEach(userDoc => {
             const data = userDoc.data();
@@ -580,8 +620,80 @@ window.openAdminEditor = (type, id = null) => {
     }
 
     modal.style.display = 'flex';
-    setTimeout(() => modal.classList.add('show'), 10);
+    setTimeout(() => {
+        modal.classList.add('show');
+        upgradeSelects(fields);
+    }, 10);
 };
+
+function upgradeSelects(container) {
+    container.querySelectorAll('select').forEach(select => {
+        upgradeToMaestroSelect(select);
+    });
+}
+
+function upgradeToMaestroSelect(select) {
+    if (select.closest('.maestro-select-container')) return;
+    
+    const wrapper = document.createElement('div');
+    wrapper.className = 'maestro-select-container';
+    select.parentNode.insertBefore(wrapper, select);
+    wrapper.appendChild(select);
+    
+    select.style.display = 'none';
+    
+    const selectedText = select.options[select.selectedIndex]?.text || '-- Maak een keuze --';
+    
+    const trigger = document.createElement('div');
+    trigger.className = 'maestro-select-trigger';
+    trigger.innerHTML = `<span class="selected-value">${selectedText}</span><i class="fa-solid fa-chevron-down"></i>`;
+    trigger.onclick = (e) => {
+        e.stopPropagation();
+        toggleMaestroDropdown(trigger);
+    };
+    
+    const dropdown = document.createElement('div');
+    dropdown.className = 'maestro-select-dropdown';
+    
+    const search = document.createElement('input');
+    search.type = 'text';
+    search.className = 'maestro-select-search';
+    search.placeholder = 'Zoeken...';
+    search.onkeyup = () => filterMaestroDropdown(search);
+    if (select.options.length < 8) search.style.display = 'none';
+    
+    const optionsCont = document.createElement('div');
+    optionsCont.className = 'maestro-select-options';
+    
+    Array.from(select.options).forEach(opt => {
+        const mOpt = document.createElement('div');
+        mOpt.className = 'maestro-option' + (opt.selected ? ' selected' : '');
+        mOpt.innerHTML = `<span>${opt.text}</span>`;
+        mOpt.setAttribute('data-name', opt.text.toLowerCase());
+        
+        // Carry over any category data if present (for workshop tool)
+        if (opt.getAttribute('data-category')) {
+            const cat = opt.getAttribute('data-category');
+            mOpt.innerHTML += `<span class="option-category">${cat}</span>`;
+        }
+        
+        mOpt.onclick = (e) => {
+            e.stopPropagation();
+            select.value = opt.value;
+            select.dispatchEvent(new Event('change', { bubbles: true }));
+            trigger.querySelector('.selected-value').innerText = opt.text;
+            wrapper.classList.remove('open');
+            optionsCont.querySelectorAll('.maestro-option').forEach(o => o.classList.remove('selected'));
+            mOpt.classList.add('selected');
+        };
+        optionsCont.appendChild(mOpt);
+    });
+    
+    dropdown.appendChild(search);
+    dropdown.appendChild(optionsCont);
+    wrapper.appendChild(trigger);
+    wrapper.appendChild(dropdown);
+}
 
 window.closeAdminEditor = () => {
     const modal = document.getElementById('admin-editor-modal');
@@ -711,6 +823,7 @@ window.addAdminIngRow = () => {
         <button type="button" class="row-remove-btn" onclick="this.parentElement.remove()"><i class="fa-solid fa-trash"></i></button>
     `;
     list.appendChild(div);
+    upgradeSelects(div);
 };
 
 window.addAdminStepRow = () => {
@@ -1026,6 +1139,7 @@ async function loadStats() {
 
         renderFavoritesChart(favLabels, favData);
         renderUsageChart(activeDates);
+        loadUserRecipes(usersSnap);
 
     } catch (e) {
         console.error("Error loading admin stats:", e);
@@ -1127,3 +1241,1005 @@ function renderUsageChart(dateCounts) {
         }
     });
 }
+
+/**
+ * WORKSHOP MANAGEMENT
+ */
+let workshopData = [];
+
+async function loadWorkshopList() {
+    const list = document.getElementById('admin-workshop-list');
+    if (!list) return;
+
+    try {
+        const { collection, getDocs, query, orderBy } = await import("https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js");
+        const q = query(collection(db, "workshops"), orderBy("date", "desc"));
+        const snap = await getDocs(q);
+        
+        workshopData = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        renderWorkshopList();
+    } catch (e) {
+        console.error("Error loading workshops:", e);
+        list.innerHTML = `<p class="placeholder-text" style="color: #ff4757;">Fout bij laden: ${e.message}</p>`;
+    }
+}
+
+function renderWorkshopList() {
+    const list = document.getElementById('admin-workshop-list');
+    if (workshopData.length === 0) {
+        list.innerHTML = '<p class="placeholder-text">Geen workshops gevonden.</p>';
+        return;
+    }
+
+    list.className = 'admin-workshop-grid';
+    list.innerHTML = workshopData.map(ws => {
+        const date = new Date(ws.date);
+        const isPast = date < new Date().setHours(0,0,0,0);
+        
+        // Find names of recipes in rounds
+        const allRecipes = [...window.workshopRecipes || []];
+        const menuNames = (ws.rounds || []).map(r => {
+            const recipe = allRecipes.find(rec => rec.id === r.recipeId);
+            return recipe ? recipe.name : 'Onbekend';
+        }).filter((v, i, a) => a.indexOf(v) === i); // Unique names
+
+        return `
+            <div class="workshop-card ${isPast ? 'past' : ''}" onclick="openWorkshopEditor('${ws.id}')">
+                <div class="card-status-badge">${isPast ? 'Voltooid' : 'Aankomend'}</div>
+                
+                <div class="card-header">
+                    <div class="card-date">
+                        <span class="day">${date.getDate()}</span>
+                        <span class="month">${date.toLocaleString('nl-NL', { month: 'short' })}</span>
+                    </div>
+                    <div class="card-title-group">
+                        <h3 class="card-title">${ws.name}</h3>
+                        <span class="card-client"><i class="fa-solid fa-user-tie"></i> ${ws.client || 'Particulier'}</span>
+                    </div>
+                </div>
+
+                <div class="card-stats-row">
+                    <div class="stat-pill">
+                        <i class="fa-solid fa-users"></i>
+                        <span>${ws.people} <small>pers.</small></span>
+                    </div>
+                    <div class="stat-pill">
+                        <i class="fa-solid fa-droplet-slash"></i>
+                        <span>${ws.people00 || 0} <small>0.0%</small></span>
+                    </div>
+                </div>
+
+                ${ws.allergies ? `
+                    <div class="card-allergies">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>${ws.allergies}</span>
+                    </div>
+                ` : ''}
+
+                <div class="card-menu">
+                    ${menuNames.map(name => `<span class="menu-tag">${name}</span>`).join('')}
+                </div>
+
+                <div class="card-footer">
+                    <div class="footer-stat">
+                        <label>Inkoop</label>
+                        <span class="cost">€ ${(ws.totalCosts || 0).toFixed(2)}</span>
+                    </div>
+                    <div class="footer-stat">
+                        <label>Factuur</label>
+                        <span class="revenue">€ ${(ws.totalRevenue || 0).toFixed(2)}</span>
+                    </div>
+                    <div class="footer-stat profit">
+                        <label>Marge</label>
+                        <span>€ ${( (ws.totalRevenue || 0) - (ws.totalCosts || 0) ).toFixed(2)}</span>
+                    </div>
+                </div>
+                
+                <div class="card-edit-hint">Klik om te bewerken <i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+        `;
+    }).join('');
+}
+
+function openWorkshopEditor(id = null) {
+    console.log("Opening Workshop Editor...", id);
+    const modal = document.getElementById('workshop-editor-modal');
+    const form = document.getElementById('workshop-editor-form');
+    const title = document.getElementById('workshop-editor-title');
+    const deleteBtn = document.getElementById('ws-delete-btn');
+    
+    if (!modal || !form) {
+        console.error("Workshop modal or form not found!");
+        return;
+    }
+    
+    form.reset();
+    const editIdEl = document.getElementById('workshop-edit-id');
+    if (editIdEl) editIdEl.value = id || '';
+    
+    const roundsContainer = document.getElementById('workshop-rounds-container');
+    if (roundsContainer) roundsContainer.innerHTML = '';
+    
+    switchWorkshopFormTab('basic');
+
+    if (id) {
+        const ws = workshopData.find(w => w.id === id);
+        title.innerText = 'Workshop Bewerken';
+        if (deleteBtn) {
+            deleteBtn.style.display = 'block';
+            deleteBtn.onclick = () => deleteWorkshop(id);
+        }
+
+        document.getElementById('ws-name').value = ws.name;
+        document.getElementById('ws-date').value = ws.date;
+        document.getElementById('ws-people').value = ws.people;
+        document.getElementById('ws-people-00').value = ws.people00 || 0;
+        document.getElementById('ws-client').value = ws.client || '';
+        document.getElementById('ws-location').value = ws.location || '';
+        document.getElementById('ws-price-pp').value = ws.pricePp || 35;
+        document.getElementById('ws-price-00-pp').value = ws.price00Pp || 25;
+        document.getElementById('ws-allergies').value = ws.allergies || '';
+        document.getElementById('ws-prep-notes').value = ws.prepNotes || '';
+
+        if (ws.rounds && ws.rounds.length > 0) {
+            ws.rounds.forEach(round => addWorkshopRound(round));
+        }
+    } else {
+        title.innerText = 'Nieuwe Workshop';
+        if (deleteBtn) deleteBtn.style.display = 'none';
+        document.getElementById('ws-date').valueAsDate = new Date();
+        addWorkshopRound(); // Start with one round
+    }
+
+    modal.classList.add('show');
+    calculateWorkshopTotals();
+}
+
+function closeWorkshopEditor() {
+    const modal = document.getElementById('workshop-editor-modal');
+    if (modal) modal.classList.remove('show');
+}
+
+function switchWorkshopFormTab(tab) {
+    document.querySelectorAll('.form-tab-content').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.form-tab-btn').forEach(b => b.classList.remove('active'));
+    
+    const targetTab = document.getElementById(`workshop-tab-${tab}`);
+    if (targetTab) targetTab.classList.add('active');
+    
+    const targetBtn = document.querySelector(`.form-tab-btn[onclick*="${tab}"]`);
+    if (targetBtn) targetBtn.classList.add('active');
+}
+
+/**
+ * Helpers
+ */
+function getAllWorkshopIngredients() {
+    const ingredients = new Set();
+    const allRecipes = [
+        ...window.workshopRecipes || []
+    ];
+    
+    allRecipes.forEach(recipe => {
+        if (recipe.ingredients) {
+            recipe.ingredients.forEach(ing => {
+                const name = typeof ing === 'object' ? ing.name : ing;
+                if (name) ingredients.add(name);
+            });
+        }
+    });
+    
+    return Array.from(ingredients).sort();
+}
+
+window.updateProductUnitHint = (unit) => {
+    const labels = document.querySelectorAll('.label-size-vol');
+    labels.forEach(label => {
+        if (unit === 'ml') label.innerText = 'Vol. (ml)';
+        else if (unit === 'pcs') label.innerText = 'Aantal (stuks)';
+        else if (unit === 'dash') label.innerText = 'Dashes';
+        else if (unit === 'sprig') label.innerText = 'Takjes';
+        else label.innerText = 'Inhoud';
+    });
+};
+
+window.addProductSizeRow = (data = null) => {
+    const container = document.getElementById('product-sizes-list');
+    if (!container) return;
+    
+    const row = document.createElement('div');
+    row.className = 'admin-form-row product-size-row';
+    row.style.marginBottom = '10px';
+    
+    row.innerHTML = `
+        <div class="admin-form-group" style="flex: 1;">
+            <label class="label-size-vol">Vol. (ml)</label>
+            <input type="number" class="size-volume" value="${data ? data.volume : 700}" min="1">
+        </div>
+        <div class="admin-form-group" style="flex: 1;">
+            <label>Prijs (€)</label>
+            <input type="number" class="size-price" value="${data ? data.price : 15.00}" step="0.01" min="0">
+        </div>
+        <button type="button" class="remove-size-btn" onclick="this.closest('.product-size-row').remove()" style="background: none; border: none; color: #ff4757; cursor: pointer; margin-top: 30px; font-size: 1.2rem;">
+            <i class="fa-solid fa-trash-can"></i>
+        </button>
+    `;
+    container.appendChild(row);
+    window.updateProductUnitHint(document.getElementById('prod-unit').value);
+};
+
+/**
+ * PRODUCT MANAGEMENT
+ */
+async function loadProductList() {
+    const list = document.getElementById('admin-product-list');
+    if (!list) return;
+
+    try {
+        const q = query(collection(db, "workshop_products"), orderBy("name", "asc"));
+        const snap = await getDocs(q);
+        
+        workshopProducts = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        renderProductList();
+    } catch (e) {
+        console.error("Error loading products:", e);
+        list.innerHTML = `<p class="placeholder-text" style="color: #ff4757;">Fout bij laden: ${e.message}</p>`;
+    }
+}
+
+function renderProductList(data = null) {
+    const list = document.getElementById('admin-product-list');
+    const items = data || workshopProducts;
+
+    if (items.length === 0) {
+        list.innerHTML = '<p class="placeholder-text">Geen producten gevonden.</p>';
+        return;
+    }
+
+    list.className = 'admin-workshop-grid';
+    list.innerHTML = items.map(prod => {
+        const unitLabel = prod.unit === 'ml' ? 'per fles' : 'per stuk';
+        return `
+            <div class="workshop-card" onclick="openProductEditor('${prod.id}')" style="gap: 10px; padding: 20px;">
+                <div class="card-status-badge" style="background: rgba(255, 179, 71, 0.1); color: var(--accent-secondary);">${prod.category}</div>
+                <h3 class="card-title" style="font-size: 1.1rem;">${prod.name}</h3>
+                <div class="card-stats-row">
+                    <div class="stat-pill">
+                        <i class="fa-solid fa-box-open"></i>
+                        <span>${prod.volume} <small>${prod.unit}</small></span>
+                    </div>
+                    <div class="stat-pill">
+                        <i class="fa-solid fa-tag"></i>
+                        <span>€ ${prod.price.toFixed(2)} <small>${unitLabel}</small></span>
+                    </div>
+                </div>
+                <div class="card-edit-hint">Bewerken <i class="fa-solid fa-pen"></i></div>
+            </div>
+        `;
+    }).join('');
+}
+
+window.openProductEditor = (id = null) => {
+    const modal = document.getElementById('product-editor-modal');
+    const form = document.getElementById('product-editor-form');
+    const title = document.getElementById('product-editor-title');
+    const deleteBtn = document.getElementById('product-delete-btn');
+    const selectContainer = document.getElementById('product-name-select-container');
+    
+    form.reset();
+    document.getElementById('product-edit-id').value = id || '';
+    
+    // Create searchable select for ingredients
+    const ingredients = getAllWorkshopIngredients();
+    const currentName = id ? workshopProducts.find(p => p.id === id)?.name : '';
+    
+    selectContainer.innerHTML = `
+        <select id="prod-name-select" class="ws-round-recipe">
+            <option value="">-- Typ handmatig of kies uit lijst --</option>
+            ${ingredients.map(ing => `<option value="${ing}" ${ing === currentName ? 'selected' : ''}>${ing}</option>`).join('')}
+        </select>
+        <div class="manual-name-input" style="margin-top: 10px; ${id ? 'display: none;' : ''}">
+            <input type="text" id="prod-name-manual" placeholder="Of typ hier een nieuwe naam..." value="${currentName}">
+        </div>
+    `;
+    
+    const select = document.getElementById('prod-name-select');
+    select.onchange = () => {
+        const manualInput = document.getElementById('prod-name-manual');
+        if (select.value === "") {
+            manualInput.parentElement.style.display = 'block';
+        } else {
+            manualInput.parentElement.style.display = 'none';
+            manualInput.value = select.value;
+        }
+    };
+    
+    upgradeToMaestroSelect(select);
+
+    if (id) {
+        const prod = workshopProducts.find(p => p.id === id);
+        title.innerText = 'Product Bewerken';
+        deleteBtn.style.display = 'block';
+
+        document.getElementById('prod-category').value = prod.category;
+        document.getElementById('prod-unit').value = prod.unit;
+        
+        const sizeContainer = document.getElementById('product-sizes-list');
+        sizeContainer.innerHTML = '';
+        if (prod.sizes && prod.sizes.length > 0) {
+            prod.sizes.forEach(size => addProductSizeRow(size));
+        } else {
+            // Backward compatibility for old single-size products
+            addProductSizeRow({ volume: prod.volume, price: prod.price });
+        }
+    } else {
+        title.innerText = 'Product Toevoegen';
+        deleteBtn.style.display = 'none';
+        const sizeContainer = document.getElementById('product-sizes-list');
+        sizeContainer.innerHTML = '';
+        addProductSizeRow();
+    }
+
+    modal.classList.add('show');
+};
+
+window.closeProductEditor = () => {
+    document.getElementById('product-editor-modal').classList.remove('show');
+};
+
+window.saveProduct = async (e) => {
+    e.preventDefault();
+    const id = document.getElementById('product-edit-id').value;
+    const btn = document.querySelector('#product-editor-form .save-btn-admin');
+    
+    const selectedName = document.getElementById('prod-name-select').value;
+    const manualName = document.getElementById('prod-name-manual').value;
+    const name = selectedName || manualName;
+
+    if (!name) {
+        alert("Voer a.u.b. een naam in.");
+        return;
+    }
+
+    const sizeRows = document.querySelectorAll('.product-size-row');
+    const sizes = Array.from(sizeRows).map(row => ({
+        volume: parseFloat(row.querySelector('.size-volume').value),
+        price: parseFloat(row.querySelector('.size-price').value)
+    }));
+
+    if (sizes.length === 0) {
+        alert("Voeg minimaal één maat toe.");
+        return;
+    }
+
+    const data = {
+        name: name,
+        category: document.getElementById('prod-category').value,
+        unit: document.getElementById('prod-unit').value,
+        sizes: sizes,
+        // Legacy fields for UI compatibility if needed
+        volume: sizes[0].volume,
+        price: sizes[0].price,
+        updatedAt: new Date().toISOString()
+    };
+
+    btn.disabled = true;
+    try {
+        if (id) {
+            await setDoc(doc(db, "workshop_products", id), data, { merge: true });
+        } else {
+            const newId = data.name.toLowerCase().replace(/[^a-z0-9]/g, '-');
+            await setDoc(doc(db, "workshop_products", newId), data);
+        }
+        closeProductEditor();
+        loadProductList();
+    } catch (err) {
+        console.error("Error saving product:", err);
+        alert("Fout bij opslaan: " + err.message);
+    } finally {
+        btn.disabled = false;
+    }
+};
+
+window.deleteProduct = async () => {
+    const id = document.getElementById('product-edit-id').value;
+    if (!id || !confirm("Weet je zeker dat je dit product wilt verwijderen?")) return;
+
+    try {
+        await deleteDoc(doc(db, "workshop_products", id));
+        closeProductEditor();
+        loadProductList();
+    } catch (err) {
+        alert("Fout bij verwijderen: " + err.message);
+    }
+};
+
+window.filterProducts = (val) => {
+    const term = val.toLowerCase();
+    const filtered = workshopProducts.filter(p => p.name.toLowerCase().includes(term));
+    renderProductList(filtered);
+};
+
+function addWorkshopRound(data = null) {
+    const container = document.getElementById('workshop-rounds-container');
+    if (!container) return;
+    
+    const roundCount = container.children.length + 1;
+    const roundDiv = document.createElement('div');
+    roundDiv.className = 'workshop-round-item';
+    
+    const allRecipes = [...window.workshopRecipes || []];
+    
+    // Custom sort order for workshop categories
+    const categoryOrder = {
+        "prohibition": 1,
+        "new wave": 2,
+        "tiki": 3,
+        "shot": 4
+    };
+
+    allRecipes.sort((a, b) => {
+        const catA = (a.category && a.category[0]) ? a.category[0].toLowerCase() : "zz";
+        const catB = (b.category && b.category[0]) ? b.category[0].toLowerCase() : "zz";
+        
+        const orderA = categoryOrder[catA] || 99;
+        const orderB = categoryOrder[catB] || 99;
+
+        if (orderA !== orderB) {
+            return orderA - orderB;
+        }
+        
+        // Secondary sort: Alphabetical by name
+        return a.name.localeCompare(b.name);
+    });
+
+    const selectedRecipe = data ? allRecipes.find(r => r.id == data.recipeId) : null;
+    const initialLabel = selectedRecipe ? selectedRecipe.name : '-- Kies een recept --';
+
+    const optionsHTML = allRecipes.map(r => `
+        <option value="${r.id}" ${data && data.recipeId == r.id ? 'selected' : ''} data-category="${r.category ? r.category[0] : ''}">${r.name}</option>
+    `).join('');
+
+    const options00HTML = allRecipes.filter(r => r.category && r.category.includes('0.0%')).map(r => `
+        <option value="${r.id}" ${data && data.recipe00Id == r.id ? 'selected' : ''}>${r.name}</option>
+    `).join('');
+
+    roundDiv.innerHTML = `
+        <div class="round-header">
+            <span>Ronde ${roundCount}</span>
+            <button type="button" class="remove-round-btn" onclick="this.closest('.workshop-round-item').remove(); window.calculateWorkshopTotals();">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+        <div class="round-body">
+            <div class="admin-form-group">
+                <label>Type Ronde</label>
+                <select class="ws-round-type" onchange="window.updateWorkshopRoundOptions(this); window.calculateWorkshopTotals();">
+                    <option value="cocktail" ${data && data.type === 'cocktail' ? 'selected' : ''}>Cocktail</option>
+                    <option value="shot" ${data && data.type === 'shot' ? 'selected' : ''}>Shotje</option>
+                </select>
+            </div>
+            <div class="admin-form-group">
+                <label>Drink (Normaal)</label>
+                <select class="ws-round-recipe" onchange="window.calculateWorkshopTotals()">
+                    <option value="">-- Kies een recept --</option>
+                    ${optionsHTML}
+                </select>
+            </div>
+            <div class="admin-form-group ws-00-variant-group">
+                <label>0.0% Variant</label>
+                <select class="ws-round-recipe-00" onchange="window.calculateWorkshopTotals()">
+                    <option value="">-- Geen 0.0 variant --</option>
+                    ${options00HTML}
+                </select>
+            </div>
+        </div>
+    `;
+    container.appendChild(roundDiv);
+    upgradeSelects(roundDiv);
+    
+    // Initial filter
+    const typeSelect = roundDiv.querySelector('.ws-round-type');
+    updateWorkshopRoundOptions(typeSelect);
+    
+    calculateWorkshopTotals();
+}
+
+function updateWorkshopRoundOptions(typeSelect) {
+    const type = typeSelect.value;
+    const container = typeSelect.closest('.workshop-round-item');
+    const options = container.querySelectorAll('.maestro-option');
+    const trigger = container.querySelector('.selected-value');
+    const hiddenInput = container.querySelector('.ws-round-recipe');
+
+    options.forEach(opt => {
+        // Skip the "No selection" option
+        if (opt.innerText.includes('-- Kies een recept --') || opt.innerText.includes('-- Geen selectie --')) return;
+
+        const isShot = opt.querySelector('.option-category')?.innerText.toLowerCase().includes('shot');
+        
+        if ((type === 'shot' && isShot) || (type === 'cocktail' && !isShot)) {
+            opt.classList.remove('hidden-by-type');
+            opt.style.display = 'flex';
+        } else {
+            opt.classList.add('hidden-by-type');
+            opt.style.display = 'none';
+        }
+    });
+
+    // If current selection is now hidden, reset it
+    const selectedOpt = container.querySelector('.maestro-option.selected');
+    if (selectedOpt && selectedOpt.classList.contains('hidden-by-type')) {
+        trigger.innerText = '-- Kies een recept --';
+        hiddenInput.value = '';
+        selectedOpt.classList.remove('selected');
+    }
+}
+
+function calculateWorkshopTotals() {
+    const peopleInput = document.getElementById('ws-people');
+    const pricePpInput = document.getElementById('ws-price-pp');
+    if (!peopleInput || !pricePpInput) return;
+
+    const people = parseInt(peopleInput.value) || 0;
+    const people00 = parseInt(document.getElementById('ws-people-00')?.value) || 0;
+    const pricePp = parseFloat(pricePpInput.value) || 0;
+    const price00Pp = parseFloat(document.getElementById('ws-price-00-pp')?.value) || 0;
+    const rounds = document.querySelectorAll('.workshop-round-item');
+    
+    const revenue = (people * pricePp) + (people00 * price00Pp);
+    const revEl = document.getElementById('ws-total-revenue');
+    if (revEl) revEl.innerText = `€ ${revenue.toFixed(2)}`;
+
+    const ingredientsMap = {};
+    const allRecipes = [...window.workshopRecipes || []];
+
+    rounds.forEach(round => {
+        const type = round.querySelector('.ws-round-type').value;
+        const recipeId = round.querySelector('.ws-round-recipe').value;
+        const recipe00Id = round.querySelector('.ws-round-recipe-00').value;
+        
+        const recipe = allRecipes.find(r => r.id == recipeId);
+        const recipe00 = allRecipes.find(r => r.id == recipe00Id);
+
+        const processRecipe = (r, count, is00) => {
+            if (!r || !r.ingredients) return;
+            r.ingredients.forEach(ing => {
+                const rawName = typeof ing === 'object' ? ing.name : ing;
+                const name = rawName.trim();
+                const key = name.toLowerCase();
+                
+                const amount = (typeof ing === 'object' && ing.amount) ? parseFloat(ing.amount) : 0;
+                const unit = (typeof ing === 'object' && ing.unit) ? ing.unit.toLowerCase() : 'stuk';
+
+                if (!ingredientsMap[key]) {
+                    ingredientsMap[key] = { 
+                        name: name,
+                        amount: 0, 
+                        unit: unit,
+                        category: (typeof ing === 'object' && ing.fridgeCategory) ? ing.fridgeCategory : 'other',
+                        amtPerPerson: 0,
+                        usedByStd: false,
+                        usedBy00: false,
+                        numDrinkers: 0
+                    };
+                }
+                
+                if (is00) ingredientsMap[key].usedBy00 = true;
+                else ingredientsMap[key].usedByStd = true;
+
+                ingredientsMap[key].amount += (amount * count);
+                ingredientsMap[key].amtPerPerson += amount;
+                
+                let drinkers = 0;
+                if (ingredientsMap[key].usedByStd) drinkers += people;
+                if (ingredientsMap[key].usedBy00) drinkers += people00;
+                ingredientsMap[key].numDrinkers = drinkers;
+            });
+        };
+
+        processRecipe(recipe, people, false);
+        processRecipe(recipe00, people00, true);
+    });
+
+    const ingList = document.getElementById('ws-ingredients-list');
+    if (!ingList) return;
+
+    if (Object.keys(ingredientsMap).length === 0) {
+        ingList.innerHTML = '<p class="placeholder-text">Voeg eerst cocktails toe aan het menu...</p>';
+        const costsEl = document.getElementById('ws-total-costs');
+        if (costsEl) costsEl.innerText = '€ 0.00';
+        const profitEl = document.getElementById('ws-total-profit');
+        if (profitEl) profitEl.innerText = `€ ${revenue.toFixed(2)}`;
+        return;
+    }
+
+    let estimatedCosts = 0;
+    ingList.innerHTML = Object.keys(ingredientsMap).map(key => {
+        const ing = ingredientsMap[key];
+        const name = ing.name;
+        
+        // FIND ALL MATCHING PRODUCTS
+        const matchingProducts = workshopProducts.filter(p => p.name.toLowerCase() === key || p.name.toLowerCase() === name.toLowerCase());
+        
+        // 1. Calculate how much we need to buy (ML/Units)
+        let totalUnitsToBuy = ing.amount; // Default
+        
+        const inkoopExclusions = ['bitters', 'angostura', 'stroh 80'];
+        const isExcluded = inkoopExclusions.some(ex => key.includes(ex));
+
+        if (!isExcluded) {
+            if (ing.category === 'juice') {
+                totalUnitsToBuy = ing.numDrinkers * 100;
+            } else if (['spirit', 'liqueur', 'syrup'].includes(ing.category)) {
+                const mlPerPerson = ing.amtPerPerson;
+                let pPerBottle = 3;
+                if (mlPerPerson * 3 > 160) pPerBottle = 2;
+                if (mlPerPerson * 2 > 160) pPerBottle = 1;
+                const finalBottleCount = Math.ceil(ing.numDrinkers / pPerBottle);
+                totalUnitsToBuy = finalBottleCount * 160;
+            }
+        }
+
+        // Unit conversion for recipe-based buying
+        if (totalUnitsToBuy === ing.amount) {
+            if (ing.unit === 'cl') totalUnitsToBuy = ing.amount * 10;
+            if (ing.unit === 'l') totalUnitsToBuy = ing.amount * 1000;
+        }
+
+        // 1. Get all available options for this ingredient
+        const allOptions = [];
+        matchingProducts.forEach(prod => {
+            if (prod.sizes && prod.sizes.length > 0) {
+                prod.sizes.forEach(s => {
+                    allOptions.push({ 
+                        id: prod.id, 
+                        volume: s.volume, 
+                        price: s.price, 
+                        unit: prod.unit 
+                    });
+                });
+            } else if (prod.volume) {
+                allOptions.push({ 
+                    id: prod.id, 
+                    volume: prod.volume, 
+                    price: prod.price, 
+                    unit: prod.unit 
+                });
+            }
+        });
+
+        let bestCombination = [];
+        let totalCost = 0;
+        let isEstimated = allOptions.length === 0;
+
+        if (!isEstimated) {
+            // SMART SHOPPING LOGIC
+            const sortedOptions = [...allOptions].sort((a, b) => (a.price / a.volume) - (b.price / b.volume));
+            
+            // Strategy A: Best Single Type (buying only one size of bottle)
+            const bestSingleType = sortedOptions.reduce((best, opt) => {
+                const count = Math.ceil(totalUnitsToBuy / opt.volume);
+                const cost = count * opt.price;
+                if (!best || cost < best.cost) return { combo: [{ opt, count }], cost };
+                return best;
+            }, null);
+
+            // Strategy B: Greedy Downward (Cheapest unit price first, then remainder)
+            let greedyRemaining = totalUnitsToBuy;
+            let greedyCombo = [];
+            let greedyCost = 0;
+            
+            sortedOptions.forEach(opt => {
+                if (greedyRemaining >= opt.volume) {
+                    const count = Math.floor(greedyRemaining / opt.volume);
+                    greedyCombo.push({ opt, count });
+                    greedyRemaining -= (count * opt.volume);
+                    greedyCost += (count * opt.price);
+                }
+            });
+            if (greedyRemaining > 0) {
+                const coverOpt = sortedOptions.reduce((best, curr) => {
+                    if (curr.volume >= greedyRemaining) {
+                        if (!best || curr.price < best.price) return curr;
+                    }
+                    return best;
+                }, null) || sortedOptions[0];
+
+                const existing = greedyCombo.find(c => c.opt.volume === coverOpt.volume && c.opt.id === coverOpt.id);
+                if (existing) existing.count++;
+                else greedyCombo.push({ opt: coverOpt, count: 1 });
+                greedyCost += coverOpt.price;
+            }
+
+            // Pick the cheapest strategy
+            if (bestSingleType && bestSingleType.cost < greedyCost) {
+                bestCombination = bestSingleType.combo;
+                totalCost = bestSingleType.cost;
+            } else {
+                bestCombination = greedyCombo;
+                totalCost = greedyCost;
+            }
+        } else {
+            // FALLBACK
+            const fallbackVol = (['ml', 'cl', 'l', 'juice', 'spirit', 'liqueur', 'syrup'].includes(ing.category || ing.unit)) ? 700 : 1;
+            const fallbackPrice = (fallbackVol === 700) ? 15 : 0.5;
+            const numFallback = Math.ceil(totalUnitsToBuy / fallbackVol);
+            bestCombination = [{ opt: { volume: fallbackVol, price: fallbackPrice, unit: ing.unit || 'ml' }, count: numFallback }];
+            totalCost = numFallback * fallbackPrice;
+        }
+
+        const comboText = bestCombination.map(c => `${c.count}x ${c.opt.volume}${c.opt.unit}`).join(', ');
+        let display = `${Math.ceil(ing.amount)} ${ing.unit} (Recept)`;
+        if (['ml', 'cl', 'l'].includes(ing.unit)) {
+            display = `${(ing.amount / (ing.unit === 'cl' ? 100 : (ing.unit === 'l' ? 1 : 1000))).toFixed(2)} L (Recept)`;
+        }
+        const bottleCountHTML = `<span class="bottle-count ${isEstimated ? 'estimated' : ''}">${comboText}</span>`;
+        
+        estimatedCosts += totalCost;
+
+        return `
+            <div class="ws-ing-row ${isEstimated ? 'unknown-product' : ''}">
+                <div class="ws-ing-info">
+                    <span class="ing-name">${name} ${isEstimated ? '<i class="fa-solid fa-circle-question" title="Product niet in database"></i>' : ''}</span>
+                    <span class="ing-price-unit">€ ${totalCost.toFixed(2)} (Inkoop)</span>
+                </div>
+                <div class="ws-ing-math">
+                    <span class="ing-amt">${display}</span>
+                    ${bottleCountHTML}
+                    <span class="ing-total-price">€ ${totalCost.toFixed(2)}</span>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    const costsEl = document.getElementById('ws-total-costs');
+    if (costsEl) costsEl.innerText = `€ ${estimatedCosts.toFixed(2)}`;
+    const profitEl = document.getElementById('ws-total-profit');
+    if (profitEl) profitEl.innerText = `€ ${(revenue - estimatedCosts).toFixed(2)}`;
+
+    // NEW: Render Prep List
+    renderWorkshopPrepList(ingredientsMap);
+}
+
+function renderWorkshopPrepList(ingredientsMap) {
+    const prepList = document.getElementById('ws-prep-bottles-list');
+    if (!prepList) return;
+
+    const prepExclusions = ['bitters', 'angostura', 'stroh 80'];
+
+    const items = Object.keys(ingredientsMap).map(key => {
+        const ing = ingredientsMap[key];
+        const name = ing.name;
+        const currentPeople = ing.numDrinkers;
+
+        if (currentPeople === 0) return null;
+
+        // Skip exclusions for prep bottles
+        if (prepExclusions.some(ex => key.includes(ex))) return null;
+        let bottleInfo = null;
+
+        if (ing.category === 'juice') {
+            // 1 bottle per person, 100ml
+            const numBottles = currentPeople;
+            const mlPerBottle = ing.amtPerPerson;
+            const isOverflow = mlPerBottle > 100;
+            
+            bottleInfo = {
+                count: numBottles,
+                size: '100ml',
+                type: 'Individueel',
+                fill: mlPerBottle,
+                warning: isOverflow ? 'Te veel voor 100ml!' : null
+            };
+        } else if (['spirit', 'liqueur', 'syrup'].includes(ing.category)) {
+            // 1 bottle per 2-3 persons, 160ml
+            const mlPerPerson = ing.amtPerPerson;
+            let pPerBottle = 3;
+            let typeLabel = 'Gedeeld (per 3)';
+
+            if (mlPerPerson * 3 > 160) {
+                pPerBottle = 2;
+                typeLabel = 'Gedeeld (per 2)';
+            }
+            if (mlPerPerson * 2 > 160) {
+                pPerBottle = 1;
+                typeLabel = 'Individueel';
+            }
+
+            const numBottles = Math.ceil(currentPeople / pPerBottle);
+            // Avg people per bottle for fill calculation
+            const avgPeoplePerBottle = currentPeople / numBottles;
+            const mlPerBottle = mlPerPerson * avgPeoplePerBottle;
+            const isOverflow = mlPerBottle > 160;
+
+            bottleInfo = {
+                count: numBottles,
+                size: '160ml',
+                type: typeLabel,
+                fill: mlPerBottle,
+                warning: isOverflow ? 'Te veel voor 160ml!' : null
+            };
+        }
+
+        if (!bottleInfo) return null;
+
+        return `
+            <div class="prep-row ${bottleInfo.warning ? 'prep-warning' : ''}">
+                <div class="prep-main">
+                    <span class="prep-name">${name}</span>
+                    <span class="prep-count">${bottleInfo.count}x <small>${bottleInfo.size}</small></span>
+                </div>
+                <div class="prep-details">
+                    <span class="prep-type">${bottleInfo.type}</span>
+                    <span class="prep-fill">~${Math.round(bottleInfo.fill)}ml / flesje</span>
+                </div>
+                ${bottleInfo.warning ? `<div class="prep-alert"><i class="fa-solid fa-triangle-exclamation"></i> ${bottleInfo.warning}</div>` : ''}
+            </div>
+        `;
+    }).filter(x => x !== null).join('');
+
+    prepList.innerHTML = items || '<p class="placeholder-text">Geen vloeibare ingrediënten nodig.</p>';
+}
+
+async function saveWorkshop(e) {
+    if (e) e.preventDefault();
+    const id = document.getElementById('workshop-edit-id').value;
+    const btn = document.querySelector('#workshop-editor-form .save-btn-admin');
+    if (!btn) return;
+    
+    const originalHTML = btn.innerHTML;
+    const rounds = [];
+    document.querySelectorAll('.workshop-round-item').forEach(item => {
+        rounds.push({
+            type: item.querySelector('.ws-round-type').value,
+            recipeId: item.querySelector('.ws-round-recipe').value,
+            recipe00Id: item.querySelector('.ws-round-recipe-00').value
+        });
+    });
+
+    const totalRevenue = parseFloat(document.getElementById('ws-total-revenue').innerText.replace('€ ', '')) || 0;
+    const totalCosts = parseFloat(document.getElementById('ws-total-costs').innerText.replace('€ ', '')) || 0;
+
+    const data = {
+        name: document.getElementById('ws-name').value,
+        date: document.getElementById('ws-date').value,
+        people: parseInt(document.getElementById('ws-people').value),
+        people00: parseInt(document.getElementById('ws-people-00').value) || 0,
+        client: document.getElementById('ws-client').value,
+        location: document.getElementById('ws-location').value,
+        pricePp: parseFloat(document.getElementById('ws-price-pp').value),
+        price00Pp: parseFloat(document.getElementById('ws-price-00-pp').value) || 25,
+        allergies: document.getElementById('ws-allergies').value,
+        prepNotes: document.getElementById('ws-prep-notes').value,
+        rounds: rounds,
+        totalRevenue: totalRevenue,
+        totalCosts: totalCosts,
+        updatedAt: new Date().toISOString()
+    };
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Bezig...';
+
+    try {
+        const { setDoc, doc, updateDoc } = await import("https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js");
+        if (id) {
+            await updateDoc(doc(db, "workshops", id), data);
+        } else {
+            data.createdAt = new Date().toISOString();
+            // Create a clean ID from the workshop name
+            const workshopId = data.name.toLowerCase()
+                .replace(/[^a-z0-9]/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, '');
+            
+            await setDoc(doc(db, "workshops", workshopId), data);
+        }
+        
+        closeWorkshopEditor();
+        loadWorkshopList();
+        const { showToast } = await import("../core/ui-utils.js");
+        showToast("Workshop succesvol opgeslagen!");
+    } catch (err) {
+        console.error("Error saving workshop:", err);
+        alert("Fout bij opslaan: " + err.message);
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+    }
+}
+
+async function deleteWorkshop(id) {
+    if (!confirm("Weet je zeker dat je deze workshop wilt verwijderen?")) return;
+    try {
+        const { doc, deleteDoc } = await import("https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js");
+        await deleteDoc(doc(db, "workshops", id));
+        closeWorkshopEditor();
+        loadWorkshopList();
+    } catch (e) {
+        alert("Fout bij verwijderen: " + e.message);
+    }
+}
+
+// Custom Dropdown Logic
+function toggleMaestroDropdown(trigger) {
+    const container = trigger.closest('.maestro-select-container');
+    const wasOpen = container.classList.contains('open');
+    
+    // Close all other dropdowns
+    document.querySelectorAll('.maestro-select-container').forEach(c => c.classList.remove('open'));
+    
+    if (!wasOpen) {
+        container.classList.add('open');
+        const searchInput = container.querySelector('.maestro-select-search');
+        if (searchInput) {
+            searchInput.value = '';
+            searchInput.focus();
+            filterMaestroDropdown(searchInput);
+        }
+    }
+}
+
+function filterMaestroDropdown(input) {
+    const term = input.value.toLowerCase();
+    const options = input.closest('.maestro-select-dropdown').querySelectorAll('.maestro-option');
+    
+    options.forEach(opt => {
+        const name = opt.getAttribute('data-name') || '';
+        const isHiddenByType = opt.classList.contains('hidden-by-type');
+        
+        if (!isHiddenByType && (name.includes(term) || term === '')) {
+            opt.style.display = 'flex';
+        } else {
+            opt.style.display = 'none';
+        }
+    });
+}
+
+function selectMaestroOption(option, id, name) {
+    const container = option.closest('.maestro-select-container');
+    const trigger = container.querySelector('.maestro-select-trigger .selected-value');
+    const hiddenInput = container.querySelector('select');
+    
+    if (!hiddenInput) return;
+
+    // Update visual state
+    container.querySelectorAll('.maestro-option').forEach(opt => opt.classList.remove('selected'));
+    option.classList.add('selected');
+    
+    // Update values
+    trigger.innerText = name;
+    hiddenInput.value = id;
+    
+    // Trigger change event for logic that depends on it
+    hiddenInput.dispatchEvent(new Event('change'));
+    
+    // Close
+    container.classList.remove('open');
+    
+    // Recalculate workshop if that's what we're doing
+    if (hiddenInput.classList.contains('ws-round-recipe')) {
+        calculateWorkshopTotals();
+    }
+}
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.maestro-select-container')) {
+        document.querySelectorAll('.maestro-select-container').forEach(c => c.classList.remove('open'));
+    }
+});
+
+// Consolidate Global Window assignments
+window.loadWorkshopList = loadWorkshopList;
+window.openWorkshopEditor = openWorkshopEditor;
+window.closeWorkshopEditor = closeWorkshopEditor;
+window.switchWorkshopFormTab = switchWorkshopFormTab;
+window.addWorkshopRound = addWorkshopRound;
+window.calculateWorkshopTotals = calculateWorkshopTotals;
+window.saveWorkshop = saveWorkshop;
+window.deleteWorkshop = deleteWorkshop;
+window.toggleMaestroDropdown = toggleMaestroDropdown;
+window.filterMaestroDropdown = filterMaestroDropdown;
+window.selectMaestroOption = selectMaestroOption;
+window.updateWorkshopRoundOptions = updateWorkshopRoundOptions;

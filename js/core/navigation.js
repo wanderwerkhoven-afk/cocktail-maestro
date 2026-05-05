@@ -19,17 +19,11 @@ export async function navigateTo(pageId) {
 
     // Update bottom nav visibility
     const bottomNav = document.querySelector('.bottom-nav');
-    const adminNav = document.querySelector('.admin-nav');
 
     if (pageId === 'auth') {
         if (bottomNav) bottomNav.style.display = 'none';
-        if (adminNav) adminNav.style.display = 'none';
-    } else if (pageId === 'admin') {
-        if (bottomNav) bottomNav.style.display = 'none';
-        if (adminNav) adminNav.style.display = 'flex';
     } else {
         if (bottomNav) bottomNav.style.display = 'flex';
-        if (adminNav) adminNav.style.display = 'none';
     }
 
     // Update bottom nav icons
@@ -39,7 +33,7 @@ export async function navigateTo(pageId) {
 
     // Fetch latest data from cloud if logged in
     const user = auth.currentUser;
-    if (user && ['fridge', 'home', 'vault', 'shopping', 'recipes', 'admin'].includes(pageId)) {
+    if (user && ['fridge', 'home', 'vault', 'shopping', 'recipes'].includes(pageId)) {
         try {
             await fetchCloudData(user.uid);
         } catch (error) {
@@ -64,7 +58,6 @@ export async function navigateTo(pageId) {
     if (pageId === 'vault') renderVault();
     if (pageId === 'shopping') renderShoppingList();
     if (pageId === 'recipes') renderMyRecipes();
-    if (pageId === 'admin') initAdmin();
 
     // Sync collapsible intro states
     if (window.applyIntroStates) window.applyIntroStates();

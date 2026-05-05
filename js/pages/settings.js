@@ -25,21 +25,12 @@ export function openSettingsModal() {
         const adminTrigger = document.querySelector('#admin-section .settings-item-trigger');
         
         if (adminTrigger) {
-            if (activePage && activePage.id === 'admin-page') {
-                adminTrigger.onclick = () => { window.closeSettingsModal(); navigateTo('home'); };
-                adminTrigger.innerHTML = `
-                    <i class="fa-solid fa-arrow-left"></i>
-                    <span data-i18n="settings-back-maestro">${t('settings-back-maestro')}</span>
-                    <i class="fa-solid fa-chevron-right arrow-icon"></i>
-                `;
-            } else {
-                adminTrigger.onclick = () => { window.closeSettingsModal(); navigateTo('admin'); };
-                adminTrigger.innerHTML = `
-                    <i class="fa-solid fa-user-shield"></i>
-                    <span data-i18n="settings-beheer">${t('settings-beheer')}</span>
-                    <i class="fa-solid fa-chevron-right arrow-icon"></i>
-                `;
-            }
+            adminTrigger.onclick = () => { window.closeSettingsModal(); window.location.href = 'admin.html'; };
+            adminTrigger.innerHTML = `
+                <i class="fa-solid fa-user-shield"></i>
+                <span data-i18n="settings-beheer">${t('settings-beheer')}</span>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            `;
         }
 
         // Use auth.currentUser directly (synchronous) so the UI reflects login state immediately
