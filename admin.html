@@ -422,9 +422,19 @@
                             <span id="ws-total-costs">€ 0.00</span>
                         </div>
                         <div class="summary-card profit">
-                            <label>Marge</label>
+                            <label>Marge <i class="fa-solid fa-circle-info margin-info-btn" onclick="toggleMarginAnalysis()" title="Bekijk marge analyse" style="cursor: pointer; margin-left: 5px; opacity: 0.8;"></i></label>
                             <span id="ws-total-profit">€ 0.00</span>
                         </div>
+                    </div>
+
+                    <div id="margin-analysis-container" style="display: none; margin-top: 20px; background: rgba(0,0,0,0.2); padding: 20px; border-radius: 20px; border: 1px solid var(--border-light); animation: fadeIn 0.3s ease;">
+                        <h4 style="margin-bottom: 15px; font-size: 0.85rem; color: var(--accent-secondary); text-transform: uppercase; letter-spacing: 1px;"><i class="fa-solid fa-chart-line"></i> Marge Analyse per Aantal Gasten</h4>
+                        <div style="height: 250px; position: relative;">
+                            <canvas id="margin-analysis-chart"></canvas>
+                        </div>
+                        <p style="font-size: 0.7rem; color: var(--text-muted); margin-top: 15px; line-height: 1.4; font-style: italic;">
+                            De grafiek toont de marge (omzet minus inkoop) voor verschillende aantallen gasten, gebaseerd op de geselecteerde cocktails en 'slimme inkoop' staffels.
+                        </p>
                     </div>
 
                     <div class="ingredients-calculation">

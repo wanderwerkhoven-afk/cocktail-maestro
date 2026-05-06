@@ -11,6 +11,7 @@ import { newsArticles } from "../modules/news-db.js";
 let vaultData = [];
 let kitchenData = [];
 let workshopProducts = [];
+let marginAnalysisChart = null;
 
 /**
  * Initialize Admin Page
@@ -2243,3 +2244,209 @@ window.toggleMaestroDropdown = toggleMaestroDropdown;
 window.filterMaestroDropdown = filterMaestroDropdown;
 window.selectMaestroOption = selectMaestroOption;
 window.updateWorkshopRoundOptions = updateWorkshopRoundOptions;
+window.toggleMarginAnalysis = toggleMarginAnalysis;
+
+function toggleMarginAnalysis() {
+    const container = document.getElementById('margin-analysis-container');
+    if (!container) return;
+    
+    if (container.style.display === 'none') {
+        container.style.display = 'block';
+        renderMarginAnalysisChart();
+    } else {
+        container.style.display = 'none';
+    }
+}
+
+function getWorkshopProfitForGuests(p, p00) {
+    const pricePp = parseFloat(document.getElementById('ws-price-pp')?.value) || 0;
+    const price00Pp = parseFloat(document.getElementById('ws-price-00-pp')?.value) || 0;
+    const rounds = document.querySelectorAll('.workshop-round-item');
+    const allRecipes = [...window.workshopRecipes || []];
+    
+    const revenue = (p * pricePp) + (p00 * price00Pp);
+    const ingredientsMap = {};
+
+    rounds.forEach(round => {
+        const recipeId = round.querySelector('.ws-round-recipe').value;
+        const recipe00Id = round.querySelector('.ws-round-recipe-00').value;
+        const recipe = allRecipes.find(r => r.id == recipeId);
+        const recipe00 = allRecipes.find(r => r.id == recipe00Id);
+
+        const processRecipe = (r, count, is00) => {
+            if (!r || !r.ingredients) return;
+            r.ingredients.forEach(ing => {
+                const name = (typeof ing === 'object' ? ing.name : ing).trim();
+                const key = name.toLowerCase();
+                const amount = (typeof ing === 'object' && ing.amount) ? parseFloat(ing.amount) : 0;
+                const unit = (typeof ing === 'object' && ing.unit) ? ing.unit.toLowerCase() : 'stuk';
+
+                if (!ingredientsMap[key]) {
+                    ingredientsMap[key] = { 
+                        name: name, amount: 0, unit: unit,
+                        category: (typeof ing === 'object' && ing.fridgeCategory) ? ing.fridgeCategory : 'other',
+                        amtPerPerson: 0, numDrinkers: 0, usedByStd: false, usedBy00: false
+                    };
+                }
+                if (is00) ingredientsMap[key].usedBy00 = true;
+                else ingredientsMap[key].usedByStd = true;
+                
+                ingredientsMap[key].amount += (amount * count);
+                ingredientsMap[key].amtPerPerson += amount;
+                
+                let drinkers = 0;
+                if (ingredientsMap[key].usedByStd) drinkers += p;
+                if (ingredientsMap[key].usedBy00) drinkers += p00;
+                ingredientsMap[key].numDrinkers = drinkers;
+            });
+        };
+        processRecipe(recipe, p, false);
+        processRecipe(recipe00, p00, true);
+    });
+
+    let estimatedCosts = 0;
+    Object.keys(ingredientsMap).forEach(key => {
+        const ing = ingredientsMap[key];
+        const matchingProducts = workshopProducts.filter(prod => prod.name.toLowerCase() === key);
+        
+        let totalUnitsToBuy = ing.amount;
+        const inkoopExclusions = ['bitters', 'angostura', 'stroh 80'];
+        if (!inkoopExclusions.some(ex => key.includes(ex))) {
+            if (ing.category === 'juice') {
+                totalUnitsToBuy = ing.numDrinkers * 100;
+            } else if (['spirit', 'liqueur', 'syrup'].includes(ing.category)) {
+                const mlPerPerson = ing.amtPerPerson;
+                let pPerBottle = 3;
+                if (mlPerPerson * 3 > 160) pPerBottle = 2;
+                if (mlPerPerson * 2 > 160) pPerBottle = 1;
+                totalUnitsToBuy = Math.ceil(ing.numDrinkers / pPerBottle) * 160;
+            }
+        }
+
+        if (totalUnitsToBuy === ing.amount) {
+            if (ing.unit === 'cl') totalUnitsToBuy *= 10;
+            if (ing.unit === 'l') totalUnitsToBuy *= 1000;
+        }
+
+        const allOptions = [];
+        matchingProducts.forEach(prod => {
+            if (prod.sizes && prod.sizes.length > 0) {
+                prod.sizes.forEach(s => allOptions.push({ volume: s.volume, price: s.price }));
+            } else if (prod.volume) {
+                allOptions.push({ volume: prod.volume, price: prod.price });
+            }
+        });
+
+        if (allOptions.length > 0) {
+            const sorted = allOptions.sort((a, b) => (a.price / a.volume) - (b.price / b.volume));
+            const bestSingle = sorted.reduce((best, opt) => {
+                const cost = Math.ceil(totalUnitsToBuy / opt.volume) * opt.price;
+                return (!best || cost < best.cost) ? { cost } : best;
+            }, null);
+            estimatedCosts += bestSingle.cost;
+        } else {
+            const fallbackVol = (['ml', 'cl', 'l', 'juice', 'spirit', 'liqueur', 'syrup'].includes(ing.category || ing.unit)) ? 700 : 1;
+            const fallbackPrice = (fallbackVol === 700) ? 15 : 0.5;
+            estimatedCosts += Math.ceil(totalUnitsToBuy / fallbackVol) * fallbackPrice;
+        }
+    });
+
+    return { revenue, costs: estimatedCosts, profit: revenue - estimatedCosts };
+}
+
+function renderMarginAnalysisChart() {
+    const ctx = document.getElementById('margin-analysis-chart');
+    if (!ctx) return;
+
+    if (marginAnalysisChart) {
+        marginAnalysisChart.destroy();
+    }
+
+    const currentPeople = parseInt(document.getElementById('ws-people')?.value) || 0;
+    const currentPeople00 = parseInt(document.getElementById('ws-people-00')?.value) || 0;
+    const ratio00 = currentPeople > 0 ? currentPeople00 / currentPeople : 0;
+
+    const labels = [];
+    const profitData = [];
+    const revenueData = [];
+    const costsData = [];
+
+    // Calculate for step of 2 guests
+    for (let p = 2; p <= 40; p += 2) {
+        const p00 = Math.round(p * ratio00);
+        const stats = getWorkshopProfitForGuests(p, p00);
+        labels.push(`${p} p.`);
+        profitData.push(stats.profit.toFixed(2));
+        revenueData.push(stats.revenue.toFixed(2));
+        costsData.push(stats.costs.toFixed(2));
+    }
+
+    marginAnalysisChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Marge (€)',
+                    data: profitData,
+                    borderColor: '#fc9505',
+                    backgroundColor: 'rgba(252, 149, 5, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                },
+                {
+                    label: 'Omzet',
+                    data: revenueData,
+                    borderColor: '#2ecc71',
+                    borderWidth: 1,
+                    borderDash: [5, 5],
+                    fill: false,
+                    tension: 0.1
+                },
+                {
+                    label: 'Inkoop',
+                    data: costsData,
+                    borderColor: '#ff4757',
+                    borderWidth: 1,
+                    borderDash: [5, 5],
+                    fill: false,
+                    tension: 0.1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: { color: '#888', font: { size: 10 } }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    titleColor: '#fff',
+                    bodyColor: '#bbb',
+                    borderColor: 'rgba(255,255,255,0.1)',
+                    borderWidth: 1
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: 'rgba(255,255,255,0.05)' },
+                    ticks: { color: '#888', font: { size: 10 } }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { color: '#888', font: { size: 10 } }
+                }
+            }
+        }
+    });
+}
