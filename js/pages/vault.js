@@ -10,16 +10,11 @@ export function renderVault(filter = "") {
     const vaultGrid = document.getElementById('vault-grid');
     if (!vaultGrid) return;
 
-    const myRecipes = JSON.parse(localStorage.getItem('myRecipes')) || [];
-
-    // Split user recipes by type
-    const myCocktails = myRecipes.filter(r => r.type !== 'mocktail');
-    const myCustomMocktails = myRecipes.filter(r => r.type === 'mocktail');
-
-    // Pick source array based on drink mode
+    // Recipe Book is the curated Maestro library.
+    // Personal creations live exclusively in The Vault (recipes page).
     const sourceList = drinkMode === 'mocktail'
-        ? [...(window.mocktailRecipes || []), ...myCustomMocktails]
-        : [...(window.classicCocktails || []), ...myCocktails];
+        ? [...(window.mocktailRecipes || [])]
+        : [...(window.classicCocktails || [])];
 
     // Categorization logic
     let categories = [];
@@ -29,8 +24,7 @@ export function renderVault(filter = "") {
             { id: 'zero-riffs', name: '0.0 Riffs', searchTerms: ['virgin', 'arnold palmer', 'shirley temple'] },
             { id: 'fruity', name: t('cat-sweet'), searchTerms: ['tropical', 'fruity', 'sweet', 'mango', 'pineapple', 'watermelon'] },
             { id: 'fresh', name: t('cat-sour'), searchTerms: ['fresh', 'light', 'citrus', 'refreshing', 'mint', 'cucumber'] },
-            { id: 'others', name: t('cat-mocktails'), searchTerms: [] },
-            { id: 'my-recipes', name: t('cat-my-recipes'), searchTerms: [] }
+            { id: 'others', name: t('cat-mocktails'), searchTerms: [] }
         ];
     } else {
         categories = [
@@ -41,8 +35,7 @@ export function renderVault(filter = "") {
             { id: 'tequila', name: t('cat-tequila'), searchTerms: ['tequila', 'mezcal'] },
             { id: 'whiskey', name: t('cat-whiskey'), searchTerms: ['whiskey', 'bourbon', 'rye', 'scotch', 'cognac', 'pisco', 'brandy', 'jameson', 'vermouth', 'blended scotch', 'single malt'] },
             { id: 'aperitif', name: t('cat-aperitif'), searchTerms: ['aperitif', 'spritz', 'bitter', 'vermouth', 'bubbles', 'sparkling'] },
-            { id: 'others', name: t('cat-others'), searchTerms: [] },
-            { id: 'my-recipes', name: t('cat-my-recipes'), searchTerms: [] }
+            { id: 'others', name: t('cat-others'), searchTerms: [] }
         ];
     }
 
@@ -74,18 +67,9 @@ export function renderVault(filter = "") {
             grouped['favorites'].push(cocktail);
         }
 
-        // Special case: My Recipes
-        const isMyRecipe = myRecipes.some(r => r.id === cocktail.id);
-        if (isMyRecipe) {
-            grouped['my-recipes'].push(cocktail);
-            return;
-        }
-
         // Check other categories based on searchTerms in ingredients or category tags
         let placed = false;
         for (const cat of categories) {
-            if (cat.id === 'my-recipes') continue;
-
             const matchesCategory = cat.searchTerms.some(term => {
                 const regex = new RegExp(`\\b${term}\\b`, 'i');
                 const inIngredients = cocktail.ingredients.some(ing => {
