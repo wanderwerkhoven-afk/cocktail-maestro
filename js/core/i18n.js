@@ -6,11 +6,11 @@ const translations = {
     nl: {
         // Navigation
         "nav-home": "Home",
-        "nav-fridge": "Koelkast",
-        "nav-vault": "De Kluis",
-        "nav-recipes": "Recepten",
-        "nav-kitchen": "Keuken",
-        "nav-shopping": "Winkelen",
+        "nav-fridge": "My Bar",
+        "nav-vault": "Recipe Book",
+        "nav-recipes": "The Vault",
+        "nav-kitchen": "The Lab",
+        "nav-shopping": "Bar Cart",
 
         // Auth Page
         "auth-tagline": "Verhoog je mixologie reis",
@@ -42,7 +42,7 @@ const translations = {
         "home-welcome": "Hoi, {0}!",
         "home-welcome-guest": "Welkom bij de Maestro!",
 
-        "home-info-text": "Beheers de kunst van mixologie met <strong>Cocktail Maestro</strong>. Ontdek onze uitgebreide collectie klassieke en moderne recepten in de <strong>Kluis</strong>, beheer je thuisvoorraad in de <strong>Koelkast</strong> om precies te ontdekken wat je nu kunt maken, en verbeter je vaardigheden in de <strong>Keuken</strong> met professionele gidsen voor siropen, infusies en garnituren. Of je nu een nieuwsgierige beginner bent of een doorgewinterde pro, je perfecte drankje begint hier.",
+        "home-info-text": "Beheers de kunst van mixologie met <strong>Cocktail Maestro</strong>. Ontdek klassieke en moderne recepten in het <strong>Recipe Book</strong>, beheer je voorraad in <strong>My Bar</strong>, bewaar je eigen creaties in <strong>The Vault</strong> en experimenteer in <strong>The Lab</strong> met technieken, siropen, infusies en garnituren. Je perfecte pour begint hier.",
         "home-categories-title": "Categorieën",
         "cat-classics": "Klassiekers",
         "cat-sweet": "Zoet",
@@ -51,10 +51,10 @@ const translations = {
         "cat-cocktails": "Cocktails",
         "cat-mocktails": "Mocktails",
         "cat-creamy": "Romig",
-        "vault-card-title": "Cocktail Vault",
-        "vault-card-sub": "Blader door klassieke cocktailrecepten",
-        "kitchen-card-title": "Keuken",
-        "kitchen-card-sub": "Maak siropen, infusies & garnitures",
+        "vault-card-title": "Recipe Book",
+        "vault-card-sub": "Ontdek klassiekers, moderne favorieten en nieuwe inspiratie",
+        "kitchen-card-title": "The Lab",
+        "kitchen-card-sub": "Technieken, siropen, infusies & mixology tricks",
         "home-shake-title": "Shake it up!",
         "home-shake-sub": "Kun je niet kiezen? Laat het lot je volgende meesterwerk inschenken.",
         "home-shake-btn": "SHAKE",
@@ -64,7 +64,7 @@ const translations = {
         "home-bar-stats-label": "BAR STATS:",
         "home-stats-ingredients": "Ingrediënten op voorraad",
         "home-stats-cocktails": "Cocktails die je kunt maken",
-        "home-manage-fridge": "Beheer Koelkast",
+        "home-manage-fridge": "Beheer My Bar",
         "randomizer-filter-title": "Randomizer Instellingen",
         "filter-type-label": "Drank Type",
         "filter-both": "Beide",
@@ -80,9 +80,9 @@ const translations = {
         "home-update-status": "UPDATE STATUS",
 
         // Fridge Page
-        "fridge-title": "Vul je Koelkast",
-        "fridge-intro-title": "Je Virtuele Bar",
-        "fridge-intro-text": "Welkom bij je persoonlijke inventaris. Vertel ons welke flessen, sappen en extra's je in huis hebt, en de Maestro zal precies uitrekenen welke cocktails je kunt maken!",
+        "fridge-title": "My Bar",
+        "fridge-intro-title": "My Bar",
+        "fridge-intro-text": "Jouw persoonlijke barvoorraad. Selecteer welke flessen, mixers en verse ingrediënten je in huis hebt en de Maestro laat direct zien wat je kunt maken.",
         "fridge-intro-tip": "Tip: Wees zo specifiek mogelijk om de beste resultaten te krijgen. Je ingrediënten worden automatisch opgeslagen.",
         "fridge-available-title": "Wat hebben we beschikbaar?",
         "fridge-search-placeholder": "Zoek alle ingrediënten...",
@@ -95,18 +95,18 @@ const translations = {
         "group-missing-2": "Mis 2 ingrediënten",
 
         // Vault Page
-        "vault-title": "The Vault",
-        "vault-intro-title": "The Cocktail Vault",
-        "vault-intro-text": "Ontdek onze samengestelde collectie van klassieke en moderne cocktails. Van tijdloze sours tot complexe tiki-drankjes, elk recept is een meesterwerk dat wacht om ontdekt te worden.",
-        "vault-intro-tip": "Gebruik de zoekbalk om cocktails te vinden op naam, drank of smaakprofiel. Tik op een kaart om het volledige recept te zien.",
-        "vault-search-placeholder": "Zoek in The Vault...",
+        "vault-title": "Recipe Book",
+        "vault-intro-title": "Recipe Book",
+        "vault-intro-text": "Je complete cocktailbibliotheek. Ontdek klassiekers, moderne favorieten en inspirerende recepten van de Maestro.",
+        "vault-intro-tip": "Zoek op naam, spirit of smaakprofiel. Tik op een kaart om het volledige recept te openen.",
+        "vault-search-placeholder": "Zoek in Recipe Book...",
         "vault-missing-filter": "Alleen Perfecte Matches",
 
         // Recipe Book
-        "recipes-title": "Mijn Recepten",
-        "recipes-intro-title": "Mijn Receptenboek",
-        "recipes-intro-text": "Je persoonlijke collectie van eigen creaties en variaties. Sla hier je eigen unieke recepten op, compleet met foto's en gedetailleerde instructies.",
-        "recipes-intro-tip": "Tik op de plusknop hieronder om een nieuw recept te maken. Al je recepten worden veilig opgeslagen.",
+        "recipes-title": "The Vault",
+        "recipes-intro-title": "The Vault",
+        "recipes-intro-text": "Your signature serves. Locked in. Bewaar hier je eigen cocktails, mocktails, twists en experimenten — compleet met foto's en instructies.",
+        "recipes-intro-tip": "Tik op de plus om een nieuwe creatie aan The Vault toe te voegen. Alleen jouw eigen recepten staan hier.",
         "recipes-add-btn": "Nieuw Recept",
         "recipe-save": "Recept Opslaan",
         "admin-title": "Beheer",
@@ -121,7 +121,7 @@ const translations = {
         "recipe-alert-req": "Naam en ingrediënten zijn verplicht!",
         "recipe-alert-added": "Recept toegevoegd!",
         "recipe-alert-updated": "Recept bijgewerkt!",
-        "recipe-empty-state": "Je receptenboek is leeg.<br>Begin met het toevoegen van je eerste creatie!",
+        "recipe-empty-state": "The Vault is nog leeg.<br>Voeg je eerste eigen creatie toe!",
         "recipe-name-ph": "bijv. Espresso Martini",
         "recipe-desc-ph": "bijv. Een frisse klassieker met een twist.",
         "recipe-amount-ph": "50",
@@ -146,11 +146,11 @@ const translations = {
         "recipe-glass-label": "Glaswerk",
 
         // Kitchen Page
-        "kitchen-title": "De Keuken",
-        "kitchen-intro-text": "Ontdek technieken, chemie achter mixologie en huisgemaakte ingrediënten.",
+        "kitchen-title": "The Lab",
+        "kitchen-intro-text": "Experimenteer met technieken, mixology-chemie, huisgemaakte ingrediënten en bartools.",
 
         // Shopping List
-        "shopping-title": "Boodschappenlijst",
+        "shopping-title": "Bar Cart",
         "shopping-empty": "Je lijst is leeg. Voeg ingrediënten toe!",
         "shopping-smart-title": "Slimme Kooptips",
         "shopping-unlocks": "Ontgrendelt {0} nieuwe cocktails!",
@@ -238,11 +238,11 @@ const translations = {
     en: {
         // Navigation
         "nav-home": "Home",
-        "nav-fridge": "Fridge",
-        "nav-vault": "The Vault",
-        "nav-recipes": "Recipes",
-        "nav-kitchen": "Kitchen",
-        "nav-shopping": "Shopping",
+        "nav-fridge": "My Bar",
+        "nav-vault": "Recipe Book",
+        "nav-recipes": "The Vault",
+        "nav-kitchen": "The Lab",
+        "nav-shopping": "Bar Cart",
 
         // Auth Page
         "auth-tagline": "Elevate your mixology journey",
@@ -274,7 +274,7 @@ const translations = {
         "home-welcome": "Hi, {0}!",
         "home-welcome-guest": "Welcome to the Maestro!",
 
-        "home-info-text": "Master the art of mixology with <strong>Cocktail Maestro</strong>. Explore our extensive collection of classic and modern recipes in the <strong>Vault</strong>, manage your home inventory in the <strong>Fridge</strong> to discover exactly what you can create right now, and elevate your skills in the <strong>Kitchen</strong> with professional guides for syrups, infusions, and garnishes. Whether you're a curious beginner or a seasoned pro, your perfect pour starts here.",
+        "home-info-text": "Master the art of mixology with <strong>Cocktail Maestro</strong>. Explore classics and modern recipes in the <strong>Recipe Book</strong>, manage your stock in <strong>My Bar</strong>, keep your own creations in <strong>The Vault</strong>, and experiment with techniques, syrups and infusions in <strong>The Lab</strong>. Your perfect pour starts here.",
         "home-categories-title": "Categories",
         "cat-classics": "Classics",
         "cat-sweet": "Sweet",
@@ -283,10 +283,10 @@ const translations = {
         "cat-cocktails": "Cocktails",
         "cat-mocktails": "Mocktails",
         "cat-creamy": "Creamy",
-        "vault-card-title": "Cocktail Vault",
-        "vault-card-sub": "Browse classic cocktail recipes",
-        "kitchen-card-title": "Kitchen",
-        "kitchen-card-sub": "Make syrups, infusions & garnishes",
+        "vault-card-title": "Recipe Book",
+        "vault-card-sub": "Explore classics, modern favorites and fresh inspiration",
+        "kitchen-card-title": "The Lab",
+        "kitchen-card-sub": "Techniques, syrups, infusions & mixology tricks",
         "home-shake-title": "Shake it up!",
         "home-shake-sub": "Can't decide? Let fate pour your next masterwork.",
         "home-shake-btn": "SHAKE",
@@ -296,7 +296,7 @@ const translations = {
         "home-bar-stats-label": "BAR STATS:",
         "home-stats-ingredients": "Ingredients in stock",
         "home-stats-cocktails": "Cocktails possible to make",
-        "home-manage-fridge": "Manage Fridge",
+        "home-manage-fridge": "Manage My Bar",
         "randomizer-filter-title": "Randomizer Settings",
         "filter-type-label": "Drink Type",
         "filter-both": "Both",
@@ -312,9 +312,9 @@ const translations = {
         "home-update-status": "UPDATE STATUS",
 
         // Fridge Page
-        "fridge-title": "Stock your Fridge",
-        "fridge-intro-title": "Your Virtual Bar",
-        "fridge-intro-text": "Welcome to your personal inventory. Tell us what bottles, juices, and extras you have at home, and the Maestro will figure out exactly which cocktails you can make!",
+        "fridge-title": "My Bar",
+        "fridge-intro-title": "My Bar",
+        "fridge-intro-text": "Your personal bar inventory. Select the bottles, mixers and fresh ingredients you have on hand and the Maestro will show you what you can make.",
         "fridge-intro-tip": "Tip: Be as specific as possible to get the best matches. Your ingredients are saved automatically.",
         "fridge-available-title": "What do we have available?",
         "fridge-search-placeholder": "Search all ingredients...",
@@ -327,18 +327,18 @@ const translations = {
         "group-missing-2": "Missing 2 Ingredients",
 
         // Vault Page
-        "vault-title": "The Vault",
-        "vault-intro-title": "The Cocktail Vault",
-        "vault-intro-text": "Explore our curated collection of classic and modern cocktails. From timeless sours to complex tiki drinks, every recipe is a masterpiece waiting to be discovered.",
-        "vault-intro-tip": "Use the search bar to find cocktails by name, spirit, or flavor profile. Tap a card to see the full recipe.",
-        "vault-search-placeholder": "Search The Vault...",
+        "vault-title": "Recipe Book",
+        "vault-intro-title": "Recipe Book",
+        "vault-intro-text": "Your complete cocktail library. Explore classics, modern favorites and inspiring recipes curated by the Maestro.",
+        "vault-intro-tip": "Search by name, spirit or flavor profile. Tap a card to open the full recipe.",
+        "vault-search-placeholder": "Search Recipe Book...",
         "vault-missing-filter": "Perfect Matches Only",
 
         // Recipe Book
-        "recipes-title": "My Recipes",
-        "recipes-intro-title": "Your Recipe Book",
-        "recipes-intro-text": "Your personal collection of custom creations and variations. Save your own unique recipes here, complete with photos and detailed instructions.",
-        "recipes-intro-tip": "Tap the plus button below to create a new recipe. All your recipes are saved securely.",
+        "recipes-title": "The Vault",
+        "recipes-intro-title": "The Vault",
+        "recipes-intro-text": "Your signature serves. Locked in. Keep your own cocktails, mocktails, twists and experiments here, complete with photos and instructions.",
+        "recipes-intro-tip": "Tap the plus button to add a new creation to The Vault. Only your own recipes live here.",
         "recipes-add-btn": "New Recipe",
         "recipe-save": "Save Recipe",
         "admin-title": "Management",
@@ -378,11 +378,11 @@ const translations = {
         "recipe-glass-label": "Glassware",
 
         // Kitchen Page
-        "kitchen-title": "The Kitchen",
+        "kitchen-title": "The Lab",
         "kitchen-intro-text": "Discover techniques, chemistry behind mixology, and homemade ingredients.",
 
         // Shopping List
-        "shopping-title": "Shopping List",
+        "shopping-title": "Bar Cart",
         "shopping-empty": "Your list is empty. Start adding ingredients!",
         "shopping-smart-title": "Smart Buy Recommendations",
         "shopping-unlocks": "Unlocks {0} new cocktails!",
