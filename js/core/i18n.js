@@ -32,7 +32,7 @@ const translations = {
         "home-news-promo-title": "Koningsdag komt er aan!",
         "home-news-promo-sub": "Ontdek de oranje cocktails die jij in huis moet hebben voor het ultieme feest.",
         "home-news-summer-title": "Zomer in je Glas",
-        "home-news-summer-sub": "Nieuwe frisse recepten toegevoegd aan de Vault. Klaar voor het zonnetje?",
+        "home-news-summer-sub": "Nieuwe frisse recepten toegevoegd aan het Recipe Book. Klaar voor het zonnetje?",
         "home-news-read-more": "Lees Artikel",
         "home-news-view-recipes": "Bekijk Recepten",
         "home-news-badge-new": "NIEUW",
@@ -264,7 +264,7 @@ const translations = {
         "home-news-promo-title": "King's Day is coming!",
         "home-news-promo-sub": "Discover the orange cocktails you must have at home for the ultimate party.",
         "home-news-summer-title": "Summer in your Glass",
-        "home-news-summer-sub": "New fresh recipes added to the Vault. Ready for the sun?",
+        "home-news-summer-sub": "Fresh new recipes added to the Recipe Book. Ready for the sun?",
         "home-news-read-more": "Read Article",
         "home-news-view-recipes": "View Recipes",
         "home-news-badge-new": "NEW",
@@ -353,7 +353,7 @@ const translations = {
         "recipe-alert-req": "Name and ingredients are required!",
         "recipe-alert-added": "Recipe added!",
         "recipe-alert-updated": "Recipe updated!",
-        "recipe-empty-state": "Your recipe book is empty.<br>Start adding your first creation!",
+        "recipe-empty-state": "The Vault is empty.<br>Add your first signature creation!",
         "recipe-name-ph": "e.g. Espresso Martini",
         "recipe-desc-ph": "e.g. A fresh classic with a twist.",
         "recipe-amount-ph": "50",
@@ -379,7 +379,7 @@ const translations = {
 
         // Kitchen Page
         "kitchen-title": "The Lab",
-        "kitchen-intro-text": "Discover techniques, chemistry behind mixology, and homemade ingredients.",
+        "kitchen-intro-text": "Experiment with techniques, mixology chemistry, homemade ingredients and bartools.",
 
         // Shopping List
         "shopping-title": "Bar Cart",
